@@ -1,0 +1,67 @@
+/* src/styles/global.css */
+@import 'material-symbols/outlined.css'; /* Local Material Symbols */
+
+:root {
+  /* GRM Brand Palette */
+  --color-primary: #e94f37; /* Clay Red */
+  --color-secondary: #ffc845; /* Rustic Yellow */
+  --color-accent: #f6eee3; /* Soft Sand */
+  --color-cyan: #1bc4d9; /* GRM Cyan */
+  --color-dark: #333333; /* Charcoal */
+  --color-light: #ffffff;
+  --color-bg: #f8fafc;
+  
+  /* Typography */
+  --font-heading: 'Poppins', sans-serif;
+  --font-body: 'Open Sans', sans-serif;
+}
+
+body {
+  font-family: var(--font-body);
+  color: var(--color-dark);
+  margin: 0;
+  padding: 0;
+  background-color: var(--color-bg);
+  overflow-x: hidden;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-heading);
+  font-weight: 600;
+  line-height: 1.2;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.875rem 2rem;
+  border-radius: 8px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  border: 1px solid transparent;
+}
+
+.btn--primary {
+  background-color: var(--color-primary);
+  color: var(--color-light);
+}
+
+.btn--primary:hover {
+  background-color: #d63d26;
+  transform: translateY(-2px);
+}
+
+.btn--outline {
+  background-color: transparent;
+  border-color: var(--color-dark);
+  color: var(--color-dark);
+}
+
+.btn--outline:hover {
+  background-color: var(--color-dark);
+  color: var(--color-light);
+  transform: translateY(-2px);
+}

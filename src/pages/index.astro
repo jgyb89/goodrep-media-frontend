@@ -3,42 +3,280 @@ import MainLayout from '../layouts/MainLayout.astro';
 import LeadForm from '../components/LeadForm.jsx';
 ---
 
-<MainLayout title="Goodrep Media" description="Grow your business with Goodrep Media.">
-  <main class="home-main">
-    <section class="hero-area">
-      <h1>Goodrep Media</h1>
-      <p>Performance marketing, SEO, and web development.</p>
-    </section>
-    <section class="contact-area">
-      <h2>Book a Free Consultation</h2>
-      <LeadForm client:visible />
-    </section>
-  </main>
-</MainLayout>
+<MainLayout title="Goodrep Media | Small Business Marketing Agency">
+  <!-- HERO SECTION -->
+  <section class="hero">
+    <div class="hero__container">
+      <div class="hero__content">
+        <span class="hero__kicker">SMALL BUSINESS MARKETING AGENCY</span>
+        <h1 class="hero__title">
+          <span class="hero__title-cyan">YOUR SMALL BUSINESS NEEDS</span><br />
+          <span id="hero-typing" class="hero__title-red"></span><span class="hero__cursor">|</span>
+        </h1>
+        
+        <div class="hero__actions">
+          <!-- Button 1: Book Call -->
+          <a href="#consultation" class="btn btn--primary hero__btn">Book Free 30 Minute Call</a>
+          
+          <!-- Button 2: Modal Trigger (We will wire this to a dialog next) -->
+          <button type="button" class="btn btn--outline hero__btn" id="trigger-contact-modal">
+            Send us a message
+          </button>
+        </div>
+      </div>
+      
+      <!-- Placeholder for Right Side Graphic / Empty Space -->
+      <div class="hero__graphic">
+         <!-- Add hero illustration here later -->
+      </div>
+    </div>
 
-<style>
-  .home-main {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 4rem 2rem;
-  }
-  .hero-area {
-    margin-bottom: 3rem;
-  }
-  .hero-area h1 {
-    font-size: 3rem;
-    line-height: 1.1;
-    margin-bottom: 1rem;
-    color: #0f172a;
-  }
-  .hero-area p {
-    font-size: 1.25rem;
-    color: #475569;
-    margin: 0;
-  }
-  .contact-area h2 {
-    font-size: 1.75rem;
-    margin-bottom: 1.5rem;
-    color: #0f172a;
-  }
-</style>
+    <!-- INFINITE MARQUEE CRAWL -->
+    <div class="marquee">
+      <div class="marquee__track">
+        <!-- List 1 -->
+        <div class="marquee__content">
+          <div class="marquee__item"><span class="material-symbols-outlined">troubleshoot</span> Local/Technical SEO</div>
+          <div class="marquee__item"><span class="material-symbols-outlined">web</span> Website Design</div>
+          <div class="marquee__item"><span class="material-symbols-outlined">manage_search</span> Search Engine Optimization</div>
+          <div class="marquee__item"><span class="material-symbols-outlined">movie</span> Digital Media Production</div>
+          <div class="marquee__item"><span class="material-symbols-outlined">ads_click</span> Google Ad Management</div>
+          <div class="marquee__item"><span class="material-symbols-outlined">link</span> Link Building Services</div>
+          <div class="marquee__item"><span class="material-symbols-outlined">share</span> Social Media</div>
+          <div class="marquee__item"><span class="material-symbols-outlined">storefront</span> Amazon Marketing Services</div>
+          <div class="marquee__item"><span class="material-symbols-outlined">mail</span> Email Marketing</div>
+        </div>
+        <!-- List 2 (Duplicate for seamless loop) -->
+        <div class="marquee__content" aria-hidden="true">
+          <div class="marquee__item"><span class="material-symbols-outlined">troubleshoot</span> Local/Technical SEO</div>
+          <div class="marquee__item"><span class="material-symbols-outlined">web</span> Website Design</div>
+          <div class="marquee__item"><span class="material-symbols-outlined">manage_search</span> Search Engine Optimization</div>
+          <div class="marquee__item"><span class="material-symbols-outlined">movie</span> Digital Media Production</div>
+          <div class="marquee__item"><span class="material-symbols-outlined">ads_click</span> Google Ad Management</div>
+          <div class="marquee__item"><span class="material-symbols-outlined">link</span> Link Building Services</div>
+          <div class="marquee__item"><span class="material-symbols-outlined">share</span> Social Media</div>
+          <div class="marquee__item"><span class="material-symbols-outlined">storefront</span> Amazon Marketing Services</div>
+          <div class="marquee__item"><span class="material-symbols-outlined">mail</span> Email Marketing</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MODAL: Gravity Form -->
+  <dialog class="contact-modal" id="contact-modal">
+    <div class="contact-modal__inner">
+      <button class="contact-modal__close" id="close-contact-modal" aria-label="Close modal">
+        <span class="material-symbols-outlined">close</span>
+      </button>
+      <h3 class="contact-modal__title">Send Us A Message</h3>
+      <LeadForm client:visible />
+    </div>
+  </dialog>
+
+  <!-- GSAP ANIMATIONS -->
+  <script>
+    import { gsap } from "gsap";
+    import { TextPlugin } from "gsap/TextPlugin";
+    
+    gsap.registerPlugin(TextPlugin);
+
+    // 1. Typing Animation
+    const words = [
+      "SEO Strategy", 
+      "More Engagement", 
+      "A Converting Website", 
+      "More Customers", 
+      "Google Ad Management"
+    ];
+    
+    let cursor = gsap.to(".hero__cursor", { opacity: 0, ease: "power2.inOut", repeat: -1 });
+    let masterTl = gsap.timeline({ repeat: -1 });
+
+    words.forEach(word => {
+      let tl = gsap.timeline({ repeat: 1, yoyo: true, repeatDelay: 2 });
+      tl.to("#hero-typing", { duration: 1.2, text: word, ease: "none" });
+      masterTl.add(tl);
+    });
+
+    // 2. Infinite Marquee Animation
+    gsap.to(".marquee__content", {
+      xPercent: -100,
+      repeat: -1,
+      duration: 35,
+      ease: "linear"
+    });
+
+    // 3. Entrance Stagger
+    gsap.from(".hero__kicker, .hero__title, .hero__actions", {
+      y: 30, opacity: 0, duration: 0.8, stagger: 0.2, ease: "power3.out", delay: 0.2
+    });
+
+    // 4. Modal Logic (Native HTML Dialog)
+    const modal = document.querySelector('#contact-modal') as HTMLDialogElement;
+    const openBtn = document.querySelector('#trigger-contact-modal');
+    const closeBtn = document.querySelector('#close-contact-modal');
+
+    openBtn?.addEventListener('click', () => modal?.showModal());
+    closeBtn?.addEventListener('click', () => modal?.close());
+    
+    // Close modal when clicking outside
+    modal?.addEventListener('click', (e) => {
+      const dialogDimensions = modal.getBoundingClientRect();
+      if (
+        e.clientX < dialogDimensions.left ||
+        e.clientX > dialogDimensions.right ||
+        e.clientY < dialogDimensions.top ||
+        e.clientY > dialogDimensions.bottom
+      ) {
+        modal.close();
+      }
+    });
+  </script>
+
+  <style>
+    /* BEM: Hero Block */
+    .hero {
+      position: relative;
+      background-color: var(--color-bg);
+      padding: 4rem 0 0 0;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      min-height: 80vh;
+    }
+
+    .hero__container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 2rem 2rem 6rem 2rem;
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 4rem;
+      align-items: center;
+      flex-grow: 1;
+    }
+
+    @media (min-width: 1024px) {
+      .hero__container { grid-template-columns: 6fr 4fr; }
+    }
+
+    /* Typography */
+    .hero__kicker {
+      display: block;
+      color: #64748b;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      margin-bottom: 1rem;
+    }
+
+    .hero__title {
+      font-size: clamp(2.5rem, 5vw, 4rem);
+      line-height: 1.1;
+      margin-bottom: 2.5rem;
+      text-transform: uppercase;
+    }
+
+    .hero__title-cyan {
+      color: var(--color-cyan);
+    }
+
+    .hero__title-red {
+      color: var(--color-primary);
+    }
+
+    .hero__cursor {
+      color: var(--color-primary);
+      font-weight: 300;
+    }
+
+    .hero__actions {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .hero__btn {
+      font-size: 1.1rem;
+    }
+
+    /* BEM: Marquee Element */
+    .marquee {
+      background-color: var(--color-dark);
+      color: var(--color-light);
+      padding: 1.25rem 0;
+      overflow: hidden;
+      width: 100%;
+      border-bottom: 4px solid var(--color-cyan);
+      margin-top: auto;
+    }
+
+    .marquee__track {
+      display: flex;
+      width: max-content;
+    }
+
+    .marquee__content {
+      display: flex;
+      gap: 4rem;
+      padding-right: 4rem;
+    }
+
+    .marquee__item {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      font-size: 1.05rem;
+      white-space: nowrap;
+    }
+
+    .marquee__item .material-symbols-outlined {
+      color: var(--color-light);
+      font-size: 1.4rem;
+    }
+
+    /* BEM: Contact Modal */
+    .contact-modal {
+      padding: 0;
+      border: none;
+      border-radius: 12px;
+      background: transparent;
+      max-width: 500px;
+      width: 90%;
+    }
+
+    .contact-modal::backdrop {
+      background: rgba(15, 23, 42, 0.7);
+      backdrop-filter: blur(4px);
+    }
+
+    .contact-modal__inner {
+      background: var(--color-light);
+      padding: 2.5rem;
+      border-radius: 12px;
+      position: relative;
+    }
+
+    .contact-modal__close {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      color: #64748b;
+      transition: color 0.2s ease;
+    }
+
+    .contact-modal__close:hover {
+      color: var(--color-primary);
+    }
+
+    .contact-modal__title {
+      color: var(--color-cyan);
+      margin-top: 0;
+      margin-bottom: 1.5rem;
+      font-size: 1.5rem;
+    }
+  </style>
+</MainLayout>
