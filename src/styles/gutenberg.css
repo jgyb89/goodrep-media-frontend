@@ -1,0 +1,70 @@
+/* src/styles/gutenberg.css */
+/* Clean Slate Formatting for Native WordPress Blocks */
+
+.wp-block-columns {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem;
+  margin: 2rem 0;
+}
+
+.wp-block-column {
+  flex: 1;
+  min-width: 280px;
+}
+
+.wp-block-image {
+  margin: 2rem 0;
+}
+
+.wp-block-image img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
+}
+
+.wp-block-gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.5rem;
+  margin: 2rem 0;
+  padding: 0;
+}
+
+.wp-block-quote {
+  border-left: 4px solid #2563eb;
+  background: #f8fafc;
+  padding: 1.5rem;
+  margin: 2rem 0;
+  border-radius: 0 8px 8px 0;
+}
+
+.wp-block-quote p {
+  margin: 0;
+  font-size: 1.1rem;
+  font-style: italic;
+  color: #334155;
+}
+
+/* Native Image Alignments */
+.alignleft { 
+  float: left; 
+  margin: 0.5rem 2rem 1rem 0; 
+}
+
+.alignright { 
+  float: right; 
+  margin: 0.5rem 0 1rem 2rem; 
+}
+
+.aligncenter { 
+  display: block; 
+  margin: 2rem auto; 
+  text-align: center; 
+}
+
+/* Base Typography specifically scoped to WordPress Content */
+.post-layout__content h2 { margin-top: 2.5rem; margin-bottom: 1rem; }
+.post-layout__content h3 { margin-top: 2rem; margin-bottom: 0.75rem; }
+.post-layout__content p { line-height: 1.8; color: #334155; margin-bottom: 1.5rem; }
+.post-layout__content ul, .post-layout__content ol { margin-bottom: 1.5rem; line-height: 1.8; color: #334155; padding-left: 1.5rem; }

@@ -1,0 +1,87 @@
+---
+const { title = 'Goodrep Media', description = 'Grow your business with Goodrep Media.' } = Astro.props;
+---
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <style>
+      :root {
+        font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+        color: #0f172a;
+        background-color: #ffffff;
+      }
+      body {
+        margin: 0;
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+      }
+      .global-header {
+        border-bottom: 1px solid #e2e8f0;
+        background: #ffffff;
+        position: sticky;
+        top: 0;
+        z-index: 50;
+      }
+      .global-nav {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 1rem 2rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+      .global-nav__logo {
+        font-weight: 700;
+        font-size: 1.25rem;
+        color: #0f172a;
+        text-decoration: none;
+      }
+      .global-nav__links a {
+        color: #475569;
+        text-decoration: none;
+        font-weight: 500;
+        margin-left: 1.5rem;
+        transition: color 0.15s ease;
+      }
+      .global-nav__links a:hover {
+        color: #2563eb;
+      }
+      .global-footer {
+        margin-top: auto;
+        border-top: 1px solid #e2e8f0;
+        background: #f8fafc;
+        padding: 2rem;
+        text-align: center;
+        color: #64748b;
+        font-size: 0.875rem;
+      }
+      .global-footer p {
+        margin: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Global Header -->
+    <header class="global-header">
+      <nav class="global-nav">
+        <a href="/" class="global-nav__logo">Goodrep Media</a>
+        <div class="global-nav__links">
+          <a href="/blog">Insights</a>
+        </div>
+      </nav>
+    </header>
+
+    <!-- Page Content Injected Here -->
+    <slot />
+
+    <!-- Global Footer -->
+    <footer class="global-footer">
+      <p>&copy; {new Date().getFullYear()} Goodrep Media. All rights reserved.</p>
+    </footer>
+  </body>
+</html>

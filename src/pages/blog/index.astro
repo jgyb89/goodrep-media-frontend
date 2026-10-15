@@ -1,0 +1,130 @@
+---
+import { fetchWP } from '../../lib/api.js';
+import MainLayout from '../../layouts/MainLayout.astro';
+
+let posts: any[] = [];
+
+try {
+  const data = await fetchWP(`
+    query GetBlogFeed {
+      posts(first: 200) {
+        nodes {
+          id
+          title
+          slug
+          excerpt
+          featuredImage {
+            node {
+              sourceUrl
+              altText
+            }
+          }
+        }
+      }
+    }
+  `);
+  posts = data?.posts?.nodes || [];
+} catch (error: any) {
+  console.warn('Could not fetch posts for blog feed:', error?.message || error);
+}
+---
+
+<MainLayout title="Blog | Goodrep Media" description="Insights, articles, and updates from Goodrep Media.">
+  <main class="blog-feed">
+    <h1 class="blog-feed__header">Goodrep Insights</h1>
+    <div class="blog-feed__grid">
+      {posts.map((post: any) => (
+        <article class="blog-feed__item" key={post.id}>
+          {post.featuredImage?.node?.sourceUrl && (
+            <img 
+              class="blog-feed__image"
+              src={post.featuredImage.node.sourceUrl} 
+              alt={post.featuredImage.node.altText || post.title} 
+              loading="lazy" 
+            />
+          )}
+          <div class="blog-feed__content">
+            <h2 class="blog-feed__title">
+              <a class="blog-feed__title-link" href={`/blog/${post.slug}`}>{post.title}</a>
+            </h2>
+            <div class="blog-feed__excerpt" set:html={post.excerpt} />
+            <a class="blog-feed__read-more" href={`/blog/${post.slug}`}>Read Article &rarr;</a>
+          </div>
+        </article>
+      ))}
+    </div>
+  </main>
+</MainLayout>
+
+<style>
+  /* BEM: Block */
+  .blog-feed {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 4rem 2rem;
+  }
+  
+  /* BEM: Element */
+  .blog-feed__header {
+    text-align: center;
+    margin-bottom: 3rem;
+    color: #0f172a;
+  }
+
+  .blog-feed__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 2.5rem;
+  }
+
+  .blog-feed__item {
+    display: flex;
+    flex-direction: column;
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    overflow: hidden;
+    transition: transform 0.2s ease;
+  }
+
+  .blog-feed__item:hover {
+    transform: translateY(-4px);
+  }
+
+  .blog-feed__image {
+    width: 100%;
+    height: 220px;
+    object-fit: cover;
+  }
+
+  .blog-feed__content {
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+  }
+
+  .blog-feed__title {
+    font-size: 1.25rem;
+    margin: 0 0 1rem 0;
+  }
+
+  .blog-feed__title-link {
+    color: #0f172a;
+    text-decoration: none;
+  }
+
+  .blog-feed__excerpt {
+    color: #475569;
+    font-size: 0.95rem;
+    line-height: 1.6;
+    margin-bottom: 1.5rem;
+    flex-grow: 1;
+  }
+
+  .blog-feed__read-more {
+    font-weight: 600;
+    color: #2563eb;
+    text-decoration: none;
+  }
+</style>

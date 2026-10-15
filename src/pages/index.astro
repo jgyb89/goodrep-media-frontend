@@ -1,21 +1,44 @@
 ---
+import MainLayout from '../layouts/MainLayout.astro';
 import LeadForm from '../components/LeadForm.jsx';
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Goodrep Media</title>
-	</head>
-	<body>
-		<main>
-			<h1>Goodrep Media</h1>
-			<section class="contact-area">
-				<h2>Book a Free Consultation</h2>
-				<LeadForm client:visible />
-			</section>
-		</main>
-	</body>
-</html>
+<MainLayout title="Goodrep Media" description="Grow your business with Goodrep Media.">
+  <main class="home-main">
+    <section class="hero-area">
+      <h1>Goodrep Media</h1>
+      <p>Performance marketing, SEO, and web development.</p>
+    </section>
+    <section class="contact-area">
+      <h2>Book a Free Consultation</h2>
+      <LeadForm client:visible />
+    </section>
+  </main>
+</MainLayout>
+
+<style>
+  .home-main {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 4rem 2rem;
+  }
+  .hero-area {
+    margin-bottom: 3rem;
+  }
+  .hero-area h1 {
+    font-size: 3rem;
+    line-height: 1.1;
+    margin-bottom: 1rem;
+    color: #0f172a;
+  }
+  .hero-area p {
+    font-size: 1.25rem;
+    color: #475569;
+    margin: 0;
+  }
+  .contact-area h2 {
+    font-size: 1.75rem;
+    margin-bottom: 1.5rem;
+    color: #0f172a;
+  }
+</style>
