@@ -1,0 +1,73 @@
+---
+import DOMPurify from "isomorphic-dompurify";
+import { fetchWP } from "../../lib/api.js";
+
+export async function getStaticPaths() {
+  try {
+    const data = await fetchWP(`
+      query AllPosts {
+        posts {
+          nodes {
+            slug
+          }
+        }
+      }
+    `);
+    return (data?.posts?.nodes || []).map((post: { slug: string }) => ({
+      params: { slug: post.slug },
+    }));
+  } catch (error: any) {
+    console.warn(
+      "Could not fetch posts during getStaticPaths():",
+      error?.message || error,
+    );
+    return [];
+  }
+}
+
+const { slug } = Astro.params;
+let post = null;
+
+try {
+  const data = await fetchWP(
+    `
+    query GetPost($id: ID!) {
+      post(id: $id, idType: SLUG) {
+        title
+        content
+        seo {
+          title
+          metaDesc
+        }
+      }
+    }
+  `,
+    { id: slug },
+  );
+  post = data?.post;
+} catch (error: any) {
+  console.warn(
+    `Could not fetch post data for slug "${slug}":`,
+    error?.message || error,
+  );
+}
+
+// Aggressively scrub raw WordPress HTML before injection
+const sanitizedContent = post?.content ? DOMPurify.sanitize(post.content) : "";
+---
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{post?.seo?.title || post?.title || "Goodrep Media"}</title>
+    <meta name="description" content={post?.seo?.metaDesc || ""} />
+  </head>
+  <body>
+    <nav>Goodrep Media</nav>
+    <main>
+      <h1>{post?.title}</h1>
+      <article set:html={sanitizedContent} />
+    </main>
+  </body>
+</html>
