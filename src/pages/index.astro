@@ -1,0 +1,21 @@
+---
+import LeadForm from '../components/LeadForm.jsx';
+---
+
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<meta name="generator" content={Astro.generator} />
+		<title>Goodrep Media</title>
+	</head>
+	<body>
+		<main>
+			<h1>Goodrep Media</h1>
+			<section class="contact-area">
+				<h2>Book a Free Consultation</h2>
+				<LeadForm client:visible />
+			</section>
+		</main>
+	</body>
+</html>
