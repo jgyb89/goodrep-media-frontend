@@ -152,12 +152,152 @@ try {
     error?.message || error,
   );
 }
-const heroWords = [
-  "SEO Strategy",
-  "More Engagement",
-  "A Converting Website",
-  "More Customers",
-  "Google Ad Management",
+const heroSlides = [
+  {
+    word: "SEO Strategy",
+    main: {
+      src: "/Asset 40.webp",
+      w: 315,
+      h: 215,
+      style: "width: 78%; left: 11%; top: 20%;",
+    },
+    floats: [
+      {
+        src: "/Asset 4.webp",
+        w: 291,
+        h: 419,
+        style: "width: 22%; right: -2%; top: 2%;",
+      },
+      {
+        src: "/Asset 10.webp",
+        w: 181,
+        h: 180,
+        style: "width: 20%; left: -3%; top: 14%;",
+      },
+      {
+        src: "/Asset 43.webp",
+        w: 183,
+        h: 237,
+        style: "width: 19%; left: 8%; bottom: 0%;",
+      },
+    ],
+  },
+  {
+    word: "More Engagement",
+    main: {
+      src: "/Asset 28.webp",
+      w: 696,
+      h: 411,
+      style: "width: 82%; left: 9%; top: 22%;",
+    },
+    floats: [
+      {
+        src: "/Asset 55.webp",
+        w: 197,
+        h: 98,
+        style: "width: 34%; right: -2%; top: 4%;",
+      },
+      {
+        src: "/Asset 51.webp",
+        w: 117,
+        h: 95,
+        style: "width: 20%; left: -4%; top: 26%;",
+      },
+      {
+        src: "/Asset 34.webp",
+        w: 152,
+        h: 162,
+        style: "width: 17%; left: 12%; bottom: 0%;",
+      },
+    ],
+  },
+  {
+    word: "A Converting Website",
+    main: {
+      src: "/Asset 17.webp",
+      w: 503,
+      h: 586,
+      style: "width: 64%; left: 18%; top: 8%;",
+    },
+    floats: [
+      {
+        src: "/Asset 42.webp",
+        w: 148,
+        h: 178,
+        style: "width: 19%; right: -1%; top: 6%;",
+      },
+      {
+        src: "/Asset 53.webp",
+        w: 188,
+        h: 342,
+        style: "width: 20%; left: -2%; bottom: 4%;",
+      },
+      {
+        src: "/Asset 16.webp",
+        w: 278,
+        h: 45,
+        style: "width: 30%; right: 0%; bottom: 6%;",
+      },
+    ],
+  },
+  {
+    word: "More Customers",
+    main: {
+      src: "/Asset 36.webp",
+      w: 678,
+      h: 414,
+      style: "width: 82%; left: 9%; top: 18%;",
+    },
+    floats: [
+      {
+        src: "/Asset 32.webp",
+        w: 147,
+        h: 133,
+        style: "width: 21%; right: 0%; top: 4%;",
+      },
+      {
+        src: "/Asset 50.webp",
+        w: 186,
+        h: 108,
+        style: "width: 30%; left: -4%; top: 14%;",
+      },
+      {
+        src: "/Asset 9.webp",
+        w: 137,
+        h: 162,
+        style: "width: 17%; right: 8%; bottom: -2%;",
+      },
+    ],
+  },
+  {
+    word: "Google Ad Management",
+    main: {
+      src: "/Asset 11.webp",
+      w: 434,
+      h: 326,
+      style: "width: 78%; left: 11%; top: 20%;",
+    },
+    floats: [
+      {
+        src: "/Asset 45.webp",
+        w: 212,
+        h: 323,
+        style: "width: 22%; left: -4%; top: 8%;",
+      },
+      {
+        src: "/Asset 37.webp",
+        w: 261,
+        h: 246,
+        style: "width: 24%; right: -2%; top: 2%;",
+      },
+      {
+        src: "/Asset 18.webp",
+        w: 62,
+        h: 60,
+        style: "width: 11%; right: 10%; bottom: 8%;",
+      },
+    ],
+  },
 ];
 ---
 
@@ -172,13 +312,13 @@ const heroWords = [
             <span class="hero__title-cyan">Your Small Business Needs</span>
             <span class="hero__rotator" id="hero-rotator">
               {
-                heroWords.map((word, index) => (
+                heroSlides.map((slide, index) => (
                   <span
                     class="hero__word hero__title-red"
                     data-hero-word
                     aria-hidden={index === 0 ? "false" : "true"}
                   >
-                    {word}
+                    {slide.word}
                   </span>
                 ))
               }
@@ -216,7 +356,7 @@ const heroWords = [
         </ul>
       </div>
 
-      <!-- Right Side Graphic: isometric composition built from /public assets -->
+      <!-- Right Side Graphic: rotating isometric compositions matched to each h1 phrase -->
       <div class="hero__graphic" aria-hidden="true">
         <div class="hero-art">
           <img
@@ -226,38 +366,33 @@ const heroWords = [
             width="869"
             height="663"
           />
-          <img
-            class="hero-art__main"
-            src="/Asset 11.webp"
-            alt=""
-            width="434"
-            height="326"
-            fetchpriority="high"
-          />
-          <img
-            class="hero-art__float hero-art__float--likes"
-            data-float
-            src="/Asset 55.webp"
-            alt=""
-            width="197"
-            height="98"
-          />
-          <img
-            class="hero-art__float hero-art__float--mega"
-            data-float
-            src="/Asset 51.webp"
-            alt=""
-            width="117"
-            height="95"
-          />
-          <img
-            class="hero-art__float hero-art__float--smile"
-            data-float
-            src="/Asset 9.webp"
-            alt=""
-            width="137"
-            height="162"
-          />
+          {
+            heroSlides.map((slide, index) => (
+              <div class="hero-art__scene" data-hero-scene={index}>
+                <img
+                  class="hero-art__main"
+                  src={slide.main.src}
+                  alt=""
+                  width={slide.main.w}
+                  height={slide.main.h}
+                  style={slide.main.style}
+                  fetchpriority={index === 0 ? "high" : "low"}
+                />
+                {slide.floats.map((f) => (
+                  <img
+                    class="hero-art__float"
+                    data-float
+                    src={f.src}
+                    alt=""
+                    width={f.w}
+                    height={f.h}
+                    style={f.style}
+                    fetchpriority={index === 0 ? undefined : "low"}
+                  />
+                ))}
+              </div>
+            ))
+          }
         </div>
       </div>
     </div>
@@ -833,14 +968,19 @@ const heroWords = [
     gsap.registerPlugin(ScrollTrigger);
 
     const wordEls = gsap.utils.toArray<HTMLElement>("[data-hero-word]");
+    const sceneEls = gsap.utils.toArray<HTMLElement>("[data-hero-scene]");
     const mm = gsap.matchMedia();
 
     // Motion-heavy effects only run when the user hasn't asked for reduced motion
     mm.add("(prefers-reduced-motion: no-preference)", () => {
-      // 1. Headline rotator: flips up + fades in, then flips down + fades out
+      // 1. Headline rotator: flips up + fades in, then flips down + fades out,
+      //    while crossfading the matching graphic composition on the right.
       if (wordEls.length > 1) {
         const hidden = { yPercent: 60, rotationX: -80, autoAlpha: 0 };
         const shown = { yPercent: 0, rotationX: 0, autoAlpha: 1 };
+        const sceneOut = { y: -14, scale: 0.95, autoAlpha: 0 };
+        const sceneInStart = { y: 18, scale: 0.94, autoAlpha: 0 };
+        const sceneShown = { y: 0, scale: 1, autoAlpha: 1 };
 
         gsap.set(wordEls, {
           transformPerspective: 650,
@@ -849,6 +989,11 @@ const heroWords = [
         });
         gsap.set(wordEls[0], shown);
         gsap.set(wordEls.slice(1), hidden);
+
+        if (sceneEls.length === wordEls.length) {
+          gsap.set(sceneEls[0], sceneShown);
+          gsap.set(sceneEls.slice(1), sceneInStart);
+        }
 
         const setActive = (active: number) =>
           wordEls.forEach((el, idx) =>
@@ -860,6 +1005,8 @@ const heroWords = [
         wordEls.forEach((current, index) => {
           const nextIndex = (index + 1) % wordEls.length;
           const next = wordEls[nextIndex];
+          const currentScene = sceneEls[index];
+          const nextScene = sceneEls[nextIndex];
 
           // Current phrase flips down and fades out...
           flipTl.to(
@@ -868,7 +1015,16 @@ const heroWords = [
             "+=2.2", // hold time
           );
 
-          // ...while the next phrase flips up and fades in
+          // ...while the current graphic arrangement fades out
+          if (currentScene) {
+            flipTl.to(
+              currentScene,
+              { ...sceneOut, duration: 0.45, ease: "power2.in" },
+              "<",
+            );
+          }
+
+          // ...and the next phrase flips up and fades in
           flipTl.fromTo(
             next,
             hidden,
@@ -881,6 +1037,21 @@ const heroWords = [
             },
             "<0.25",
           );
+
+          // ...as the matching graphic arrangement fades in
+          if (nextScene) {
+            flipTl.fromTo(
+              nextScene,
+              sceneInStart,
+              {
+                ...sceneShown,
+                duration: 0.65,
+                ease: "power3.out",
+                immediateRender: false,
+              },
+              "<",
+            );
+          }
         });
       }
 
@@ -905,7 +1076,7 @@ const heroWords = [
         delay: 0.2,
       });
 
-      gsap.from(".hero-art__main", {
+      gsap.from('[data-hero-scene="0"] .hero-art__main', {
         y: 40,
         opacity: 0,
         duration: 1,
@@ -929,7 +1100,7 @@ const heroWords = [
           ease: "sine.inOut",
           yoyo: true,
           repeat: -1,
-          delay: i * 0.3,
+          delay: (i % 3) * 0.3,
         });
       });
 
@@ -1022,7 +1193,7 @@ const heroWords = [
 
     .hero__container {
       position: relative;
-      max-width: 1200px;
+      max-width: 1600px;
       margin: 0 auto;
       padding: 0rem 2rem 6rem 2rem;
       display: grid;
@@ -1099,17 +1270,28 @@ const heroWords = [
 
     /* h1 sizes by breakpoint */
     @media (max-width: 1199px) {
-      .hero__title { font-size: 2.1rem; }
+      .hero__title {
+        font-size: 2.1rem;
+      }
     }
     @media (max-width: 767px) {
-      .hero__header { margin-bottom: 1.75rem; }
-      .hero__title  { font-size: 1.75rem; line-height: 1.22; }
+      .hero__header {
+        margin-bottom: 1.75rem;
+      }
+      .hero__title {
+        font-size: 1.75rem;
+        line-height: 1.22;
+      }
     }
     @media (max-width: 480px) {
-      .hero__title { font-size: 1.5rem; }
+      .hero__title {
+        font-size: 1.5rem;
+      }
     }
     @media (max-width: 360px) {
-      .hero__title { font-size: 1.3rem; }
+      .hero__title {
+        font-size: 1.3rem;
+      }
     }
 
     .hero__actions {
@@ -1169,31 +1351,25 @@ const heroWords = [
       top: 4%;
     }
 
+    .hero-art__scene {
+      position: absolute;
+      inset: 0;
+      will-change: transform, opacity;
+    }
+
+    /* Pre-JS / reduced-motion state: only the first scene is visible */
+    .hero-art__scene:not(:first-of-type) {
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+    }
+
     .hero-art__main {
-      width: 80%;
-      left: 10%;
-      top: 22%;
       filter: drop-shadow(0 24px 30px rgba(15, 23, 42, 0.2));
     }
 
     .hero-art__float {
       filter: drop-shadow(0 10px 14px rgba(15, 23, 42, 0.15));
-    }
-
-    .hero-art__float--likes {
-      width: 34%;
-      right: -2%;
-      top: 2%;
-    }
-    .hero-art__float--mega {
-      width: 20%;
-      left: -4%;
-      top: 30%;
-    }
-    .hero-art__float--smile {
-      width: 17%;
-      left: 10%;
-      bottom: -2%;
     }
 
     /* BEM: Marquee Element */
