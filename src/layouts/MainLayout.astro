@@ -1,6 +1,8 @@
 ---
 import 'material-symbols/outlined.css';
 import '../styles/global.css'; // Assuming your global variables are here
+import { Image } from 'astro:assets';
+import LeadForm from '../components/LeadForm.jsx';
 const { title = 'Goodrep Media', description = 'Grow your business with Goodrep Media.' } = Astro.props;
 const year = new Date().getFullYear();
 ---
@@ -25,7 +27,14 @@ const year = new Date().getFullYear();
       <nav class="global-nav" aria-label="Primary">
         <a href="/" class="brand" aria-label="Good Rep Media home">
           <span class="brand__mark">
-            <img src="/goodrep-media-favicon-white.webp" alt="" width="150" height="150" />
+            <Image
+              src="/goodrep-media-favicon-white.webp"
+              alt=""
+              width={150}
+              height={150}
+              loading="lazy"
+              decoding="async"
+            />
           </span>
           <span class="brand__text">
             <span class="brand__name">GOOD REP</span>
@@ -33,9 +42,9 @@ const year = new Date().getFullYear();
           </span>
         </a>
         <div class="global-nav__links">
-          <a href="/#services">Services</a>
-          <a href="/#process">Process</a>
-          <a href="/#work">Our Work</a>
+          <a href="/services">Services</a>
+          <a href="/work">Our Work</a>
+          <a href="/about">About</a>
           <a href="/blog">Insights</a>
         </div>
         <a href="/#consultation" class="btn btn--primary global-nav__cta">Book a Call</a>
@@ -50,7 +59,15 @@ const year = new Date().getFullYear();
       <div class="global-footer__grid">
         <div class="global-footer__brand">
           <a href="/" class="brand brand--footer" aria-label="Good Rep Media home">
-            <img class="brand__logo" src="/goodrep-media-favicon-white.webp" alt="" width="150" height="150" loading="lazy" />
+            <Image
+              class="brand__logo"
+              src="/goodrep-media-favicon-white.webp"
+              alt=""
+              width={150}
+              height={150}
+              loading="lazy"
+              decoding="async"
+            />
             <span class="brand__text">
               <span class="brand__name">GOOD REP</span>
               <span class="brand__sub">MEDIA</span>
@@ -69,7 +86,8 @@ const year = new Date().getFullYear();
         <div class="global-footer__col">
           <h2 class="global-footer__heading">Resources</h2>
           <ul>
-            <li><a href="/#work">Our Work</a></li>
+            <li><a href="/work">Our Work</a></li>
+            <li><a href="/about">About Us</a></li>
             <li><a href="/#process">Our Process</a></li>
             <li><a href="/blog">Knowledge Center</a></li>
             <li><a href="/#consultation">Contact Us</a></li>
@@ -79,10 +97,10 @@ const year = new Date().getFullYear();
         <div class="global-footer__col">
           <h2 class="global-footer__heading">Services</h2>
           <ul>
-            <li><a href="/#services">Website Design</a></li>
-            <li><a href="/#services">Local SEO</a></li>
-            <li><a href="/#services">Technical SEO</a></li>
-            <li><a href="/#services">Digital Media</a></li>
+            <li><a href="/services#web-design">Website Design</a></li>
+            <li><a href="/services#local-seo">Local SEO</a></li>
+            <li><a href="/services#paid-ads">Paid Ads</a></li>
+            <li><a href="/services">View All Services &rarr;</a></li>
           </ul>
         </div>
 
@@ -110,9 +128,83 @@ const year = new Date().getFullYear();
       </div>
     </footer>
 
+    <!-- Fixed Form Modal Pop-up Button (above back-to-top) -->
+    <button
+      type="button"
+      class="fixed-form-btn"
+      id="fixed-form-btn"
+      aria-label="Open contact form"
+      title="Send us a message"
+    >
+      <span class="material-symbols-outlined" aria-hidden="true">mail</span>
+      <span class="fixed-form-btn__tooltip">Send a message</span>
+    </button>
+
     <a href="#top" class="back-to-top" aria-label="Back to top">
       <span class="material-symbols-outlined" aria-hidden="true">keyboard_arrow_up</span>
     </a>
+
+    <!-- Global Contact Form Modal -->
+    <dialog class="contact-modal" id="contact-modal">
+      <div class="contact-modal__inner">
+        <button
+          type="button"
+          class="contact-modal__close"
+          id="close-contact-modal"
+          aria-label="Close modal"
+        >
+          <span class="material-symbols-outlined" aria-hidden="true">close</span>
+        </button>
+        <h3 class="contact-modal__title">Send Us A Message</h3>
+        <p class="contact-modal__sub">Tell us about your project and we'll get back to you within 24 hours.</p>
+        <LeadForm client:idle submitLabel="Send Message" />
+      </div>
+    </dialog>
+
+    <script>
+      function setupContactModal() {
+        const modal = document.querySelector<HTMLDialogElement>('#contact-modal');
+        if (!modal) return;
+
+        const closeBtn = document.querySelector('#close-contact-modal');
+        const openBtns = document.querySelectorAll(
+          '#fixed-form-btn, #trigger-contact-modal, [data-open-modal]'
+        );
+
+        openBtns.forEach((btn) => {
+          btn.addEventListener('click', (e) => {
+            e.preventDefault();
+            if (typeof modal.showModal === 'function') {
+              modal.showModal();
+            }
+          });
+        });
+
+        closeBtn?.addEventListener('click', () => {
+          modal.close();
+        });
+
+        // Close modal when clicking outside the dialog content
+        modal.addEventListener('click', (e) => {
+          const rect = modal.getBoundingClientRect();
+          const isInDialog =
+            rect.top <= e.clientY &&
+            e.clientY <= rect.top + rect.height &&
+            rect.left <= e.clientX &&
+            e.clientX <= rect.left + rect.width;
+          if (!isInDialog) {
+            modal.close();
+          }
+        });
+      }
+
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', setupContactModal);
+      } else {
+        setupContactModal();
+      }
+      document.addEventListener('astro:page-load', setupContactModal);
+    </script>
   </body>
 </html>
 
@@ -363,5 +455,161 @@ const year = new Date().getFullYear();
     background: var(--color-cyan);
     color: var(--color-light);
     transform: translateY(-3px);
+  }
+
+  /* ---------- Fixed Form Modal Pop-up Button ---------- */
+  .fixed-form-btn {
+    position: fixed;
+    right: 1.5rem;
+    bottom: calc(1.5rem + 48px + 0.75rem); /* Exactly above .back-to-top */
+    z-index: 40;
+    width: 48px;
+    height: 48px;
+    display: grid;
+    place-items: center;
+    border-radius: 50%;
+    background: var(--color-primary);
+    color: var(--color-light);
+    border: none;
+    box-shadow: 0 10px 20px -6px rgba(233, 79, 55, 0.55);
+    cursor: pointer;
+    transition: transform 0.2s ease, background-color 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  .fixed-form-btn:hover {
+    background: #d63f28;
+    transform: translateY(-3px) scale(1.06);
+    box-shadow: 0 14px 26px -6px rgba(233, 79, 55, 0.7);
+  }
+
+  .fixed-form-btn:focus-visible {
+    outline: 3px solid var(--color-cyan);
+    outline-offset: 3px;
+  }
+
+  .fixed-form-btn .material-symbols-outlined {
+    font-size: 24px;
+    line-height: 1;
+  }
+
+  /* Tooltip on hover/focus */
+  .fixed-form-btn__tooltip {
+    position: absolute;
+    right: calc(100% + 12px);
+    top: 50%;
+    transform: translateY(-50%) translateX(6px);
+    background: #0f172a;
+    color: var(--color-light);
+    font-family: var(--font-body);
+    font-size: 0.8rem;
+    font-weight: 600;
+    white-space: nowrap;
+    padding: 0.4rem 0.75rem;
+    border-radius: 6px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.25);
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.2s ease, transform 0.2s ease;
+  }
+
+  .fixed-form-btn__tooltip::after {
+    content: "";
+    position: absolute;
+    right: -4px;
+    top: 50%;
+    transform: translateY(-50%) rotate(45deg);
+    width: 8px;
+    height: 8px;
+    background: #0f172a;
+  }
+
+  .fixed-form-btn:hover .fixed-form-btn__tooltip,
+  .fixed-form-btn:focus-visible .fixed-form-btn__tooltip {
+    opacity: 1;
+    transform: translateY(-50%) translateX(0);
+  }
+
+  /* Mobile sizing */
+  @media (max-width: 640px) {
+    .back-to-top {
+      right: 1rem;
+      bottom: 1rem;
+      width: 44px;
+      height: 44px;
+    }
+
+    .fixed-form-btn {
+      right: 1rem;
+      bottom: calc(1rem + 44px + 0.65rem);
+      width: 44px;
+      height: 44px;
+    }
+
+    .fixed-form-btn__tooltip {
+      display: none;
+    }
+  }
+
+  /* ---------- Contact Modal ---------- */
+  .contact-modal {
+    padding: 0;
+    border: none;
+    border-radius: 16px;
+    background: transparent;
+    max-width: 560px;
+    width: 92%;
+    box-shadow: 0 25px 50px -12px rgba(15, 23, 42, 0.45);
+    overflow: visible;
+  }
+
+  .contact-modal::backdrop {
+    background: rgba(15, 23, 42, 0.75);
+    backdrop-filter: blur(5px);
+  }
+
+  .contact-modal__inner {
+    background: var(--color-light);
+    padding: 2.25rem 2rem 2rem;
+    border-radius: 16px;
+    position: relative;
+    max-height: 90vh;
+    overflow-y: auto;
+  }
+
+  .contact-modal__close {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    width: 36px;
+    height: 36px;
+    display: grid;
+    place-items: center;
+    background: transparent;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    color: #64748b;
+    transition: color 0.2s ease, background-color 0.2s ease;
+  }
+
+  .contact-modal__close:hover {
+    color: var(--color-primary);
+    background: rgba(233, 79, 55, 0.08);
+  }
+
+  .contact-modal__title {
+    color: var(--color-cyan);
+    margin-top: 0;
+    margin-bottom: 0.35rem;
+    font-size: 1.5rem;
+    font-family: var(--font-heading);
+    font-weight: 700;
+  }
+
+  .contact-modal__sub {
+    color: var(--color-muted);
+    font-size: 0.9rem;
+    margin: 0 0 1.5rem;
+    line-height: 1.5;
   }
 </style>

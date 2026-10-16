@@ -1,5 +1,5 @@
-/* Single column by default; becomes 2 columns when the form's container has room
-   (e.g. the homepage consultation card) but stays stacked inside the narrow modal. */
+/* 2-column grid layout: First/Last Name (row 1) and Email/Phone (row 2) side-by-side.
+   Full-width fields (Company, dropdown, Message, button) span both columns. */
 .lead-form-wrap {
   container-type: inline-size;
   width: 100%;
@@ -7,18 +7,18 @@
 
 .lead-form {
   display: grid;
-  grid-template-columns: 1fr;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 1.1rem 1.25rem;
   width: 100%;
 }
 
-@container (min-width: 520px) {
-  .lead-form {
-    grid-template-columns: 1fr 1fr;
-  }
+.lead-form-field--full {
+  grid-column: 1 / -1;
+}
 
-  .lead-form-field--full {
-    grid-column: 1 / -1;
+@container (max-width: 340px) {
+  .lead-form {
+    grid-template-columns: 1fr;
   }
 }
 
@@ -34,9 +34,11 @@
   color: var(--color-dark, #333333);
 }
 
-.lead-form-field input,
+.lead-form-field input:not([type="checkbox"]),
 .lead-form-field select,
 .lead-form-field textarea {
+  width: 100%;
+  box-sizing: border-box;
   padding: 0.75rem 1rem;
   border: 1px solid #d4d8dd;
   border-radius: 10px;
@@ -52,7 +54,7 @@
   min-height: 110px;
 }
 
-.lead-form-field input:focus,
+.lead-form-field input:not([type="checkbox"]):focus,
 .lead-form-field select:focus,
 .lead-form-field textarea:focus {
   outline: none;
@@ -120,4 +122,179 @@
   border-radius: 0.375rem;
   font-size: 0.875rem;
   cursor: pointer;
+}
+
+/* Required field asterisk */
+.lead-form-required {
+  color: var(--color-primary, #e94f37);
+  font-weight: 700;
+  margin-left: 0.2rem;
+}
+
+/* Field error state: red border & subtle tint */
+.lead-form-field--error input:not([type="checkbox"]),
+.lead-form-field--error select,
+.lead-form-field--error textarea {
+  border-color: #ef4444 !important;
+  background-color: #fffbfa;
+}
+
+.lead-form-field--error input:not([type="checkbox"]):focus,
+.lead-form-field--error select:focus,
+.lead-form-field--error textarea:focus {
+  border-color: #ef4444 !important;
+  box-shadow: 0 0 0 4px rgba(239, 68, 68, 0.18) !important;
+}
+
+/* Inline error message */
+.lead-form-error-msg {
+  display: block;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: #dc2626;
+  line-height: 1.35;
+  margin-top: 0.15rem;
+  animation: leadFormErrorFade 0.2s ease-in;
+}
+
+@keyframes leadFormErrorFade {
+  from {
+    opacity: 0;
+    transform: translateY(-3px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ==========================================================================
+   Multiple Choice Radial Buttons (3 on two columns, multi-select)
+   ========================================================================== */
+.lead-form-fieldset {
+  border: none;
+  padding: 0;
+  margin: 0;
+  min-inline-size: 0;
+  transition: background-color 0.15s ease, border-color 0.15s ease;
+}
+
+.lead-form-legend {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--color-dark, #333333);
+  margin-bottom: 0.55rem;
+  padding: 0;
+  display: block;
+  width: 100%;
+}
+
+.lead-form-choices-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.45rem 1.5rem;
+  width: 100%;
+}
+
+.lead-form-choices-col {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.lead-form-choice {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  padding: 0.4rem 0.55rem;
+  border-radius: 8px;
+  cursor: pointer;
+  user-select: none;
+  transition: background-color 0.15s ease;
+}
+
+.lead-form-choice:hover {
+  background-color: rgba(27, 196, 217, 0.08);
+}
+
+/* Radial button appearance (circular with inner dot upon selection) */
+.lead-form-choice input[type="checkbox"] {
+  appearance: none;
+  -webkit-appearance: none;
+  width: 20px;
+  height: 20px;
+  min-width: 20px;
+  max-width: 20px;
+  padding: 0 !important;
+  margin: 0;
+  border: 2px solid #cbd5e1;
+  border-radius: 50% !important;
+  background-color: #ffffff;
+  cursor: pointer;
+  display: grid;
+  place-content: center;
+  position: relative;
+  transition: border-color 0.15s ease, background-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.lead-form-choice input[type="checkbox"]::before {
+  content: "";
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: #ffffff;
+  transform: scale(0);
+  transition: transform 0.12s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.lead-form-choice:hover input[type="checkbox"] {
+  border-color: var(--color-cyan, #1bc4d9);
+}
+
+.lead-form-choice input[type="checkbox"]:focus-visible {
+  outline: none;
+  border-color: var(--color-cyan, #1bc4d9);
+  box-shadow: 0 0 0 3px rgba(27, 196, 217, 0.25);
+}
+
+.lead-form-choice input[type="checkbox"]:checked {
+  background-color: var(--color-cyan, #1bc4d9) !important;
+  border-color: var(--color-cyan, #1bc4d9) !important;
+}
+
+.lead-form-choice input[type="checkbox"]:checked::before {
+  transform: scale(1);
+}
+
+.lead-form-choice-text {
+  font-size: 0.9375rem;
+  color: var(--color-dark, #333333);
+  font-weight: 500;
+  line-height: 1.35;
+}
+
+/* Fieldset error border & highlight */
+.lead-form-fieldset.lead-form-field--error {
+  border: 1px dashed #ef4444;
+  border-radius: 10px;
+  padding: 0.65rem 0.75rem;
+  background-color: #fffbfa;
+}
+
+.lead-form-fieldset.lead-form-field--error input[type="checkbox"]:not(:checked) {
+  border-color: #ef4444;
+}
+
+@container (max-width: 440px) {
+  .lead-form-choices-grid {
+    grid-template-columns: 1fr;
+    gap: 0.35rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .lead-form-choices-grid {
+    grid-template-columns: 1fr;
+    gap: 0.35rem;
+  }
 }

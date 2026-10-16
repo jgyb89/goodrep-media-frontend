@@ -1,0 +1,649 @@
+---
+import MainLayout from "../layouts/MainLayout.astro";
+import LeadForm from "../components/LeadForm.jsx";
+import { Image } from "astro:assets";
+
+const servicesList = [
+  {
+    id: "web-design",
+    kicker: "Web Design & Development",
+    title: "Custom Websites Built to Turn Visitors into Paying Customers",
+    desc: "Your website is your 24/7 storefront. We design and build ultra-fast, mobile-first websites tailored to your brand identity, designed specifically for conversion and high search visibility.",
+    img: "/grm-starts-with-web-design.webp",
+    w: 2872,
+    h: 2250,
+    icon: "/icons/website-design-icon-white.svg",
+    features: [
+      "Mobile-responsive, accessible design across all screens",
+      "Core Web Vitals optimization for lightning-fast page speed",
+      "Conversion-focused user funnels and clear calls-to-action",
+      "Seamless CMS integration for easy content updates",
+    ],
+  },
+  {
+    id: "local-seo",
+    kicker: "Local SEO & Google Maps",
+    title: "Dominate Local Search & The Google 3-Pack in Your Market",
+    desc: "When customers near you search for your services, make sure you show up first. We optimize your Google Business Profile, local citations, and on-page signals so you win the local map pack.",
+    img: "/grm-local-seo.webp",
+    w: 1942,
+    h: 1397,
+    icon: "/icons/google-business-icon.svg",
+    features: [
+      "Complete Google Business Profile setup and weekly optimization",
+      "Local citation building and directory consistency cleanup",
+      "Review generation strategies to build 5-star trust",
+      "Targeted geo-pages and localized keyword optimization",
+    ],
+  },
+  {
+    id: "technical-seo",
+    kicker: "Technical SEO & Speed",
+    title: "Clean Site Architecture & Search Engine Optimization",
+    desc: "Behind every high-ranking website is clean technical architecture. We resolve crawl errors, optimize site taxonomy, implement schema markup, and ensure search engines reward your site.",
+    img: "/grm-technical-seo-services.webp",
+    w: 1897,
+    h: 1380,
+    icon: "/icons/automation-and-optimization-icon-blue.svg",
+    features: [
+      "In-depth technical audits resolving 404s, redirects, and crawl issues",
+      "Schema.org structured data implementation for rich snippets",
+      "XML sitemap management and robots.txt optimization",
+      "On-page metadata, semantic headings, and internal linking",
+    ],
+  },
+  {
+    id: "paid-ads",
+    kicker: "Paid Search & Social Ads",
+    title: "High-ROI Ad Campaigns Managed for Leads, Not Just Clicks",
+    desc: "Stop wasting money on vanity clicks. We build laser-targeted Google Ads and paid social campaigns designed to generate qualified inbound calls, quote requests, and measurable sales.",
+    img: "/GRM-paid-search-campaign-service.webp",
+    w: 2878,
+    h: 2250,
+    icon: "/icons/paid-search-icon.svg",
+    features: [
+      "Google Search, Local Services Ads (LSA), and Display remarketing",
+      "Meta (Facebook & Instagram) audience targeting and ad creatives",
+      "Strict negative keyword filtering to eliminate wasted budget",
+      "Call tracking and conversion tracking with transparent monthly reporting",
+    ],
+  },
+  {
+    id: "social-media",
+    kicker: "Social Media Management",
+    title: "Consistent, On-Brand Social Presence That Engages Your Community",
+    desc: "Keep your business top of mind. We curate, design, and publish professional social content across Instagram, Facebook, and LinkedIn while interacting with your local audience.",
+    img: "/grm-social-media-marketing.webp",
+    w: 1814,
+    h: 1381,
+    icon: "/icons/social-media-icon.svg",
+    features: [
+      "Custom monthly content calendar with branded graphic design",
+      "Community engagement and prompt response management",
+      "Audience growth strategies targeting local demographics",
+      "Performance metrics tracking reach, engagement, and follower growth",
+    ],
+  },
+  {
+    id: "digital-media",
+    kicker: "Digital Media & Video",
+    title: "High-Impact Visual Storytelling That Elevated Your Brand",
+    desc: "In a visual world, quality matters. We produce promotional videos, commercial photography, drone footage, and motion graphics that make your small business stand out from competitors.",
+    img: "/grm-digital-media-production.webp",
+    w: 1909,
+    h: 1392,
+    icon: "/icons/phone-video-icon-blue.svg",
+    features: [
+      "Short-form social video (Reels, Shorts, TikTok) production",
+      "Commercial photography for team, products, and facilities",
+      "Drone aerial videography for real estate and local projects",
+      "Motion graphics, logo stingers, and digital ad creative",
+    ],
+  },
+  {
+    id: "amazon-ecommerce",
+    kicker: "E-Commerce & Amazon",
+    title: "Scale Your Online Store & Marketplace Sales Channel",
+    desc: "From Shopify store launches to Amazon Storefronts and A+ Content, we help product brands launch, optimize listings, and drive profitable online sales channels.",
+    img: "/GRM-amazon-marketplace-services.webp",
+    w: 2878,
+    h: 2250,
+    icon: "/icons/amazon-marketing-icon.svg",
+    features: [
+      "Shopify & WooCommerce store development and optimization",
+      "Amazon listing optimization, keyword indexing, and A+ Content",
+      "Amazon PPC sponsored product and brand advertising",
+      "Cart checkout optimization to minimize abandoned carts",
+    ],
+  },
+  {
+    id: "link-building",
+    kicker: "Link Building & Authority",
+    title: "High-Quality Backlinks That Boost Domain Authority",
+    desc: "Earn high-authority editorial links and digital PR coverage from reputable industry and local publications to power up your organic rankings safely.",
+    img: "/GRM-link-building-seo.webp",
+    w: 2878,
+    h: 2250,
+    icon: "/icons/link-building-icon-white.svg",
+    features: [
+      "Ethical, white-hat link acquisition through relationship outreach",
+      "Digital PR campaigns that earn real journalistic mentions",
+      "Local citation links and community sponsorship profiling",
+      "Toxic link audits and Google disavow cleanup",
+    ],
+  },
+  {
+    id: "email-marketing",
+    kicker: "Email & SMS Marketing",
+    title: "Automated Customer Retention & High-Converting Newsletters",
+    desc: "Turn one-time buyers into loyal repeat customers. We craft automated drip sequences, review requests, and promotional email blasts that generate recurring revenue on autopilot.",
+    img: "/grm-email-header.webp",
+    w: 2998,
+    h: 2250,
+    icon: "/icons/email-follow-up-icon-blue.svg",
+    features: [
+      "Automated welcome flows, quote follow-ups, and win-back campaigns",
+      "Custom email newsletter design matching your brand visual identity",
+      "List segmentation for hyper-targeted customer messaging",
+      "SMS marketing integration with compliance and opt-in handling",
+    ],
+  },
+];
+---
+
+<MainLayout
+  title="Our Services | Goodrep Media - Small Business Digital Marketing"
+  description="Explore Good Rep Media's full suite of digital marketing services: Website Design, Local SEO, Paid Ads, Social Media, Video Production, and E-Commerce."
+>
+  <!-- SERVICES HERO -->
+  <section class="services-hero">
+    <div class="container services-hero__container">
+      <div class="services-hero__content" data-reveal>
+        <span class="services-hero__kicker">FULL-SERVICE DIGITAL MARKETING</span>
+        <h1 class="services-hero__title">
+          Everything Your Small Business Needs To <span class="text-cyan">Scale Online</span>
+        </h1>
+        <p class="services-hero__lead">
+          From high-converting custom websites to full-funnel search and paid marketing, we provide hands-on, transparent support that turns digital marketing into measurable revenue.
+        </p>
+        <div class="services-hero__actions">
+          <a href="#consultation" class="btn btn--primary">Book Free 30-Min Strategy Call</a>
+          <a href="#services-catalog" class="btn btn--outline">Browse All Services</a>
+        </div>
+      </div>
+
+      <div class="services-hero__graphic" aria-hidden="true" data-reveal>
+        <div class="services-hero__art">
+          <Image
+            class="services-hero__main"
+            src="/grm-our-services.webp"
+            alt="Good Rep Media Services"
+            width={1850}
+            height={1380}
+            loading="eager"
+            decoding="async"
+          />
+          <img
+            class="services-hero__badge services-hero__badge--growth"
+            src="/Asset 4.webp"
+            alt=""
+            width="291"
+            height="419"
+          />
+          <img
+            class="services-hero__badge services-hero__badge--target"
+            src="/Asset 37.webp"
+            alt=""
+            width="261"
+            height="246"
+          />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- QUICK ANCHOR NAV -->
+  <nav class="services-nav" aria-label="Services Navigation">
+    <div class="container services-nav__container">
+      <span class="services-nav__label">Jump to:</span>
+      <div class="services-nav__pills">
+        {servicesList.map((s) => (
+          <a class="services-nav__pill" href={`#${s.id}`}>
+            {s.kicker.split("&")[0]}
+          </a>
+        ))}
+      </div>
+    </div>
+  </nav>
+
+  <!-- SERVICES CATALOG -->
+  <section class="section services-catalog" id="services-catalog">
+    <div class="container">
+      <div class="services-catalog__list">
+        {servicesList.map((service, idx) => (
+          <article
+            class:list={[
+              "service-block",
+              { "service-block--reverse": idx % 2 === 1 },
+            ]}
+            id={service.id}
+            data-reveal
+          >
+            <div class="service-block__media">
+              <div class="service-block__frame">
+                <Image
+                  class="service-block__img"
+                  src={service.img}
+                  alt={service.title}
+                  width={service.w}
+                  height={service.h}
+                  loading="lazy"
+                />
+              </div>
+            </div>
+
+            <div class="service-block__content">
+              <span class="eyebrow">{service.kicker}</span>
+              <h2 class="service-block__title">{service.title}</h2>
+              <p class="service-block__text">{service.desc}</p>
+
+              <ul class="checklist">
+                {service.features.map((feat) => (
+                  <li>{feat}</li>
+                ))}
+              </ul>
+
+              <div class="service-block__cta">
+                <a href="#consultation" class="btn btn--primary">
+                  Get Started With {service.kicker.split("&")[0]}
+                </a>
+              </div>
+            </div>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- CONSULTATION BANNER -->
+  <section class="consult" id="consultation">
+    <div class="container consult__layout">
+      <div class="consult__intro" data-reveal>
+        <p class="consult__kicker">Ready to grow?</p>
+        <h2 class="consult__title">Let's Build Your Custom Marketing Plan</h2>
+        <p class="consult__text">
+          Schedule a free 30-minute consultation. We'll evaluate your current presence, audit competitor traffic, and share a step-by-step roadmap tailored to your budget.
+        </p>
+        <ul class="consult__contact">
+          <li>
+            <span class="material-symbols-outlined" aria-hidden="true">call</span>
+            <a href="tel:+16163009868">(616) 300-9868</a>
+          </li>
+          <li>
+            <span class="material-symbols-outlined" aria-hidden="true">mail</span>
+            <a href="mailto:team@goodrep.media">team@goodrep.media</a>
+          </li>
+        </ul>
+      </div>
+
+      <div class="consult__card" data-reveal>
+        <h3 class="consult__card-title">Book Your Free Consultation</h3>
+        <LeadForm client:visible submitLabel="Get My Custom Plan" />
+      </div>
+    </div>
+  </section>
+
+  <!-- GSAP ANIMATIONS -->
+  <script>
+    import { gsap } from "gsap";
+    import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+    gsap.registerPlugin(ScrollTrigger);
+
+    const mm = gsap.matchMedia();
+
+    mm.add("(prefers-reduced-motion: no-preference)", () => {
+      // Hero entrance
+      gsap.from(".services-hero__content > *", {
+        y: 30,
+        opacity: 0,
+        duration: 0.8,
+        stagger: 0.15,
+        ease: "power3.out",
+        delay: 0.2,
+      });
+
+      gsap.from(".services-hero__main", {
+        scale: 0.9,
+        opacity: 0,
+        duration: 1,
+        ease: "power3.out",
+        delay: 0.3,
+      });
+
+      gsap.from(".services-hero__badge", {
+        scale: 0,
+        opacity: 0,
+        duration: 0.8,
+        stagger: 0.2,
+        ease: "back.out(2)",
+        delay: 0.6,
+      });
+
+      // Scroll reveals for service blocks
+      gsap.utils.toArray<HTMLElement>("[data-reveal]").forEach((el) => {
+        gsap.from(el, {
+          y: 40,
+          opacity: 0,
+          duration: 0.8,
+          ease: "power3.out",
+          scrollTrigger: {
+            trigger: el,
+            start: "top 85%",
+            once: true,
+          },
+        });
+      });
+    });
+  </script>
+
+  <style>
+    /* ---------- Hero ---------- */
+    .services-hero {
+      background-color: var(--color-bg);
+      padding: clamp(3rem, 6vw, 5rem) 0 clamp(2rem, 4vw, 4rem);
+      border-bottom: 1px solid var(--color-border);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .services-hero::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background-image: radial-gradient(
+        rgba(27, 196, 217, 0.18) 1.5px,
+        transparent 1.5px
+      );
+      background-size: 28px 28px;
+      mask-image: radial-gradient(ellipse at 80% 50%, #000 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .services-hero__container {
+      display: grid;
+      gap: 3rem;
+      align-items: center;
+    }
+
+    @media (min-width: 960px) {
+      .services-hero__container {
+        grid-template-columns: 6fr 5fr;
+      }
+    }
+
+    .services-hero__kicker {
+      display: block;
+      color: #64748b;
+      font-weight: 600;
+      font-size: 0.85rem;
+      letter-spacing: 1.5px;
+      margin-bottom: 0.75rem;
+    }
+
+    .services-hero__title {
+      font-size: clamp(2.2rem, 4.5vw, 3.2rem);
+      font-weight: 700;
+      line-height: 1.18;
+      letter-spacing: -0.01em;
+      margin: 0 0 1.25rem;
+    }
+
+    .text-cyan {
+      color: var(--color-cyan);
+    }
+
+    .services-hero__lead {
+      color: var(--color-muted);
+      font-size: 1.1rem;
+      line-height: 1.7;
+      margin: 0 0 2rem;
+    }
+
+    .services-hero__actions {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .services-hero__graphic {
+      display: flex;
+      justify-content: center;
+    }
+
+    .services-hero__art {
+      position: relative;
+      width: 100%;
+      max-width: 520px;
+      aspect-ratio: 1.3 / 1;
+    }
+
+    .services-hero__main {
+      width: 100%;
+      height: auto;
+      border-radius: 20px;
+      display: block;
+    }
+
+    .services-hero__badge {
+      position: absolute;
+      height: auto;
+      filter: drop-shadow(0 14px 20px rgba(15, 23, 42, 0.25));
+    }
+
+    .services-hero__badge--growth {
+      width: 22%;
+      right: -4%;
+      top: -8%;
+    }
+
+    .services-hero__badge--target {
+      width: 24%;
+      left: -6%;
+      bottom: -6%;
+    }
+
+    /* ---------- Quick Nav ---------- */
+    .services-nav {
+      background: var(--color-light);
+      border-bottom: 1px solid var(--color-border);
+      position: sticky;
+      top: var(--header-h);
+      z-index: 30;
+      backdrop-filter: blur(10px);
+    }
+
+    .services-nav__container {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      padding-top: 0.85rem;
+      padding-bottom: 0.85rem;
+      overflow-x: auto;
+      scrollbar-width: none;
+    }
+    .services-nav__container::-webkit-scrollbar {
+      display: none;
+    }
+
+    .services-nav__label {
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--color-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      white-space: nowrap;
+    }
+
+    .services-nav__pills {
+      display: flex;
+      gap: 0.5rem;
+    }
+
+    .services-nav__pill {
+      display: inline-block;
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: var(--color-dark);
+      background: var(--color-bg);
+      border: 1px solid var(--color-border);
+      padding: 0.35rem 0.85rem;
+      border-radius: 999px;
+      text-decoration: none;
+      white-space: nowrap;
+      transition: all 0.2s ease;
+    }
+
+    .services-nav__pill:hover {
+      background: var(--color-cyan-soft);
+      border-color: var(--color-cyan);
+      color: var(--color-cyan-dark);
+    }
+
+    /* ---------- Catalog List ---------- */
+    .services-catalog {
+      background: var(--color-light);
+    }
+
+    .services-catalog__list {
+      display: grid;
+      gap: clamp(4rem, 8vw, 7rem);
+    }
+
+    .service-block {
+      display: grid;
+      gap: 3rem;
+      align-items: center;
+      scroll-margin-top: calc(var(--header-h) + 4rem);
+    }
+
+    @media (min-width: 960px) {
+      .service-block {
+        grid-template-columns: 1fr 1fr;
+        gap: 5rem;
+      }
+      .service-block--reverse .service-block__media {
+        order: 2;
+      }
+    }
+
+    .service-block__frame {
+      border-radius: 20px;
+      overflow: hidden;
+    }
+
+    .service-block__img {
+      width: 100%;
+      height: auto;
+      display: block;
+      transition: transform 0.4s ease;
+    }
+
+    .service-block:hover .service-block__img {
+      transform: scale(1.02);
+    }
+
+    .service-block__title {
+      font-size: clamp(1.8rem, 3vw, 2.3rem);
+      margin: 0.25rem 0 1rem;
+      line-height: 1.25;
+    }
+
+    .service-block__text {
+      color: var(--color-muted);
+      font-size: 1.05rem;
+      line-height: 1.7;
+      margin: 0 0 1.75rem;
+    }
+
+    .service-block__cta {
+      margin-top: 2rem;
+    }
+
+    /* ---------- Consultation ---------- */
+    .consult {
+      background: var(--color-cyan);
+      color: var(--color-light);
+      padding: clamp(4rem, 8vw, 6rem) 0;
+    }
+
+    .consult__layout {
+      display: grid;
+      gap: 3rem;
+      align-items: center;
+    }
+
+    @media (min-width: 960px) {
+      .consult__layout {
+        grid-template-columns: 5fr 6fr;
+        gap: 4rem;
+      }
+    }
+
+    .consult__kicker {
+      font-size: 1.05rem;
+      margin: 0 0 0.5rem;
+    }
+
+    .consult__title {
+      font-size: clamp(2rem, 3.5vw, 2.6rem);
+      margin: 0 0 1rem;
+      color: var(--color-light);
+    }
+
+    .consult__text {
+      font-size: 1.05rem;
+      line-height: 1.7;
+      margin: 0 0 1.5rem;
+    }
+
+    .consult__contact {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem 1.5rem;
+    }
+
+    .consult__contact li {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-weight: 600;
+    }
+
+    .consult__contact a {
+      color: var(--color-light);
+      text-decoration: none;
+    }
+
+    .consult__contact a:hover {
+      text-decoration: underline;
+    }
+
+    .consult__card {
+      background: var(--color-light);
+      color: var(--color-dark);
+      border-radius: 16px;
+      padding: clamp(1.5rem, 3vw, 2.5rem);
+      box-shadow: 0 30px 60px -20px rgba(0, 0, 0, 0.35);
+    }
+
+    .consult__card-title {
+      color: var(--color-cyan);
+      font-size: 1.6rem;
+      margin: 0 0 1.5rem;
+    }
+  </style>
+</MainLayout>

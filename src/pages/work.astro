@@ -1,0 +1,747 @@
+---
+import MainLayout from "../layouts/MainLayout.astro";
+import LeadForm from "../components/LeadForm.jsx";
+import { Image } from "astro:assets";
+
+const stats = [
+  { value: "+240%", label: "Average Call & Lead Increase" },
+  { value: "50+", label: "Custom Websites Built & Launched" },
+  { value: "98%", label: "Client Retention Rate" },
+  { value: "$2.5M+", label: "Client Revenue Generated" },
+];
+
+const projects = [
+  {
+    title: "Cape Coral Lawn Care",
+    category: "Web Design & Local SEO",
+    tag: "Landscaping & Outdoor Services",
+    summary:
+      "A complete custom web redesign paired with an aggressive Local SEO campaign took Cape Coral Lawn Care from unranked to dominating the Google 3-Pack across 12 high-intent search terms.",
+    metrics: [
+      { num: "+280%", desc: "Inbound quote requests" },
+      { num: "#1", desc: "Google Map Pack ranking" },
+      { num: "0.8s", desc: "Mobile page load time" },
+    ],
+    img: "/cape-coral-lawn-care-web-samples.webp",
+    w: 2000,
+    h: 1372,
+    deliverables: ["Custom WordPress Theme", "Local Map Pack SEO", "Review Automation", "Call Tracking"],
+  },
+  {
+    title: "Coral Breeze Services",
+    category: "Website Design & Branding",
+    tag: "Home Services & Cleaning",
+    summary:
+      "Modernized their legacy website into an intuitive, mobile-first booking experience with automated quote forms and clear service pricing tiers that instantly increased customer trust.",
+    metrics: [
+      { num: "4.8x", desc: "Form conversion lift" },
+      { num: "-62%", desc: "Mobile bounce rate" },
+      { num: "100%", desc: "Accessibility & Best Practices" },
+    ],
+    img: "/coral-breeze-services-web-sample.webp",
+    w: 720,
+    h: 857,
+    deliverables: ["UI/UX Mobile Design", "Lead Capture Funnel", "Service Pricing Calculator", "Speed Optimization"],
+  },
+  {
+    title: "Glowing Results Skin Spa",
+    category: "Local SEO & Reputation",
+    tag: "Health & Beauty Spa",
+    summary:
+      "Engineered an automated review generation system and localized keyword pages that propelled Glowing Results Skin Spa to the top of Grand Rapids spa searches.",
+    metrics: [
+      { num: "+180%", desc: "Monthly online appointments" },
+      { num: "125+", desc: "New 5-star Google reviews" },
+      { num: "Top 3", desc: "Rankings for core search terms" },
+    ],
+    logo: "/glowing-results-skin-spa-logo-white.webp",
+    img: "/Asset 36.webp",
+    w: 678,
+    h: 414,
+    deliverables: ["Google Business Profile Strategy", "Reputation Management", "Local Citation Building", "Booking Integration"],
+  },
+  {
+    title: "Be Balanced Bodyworks",
+    category: "Branding & Web Refresh",
+    tag: "Wellness & Massage Therapy",
+    summary:
+      "Re-architected site structure and refreshed branding elements to simplify appointment scheduling and clearly communicate treatment modalities for new clients.",
+    metrics: [
+      { num: "+310%", desc: "Organic search visibility" },
+      { num: "2.4x", desc: "Average time on site" },
+      { num: "99%", desc: "Core Web Vitals health" },
+    ],
+    logo: "/be-balanced-bodyworks-logo-white.svg",
+    img: "/Asset 17.webp",
+    w: 503,
+    h: 586,
+    deliverables: ["Brand Identity Refresh", "Technical SEO Cleanup", "Automated Intake Forms", "Content Strategy"],
+  },
+];
+---
+
+<MainLayout
+  title="Our Work & Portfolio | Goodrep Media - Case Studies"
+  description="Explore real case studies and website projects from Good Rep Media. Discover how we help small and local businesses win more leads and customers online."
+>
+  <!-- WORK HERO -->
+  <section class="work-hero">
+    <div class="container work-hero__container">
+      <div class="work-hero__content" data-reveal>
+        <span class="work-hero__kicker">OUR PORTFOLIO &amp; PROVEN RESULTS</span>
+        <h1 class="work-hero__title">
+          Real Results For <span class="text-cyan">Real Small Businesses</span>
+        </h1>
+        <p class="work-hero__lead">
+          We don't build generic cookie-cutter templates. Every website, local search campaign, and ad strategy is engineered to get phones ringing and customers walking through your doors.
+        </p>
+        <div class="work-hero__actions">
+          <a href="#consultation" class="btn btn--primary">Start Your Project</a>
+          <a href="#case-studies" class="btn btn--outline">View Case Studies</a>
+        </div>
+      </div>
+
+      <div class="work-hero__graphic" aria-hidden="true" data-reveal>
+        <div class="work-hero__art">
+          <Image
+            class="work-hero__main"
+            src="/grm-our-work.webp"
+            alt="Good Rep Media Portfolio Showcase"
+            width={1979}
+            height={1380}
+            loading="eager"
+            decoding="async"
+          />
+          <img
+            class="work-hero__badge work-hero__badge--gauge"
+            src="/Asset 42.webp"
+            alt=""
+            width="148"
+            height="178"
+          />
+          <img
+            class="work-hero__badge work-hero__badge--likes"
+            src="/Asset 55.webp"
+            alt=""
+            width="197"
+            height="98"
+          />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- STATS RIBBON -->
+  <section class="stats-bar">
+    <div class="container stats-bar__container">
+      {stats.map((st) => (
+        <div class="stat-item" data-reveal>
+          <span class="stat-item__value">{st.value}</span>
+          <span class="stat-item__label">{st.label}</span>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <!-- CASE STUDIES SHOWCASE -->
+  <section class="section case-studies" id="case-studies">
+    <div class="container">
+      <header class="section-head text-center" data-reveal>
+        <span class="eyebrow">Featured Projects</span>
+        <h2 class="section-title">Case Studies &amp; Proven Growth</h2>
+        <p class="section-lead">
+          A glimpse into how we transform small business websites into high-performing customer acquisition engines.
+        </p>
+      </header>
+
+      <div class="case-studies__list">
+        {projects.map((project, idx) => (
+          <article
+            class:list={[
+              "case-card",
+              { "case-card--reverse": idx % 2 === 1 },
+            ]}
+            data-reveal
+          >
+            <div class="case-card__visual">
+              <div class="case-card__browser">
+                <div class="case-card__browser-dots">
+                  <span />
+                  <span />
+                  <span />
+                </div>
+                <Image
+                  class="case-card__img"
+                  src={project.img}
+                  alt={project.title}
+                  width={project.w}
+                  height={project.h}
+                  loading="lazy"
+                  decoding="async"
+                />
+              </div>
+            </div>
+
+            <div class="case-card__content">
+              <div class="case-card__meta">
+                <span class="case-card__tag">{project.tag}</span>
+                <span class="case-card__category">{project.category}</span>
+              </div>
+
+              <h3 class="case-card__title">{project.title}</h3>
+              <p class="case-card__summary">{project.summary}</p>
+
+              <div class="case-card__metrics">
+                {project.metrics.map((m) => (
+                  <div class="metric-pill">
+                    <span class="metric-pill__num">{m.num}</span>
+                    <span class="metric-pill__desc">{m.desc}</span>
+                  </div>
+                ))}
+              </div>
+
+              <div class="case-card__deliverables">
+                <span class="case-card__deliv-heading">Delivered:</span>
+                <ul class="case-card__deliv-list">
+                  {project.deliverables.map((d) => (
+                    <li>{d}</li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- WORK ETHOS / BANNER -->
+  <section class="work-ethos">
+    <div class="container work-ethos__container" data-reveal>
+      <div class="work-ethos__box">
+        <h2 class="work-ethos__title">Have a Project in Mind?</h2>
+        <p class="work-ethos__lead">
+          Whether you need a fresh website design, local SEO dominance, or lead-generating digital ad campaigns, our team is ready to help you grow.
+        </p>
+        <div class="work-ethos__actions">
+          <a href="#consultation" class="btn btn--primary">Book Free 30-Min Strategy Call</a>
+          <a href="/services" class="btn btn--outline-light">Explore Our Services</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONSULTATION BANNER -->
+  <section class="consult" id="consultation">
+    <div class="container consult__layout">
+      <div class="consult__intro" data-reveal>
+        <p class="consult__kicker">Start your project today</p>
+        <h2 class="consult__title">Let's Discuss Your Business Growth</h2>
+        <p class="consult__text">
+          Tell us about your company and marketing goals. We'll outline what works best in your local market and provide a clear, flat-rate pricing plan.
+        </p>
+        <ul class="consult__contact">
+          <li>
+            <span class="material-symbols-outlined" aria-hidden="true">call</span>
+            <a href="tel:+16163009868">(616) 300-9868</a>
+          </li>
+          <li>
+            <span class="material-symbols-outlined" aria-hidden="true">mail</span>
+            <a href="mailto:team@goodrep.media">team@goodrep.media</a>
+          </li>
+        </ul>
+      </div>
+
+      <div class="consult__card" data-reveal>
+        <h3 class="consult__card-title">Book Your Free Consultation</h3>
+        <LeadForm client:visible submitLabel="Start My Project" />
+      </div>
+    </div>
+  </section>
+
+  <!-- GSAP ANIMATIONS -->
+  <script>
+    import { gsap } from "gsap";
+    import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+    gsap.registerPlugin(ScrollTrigger);
+
+    const mm = gsap.matchMedia();
+
+    mm.add("(prefers-reduced-motion: no-preference)", () => {
+      gsap.from(".work-hero__content > *", {
+        y: 30,
+        opacity: 0,
+        duration: 0.8,
+        stagger: 0.15,
+        ease: "power3.out",
+        delay: 0.2,
+      });
+
+      gsap.from(".work-hero__main", {
+        scale: 0.9,
+        opacity: 0,
+        duration: 1,
+        ease: "power3.out",
+        delay: 0.3,
+      });
+
+      gsap.from(".work-hero__badge", {
+        scale: 0,
+        opacity: 0,
+        duration: 0.8,
+        stagger: 0.2,
+        ease: "back.out(2)",
+        delay: 0.5,
+      });
+
+      gsap.from(".stat-item", {
+        y: 20,
+        opacity: 0,
+        duration: 0.6,
+        stagger: 0.1,
+        ease: "power3.out",
+        scrollTrigger: {
+          trigger: ".stats-bar",
+          start: "top 88%",
+          once: true,
+        },
+      });
+
+      gsap.utils.toArray<HTMLElement>("[data-reveal]").forEach((el) => {
+        gsap.from(el, {
+          y: 40,
+          opacity: 0,
+          duration: 0.8,
+          ease: "power3.out",
+          scrollTrigger: {
+            trigger: el,
+            start: "top 85%",
+            once: true,
+          },
+        });
+      });
+    });
+  </script>
+
+  <style>
+    /* ---------- Hero ---------- */
+    .work-hero {
+      background-color: var(--color-bg);
+      padding: clamp(3rem, 6vw, 5rem) 0 clamp(2rem, 4vw, 4rem);
+      border-bottom: 1px solid var(--color-border);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .work-hero::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background-image: radial-gradient(
+        rgba(27, 196, 217, 0.18) 1.5px,
+        transparent 1.5px
+      );
+      background-size: 28px 28px;
+      mask-image: radial-gradient(ellipse at 80% 50%, #000 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .work-hero__container {
+      display: grid;
+      gap: 3rem;
+      align-items: center;
+    }
+
+    @media (min-width: 960px) {
+      .work-hero__container {
+        grid-template-columns: 6fr 5fr;
+      }
+    }
+
+    .work-hero__kicker {
+      display: block;
+      color: #64748b;
+      font-weight: 600;
+      font-size: 0.85rem;
+      letter-spacing: 1.5px;
+      margin-bottom: 0.75rem;
+    }
+
+    .work-hero__title {
+      font-size: clamp(2.2rem, 4.5vw, 3.2rem);
+      font-weight: 700;
+      line-height: 1.18;
+      letter-spacing: -0.01em;
+      margin: 0 0 1.25rem;
+    }
+
+    .text-cyan {
+      color: var(--color-cyan);
+    }
+
+    .work-hero__lead {
+      color: var(--color-muted);
+      font-size: 1.1rem;
+      line-height: 1.7;
+      margin: 0 0 2rem;
+    }
+
+    .work-hero__actions {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .work-hero__graphic {
+      display: flex;
+      justify-content: center;
+    }
+
+    .work-hero__art {
+      position: relative;
+      width: 100%;
+      max-width: 520px;
+      aspect-ratio: 1.3 / 1;
+    }
+
+    .work-hero__main {
+      width: 100%;
+      height: auto;
+      border-radius: 20px;
+      display: block;
+    }
+
+    .work-hero__badge {
+      position: absolute;
+      height: auto;
+      filter: drop-shadow(0 14px 20px rgba(15, 23, 42, 0.25));
+    }
+
+    .work-hero__badge--gauge {
+      width: 20%;
+      left: -4%;
+      top: -8%;
+    }
+
+    .work-hero__badge--likes {
+      width: 26%;
+      right: -4%;
+      bottom: -6%;
+    }
+
+    /* ---------- Stats Bar ---------- */
+    .stats-bar {
+      background: var(--color-dark);
+      color: var(--color-light);
+      padding: 2.25rem 0;
+      border-bottom: 4px solid var(--color-cyan);
+    }
+
+    .stats-bar__container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 2rem;
+      text-align: center;
+    }
+
+    .stat-item__value {
+      display: block;
+      font-family: var(--font-heading);
+      font-size: clamp(2rem, 3.5vw, 2.75rem);
+      font-weight: 700;
+      color: var(--color-cyan);
+      line-height: 1;
+      margin-bottom: 0.5rem;
+    }
+
+    .stat-item__label {
+      display: block;
+      font-size: 0.9rem;
+      color: #94a3b8;
+      font-weight: 600;
+    }
+
+    /* ---------- Case Studies ---------- */
+    .case-studies {
+      background: var(--color-light);
+    }
+
+    .case-studies__list {
+      display: grid;
+      gap: clamp(4rem, 8vw, 6.5rem);
+      margin-top: 3.5rem;
+    }
+
+    .case-card {
+      display: grid;
+      gap: 3rem;
+      align-items: center;
+    }
+
+    @media (min-width: 960px) {
+      .case-card {
+        grid-template-columns: 6fr 5fr;
+        gap: 5rem;
+      }
+      .case-card--reverse .case-card__visual {
+        order: 2;
+      }
+    }
+
+    .case-card__browser {
+      background: #1e293b;
+      border-radius: 16px;
+      overflow: hidden;
+      border: 1px solid var(--color-border);
+    }
+
+    .case-card__browser-dots {
+      padding: 0.75rem 1rem;
+      display: flex;
+      gap: 0.4rem;
+      background: #0f172a;
+    }
+
+    .case-card__browser-dots span {
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.25);
+    }
+
+    .case-card__img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    .case-card__meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      align-items: center;
+      margin-bottom: 0.75rem;
+    }
+
+    .case-card__tag {
+      font-size: 0.78rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--color-cyan-dark);
+      background: var(--color-cyan-soft);
+      padding: 0.25rem 0.65rem;
+      border-radius: 999px;
+    }
+
+    .case-card__category {
+      font-size: 0.85rem;
+      color: var(--color-muted);
+      font-weight: 600;
+    }
+
+    .case-card__title {
+      font-size: clamp(1.8rem, 3vw, 2.2rem);
+      margin: 0 0 1rem;
+      line-height: 1.25;
+    }
+
+    .case-card__summary {
+      color: var(--color-muted);
+      font-size: 1.05rem;
+      line-height: 1.7;
+      margin: 0 0 1.75rem;
+    }
+
+    .case-card__metrics {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
+      gap: 1rem;
+      margin-bottom: 1.75rem;
+    }
+
+    .metric-pill {
+      background: var(--color-bg);
+      border: 1px solid var(--color-border);
+      border-radius: 12px;
+      padding: 0.85rem 1rem;
+      text-align: center;
+    }
+
+    .metric-pill__num {
+      display: block;
+      font-family: var(--font-heading);
+      font-size: 1.35rem;
+      font-weight: 700;
+      color: var(--color-primary);
+      line-height: 1.1;
+      margin-bottom: 0.25rem;
+    }
+
+    .metric-pill__desc {
+      display: block;
+      font-size: 0.78rem;
+      color: var(--color-muted);
+      line-height: 1.3;
+      font-weight: 600;
+    }
+
+    .case-card__deliv-heading {
+      display: block;
+      font-size: 0.8rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: #64748b;
+      margin-bottom: 0.5rem;
+    }
+
+    .case-card__deliv-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    .case-card__deliv-list li {
+      font-size: 0.82rem;
+      font-weight: 600;
+      background: var(--color-light);
+      border: 1px solid var(--color-border);
+      padding: 0.25rem 0.65rem;
+      border-radius: 6px;
+      color: var(--color-dark);
+    }
+
+    /* ---------- Work Ethos ---------- */
+    .work-ethos {
+      background: var(--color-dark);
+      padding: clamp(4rem, 8vw, 6rem) 0;
+    }
+
+    .work-ethos__box {
+      background: linear-gradient(145deg, #1e293b, #0f172a);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 24px;
+      padding: clamp(2.5rem, 5vw, 4rem);
+      text-align: center;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .work-ethos__title {
+      color: var(--color-light);
+      font-size: clamp(2rem, 3.5vw, 2.75rem);
+      margin: 0 0 1rem;
+    }
+
+    .work-ethos__lead {
+      color: #94a3b8;
+      font-size: 1.1rem;
+      line-height: 1.7;
+      max-width: 650px;
+      margin: 0 auto 2rem;
+    }
+
+    .work-ethos__actions {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .btn--outline-light {
+      background: transparent;
+      border: 2px solid rgba(255, 255, 255, 0.4);
+      color: var(--color-light);
+      padding: 0.75rem 1.75rem;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 600;
+      transition: all 0.2s ease;
+    }
+    .btn--outline-light:hover {
+      border-color: var(--color-cyan);
+      color: var(--color-cyan);
+    }
+
+    /* ---------- Consultation ---------- */
+    .consult {
+      background: var(--color-cyan);
+      color: var(--color-light);
+      padding: clamp(4rem, 8vw, 6rem) 0;
+    }
+
+    .consult__layout {
+      display: grid;
+      gap: 3rem;
+      align-items: center;
+    }
+
+    @media (min-width: 960px) {
+      .consult__layout {
+        grid-template-columns: 5fr 6fr;
+        gap: 4rem;
+      }
+    }
+
+    .consult__kicker {
+      font-size: 1.05rem;
+      margin: 0 0 0.5rem;
+    }
+
+    .consult__title {
+      font-size: clamp(2rem, 3.5vw, 2.6rem);
+      margin: 0 0 1rem;
+      color: var(--color-light);
+    }
+
+    .consult__text {
+      font-size: 1.05rem;
+      line-height: 1.7;
+      margin: 0 0 1.5rem;
+    }
+
+    .consult__contact {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem 1.5rem;
+    }
+
+    .consult__contact li {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-weight: 600;
+    }
+
+    .consult__contact a {
+      color: var(--color-light);
+      text-decoration: none;
+    }
+
+    .consult__contact a:hover {
+      text-decoration: underline;
+    }
+
+    .consult__card {
+      background: var(--color-light);
+      color: var(--color-dark);
+      border-radius: 16px;
+      padding: clamp(1.5rem, 3vw, 2.5rem);
+      box-shadow: 0 30px 60px -20px rgba(0, 0, 0, 0.35);
+    }
+
+    .consult__card-title {
+      color: var(--color-cyan);
+      font-size: 1.6rem;
+      margin: 0 0 1.5rem;
+    }
+  </style>
+</MainLayout>

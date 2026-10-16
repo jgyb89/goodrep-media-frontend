@@ -8,57 +8,252 @@ import { fetchWP } from "../lib/api.js";
 const services = [
   {
     title: "Website Design",
-    img: "/Asset 17.webp",
-    w: 503,
-    h: 586,
     text: "Custom, mobile-first websites built to load fast, rank well, and turn visitors into customers.",
+    main: {
+      src: "/Asset 17.webp",
+      w: 503,
+      h: 586,
+      style: "width: 48%; left: 26%; top: 10%;",
+    },
+    accents: [
+      {
+        src: "/Asset 16.webp",
+        w: 278,
+        h: 45,
+        style: "width: 36%; right: 6%; bottom: 12%;",
+        dx: 10,
+        dy: -8,
+        rot: 8,
+      },
+      {
+        src: "/Asset 18.webp",
+        w: 62,
+        h: 60,
+        style: "width: 11%; left: 16%; top: 18%;",
+        dx: -8,
+        dy: -10,
+        rot: -10,
+      },
+    ],
   },
   {
     title: "Local SEO",
-    img: "/Asset 36.webp",
-    w: 678,
-    h: 414,
     text: "Show up in the map pack and local searches when nearby customers are looking for you.",
+    main: {
+      src: "/Asset 36.webp",
+      w: 678,
+      h: 414,
+      style: "width: 68%; left: 16%; top: 18%;",
+    },
+    accents: [
+      {
+        src: "/Asset 9.webp",
+        w: 137,
+        h: 162,
+        style: "width: 16%; right: 8%; top: 8%;",
+        dx: 10,
+        dy: -10,
+        rot: 10,
+      },
+      {
+        src: "/Asset 32.webp",
+        w: 147,
+        h: 133,
+        style: "width: 19%; left: 8%; bottom: 10%;",
+        dx: -10,
+        dy: -8,
+        rot: -6,
+      },
+    ],
   },
   {
     title: "Technical SEO",
-    img: "/Asset 40.webp",
-    w: 315,
-    h: 215,
     text: "Speed, structure, and on-page fixes that help search engines understand and reward your site.",
+    main: {
+      src: "/Asset 40.webp",
+      w: 315,
+      h: 215,
+      style: "width: 64%; left: 18%; top: 20%;",
+    },
+    accents: [
+      {
+        src: "/Asset 10.webp",
+        w: 181,
+        h: 180,
+        style: "width: 22%; left: 8%; top: 8%;",
+        dx: -10,
+        dy: -8,
+        rot: -18,
+      },
+      {
+        src: "/Asset 42.webp",
+        w: 148,
+        h: 178,
+        style: "width: 18%; right: 8%; bottom: 8%;",
+        dx: 10,
+        dy: -8,
+        rot: 8,
+      },
+    ],
   },
   {
     title: "Paid Digital Ads",
-    img: "/Asset 45.webp",
-    w: 212,
-    h: 323,
     text: "Google and social ad campaigns managed for real leads, not just clicks.",
+    main: {
+      src: "/Asset 11.webp",
+      w: 434,
+      h: 326,
+      style: "width: 64%; left: 18%; top: 18%;",
+    },
+    accents: [
+      {
+        src: "/Asset 45.webp",
+        w: 212,
+        h: 323,
+        style: "width: 20%; left: 7%; top: 8%;",
+        dx: -10,
+        dy: -10,
+        rot: -7,
+      },
+      {
+        src: "/Asset 37.webp",
+        w: 261,
+        h: 246,
+        style: "width: 22%; right: 7%; bottom: 8%;",
+        dx: 10,
+        dy: -8,
+        rot: 9,
+      },
+    ],
   },
   {
     title: "Social Media Management",
-    img: "/Asset 28.webp",
-    w: 696,
-    h: 411,
     text: "Consistent, on-brand content and community management on the platforms your customers use.",
+    main: {
+      src: "/Asset 28.webp",
+      w: 696,
+      h: 411,
+      style: "width: 68%; left: 16%; top: 22%;",
+    },
+    accents: [
+      {
+        src: "/Asset 55.webp",
+        w: 197,
+        h: 98,
+        style: "width: 30%; right: 6%; top: 8%;",
+        dx: 10,
+        dy: -10,
+        rot: 6,
+      },
+      {
+        src: "/Asset 51.webp",
+        w: 117,
+        h: 95,
+        style: "width: 19%; left: 8%; bottom: 10%;",
+        dx: -10,
+        dy: -8,
+        rot: -8,
+      },
+    ],
   },
   {
     title: "Digital Media Production",
-    img: "/Asset 54.webp",
-    w: 506,
-    h: 413,
     text: "Photo, video, and graphics that make your business look as good online as it does in person.",
+    main: {
+      src: "/Asset 54.webp",
+      w: 506,
+      h: 413,
+      style: "width: 62%; left: 17%; top: 14%;",
+    },
+    accents: [
+      {
+        src: "/Asset 53.webp",
+        w: 188,
+        h: 342,
+        style: "width: 17%; right: 9%; bottom: 8%;",
+        dx: 10,
+        dy: -10,
+        rot: 6,
+      },
+      {
+        src: "/Asset 34.webp",
+        w: 152,
+        h: 162,
+        style: "width: 16%; left: 9%; top: 10%;",
+        dx: -9,
+        dy: -9,
+        rot: -8,
+      },
+    ],
   },
   {
     title: "Branding",
-    art: "brand",
     text: "Logos, colors, and messaging that make your business memorable and instantly recognizable.",
+    main: {
+      src: "/Asset 19.webp",
+      w: 288,
+      h: 287,
+      style: "width: 46%; left: 27%; top: 14%;",
+    },
+    accents: [
+      {
+        src: "/Asset 34.webp",
+        w: 152,
+        h: 162,
+        style: "width: 24%; left: 38%; top: 28%;",
+        dx: 0,
+        dy: -8,
+        rot: -6,
+      },
+      {
+        src: "/Asset 18.webp",
+        w: 62,
+        h: 60,
+        style: "width: 11%; right: 20%; bottom: 12%;",
+        dx: 10,
+        dy: 8,
+        rot: -10,
+      },
+      {
+        src: "/Asset 50.webp",
+        w: 186,
+        h: 108,
+        style: "width: 26%; left: 8%; top: 10%;",
+        dx: -10,
+        dy: -8,
+        rot: -6,
+      },
+    ],
   },
   {
     title: "Marketing Strategy",
-    img: "/Asset 37.webp",
-    w: 261,
-    h: 246,
     text: "A clear, data-backed roadmap that ties every marketing dollar to your business goals.",
+    main: {
+      src: "/Asset 37.webp",
+      w: 261,
+      h: 246,
+      style: "width: 48%; left: 26%; top: 16%;",
+    },
+    accents: [
+      {
+        src: "/Asset 4.webp",
+        w: 291,
+        h: 419,
+        style: "width: 21%; right: 9%; top: 8%;",
+        dx: 9,
+        dy: -12,
+        rot: 6,
+      },
+      {
+        src: "/Asset 43.webp",
+        w: 183,
+        h: 237,
+        style: "width: 20%; left: 9%; bottom: 8%;",
+        dx: -9,
+        dy: -8,
+        rot: -7,
+      },
+    ],
   },
 ];
 
@@ -96,27 +291,127 @@ const values = [
 const steps = [
   {
     title: "Free Consultations",
+    tag: "Discovery & Audit",
     text: "We start with a free 1-on-1 call to learn about your business, your goals, and your current online presence. No pressure, no jargon.",
-    main: { src: "/Asset 50.webp", w: 186, h: 108 },
-    accent: { src: "/Asset 32.webp", w: 147, h: 133 },
+    main: {
+      src: "/Asset 48.webp",
+      w: 612,
+      h: 330,
+      style: "width: 68%; left: 16%; top: 24%;",
+    },
+    floats: [
+      {
+        src: "/Asset 50.webp",
+        w: 186,
+        h: 108,
+        style: "width: 26%; right: 8%; top: 10%;",
+      },
+      {
+        src: "/Asset 33.webp",
+        w: 438,
+        h: 152,
+        style: "width: 38%; left: 8%; bottom: 12%;",
+      },
+      {
+        src: "/Asset 9.webp",
+        w: 137,
+        h: 162,
+        style: "width: 15%; left: 12%; top: 10%;",
+      },
+    ],
   },
   {
     title: "Setup & Strategy",
+    tag: "Custom Roadmap",
     text: "After evaluating the existing online presence, we develop a tailored roadmap and strategy, detailing target demographics and customer acquisition models, ensuring your approval before proceeding.",
-    main: { src: "/Asset 43.webp", w: 183, h: 237 },
-    accent: { src: "/Asset 37.webp", w: 261, h: 246 },
+    main: {
+      src: "/Asset 40.webp",
+      w: 315,
+      h: 215,
+      style: "width: 62%; left: 19%; top: 22%;",
+    },
+    floats: [
+      {
+        src: "/Asset 43.webp",
+        w: 183,
+        h: 237,
+        style: "width: 20%; left: 7%; top: 10%;",
+      },
+      {
+        src: "/Asset 37.webp",
+        w: 261,
+        h: 246,
+        style: "width: 24%; right: 7%; bottom: 10%;",
+      },
+      {
+        src: "/Asset 19.webp",
+        w: 288,
+        h: 287,
+        style: "width: 20%; right: 10%; top: 8%;",
+      },
+    ],
   },
   {
     title: "Launch & Manage",
+    tag: "Execution & Optimization",
     text: "We build, launch, and actively manage your website, campaigns, and content, optimizing along the way so nothing runs on autopilot.",
-    main: { src: "/Asset 10.webp", w: 181, h: 180 },
-    accent: { src: "/Asset 16.webp", w: 278, h: 45 },
+    main: {
+      src: "/Asset 11.webp",
+      w: 434,
+      h: 326,
+      style: "width: 62%; left: 19%; top: 20%;",
+    },
+    floats: [
+      {
+        src: "/Asset 10.webp",
+        w: 181,
+        h: 180,
+        style: "width: 21%; left: 8%; top: 10%;",
+      },
+      {
+        src: "/Asset 16.webp",
+        w: 278,
+        h: 45,
+        style: "width: 34%; right: 8%; bottom: 14%;",
+      },
+      {
+        src: "/Asset 18.webp",
+        w: 62,
+        h: 60,
+        style: "width: 10%; left: 16%; bottom: 14%;",
+      },
+    ],
   },
   {
     title: "Results & Reporting",
+    tag: "Measurable ROI",
     text: "Clear, regular reports show what is working, what we are improving, and how your investment is turning into customers.",
-    main: { src: "/Asset 4.webp", w: 291, h: 419 },
-    accent: { src: "/Asset 42.webp", w: 148, h: 178 },
+    main: {
+      src: "/Asset 36.webp",
+      w: 678,
+      h: 414,
+      style: "width: 68%; left: 16%; top: 22%;",
+    },
+    floats: [
+      {
+        src: "/Asset 4.webp",
+        w: 291,
+        h: 419,
+        style: "width: 20%; right: 7%; top: 6%;",
+      },
+      {
+        src: "/Asset 42.webp",
+        w: 148,
+        h: 178,
+        style: "width: 18%; left: 7%; top: 10%;",
+      },
+      {
+        src: "/Asset 55.webp",
+        w: 197,
+        h: 98,
+        style: "width: 28%; right: 10%; bottom: 10%;",
+      },
+    ],
   },
 ];
 
@@ -152,12 +447,152 @@ try {
     error?.message || error,
   );
 }
-const heroWords = [
-  "SEO Strategy",
-  "More Engagement",
-  "A Converting Website",
-  "More Customers",
-  "Google Ad Management",
+const heroSlides = [
+  {
+    word: "SEO Strategy",
+    main: {
+      src: "/Asset 40.webp",
+      w: 315,
+      h: 215,
+      style: "width: 78%; left: 11%; top: 20%;",
+    },
+    floats: [
+      {
+        src: "/Asset 4.webp",
+        w: 291,
+        h: 419,
+        style: "width: 22%; right: -2%; top: 2%;",
+      },
+      {
+        src: "/Asset 10.webp",
+        w: 181,
+        h: 180,
+        style: "width: 20%; left: -3%; top: 14%;",
+      },
+      {
+        src: "/Asset 43.webp",
+        w: 183,
+        h: 237,
+        style: "width: 19%; left: 8%; bottom: 0%;",
+      },
+    ],
+  },
+  {
+    word: "More Engagement",
+    main: {
+      src: "/Asset 28.webp",
+      w: 696,
+      h: 411,
+      style: "width: 82%; left: 9%; top: 22%;",
+    },
+    floats: [
+      {
+        src: "/Asset 55.webp",
+        w: 197,
+        h: 98,
+        style: "width: 34%; right: -2%; top: 4%;",
+      },
+      {
+        src: "/Asset 51.webp",
+        w: 117,
+        h: 95,
+        style: "width: 20%; left: -4%; top: 26%;",
+      },
+      {
+        src: "/Asset 34.webp",
+        w: 152,
+        h: 162,
+        style: "width: 17%; left: 12%; bottom: 0%;",
+      },
+    ],
+  },
+  {
+    word: "A Converting Website",
+    main: {
+      src: "/Asset 17.webp",
+      w: 503,
+      h: 586,
+      style: "width: 64%; left: 18%; top: 8%;",
+    },
+    floats: [
+      {
+        src: "/Asset 42.webp",
+        w: 148,
+        h: 178,
+        style: "width: 19%; right: -1%; top: 6%;",
+      },
+      {
+        src: "/Asset 53.webp",
+        w: 188,
+        h: 342,
+        style: "width: 20%; left: -2%; bottom: 4%;",
+      },
+      {
+        src: "/Asset 16.webp",
+        w: 278,
+        h: 45,
+        style: "width: 30%; right: 0%; bottom: 6%;",
+      },
+    ],
+  },
+  {
+    word: "More Customers",
+    main: {
+      src: "/Asset 36.webp",
+      w: 678,
+      h: 414,
+      style: "width: 82%; left: 9%; top: 18%;",
+    },
+    floats: [
+      {
+        src: "/Asset 32.webp",
+        w: 147,
+        h: 133,
+        style: "width: 21%; right: 0%; top: 4%;",
+      },
+      {
+        src: "/Asset 50.webp",
+        w: 186,
+        h: 108,
+        style: "width: 30%; left: -4%; top: 14%;",
+      },
+      {
+        src: "/Asset 9.webp",
+        w: 137,
+        h: 162,
+        style: "width: 17%; right: 8%; bottom: -2%;",
+      },
+    ],
+  },
+  {
+    word: "Google Ad Management",
+    main: {
+      src: "/Asset 11.webp",
+      w: 434,
+      h: 326,
+      style: "width: 78%; left: 11%; top: 20%;",
+    },
+    floats: [
+      {
+        src: "/Asset 45.webp",
+        w: 212,
+        h: 323,
+        style: "width: 22%; left: -4%; top: 8%;",
+      },
+      {
+        src: "/Asset 37.webp",
+        w: 261,
+        h: 246,
+        style: "width: 24%; right: -2%; top: 2%;",
+      },
+      {
+        src: "/Asset 18.webp",
+        w: 62,
+        h: 60,
+        style: "width: 11%; right: 10%; bottom: 8%;",
+      },
+    ],
+  },
 ];
 ---
 
@@ -172,13 +607,13 @@ const heroWords = [
             <span class="hero__title-cyan">Your Small Business Needs</span>
             <span class="hero__rotator" id="hero-rotator">
               {
-                heroWords.map((word, index) => (
+                heroSlides.map((slide, index) => (
                   <span
                     class="hero__word hero__title-red"
                     data-hero-word
                     aria-hidden={index === 0 ? "false" : "true"}
                   >
-                    {word}
+                    {slide.word}
                   </span>
                 ))
               }
@@ -216,7 +651,7 @@ const heroWords = [
         </ul>
       </div>
 
-      <!-- Right Side Graphic: isometric composition built from /public assets -->
+      <!-- Right Side Graphic: rotating isometric compositions matched to each h1 phrase -->
       <div class="hero__graphic" aria-hidden="true">
         <div class="hero-art">
           <img
@@ -226,38 +661,33 @@ const heroWords = [
             width="869"
             height="663"
           />
-          <img
-            class="hero-art__main"
-            src="/Asset 11.webp"
-            alt=""
-            width="434"
-            height="326"
-            fetchpriority="high"
-          />
-          <img
-            class="hero-art__float hero-art__float--likes"
-            data-float
-            src="/Asset 55.webp"
-            alt=""
-            width="197"
-            height="98"
-          />
-          <img
-            class="hero-art__float hero-art__float--mega"
-            data-float
-            src="/Asset 51.webp"
-            alt=""
-            width="117"
-            height="95"
-          />
-          <img
-            class="hero-art__float hero-art__float--smile"
-            data-float
-            src="/Asset 9.webp"
-            alt=""
-            width="137"
-            height="162"
-          />
+          {
+            heroSlides.map((slide, index) => (
+              <div class="hero-art__scene" data-hero-scene={index}>
+                <img
+                  class="hero-art__main"
+                  src={slide.main.src}
+                  alt=""
+                  width={slide.main.w}
+                  height={slide.main.h}
+                  style={slide.main.style}
+                  fetchpriority={index === 0 ? "high" : "low"}
+                />
+                {slide.floats.map((f) => (
+                  <img
+                    class="hero-art__float"
+                    data-float
+                    src={f.src}
+                    alt=""
+                    width={f.w}
+                    height={f.h}
+                    style={f.style}
+                    fetchpriority={index === 0 ? undefined : "low"}
+                  />
+                ))}
+              </div>
+            ))
+          }
         </div>
       </div>
     </div>
@@ -350,45 +780,41 @@ const heroWords = [
       <div class="services__grid" data-reveal-group>
         {
           services.map((s) => (
-            <article class="service-card">
-              <div class="service-card__stage">
-                {s.art === "brand" ? (
-                  <div class="brand-art">
-                    <img
-                      class="brand-art__box"
-                      src="/Asset 19.webp"
-                      alt=""
-                      width="288"
-                      height="287"
-                      loading="lazy"
-                    />
-                    <img
-                      class="brand-art__heart"
-                      src="/Asset 34.webp"
-                      alt=""
-                      width="152"
-                      height="162"
-                      loading="lazy"
-                    />
-                    <img
-                      class="brand-art__cursor"
-                      src="/Asset 18.webp"
-                      alt=""
-                      width="62"
-                      height="60"
-                      loading="lazy"
-                    />
-                  </div>
-                ) : (
+            <article class="service-card" data-service-card>
+              <div class="service-card__stage" aria-hidden="true">
+                <img
+                  class="service-card__blob"
+                  src="/Asset 2.webp"
+                  alt=""
+                  width="869"
+                  height="663"
+                  loading="lazy"
+                />
+                <img
+                  class="service-card__main"
+                  data-card-main
+                  src={s.main.src}
+                  alt=""
+                  width={s.main.w}
+                  height={s.main.h}
+                  style={s.main.style}
+                  loading="lazy"
+                />
+                {s.accents.map((acc) => (
                   <img
-                    class="service-card__img"
-                    src={s.img}
+                    class="service-card__accent"
+                    data-card-accent
+                    data-dx={acc.dx}
+                    data-dy={acc.dy}
+                    data-rot={acc.rot}
+                    src={acc.src}
                     alt=""
-                    width={s.w}
-                    height={s.h}
+                    width={acc.w}
+                    height={acc.h}
+                    style={acc.style}
                     loading="lazy"
                   />
-                )}
+                ))}
               </div>
               <h3 class="service-card__title">{s.title}</h3>
               <p class="service-card__text">{s.text}</p>
@@ -413,18 +839,22 @@ const heroWords = [
         <h2 class="section-title">A Marketing Partner That Feels Local</h2>
       </header>
 
-      <div class="why__grid" data-reveal-group>
+      <div class="why__grid" data-why-grid>
         {
           values.map((v) => (
-            <div class="value">
-              <div class="value__icon">
-                <img
-                  src={v.img}
-                  alt=""
-                  width={v.w}
-                  height={v.h}
-                  loading="lazy"
-                />
+            <div class="value" data-value-card>
+              <div class="value__medallion" aria-hidden="true">
+                <span class="value__orbit" />
+                <div class="value__icon">
+                  <img
+                    class="value__main-img"
+                    src={v.img}
+                    alt=""
+                    width={v.w}
+                    height={v.h}
+                    loading="lazy"
+                  />
+                </div>
               </div>
               <h3 class="value__title">{v.title}</h3>
               <p class="value__text">{v.text}</p>
@@ -456,6 +886,7 @@ const heroWords = [
                 <summary class="step__summary">
                   <span class="step__num">{i + 1}</span>
                   <span class="step__title">{step.title}</span>
+                  <span class="step__tag">{step.tag}</span>
                   <span
                     class="material-symbols-outlined step__chevron"
                     aria-hidden="true"
@@ -475,6 +906,10 @@ const heroWords = [
           aria-hidden="true"
           data-reveal
         >
+          <div class="process__stage-progress">
+            <div class="process__stage-progress-bar" id="process-progress-bar">
+            </div>
+          </div>
           <img
             class="process__stage-blob"
             src="/Asset 2.webp"
@@ -492,22 +927,44 @@ const heroWords = [
                   alt=""
                   width={step.main.w}
                   height={step.main.h}
+                  style={step.main.style}
                   loading="lazy"
                 />
-                <img
-                  class="process__visual-accent"
-                  src={step.accent.src}
-                  alt=""
-                  width={step.accent.w}
-                  height={step.accent.h}
-                  loading="lazy"
-                />
+                {step.floats.map((f) => (
+                  <img
+                    class="process__visual-float"
+                    data-float
+                    src={f.src}
+                    alt=""
+                    width={f.w}
+                    height={f.h}
+                    style={f.style}
+                    loading="lazy"
+                  />
+                ))}
               </div>
             ))
           }
-          <span class="process__stage-label"
-            >Step <span id="process-step-label">1</span> of {steps.length}</span
-          >
+          <div class="process__stage-footer">
+            <span class="process__stage-label">
+              Step <span id="process-step-label">1</span> of {steps.length} ·{
+                " "
+              }
+              <span id="process-step-tag">{steps[0].tag}</span>
+            </span>
+            <div class="process__stage-dots">
+              {
+                steps.map((_, i) => (
+                  <button
+                    type="button"
+                    class:list={["process__dot", { "is-active": i === 0 }]}
+                    data-step-dot={i}
+                    tabindex="-1"
+                  />
+                ))
+              }
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -520,6 +977,7 @@ const heroWords = [
         <div class="work__art" aria-hidden="true" data-reveal>
           <img
             class="work__art-blob"
+            data-work-parallax="24"
             src="/Asset 2.webp"
             alt=""
             width="869"
@@ -528,6 +986,7 @@ const heroWords = [
           />
           <img
             class="work__device work__device--monitor"
+            data-work-parallax="-26"
             src="/Asset 54.webp"
             alt=""
             width="506"
@@ -536,6 +995,7 @@ const heroWords = [
           />
           <img
             class="work__device work__device--laptop"
+            data-work-parallax="-42"
             src="/Asset 28.webp"
             alt=""
             width="696"
@@ -544,11 +1004,52 @@ const heroWords = [
           />
           <img
             class="work__device work__device--phone"
+            data-work-parallax="-65"
             data-float
             src="/Asset 53.webp"
             alt=""
             width="188"
             height="342"
+            loading="lazy"
+          />
+          <img
+            class="work__badge work__badge--likes"
+            data-work-parallax="-54"
+            data-float
+            src="/Asset 55.webp"
+            alt=""
+            width="197"
+            height="98"
+            loading="lazy"
+          />
+          <img
+            class="work__badge work__badge--gauge"
+            data-work-parallax="-48"
+            data-float
+            src="/Asset 42.webp"
+            alt=""
+            width="148"
+            height="178"
+            loading="lazy"
+          />
+          <img
+            class="work__badge work__badge--growth"
+            data-work-parallax="-70"
+            data-float
+            src="/Asset 4.webp"
+            alt=""
+            width="291"
+            height="419"
+            loading="lazy"
+          />
+          <img
+            class="work__badge work__badge--smiley"
+            data-work-parallax="-36"
+            data-float
+            src="/Asset 9.webp"
+            alt=""
+            width="137"
+            height="162"
             loading="lazy"
           />
         </div>
@@ -598,12 +1099,43 @@ const heroWords = [
   <section class="section spotlight">
     <div class="container">
       <div class="feature" data-reveal>
-        <div class="feature__media">
+        <div class="feature__media feature__media--seo">
           <img
+            class="feature__main-img"
             src="/google-ads-graphic-1200.webp"
             alt="Illustration of a business owner reviewing five-star local search listings"
             width="1200"
             height="1039"
+            loading="lazy"
+          />
+          <img
+            class="feature__satellite feature__satellite--storefront"
+            data-spotlight-parallax="-38"
+            data-float
+            src="/Asset 36.webp"
+            alt=""
+            width="678"
+            height="414"
+            loading="lazy"
+          />
+          <img
+            class="feature__satellite feature__satellite--likes"
+            data-spotlight-parallax="-52"
+            data-float
+            src="/Asset 55.webp"
+            alt=""
+            width="197"
+            height="98"
+            loading="lazy"
+          />
+          <img
+            class="feature__satellite feature__satellite--smiley"
+            data-spotlight-parallax="-30"
+            data-float
+            src="/Asset 9.webp"
+            alt=""
+            width="137"
+            height="162"
             loading="lazy"
           />
         </div>
@@ -615,7 +1147,7 @@ const heroWords = [
             yours shows up first, looks trustworthy, and makes it easy to call,
             visit, or book.
           </p>
-          <ul class="checklist">
+          <ul class="checklist" data-checklist>
             <li>Google Business Profile setup &amp; optimization</li>
             <li>Review generation &amp; reputation management</li>
             <li>Local citations &amp; directory listings</li>
@@ -633,6 +1165,7 @@ const heroWords = [
       <div class="feature feature--reverse" data-reveal>
         <div class="feature__media feature__media--photo">
           <img
+            class="feature__main-img"
             src="/ads-management-services-1400.webp"
             alt="Magnifying glass over a digital advertising dashboard"
             width="1400"
@@ -641,11 +1174,42 @@ const heroWords = [
           />
           <img
             class="feature__badge"
+            data-spotlight-parallax="-45"
             data-float
             src="/Asset 37.webp"
             alt=""
             width="261"
             height="246"
+            loading="lazy"
+          />
+          <img
+            class="feature__satellite feature__satellite--ads-card"
+            data-spotlight-parallax="-55"
+            data-float
+            src="/Asset 45.webp"
+            alt=""
+            width="212"
+            height="323"
+            loading="lazy"
+          />
+          <img
+            class="feature__satellite feature__satellite--gauge"
+            data-spotlight-parallax="-34"
+            data-float
+            src="/Asset 42.webp"
+            alt=""
+            width="148"
+            height="178"
+            loading="lazy"
+          />
+          <img
+            class="feature__satellite feature__satellite--arrows"
+            data-spotlight-parallax="-62"
+            data-float
+            src="/Asset 4.webp"
+            alt=""
+            width="291"
+            height="419"
             loading="lazy"
           />
         </div>
@@ -657,7 +1221,7 @@ const heroWords = [
             call and form fill so you can see exactly what your ad spend is
             bringing in.
           </p>
-          <ul class="checklist">
+          <ul class="checklist" data-checklist>
             <li>Google Search &amp; Local Services Ads</li>
             <li>Facebook &amp; Instagram campaigns</li>
             <li>Conversion &amp; call tracking</li>
@@ -753,9 +1317,49 @@ const heroWords = [
       aria-hidden="true"
       style={`color: ${posts.length > 0 ? "var(--color-light)" : "var(--color-bg)"}`}
     >
+      <!-- Background subtle translucent wave layer for depth -->
       <path
-        d="M0,0 L1440,0 L1440,40 C1180,110 900,120 640,80 C380,40 180,30 0,70 Z"
-        fill="currentColor"></path>
+        class="consult__wave-path consult__wave-path--back"
+        d="M0,0 L1440,0 L1440,65 C1140,45 920,85 640,60 C360,35 160,75 0,55 Z"
+        fill="currentColor"
+        opacity="0.32"
+      >
+        <animate
+          attributeName="d"
+          dur="14s"
+          repeatCount="indefinite"
+          calcMode="spline"
+          keyTimes="0; 0.33; 0.66; 1"
+          keySplines="0.45 0 0.55 1; 0.45 0 0.55 1; 0.45 0 0.55 1"
+          values="
+            M0,0 L1440,0 L1440,65 C1140,45 920,85 640,60 C360,35 160,75 0,55 Z;
+            M0,0 L1440,0 L1440,35 C1180,95 900,60 640,85 C380,110 180,45 0,75 Z;
+            M0,0 L1440,0 L1440,75 C1200,60 940,95 640,50 C340,40 140,85 0,40 Z;
+            M0,0 L1440,0 L1440,65 C1140,45 920,85 640,60 C360,35 160,75 0,55 Z
+          "
+        />
+      </path>
+      <!-- Foreground solid wave layer -->
+      <path
+        class="consult__wave-path consult__wave-path--front"
+        d="M0,0 L1440,0 L1440,40 C1180,105 900,115 640,75 C380,35 180,30 0,65 Z"
+        fill="currentColor"
+      >
+        <animate
+          attributeName="d"
+          dur="10s"
+          repeatCount="indefinite"
+          calcMode="spline"
+          keyTimes="0; 0.33; 0.66; 1"
+          keySplines="0.45 0 0.55 1; 0.45 0 0.55 1; 0.45 0 0.55 1"
+          values="
+            M0,0 L1440,0 L1440,40 C1180,105 900,115 640,75 C380,35 180,30 0,65 Z;
+            M0,0 L1440,0 L1440,60 C1160,80 880,70 640,90 C400,110 200,85 0,45 Z;
+            M0,0 L1440,0 L1440,30 C1200,95 940,90 640,60 C340,30 160,50 0,80 Z;
+            M0,0 L1440,0 L1440,40 C1180,105 900,115 640,75 C380,35 180,30 0,65 Z
+          "
+        />
+      </path>
     </svg>
 
     <div class="container consult__layout">
@@ -770,12 +1374,39 @@ const heroWords = [
             loading="lazy"
           />
           <img
-            class="consult__art-float"
+            class="consult__art-float consult__art-float--chat"
             data-float
             src="/Asset 50.webp"
             alt=""
             width="186"
             height="108"
+            loading="lazy"
+          />
+          <img
+            class="consult__art-float consult__art-float--megaphone"
+            data-float
+            src="/Asset 51.webp"
+            alt=""
+            width="117"
+            height="95"
+            loading="lazy"
+          />
+          <img
+            class="consult__art-float consult__art-float--handshake"
+            data-float
+            src="/Asset 33.webp"
+            alt=""
+            width="438"
+            height="152"
+            loading="lazy"
+          />
+          <img
+            class="consult__art-float consult__art-float--heart"
+            data-float
+            src="/Asset 34.webp"
+            alt=""
+            width="152"
+            height="162"
             loading="lazy"
           />
         </div>
@@ -810,21 +1441,6 @@ const heroWords = [
     </div>
   </section>
 
-  <!-- MODAL: Gravity Form -->
-  <dialog class="contact-modal" id="contact-modal">
-    <div class="contact-modal__inner">
-      <button
-        class="contact-modal__close"
-        id="close-contact-modal"
-        aria-label="Close modal"
-      >
-        <span class="material-symbols-outlined">close</span>
-      </button>
-      <h3 class="contact-modal__title">Send Us A Message</h3>
-      <LeadForm client:visible />
-    </div>
-  </dialog>
-
   <!-- GSAP ANIMATIONS -->
   <script>
     import { gsap } from "gsap";
@@ -833,61 +1449,90 @@ const heroWords = [
     gsap.registerPlugin(ScrollTrigger);
 
     const wordEls = gsap.utils.toArray<HTMLElement>("[data-hero-word]");
+    const sceneEls = gsap.utils.toArray<HTMLElement>("[data-hero-scene]");
     const mm = gsap.matchMedia();
 
     // Motion-heavy effects only run when the user hasn't asked for reduced motion
     mm.add("(prefers-reduced-motion: no-preference)", () => {
-      // 1. Flip-up / Flip-down Headline Rotator
+      // 1. Headline rotator: flips up + fades in, then flips down + fades out,
+      //    while crossfading the matching graphic composition on the right.
       if (wordEls.length > 1) {
-        gsap.set(wordEls[0], { yPercent: 0, rotationX: 0, opacity: 1 });
-        gsap.set(wordEls.slice(1), {
-          yPercent: 60,
-          rotationX: -75,
-          opacity: 0,
+        const hidden = { yPercent: 60, rotationX: -80, autoAlpha: 0 };
+        const shown = { yPercent: 0, rotationX: 0, autoAlpha: 1 };
+        const sceneOut = { y: -14, scale: 0.95, autoAlpha: 0 };
+        const sceneInStart = { y: 18, scale: 0.94, autoAlpha: 0 };
+        const sceneShown = { y: 0, scale: 1, autoAlpha: 1 };
+
+        gsap.set(wordEls, {
+          transformPerspective: 650,
+          transformOrigin: "50% 100%", // hinge from the baseline
+          force3D: true,
         });
+        gsap.set(wordEls[0], shown);
+        gsap.set(wordEls.slice(1), hidden);
+
+        if (sceneEls.length === wordEls.length) {
+          gsap.set(sceneEls[0], sceneShown);
+          gsap.set(sceneEls.slice(1), sceneInStart);
+        }
+
+        const setActive = (active: number) =>
+          wordEls.forEach((el, idx) =>
+            el.setAttribute("aria-hidden", String(idx !== active)),
+          );
 
         const flipTl = gsap.timeline({ repeat: -1 });
-        const holdDuration = 2.2;
 
         wordEls.forEach((current, index) => {
           const nextIndex = (index + 1) % wordEls.length;
           const next = wordEls[nextIndex];
+          const currentScene = sceneEls[index];
+          const nextScene = sceneEls[nextIndex];
 
-          // Current phrase cleanly flips down and fades out
+          // Current phrase flips down and fades out...
           flipTl.to(
             current,
-            {
-              yPercent: 60,
-              rotationX: -75,
-              opacity: 0,
-              duration: 0.45,
-              ease: "power2.in",
-            },
-            `+=${holdDuration}`,
+            { ...hidden, duration: 0.5, ease: "power2.in" },
+            "+=2.2", // hold time
           );
 
-          // Next phrase cleanly flips up and fades in as current exits
+          // ...while the current graphic arrangement fades out
+          if (currentScene) {
+            flipTl.to(
+              currentScene,
+              { ...sceneOut, duration: 0.45, ease: "power2.in" },
+              "<",
+            );
+          }
+
+          // ...and the next phrase flips up and fades in
           flipTl.fromTo(
             next,
-            { yPercent: 60, rotationX: -75, opacity: 0 },
+            hidden,
             {
-              yPercent: 0,
-              rotationX: 0,
-              opacity: 1,
-              duration: 0.55,
+              ...shown,
+              duration: 0.6,
               ease: "power3.out",
               immediateRender: false,
-              onStart: () => {
-                wordEls.forEach((el, idx) =>
-                  el.setAttribute(
-                    "aria-hidden",
-                    idx === nextIndex ? "false" : "true",
-                  ),
-                );
-              },
+              onStart: () => setActive(nextIndex),
             },
-            "<0.2",
+            "<0.25",
           );
+
+          // ...as the matching graphic arrangement fades in
+          if (nextScene) {
+            flipTl.fromTo(
+              nextScene,
+              sceneInStart,
+              {
+                ...sceneShown,
+                duration: 0.65,
+                ease: "power3.out",
+                immediateRender: false,
+              },
+              "<",
+            );
+          }
         });
       }
 
@@ -912,7 +1557,7 @@ const heroWords = [
         delay: 0.2,
       });
 
-      gsap.from(".hero-art__main", {
+      gsap.from('[data-hero-scene="0"] .hero-art__main', {
         y: 40,
         opacity: 0,
         duration: 1,
@@ -936,7 +1581,7 @@ const heroWords = [
           ease: "sine.inOut",
           yoyo: true,
           repeat: -1,
-          delay: i * 0.3,
+          delay: (i % 3) * 0.3,
         });
       });
 
@@ -963,41 +1608,356 @@ const heroWords = [
             scrollTrigger: { trigger: group, start: "top 85%", once: true },
           });
         });
-    });
 
-    // 6. Process accordion: swap the illustration to match the open step
-    const stage = document.querySelector<HTMLElement>(".process__stage");
-    const stepLabel = document.querySelector("#process-step-label");
-    document
-      .querySelectorAll<HTMLDetailsElement>(".step")
-      .forEach((details) => {
-        details.addEventListener("toggle", () => {
-          if (!details.open || !stage) return;
-          const step = details.dataset.step ?? "0";
-          stage.dataset.activeStep = step;
-          if (stepLabel) stepLabel.textContent = String(Number(step) + 1);
+      // 6. Services: Static at rest; smooth movement plays on hover, freezes,
+      //    and reverses back to original static position on leave.
+      gsap.utils.toArray<HTMLElement>("[data-service-card]").forEach((card) => {
+        const mainImg = card.querySelector<HTMLElement>("[data-card-main]");
+        const accents = gsap.utils.toArray<HTMLElement>(
+          card.querySelectorAll("[data-card-accent]"),
+        );
+        const blob = card.querySelector<HTMLElement>(".service-card__blob");
+
+        const hoverTl = gsap.timeline({
+          paused: true,
+          defaults: { duration: 0.45, ease: "power2.out" },
         });
+
+        if (blob) {
+          hoverTl.to(
+            blob,
+            {
+              scale: 1.08,
+              rotation: 6,
+            },
+            0,
+          );
+        }
+
+        if (mainImg) {
+          hoverTl.to(
+            mainImg,
+            {
+              y: -6,
+              scale: 1.06,
+              rotation: -1.5,
+            },
+            0,
+          );
+        }
+
+        accents.forEach((acc, i) => {
+          const dx = Number(acc.dataset.dx || 8);
+          const dy = Number(acc.dataset.dy || -8);
+          const rot = Number(acc.dataset.rot || 6);
+
+          hoverTl.to(
+            acc,
+            {
+              x: dx,
+              y: dy,
+              rotation: rot,
+              scale: 1.1,
+            },
+            i * 0.04,
+          );
+        });
+
+        card.addEventListener("pointerenter", () => hoverTl.play());
+        card.addEventListener("pointerleave", () => hoverTl.reverse());
       });
 
-    // 7. Modal Logic (Native HTML Dialog)
-    const modal = document.querySelector("#contact-modal") as HTMLDialogElement;
-    const openBtn = document.querySelector("#trigger-contact-modal");
-    const closeBtn = document.querySelector("#close-contact-modal");
+      // 7. Why Good Rep: Elastic medallion pop-in + continuous orbit ring
+      const whyGrid = document.querySelector<HTMLElement>("[data-why-grid]");
+      if (whyGrid) {
+        const valueCards = gsap.utils.toArray<HTMLElement>("[data-value-card]");
+        const icons = whyGrid.querySelectorAll(".value__icon");
+        const orbits = whyGrid.querySelectorAll(".value__orbit");
 
-    openBtn?.addEventListener("click", () => modal?.showModal());
-    closeBtn?.addEventListener("click", () => modal?.close());
+        gsap.to(orbits, {
+          rotation: 360,
+          duration: 26,
+          repeat: -1,
+          ease: "none",
+        });
 
-    // Close modal when clicking outside
-    modal?.addEventListener("click", (e) => {
-      const dialogDimensions = modal.getBoundingClientRect();
-      if (
-        e.clientX < dialogDimensions.left ||
-        e.clientX > dialogDimensions.right ||
-        e.clientY < dialogDimensions.top ||
-        e.clientY > dialogDimensions.bottom
-      ) {
-        modal.close();
+        const whyTl = gsap.timeline({
+          scrollTrigger: {
+            trigger: whyGrid,
+            start: "top 82%",
+            once: true,
+          },
+        });
+
+        whyTl
+          .from(valueCards, {
+            y: 36,
+            opacity: 0,
+            duration: 0.65,
+            stagger: 0.12,
+            ease: "power3.out",
+          })
+          .from(
+            icons,
+            {
+              scale: 0.5,
+              rotation: -15,
+              duration: 0.75,
+              stagger: 0.12,
+              ease: "back.out(1.8)",
+            },
+            "<0.05",
+          );
+
+        valueCards.forEach((vc) => {
+          const icon = vc.querySelector(".value__main-img");
+          vc.addEventListener("pointerenter", () => {
+            if (icon) {
+              gsap.to(icon, {
+                scale: 1.12,
+                rotation: -5,
+                duration: 0.4,
+                ease: "back.out(2)",
+              });
+            }
+          });
+          vc.addEventListener("pointerleave", () => {
+            if (icon) {
+              gsap.to(icon, {
+                scale: 1,
+                rotation: 0,
+                duration: 0.55,
+                ease: "elastic.out(1, 0.5)",
+              });
+            }
+          });
+        });
       }
+
+      // 8. Our Work: Multi-plane ScrollTrigger scrub depth parallax
+      const workSection = document.querySelector<HTMLElement>("#work");
+      if (workSection) {
+        gsap.utils
+          .toArray<HTMLElement>("[data-work-parallax]")
+          .forEach((layer) => {
+            const deltaY = Number(layer.dataset.workParallax || -30);
+            gsap.fromTo(
+              layer,
+              { y: -deltaY * 0.45 },
+              {
+                y: deltaY * 0.55,
+                ease: "none",
+                scrollTrigger: {
+                  trigger: workSection,
+                  start: "top bottom",
+                  end: "bottom top",
+                  scrub: 0.6,
+                },
+              },
+            );
+          });
+      }
+
+      // 9. Spotlight: Scroll-scrubbed satellite graphics + checklist stagger
+      gsap.utils.toArray<HTMLElement>(".feature").forEach((featureEl) => {
+        const satellites = gsap.utils.toArray<HTMLElement>(
+          featureEl.querySelectorAll("[data-spotlight-parallax]"),
+        );
+        satellites.forEach((sat) => {
+          const deltaY = Number(sat.dataset.spotlightParallax || -40);
+          gsap.fromTo(
+            sat,
+            { y: -deltaY * 0.4 },
+            {
+              y: deltaY * 0.6,
+              ease: "none",
+              scrollTrigger: {
+                trigger: featureEl,
+                start: "top bottom",
+                end: "bottom top",
+                scrub: 0.6,
+              },
+            },
+          );
+        });
+
+        const checklistItems = featureEl.querySelectorAll(
+          "[data-checklist] li",
+        );
+        if (checklistItems.length) {
+          gsap.from(checklistItems, {
+            x: -24,
+            opacity: 0,
+            duration: 0.55,
+            stagger: 0.1,
+            ease: "back.out(1.4)",
+            scrollTrigger: {
+              trigger: featureEl,
+              start: "top 78%",
+              once: true,
+            },
+          });
+        }
+      });
+
+      // 10. Consultation: Multi-layer entrance + wave/card depth
+      const consultSection =
+        document.querySelector<HTMLElement>("#consultation");
+      if (consultSection) {
+        const consultMain = consultSection.querySelector(".consult__art-main");
+        const consultFloats = consultSection.querySelectorAll(
+          ".consult__art-float",
+        );
+
+        const consultTl = gsap.timeline({
+          scrollTrigger: {
+            trigger: consultSection,
+            start: "top 80%",
+            once: true,
+          },
+        });
+
+        if (consultMain) {
+          consultTl.from(consultMain, {
+            y: 30,
+            scale: 0.88,
+            opacity: 0,
+            duration: 0.75,
+            ease: "back.out(1.5)",
+          });
+        }
+        if (consultFloats.length) {
+          consultTl.from(
+            consultFloats,
+            {
+              scale: 0,
+              y: 20,
+              opacity: 0,
+              duration: 0.6,
+              stagger: 0.1,
+              ease: "back.out(2.2)",
+            },
+            "<0.2",
+          );
+        }
+      }
+    });
+
+    // 11. Process accordion + interactive stage choreography
+    const stage = document.querySelector<HTMLElement>(".process__stage");
+    const stepLabel = document.querySelector("#process-step-label");
+    const stepTag = document.querySelector("#process-step-tag");
+    const progressBar = document.querySelector<HTMLElement>(
+      "#process-progress-bar",
+    );
+    const stageBlob = document.querySelector<HTMLElement>(
+      ".process__stage-blob",
+    );
+    const allDetails = gsap.utils.toArray<HTMLDetailsElement>(".step");
+    const allDots = gsap.utils.toArray<HTMLButtonElement>("[data-step-dot]");
+    const stepTags = allDetails.map(
+      (d) => d.querySelector(".step__tag")?.textContent || "",
+    );
+
+    const activateProcessStep = (stepIndex: number) => {
+      if (!stage) return;
+      const prevStep = Number(stage.dataset.activeStep ?? "0");
+      stage.dataset.activeStep = String(stepIndex);
+
+      if (stepLabel) stepLabel.textContent = String(stepIndex + 1);
+      if (stepTag && stepTags[stepIndex]) {
+        stepTag.textContent = stepTags[stepIndex];
+      }
+
+      allDots.forEach((dot, idx) => {
+        dot.classList.toggle("is-active", idx === stepIndex);
+      });
+
+      const prefersReduced = window.matchMedia(
+        "(prefers-reduced-motion: reduce)",
+      ).matches;
+
+      if (progressBar) {
+        const ratio = (stepIndex + 1) / Math.max(allDetails.length, 1);
+        if (prefersReduced) {
+          progressBar.style.transform = `scaleX(${ratio})`;
+        } else {
+          gsap.to(progressBar, {
+            scaleX: ratio,
+            duration: 0.55,
+            ease: "power3.out",
+          });
+        }
+      }
+
+      if (prefersReduced || prevStep === stepIndex) return;
+
+      const nextVisual = stage.querySelector<HTMLElement>(
+        `[data-visual="${stepIndex}"]`,
+      );
+      if (stageBlob) {
+        gsap.to(stageBlob, {
+          rotation: stepIndex * 45,
+          scale: 1 + (stepIndex % 2) * 0.08,
+          duration: 0.8,
+          ease: "power2.out",
+        });
+      }
+
+      if (nextVisual) {
+        const mainImg = nextVisual.querySelector(".process__visual-main");
+        const floatImgs = nextVisual.querySelectorAll(".process__visual-float");
+
+        if (mainImg) {
+          gsap.fromTo(
+            mainImg,
+            { y: 28, scale: 0.85, opacity: 0 },
+            {
+              y: 0,
+              scale: 1,
+              opacity: 1,
+              duration: 0.55,
+              ease: "back.out(1.5)",
+              overwrite: "auto",
+            },
+          );
+        }
+        if (floatImgs.length) {
+          gsap.fromTo(
+            floatImgs,
+            { scale: 0.5, opacity: 0 },
+            {
+              scale: 1,
+              opacity: 1,
+              duration: 0.5,
+              stagger: 0.08,
+              ease: "back.out(2.1)",
+              delay: 0.1,
+              overwrite: "auto",
+            },
+          );
+        }
+      }
+    };
+
+    allDetails.forEach((details) => {
+      details.addEventListener("toggle", () => {
+        if (!details.open) return;
+        const stepIdx = Number(details.dataset.step ?? "0");
+        activateProcessStep(stepIdx);
+      });
+    });
+
+    allDots.forEach((dot) => {
+      dot.addEventListener("click", () => {
+        const idx = Number(dot.dataset.stepDot ?? "0");
+        const targetDetails = allDetails[idx];
+        if (targetDetails) {
+          targetDetails.open = true;
+        } else {
+          activateProcessStep(idx);
+        }
+      });
     });
   </script>
 
@@ -1029,7 +1989,7 @@ const heroWords = [
 
     .hero__container {
       position: relative;
-      max-width: 1200px;
+      max-width: 1600px;
       margin: 0 auto;
       padding: 0rem 2rem 6rem 2rem;
       display: grid;
@@ -1063,8 +2023,10 @@ const heroWords = [
       display: flex;
       flex-direction: column;
       gap: 0.15em;
-      font-size: 3rem;
+      font-size: 2.6rem;
+      font-weight: 600;
       line-height: 1.2;
+      letter-spacing: -0.01em;
       margin: 0;
       text-transform: none;
     }
@@ -1078,56 +2040,53 @@ const heroWords = [
       color: var(--color-primary);
     }
 
-    /* Stacked grid container locks width & height to the largest phrase,
-       preventing any layout shift when phrases rotate. */
+    /* All phrases stack in one grid cell, so the rotator is always as tall
+       as one line and never pushes the content below it. */
     .hero__rotator {
-      display: inline-grid;
+      display: grid;
       grid-template-areas: "word";
+      justify-items: start;
       align-items: center;
-      perspective: 650px;
-      min-height: 1.25em;
     }
 
     .hero__word {
       grid-area: word;
       display: block;
+      white-space: nowrap; /* a phrase can never wrap and change the height */
       backface-visibility: hidden;
-      transform-origin: 50% 60%;
       will-change: transform, opacity;
     }
 
+    /* Pre-JS / reduced-motion state: only the first phrase is visible */
     .hero__word:not(:first-child) {
       opacity: 0;
+      visibility: hidden;
       pointer-events: none;
     }
 
-    /* Responsive h1 media queries */
+    /* h1 sizes by breakpoint */
     @media (max-width: 1199px) {
       .hero__title {
-        font-size: 2.25rem;
+        font-size: 2.1rem;
       }
     }
-
     @media (max-width: 767px) {
       .hero__header {
         margin-bottom: 1.75rem;
       }
-
       .hero__title {
-        font-size: 1.85rem;
+        font-size: 1.75rem;
         line-height: 1.22;
       }
     }
-
     @media (max-width: 480px) {
       .hero__title {
-        font-size: 1.55rem;
+        font-size: 1.5rem;
       }
     }
-
     @media (max-width: 360px) {
       .hero__title {
-        font-size: 1.35rem;
+        font-size: 1.3rem;
       }
     }
 
@@ -1188,31 +2147,25 @@ const heroWords = [
       top: 4%;
     }
 
+    .hero-art__scene {
+      position: absolute;
+      inset: 0;
+      will-change: transform, opacity;
+    }
+
+    /* Pre-JS / reduced-motion state: only the first scene is visible */
+    .hero-art__scene:not(:first-of-type) {
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+    }
+
     .hero-art__main {
-      width: 80%;
-      left: 10%;
-      top: 22%;
       filter: drop-shadow(0 24px 30px rgba(15, 23, 42, 0.2));
     }
 
     .hero-art__float {
       filter: drop-shadow(0 10px 14px rgba(15, 23, 42, 0.15));
-    }
-
-    .hero-art__float--likes {
-      width: 34%;
-      right: -2%;
-      top: 2%;
-    }
-    .hero-art__float--mega {
-      width: 20%;
-      left: -4%;
-      top: 30%;
-    }
-    .hero-art__float--smile {
-      width: 17%;
-      left: 10%;
-      bottom: -2%;
     }
 
     /* BEM: Marquee Element */
@@ -1267,6 +2220,7 @@ const heroWords = [
       border: 1px solid var(--color-border);
       border-radius: var(--radius);
       padding: 1.25rem 1.25rem 1.75rem;
+      will-change: transform;
       transition:
         translate 0.3s ease,
         box-shadow 0.3s ease,
@@ -1276,30 +2230,46 @@ const heroWords = [
     .service-card:hover {
       translate: 0 -6px;
       box-shadow: var(--shadow-lift);
-      border-color: transparent;
+      border-color: rgba(27, 196, 217, 0.35);
     }
 
     .service-card__stage {
-      height: 160px;
+      position: relative;
+      height: 176px;
       border-radius: 12px;
-      background: linear-gradient(160deg, var(--color-cyan-soft), #f3fbfc);
-      display: grid;
-      place-items: center;
+      background:
+        radial-gradient(
+          circle at 50% 50%,
+          rgba(27, 196, 217, 0.18),
+          transparent 70%
+        ),
+        linear-gradient(160deg, var(--color-cyan-soft), #f3fbfc);
       margin-bottom: 1.25rem;
       overflow: hidden;
     }
 
-    .service-card__img {
-      max-width: 72%;
-      max-height: 120px;
-      width: auto;
-      object-fit: contain;
-      transition: transform 0.4s ease;
+    .service-card__stage img {
+      position: absolute;
+      height: auto;
+      will-change: transform;
+      pointer-events: none;
     }
 
-    .service-card:hover .service-card__img,
-    .service-card:hover .brand-art {
-      transform: scale(1.08) rotate(-2deg);
+    .service-card__blob {
+      width: 78%;
+      left: 11%;
+      top: 8%;
+      opacity: 0.55;
+    }
+
+    .service-card__main {
+      filter: drop-shadow(0 14px 18px rgba(15, 23, 42, 0.16));
+      z-index: 1;
+    }
+
+    .service-card__accent {
+      filter: drop-shadow(0 8px 12px rgba(15, 23, 42, 0.18));
+      z-index: 2;
     }
 
     .service-card__title {
@@ -1312,35 +2282,6 @@ const heroWords = [
       color: var(--color-muted);
       line-height: 1.6;
       font-size: 0.95rem;
-    }
-
-    /* Branding: composed from bounding box + heart + cursor assets */
-    .brand-art {
-      position: relative;
-      width: 110px;
-      height: 110px;
-      transition: transform 0.4s ease;
-    }
-
-    .brand-art img {
-      position: absolute;
-    }
-    .brand-art__box {
-      inset: 0;
-      width: 100%;
-      height: 100%;
-    }
-    .brand-art__heart {
-      width: 52%;
-      left: 24%;
-      top: 22%;
-      height: auto;
-    }
-    .brand-art__cursor {
-      width: 26%;
-      right: -10%;
-      bottom: -10%;
-      height: auto;
     }
 
     .services__cta {
@@ -1364,22 +2305,41 @@ const heroWords = [
       padding: 0 0.5rem;
     }
 
-    .value__icon {
-      width: 120px;
-      height: 120px;
+    .value__medallion {
+      position: relative;
+      width: 136px;
+      height: 136px;
       margin: 0 auto 1.25rem;
+      display: grid;
+      place-items: center;
+    }
+
+    .value__orbit {
+      position: absolute;
+      inset: 0;
+      border-radius: 50%;
+      border: 2px dashed rgba(27, 196, 217, 0.45);
+      pointer-events: none;
+    }
+
+    .value__icon {
+      width: 116px;
+      height: 116px;
       border-radius: 50%;
       background: var(--color-light);
       display: grid;
       place-items: center;
       box-shadow: var(--shadow-card);
+      position: relative;
+      z-index: 1;
     }
 
-    .value__icon img {
+    .value__main-img {
       max-width: 70%;
-      max-height: 70px;
+      max-height: 68px;
       width: auto;
       object-fit: contain;
+      filter: drop-shadow(0 8px 12px rgba(15, 23, 42, 0.12));
     }
 
     .value__title {
@@ -1419,8 +2379,8 @@ const heroWords = [
       list-style: none;
       display: flex;
       align-items: center;
-      gap: 1rem;
-      padding: 1.5rem 0;
+      gap: 0.85rem;
+      padding: 1.4rem 0;
       cursor: pointer;
       font-family: var(--font-heading);
       font-size: 1.2rem;
@@ -1443,10 +2403,36 @@ const heroWords = [
       font-size: 0.95rem;
       font-weight: 600;
       box-shadow: 0 0 0 4px var(--color-cyan-soft);
+      transition:
+        background-color 0.3s ease,
+        transform 0.3s ease;
+    }
+
+    .step[open] .step__num {
+      background: var(--color-primary);
+      transform: scale(1.08);
     }
 
     .step__title {
       flex: 1;
+    }
+
+    .step__tag {
+      font-family: var(--font-body);
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: var(--color-cyan-dark);
+      background: var(--color-cyan-soft);
+      padding: 0.25rem 0.65rem;
+      border-radius: 999px;
+    }
+
+    @media (max-width: 540px) {
+      .step__tag {
+        display: none;
+      }
     }
 
     .step__chevron {
@@ -1488,34 +2474,55 @@ const heroWords = [
       overflow: hidden;
       background:
         radial-gradient(
-          circle at 50% 55%,
-          rgba(27, 196, 217, 0.35),
-          transparent 60%
+          circle at 50% 52%,
+          rgba(27, 196, 217, 0.38),
+          transparent 62%
         ),
-        radial-gradient(rgba(255, 255, 255, 0.07) 1px, transparent 1px) 0 0 /
+        radial-gradient(rgba(255, 255, 255, 0.08) 1px, transparent 1px) 0 0 /
           22px 22px,
         #1f1f1f;
       box-shadow: var(--shadow-lift);
     }
 
+    .process__stage-progress {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 5px;
+      background: rgba(255, 255, 255, 0.1);
+      z-index: 4;
+    }
+
+    .process__stage-progress-bar {
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(
+        90deg,
+        var(--color-cyan),
+        var(--color-accent)
+      );
+      transform-origin: 0 50%;
+      transform: scaleX(0.25);
+    }
+
     .process__stage-blob {
       position: absolute;
-      width: 70%;
-      left: 15%;
-      top: 14%;
-      opacity: 0.18;
+      width: 74%;
+      left: 13%;
+      top: 10%;
+      height: auto;
+      opacity: 0.22;
+      pointer-events: none;
     }
 
     .process__visual {
       position: absolute;
       inset: 0;
-      display: grid;
-      place-items: center;
       opacity: 0;
-      transform: scale(0.92) translateY(12px);
-      transition:
-        opacity 0.45s ease,
-        transform 0.45s ease;
+      visibility: hidden;
+      pointer-events: none;
+      transition: opacity 0.35s ease;
     }
 
     .process__stage[data-active-step="0"] [data-visual="0"],
@@ -1523,40 +2530,69 @@ const heroWords = [
     .process__stage[data-active-step="2"] [data-visual="2"],
     .process__stage[data-active-step="3"] [data-visual="3"] {
       opacity: 1;
-      transform: none;
+      visibility: visible;
+    }
+
+    .process__visual img {
+      position: absolute;
+      height: auto;
     }
 
     .process__visual-main {
-      max-width: 40%;
-      max-height: 55%;
-      width: auto;
-      object-fit: contain;
-      filter: drop-shadow(0 24px 30px rgba(0, 0, 0, 0.45));
+      filter: drop-shadow(0 24px 30px rgba(0, 0, 0, 0.5));
+      z-index: 1;
     }
 
-    .process__visual-accent {
+    .process__visual-float {
+      filter: drop-shadow(0 14px 20px rgba(0, 0, 0, 0.42));
+      z-index: 2;
+    }
+
+    .process__stage-footer {
       position: absolute;
-      right: 14%;
-      bottom: 14%;
-      max-width: 26%;
-      max-height: 30%;
-      width: auto;
-      object-fit: contain;
-      filter: drop-shadow(0 14px 20px rgba(0, 0, 0, 0.4));
+      left: 1.25rem;
+      right: 1.25rem;
+      bottom: 1.15rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      z-index: 4;
     }
 
     .process__stage-label {
-      position: absolute;
-      left: 1.25rem;
-      bottom: 1.25rem;
       padding: 0.4rem 0.9rem;
       border-radius: 999px;
-      background: rgba(255, 255, 255, 0.1);
+      background: rgba(255, 255, 255, 0.12);
+      backdrop-filter: blur(6px);
       color: var(--color-light);
-      font-size: 0.8rem;
+      font-size: 0.78rem;
       font-weight: 600;
-      letter-spacing: 0.08em;
+      letter-spacing: 0.06em;
       text-transform: uppercase;
+    }
+
+    .process__stage-dots {
+      display: flex;
+      gap: 0.45rem;
+    }
+
+    .process__dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 999px;
+      border: none;
+      padding: 0;
+      background: rgba(255, 255, 255, 0.28);
+      cursor: pointer;
+      transition:
+        width 0.3s ease,
+        background-color 0.3s ease;
+    }
+
+    .process__dot.is-active {
+      width: 26px;
+      background: var(--color-cyan);
     }
 
     /* ---------- Our Work ---------- */
@@ -1594,8 +2630,8 @@ const heroWords = [
 
     .work__art {
       position: relative;
-      aspect-ratio: 1 / 0.8;
-      max-width: 560px;
+      aspect-ratio: 1 / 0.84;
+      max-width: 580px;
       width: 100%;
       justify-self: center;
     }
@@ -1603,6 +2639,7 @@ const heroWords = [
     .work__art img {
       position: absolute;
       height: auto;
+      will-change: transform;
     }
 
     .work__art-blob {
@@ -1613,22 +2650,50 @@ const heroWords = [
     }
 
     .work__device {
-      filter: drop-shadow(0 26px 30px rgba(0, 0, 0, 0.35));
+      filter: drop-shadow(0 26px 30px rgba(0, 0, 0, 0.38));
     }
     .work__device--monitor {
-      width: 62%;
-      left: 4%;
-      top: 2%;
+      width: 60%;
+      left: 6%;
+      top: 4%;
+      z-index: 1;
     }
     .work__device--laptop {
-      width: 68%;
+      width: 66%;
       right: -2%;
-      bottom: 6%;
+      bottom: 8%;
+      z-index: 2;
     }
     .work__device--phone {
-      width: 20%;
+      width: 19%;
       left: 6%;
-      bottom: 0;
+      bottom: 2%;
+      z-index: 3;
+    }
+
+    .work__badge {
+      filter: drop-shadow(0 14px 20px rgba(0, 0, 0, 0.35));
+      z-index: 4;
+    }
+    .work__badge--likes {
+      width: 26%;
+      right: 2%;
+      top: 6%;
+    }
+    .work__badge--gauge {
+      width: 17%;
+      left: -2%;
+      top: 12%;
+    }
+    .work__badge--growth {
+      width: 20%;
+      right: -4%;
+      bottom: 22%;
+    }
+    .work__badge--smiley {
+      width: 15%;
+      left: 30%;
+      bottom: -2%;
     }
 
     .work__title {
@@ -1704,19 +2769,65 @@ const heroWords = [
       position: relative;
     }
 
-    .feature__media--photo > img:first-child {
-      border-radius: 24px;
-      box-shadow: var(--shadow-lift);
+    .feature__main-img {
       display: block;
       width: 100%;
+      height: auto;
+    }
+
+    .feature__media--photo .feature__main-img {
+      border-radius: 24px;
+    }
+
+    .feature__badge,
+    .feature__satellite {
+      position: absolute;
+      height: auto;
+      filter: drop-shadow(0 14px 20px rgba(15, 23, 42, 0.22));
+      will-change: transform;
+      pointer-events: none;
     }
 
     .feature__badge {
-      position: absolute;
-      width: 22%;
+      width: 21%;
       right: -4%;
       top: -8%;
-      filter: drop-shadow(0 14px 20px rgba(15, 23, 42, 0.25));
+    }
+
+    .feature__satellite--storefront {
+      width: 34%;
+      left: -4%;
+      bottom: -4%;
+    }
+
+    .feature__satellite--likes {
+      width: 24%;
+      right: 2%;
+      top: 4%;
+    }
+
+    .feature__satellite--smiley {
+      width: 14%;
+      left: 6%;
+      top: 4%;
+    }
+
+    .feature__satellite--ads-card {
+      width: 19%;
+      left: -4%;
+      bottom: -6%;
+    }
+
+    .feature__satellite--gauge {
+      width: 15%;
+      left: 4%;
+      top: -6%;
+    }
+
+    .feature__satellite--arrows {
+      width: 19%;
+      right: 4%;
+      bottom: -8%;
     }
 
     .feature__content .section-lead {
@@ -1728,7 +2839,7 @@ const heroWords = [
       padding: 0;
       margin: 0 0 2rem;
       display: grid;
-      gap: 0.85rem;
+      gap: 1.25rem;
     }
 
     .checklist li {
@@ -1889,9 +3000,28 @@ const heroWords = [
     .consult__wave {
       position: absolute;
       top: -1px;
-      left: 0;
-      width: 100%;
-      height: clamp(50px, 8vw, 110px);
+      left: -2%;
+      width: 104%;
+      height: clamp(55px, 8.5vw, 115px);
+      pointer-events: none;
+      animation: consultWaveSway 11s ease-in-out infinite alternate;
+      will-change: transform;
+    }
+
+    .consult__wave-path {
+      will-change: d;
+    }
+
+    @keyframes consultWaveSway {
+      0% {
+        transform: translate3d(0, 0, 0) scaleY(1);
+      }
+      50% {
+        transform: translate3d(1.5%, 2px, 0) scaleY(1.05);
+      }
+      100% {
+        transform: translate3d(-1%, -1px, 0) scaleY(0.96);
+      }
     }
 
     .consult__layout {
@@ -1910,15 +3040,15 @@ const heroWords = [
     .consult__art {
       position: relative;
       width: 100%;
-      max-width: 400px;
-      aspect-ratio: 1.4 / 1;
+      max-width: 420px;
+      aspect-ratio: 1.35 / 1;
       margin-bottom: 1.5rem;
     }
 
     .consult__art::before {
       content: "";
       position: absolute;
-      inset: 2% 12%;
+      inset: 4% 12%;
       border-radius: 50%;
       background: rgba(255, 255, 255, 0.28);
     }
@@ -1928,15 +3058,34 @@ const heroWords = [
       height: auto;
     }
     .consult__art-main {
-      width: 96%;
-      left: 2%;
+      width: 92%;
+      left: 4%;
       top: 16%;
+      z-index: 1;
     }
     .consult__art-float {
-      width: 30%;
-      right: 4%;
+      filter: drop-shadow(0 10px 14px rgba(15, 23, 42, 0.22));
+      z-index: 2;
+    }
+    .consult__art-float--chat {
+      width: 28%;
+      right: 2%;
       top: 0;
-      filter: drop-shadow(0 10px 14px rgba(15, 23, 42, 0.2));
+    }
+    .consult__art-float--megaphone {
+      width: 20%;
+      left: 0;
+      top: 4%;
+    }
+    .consult__art-float--handshake {
+      width: 38%;
+      left: 26%;
+      bottom: -4%;
+    }
+    .consult__art-float--heart {
+      width: 18%;
+      right: 4%;
+      bottom: 2%;
     }
 
     .consult__kicker {
@@ -1995,58 +3144,25 @@ const heroWords = [
       margin: 0 0 1.5rem;
     }
 
-    /* BEM: Contact Modal */
-    .contact-modal {
-      padding: 0;
-      border: none;
-      border-radius: 12px;
-      background: transparent;
-      max-width: 500px;
-      width: 90%;
-    }
-
-    .contact-modal::backdrop {
-      background: rgba(15, 23, 42, 0.7);
-      backdrop-filter: blur(4px);
-    }
-
-    .contact-modal__inner {
-      background: var(--color-light);
-      padding: 2.5rem;
-      border-radius: 12px;
-      position: relative;
-    }
-
-    .contact-modal__close {
-      position: absolute;
-      top: 1rem;
-      right: 1rem;
-      background: transparent;
-      border: none;
-      cursor: pointer;
-      color: #64748b;
-      transition: color 0.2s ease;
-    }
-
-    .contact-modal__close:hover {
-      color: var(--color-primary);
-    }
-
-    .contact-modal__title {
-      color: var(--color-cyan);
-      margin-top: 0;
-      margin-bottom: 1.5rem;
-      font-size: 1.5rem;
-    }
-
     /* Reduced motion: disable CSS-driven movement */
     @media (prefers-reduced-motion: reduce) {
+      .consult__wave {
+        animation: none;
+        left: 0;
+        width: 100%;
+        transform: none;
+      }
+
+      .consult__wave animate {
+        display: none;
+      }
+
       .service-card,
-      .service-card__img,
-      .brand-art,
       .post-card,
       .post-card__media img,
       .process__visual,
+      .process__dot,
+      .step__num,
       .step__chevron,
       .step::details-content {
         transition: none;
