@@ -837,56 +837,49 @@ const heroWords = [
 
     // Motion-heavy effects only run when the user hasn't asked for reduced motion
     mm.add("(prefers-reduced-motion: no-preference)", () => {
-      // 1. Flip-up / Flip-down Headline Rotator
+      // 1. Headline rotator: flips up + fades in, then flips down + fades out
       if (wordEls.length > 1) {
-        gsap.set(wordEls[0], { yPercent: 0, rotationX: 0, opacity: 1 });
-        gsap.set(wordEls.slice(1), {
-          yPercent: 60,
-          rotationX: -75,
-          opacity: 0,
+        const hidden = { yPercent: 60, rotationX: -80, autoAlpha: 0 };
+        const shown = { yPercent: 0, rotationX: 0, autoAlpha: 1 };
+
+        gsap.set(wordEls, {
+          transformPerspective: 650,
+          transformOrigin: "50% 100%", // hinge from the baseline
+          force3D: true,
         });
+        gsap.set(wordEls[0], shown);
+        gsap.set(wordEls.slice(1), hidden);
+
+        const setActive = (active: number) =>
+          wordEls.forEach((el, idx) =>
+            el.setAttribute("aria-hidden", String(idx !== active)),
+          );
 
         const flipTl = gsap.timeline({ repeat: -1 });
-        const holdDuration = 2.2;
 
         wordEls.forEach((current, index) => {
           const nextIndex = (index + 1) % wordEls.length;
           const next = wordEls[nextIndex];
 
-          // Current phrase cleanly flips down and fades out
+          // Current phrase flips down and fades out...
           flipTl.to(
             current,
-            {
-              yPercent: 60,
-              rotationX: -75,
-              opacity: 0,
-              duration: 0.45,
-              ease: "power2.in",
-            },
-            `+=${holdDuration}`,
+            { ...hidden, duration: 0.5, ease: "power2.in" },
+            "+=2.2", // hold time
           );
 
-          // Next phrase cleanly flips up and fades in as current exits
+          // ...while the next phrase flips up and fades in
           flipTl.fromTo(
             next,
-            { yPercent: 60, rotationX: -75, opacity: 0 },
+            hidden,
             {
-              yPercent: 0,
-              rotationX: 0,
-              opacity: 1,
-              duration: 0.55,
+              ...shown,
+              duration: 0.6,
               ease: "power3.out",
               immediateRender: false,
-              onStart: () => {
-                wordEls.forEach((el, idx) =>
-                  el.setAttribute(
-                    "aria-hidden",
-                    idx === nextIndex ? "false" : "true",
-                  ),
-                );
-              },
+              onStart: () => setActive(nextIndex),
             },
-            "<0.2",
+            "<0.25",
           );
         });
       }
@@ -1063,8 +1056,10 @@ const heroWords = [
       display: flex;
       flex-direction: column;
       gap: 0.15em;
-      font-size: 3rem;
+      font-size: 2.6rem;
+      font-weight: 600;
       line-height: 1.2;
+      letter-spacing: -0.01em;
       margin: 0;
       text-transform: none;
     }
@@ -1078,57 +1073,43 @@ const heroWords = [
       color: var(--color-primary);
     }
 
-    /* Stacked grid container locks width & height to the largest phrase,
-       preventing any layout shift when phrases rotate. */
+    /* All phrases stack in one grid cell, so the rotator is always as tall
+       as one line and never pushes the content below it. */
     .hero__rotator {
-      display: inline-grid;
+      display: grid;
       grid-template-areas: "word";
+      justify-items: start;
       align-items: center;
-      perspective: 650px;
-      min-height: 1.25em;
     }
 
     .hero__word {
       grid-area: word;
       display: block;
+      white-space: nowrap; /* a phrase can never wrap and change the height */
       backface-visibility: hidden;
-      transform-origin: 50% 60%;
       will-change: transform, opacity;
     }
 
+    /* Pre-JS / reduced-motion state: only the first phrase is visible */
     .hero__word:not(:first-child) {
       opacity: 0;
+      visibility: hidden;
       pointer-events: none;
     }
 
-    /* Responsive h1 media queries */
+    /* h1 sizes by breakpoint */
     @media (max-width: 1199px) {
-      .hero__title {
-        font-size: 2.25rem;
-      }
+      .hero__title { font-size: 2.1rem; }
     }
-
     @media (max-width: 767px) {
-      .hero__header {
-        margin-bottom: 1.75rem;
-      }
-
-      .hero__title {
-        font-size: 1.85rem;
-        line-height: 1.22;
-      }
+      .hero__header { margin-bottom: 1.75rem; }
+      .hero__title  { font-size: 1.75rem; line-height: 1.22; }
     }
-
     @media (max-width: 480px) {
-      .hero__title {
-        font-size: 1.55rem;
-      }
+      .hero__title { font-size: 1.5rem; }
     }
-
     @media (max-width: 360px) {
-      .hero__title {
-        font-size: 1.35rem;
-      }
+      .hero__title { font-size: 1.3rem; }
     }
 
     .hero__actions {
