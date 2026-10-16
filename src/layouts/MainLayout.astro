@@ -1,0 +1,367 @@
+---
+import 'material-symbols/outlined.css';
+import '../styles/global.css'; // Assuming your global variables are here
+const { title = 'Goodrep Media', description = 'Grow your business with Goodrep Media.' } = Astro.props;
+const year = new Date().getFullYear();
+---
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <!-- Brand fonts (declared in global.css) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&family=Poppins:wght@500;600;700&display=swap"
+    />
+  </head>
+  <body id="top">
+    <!-- Global Header -->
+    <header class="global-header">
+      <nav class="global-nav" aria-label="Primary">
+        <a href="/" class="brand" aria-label="Good Rep Media home">
+          <span class="brand__mark">
+            <img src="/goodrep-media-favicon-white.webp" alt="" width="150" height="150" />
+          </span>
+          <span class="brand__text">
+            <span class="brand__name">GOOD REP</span>
+            <span class="brand__sub">MEDIA</span>
+          </span>
+        </a>
+        <div class="global-nav__links">
+          <a href="/#services">Services</a>
+          <a href="/#process">Process</a>
+          <a href="/#work">Our Work</a>
+          <a href="/blog">Insights</a>
+        </div>
+        <a href="/#consultation" class="btn btn--primary global-nav__cta">Book a Call</a>
+      </nav>
+    </header>
+
+    <!-- Page Content Injected Here -->
+    <slot />
+
+    <!-- Global Footer -->
+    <footer class="global-footer">
+      <div class="global-footer__grid">
+        <div class="global-footer__brand">
+          <a href="/" class="brand brand--footer" aria-label="Good Rep Media home">
+            <img class="brand__logo" src="/goodrep-media-favicon-white.webp" alt="" width="150" height="150" loading="lazy" />
+            <span class="brand__text">
+              <span class="brand__name">GOOD REP</span>
+              <span class="brand__sub">MEDIA</span>
+            </span>
+          </a>
+          <p>Good Rep Media is a digital marketing agency for small and local businesses located in Grand Rapids, MI.</p>
+          <p class="global-footer__sms">
+            <span class="material-symbols-outlined" aria-hidden="true">smartphone</span>
+            Text JOIN to 49872 for Exclusive Offers &amp; Updates. Msg freq varies.
+          </p>
+          <p class="global-footer__fine">
+            Recurring Msgs. Reply HELP for Help. Reply STOP to opt out. Msg &amp; Data rates may apply.
+          </p>
+        </div>
+
+        <div class="global-footer__col">
+          <h2 class="global-footer__heading">Resources</h2>
+          <ul>
+            <li><a href="/#work">Our Work</a></li>
+            <li><a href="/#process">Our Process</a></li>
+            <li><a href="/blog">Knowledge Center</a></li>
+            <li><a href="/#consultation">Contact Us</a></li>
+          </ul>
+        </div>
+
+        <div class="global-footer__col">
+          <h2 class="global-footer__heading">Services</h2>
+          <ul>
+            <li><a href="/#services">Website Design</a></li>
+            <li><a href="/#services">Local SEO</a></li>
+            <li><a href="/#services">Technical SEO</a></li>
+            <li><a href="/#services">Digital Media</a></li>
+          </ul>
+        </div>
+
+        <div class="global-footer__col">
+          <h2 class="global-footer__heading">Help</h2>
+          <ul class="global-footer__contact">
+            <li>
+              <span class="material-symbols-outlined" aria-hidden="true">call</span>
+              <a href="tel:+16163009868">(616) 300-9868</a>
+            </li>
+            <li>
+              <span class="material-symbols-outlined" aria-hidden="true">mail</span>
+              <a href="mailto:team@goodrep.media">team@goodrep.media</a>
+            </li>
+            <li>
+              <span class="material-symbols-outlined" aria-hidden="true">location_on</span>
+              <span>O-745 Lake Michigan Dr. NW, Grand Rapids, MI 49534</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="global-footer__bottom">
+        <p>&copy; {year} Goodrep Media. All rights reserved.</p>
+      </div>
+    </footer>
+
+    <a href="#top" class="back-to-top" aria-label="Back to top">
+      <span class="material-symbols-outlined" aria-hidden="true">keyboard_arrow_up</span>
+    </a>
+  </body>
+</html>
+
+<style>
+  body {
+    margin: 0;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* ---------- Header ---------- */
+  .global-header {
+    background: rgba(255, 255, 255, 0.92);
+    backdrop-filter: saturate(1.4) blur(10px);
+    border-bottom: 1px solid var(--color-border);
+    position: sticky;
+    top: 0;
+    z-index: 50;
+  }
+
+  .global-nav {
+    max-width: var(--container);
+    height: var(--header-h);
+    box-sizing: border-box;
+    margin: 0 auto;
+    padding: 0 2rem;
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+  }
+
+  .brand {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    text-decoration: none;
+    color: var(--color-dark);
+    margin-right: auto;
+  }
+
+  /* The GR mark is white, so it sits on a charcoal tile in the light header */
+  .brand__mark {
+    display: grid;
+    place-items: center;
+    width: 42px;
+    height: 42px;
+    border-radius: 10px;
+    background: var(--color-dark);
+  }
+
+  .brand__mark img {
+    width: 30px;
+    height: 30px;
+  }
+
+  .brand__text {
+    display: flex;
+    flex-direction: column;
+    line-height: 1;
+    font-family: var(--font-heading);
+  }
+
+  .brand__name {
+    font-weight: 700;
+    font-size: 1.2rem;
+    letter-spacing: 0.02em;
+  }
+
+  .brand__sub {
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.35em;
+    color: var(--color-cyan);
+    margin-top: 3px;
+  }
+
+  .global-nav__links {
+    display: none;
+    gap: 2rem;
+  }
+
+  .global-nav__links a {
+    color: var(--color-dark);
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.95rem;
+    position: relative;
+    padding: 0.25rem 0;
+    transition: color 0.2s ease;
+  }
+
+  .global-nav__links a::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -2px;
+    width: 100%;
+    height: 2px;
+    background: var(--color-cyan);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.25s ease;
+  }
+
+  .global-nav__links a:hover {
+    color: var(--color-cyan-dark);
+  }
+
+  .global-nav__links a:hover::after {
+    transform: scaleX(1);
+  }
+
+  .global-nav__cta {
+    padding: 0.6rem 1.4rem;
+    font-size: 0.9rem;
+  }
+
+  @media (min-width: 860px) {
+    .global-nav__links { display: flex; }
+  }
+
+  /* ---------- Footer ---------- */
+  .global-footer {
+    margin-top: auto;
+    background: var(--color-darker);
+    color: #d4d4d4;
+    font-size: 0.9rem;
+  }
+
+  .global-footer__grid {
+    max-width: var(--container);
+    margin: 0 auto;
+    padding: 4rem 2rem 3rem;
+    display: grid;
+    gap: 2.5rem;
+    grid-template-columns: 1fr;
+  }
+
+  @media (min-width: 640px) {
+    .global-footer__grid { grid-template-columns: 1fr 1fr; }
+  }
+
+  @media (min-width: 1024px) {
+    .global-footer__grid { grid-template-columns: 1.6fr 1fr 1fr 1.3fr; }
+  }
+
+  .global-footer p {
+    line-height: 1.6;
+    margin: 0 0 1rem;
+  }
+
+  .brand--footer {
+    color: var(--color-light);
+    margin-bottom: 1.25rem;
+  }
+
+  .brand__logo {
+    width: 44px;
+    height: 44px;
+  }
+
+  .global-footer__sms {
+    display: flex;
+    gap: 0.5rem;
+    color: var(--color-cyan);
+  }
+
+  .global-footer__sms .material-symbols-outlined {
+    font-size: 1.2rem;
+  }
+
+  .global-footer__fine {
+    font-size: 0.8rem;
+    color: #a3a3a3;
+  }
+
+  .global-footer__heading {
+    color: var(--color-light);
+    font-size: 0.85rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    margin: 0.5rem 0 1.25rem;
+  }
+
+  .global-footer ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: 0.85rem;
+  }
+
+  .global-footer a {
+    color: #d4d4d4;
+    text-decoration: none;
+    transition: color 0.2s ease;
+  }
+
+  .global-footer a:hover {
+    color: var(--color-cyan);
+  }
+
+  .global-footer__contact li {
+    display: flex;
+    gap: 0.75rem;
+    align-items: flex-start;
+    line-height: 1.5;
+  }
+
+  .global-footer__contact .material-symbols-outlined {
+    font-size: 1.2rem;
+    color: var(--color-light);
+  }
+
+  .global-footer__bottom {
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    text-align: center;
+    padding: 1.5rem 2rem;
+    color: #8a8a8a;
+    font-size: 0.8rem;
+  }
+
+  .global-footer__bottom p {
+    margin: 0;
+  }
+
+  /* ---------- Back to top ---------- */
+  .back-to-top {
+    position: fixed;
+    right: 1.5rem;
+    bottom: 1.5rem;
+    z-index: 40;
+    width: 48px;
+    height: 48px;
+    display: grid;
+    place-items: center;
+    border-radius: 50%;
+    background: var(--color-light);
+    color: var(--color-cyan);
+    border: 2px solid var(--color-cyan);
+    box-shadow: var(--shadow-card);
+    text-decoration: none;
+    transition: transform 0.2s ease, background-color 0.2s ease, color 0.2s ease;
+  }
+
+  .back-to-top:hover {
+    background: var(--color-cyan);
+    color: var(--color-light);
+    transform: translateY(-3px);
+  }
+</style>

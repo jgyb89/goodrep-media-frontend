@@ -1,29 +1,32 @@
 ---
 import DOMPurify from 'isomorphic-dompurify';
 import { fetchWP } from '../../lib/api.js';
+import LeadForm from '../../components/LeadForm.jsx';
+import MainLayout from '../../layouts/MainLayout.astro';
+import '../../styles/gutenberg.css';
 
 export async function getStaticPaths() {
   try {
     const data = await fetchWP(`
       query AllPosts {
-        posts {
+        posts(first: 1000) {
           nodes {
             slug
           }
         }
       }
     `);
-    return (data?.posts?.nodes || []).map((post) => ({
+    return (data?.posts?.nodes || []).map((post: { slug: string }) => ({
       params: { slug: post.slug },
     }));
-  } catch (error) {
+  } catch (error: any) {
     console.warn('Could not fetch posts during getStaticPaths():', error?.message || error);
     return [];
   }
 }
 
 const { slug } = Astro.params;
-let post = null;
+let post: any = null;
 
 try {
   const data = await fetchWP(`
@@ -39,26 +42,76 @@ try {
     }
   `, { id: slug });
   post = data?.post;
-} catch (error) {
+} catch (error: any) {
   console.warn(`Could not fetch post data for slug "${slug}":`, error?.message || error);
 }
 
-// Aggressively scrub raw WordPress HTML before injection
 const sanitizedContent = post?.content ? DOMPurify.sanitize(post.content) : '';
 ---
 
-<html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>{post?.seo?.title || post?.title || 'Goodrep Media'}</title>
-    <meta name="description" content={post?.seo?.metaDesc || ''} />
-  </head>
-  <body>
-    <nav>Goodrep Media</nav>
-    <main>
-      <h1>{post?.title}</h1>
-      <article set:html={sanitizedContent} />
+<MainLayout title={post?.seo?.title || post?.title} description={post?.seo?.metaDesc}>
+  <div class="post-layout">
+    <!-- 70% Content Column -->
+    <main class="post-layout__main">
+      <h1 class="post-layout__title">{post?.title}</h1>
+      <!-- Content uses Gutenberg CSS logic via className -->
+      <article class="post-layout__content" set:html={sanitizedContent} />
     </main>
-  </body>
-</html>
+
+    <!-- 30% Sidebar Funnel Column -->
+    <aside class="post-layout__sidebar">
+      <div class="post-layout__sidebar-widget">
+        <h3 class="post-layout__widget-title">Ready to scale?</h3>
+        <p class="post-layout__widget-desc">Book a free consultation with our growth experts today.</p>
+        <LeadForm client:visible />
+      </div>
+    </aside>
+  </div>
+</MainLayout>
+
+<style>
+  /* BEM: Block */
+  .post-layout {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 4rem;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 4rem 2rem;
+  }
+  
+  @media (min-width: 1024px) {
+    .post-layout {
+      grid-template-columns: 7fr 3fr; 
+    }
+  }
+
+  /* BEM: Elements */
+  .post-layout__title {
+    font-size: 2.5rem;
+    line-height: 1.2;
+    color: #0f172a;
+    margin-bottom: 2rem;
+  }
+
+  .post-layout__sidebar-widget {
+    background: #f8fafc;
+    padding: 2.5rem 2rem;
+    border-radius: 12px;
+    border: 1px solid #e2e8f0;
+    position: sticky;
+    top: 2rem;
+  }
+
+  .post-layout__widget-title {
+    font-size: 1.5rem;
+    margin: 0 0 1rem 0;
+    color: #0f172a;
+  }
+
+  .post-layout__widget-desc {
+    color: #475569;
+    margin-bottom: 2rem;
+    line-height: 1.6;
+  }
+</style>

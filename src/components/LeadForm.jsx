@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useId, useState } from 'react';
 import './LeadForm.css';
 
 const SUBMIT_GF_FORM_MUTATION = `
@@ -17,7 +17,9 @@ const SUBMIT_GF_FORM_MUTATION = `
   }
 `;
 
-export default function LeadForm({ formId = 15 }) {
+export default function LeadForm({ formId = 15, submitLabel = "Let's Talk" }) {
+  // Unique per-instance prefix so ids don't collide when the form renders more than once per page
+  const uid = useId();
   // 1. React state to match Form ID 15 fields
   const [formData, setFormData] = useState({
     firstName: '',
@@ -125,19 +127,21 @@ export default function LeadForm({ formId = 15 }) {
   }
 
   return (
+    <div className="lead-form-wrap">
     <form onSubmit={handleSubmit} className="lead-form" noValidate>
       {status === 'error' && (
-        <div className="lead-form-error" role="alert">
+        <div className="lead-form-error lead-form-field--full" role="alert">
           {errorMessage}
         </div>
       )}
 
       <div className="lead-form-field">
-        <label htmlFor="firstName">First Name</label>
+        <label htmlFor={`${uid}-firstName`}>First Name</label>
         <input
-          id="firstName"
+          id={`${uid}-firstName`}
           type="text"
           name="firstName"
+          autoComplete="given-name"
           value={formData.firstName}
           onChange={handleChange}
           placeholder="First Name"
@@ -147,11 +151,12 @@ export default function LeadForm({ formId = 15 }) {
       </div>
 
       <div className="lead-form-field">
-        <label htmlFor="lastName">Last Name</label>
+        <label htmlFor={`${uid}-lastName`}>Last Name</label>
         <input
-          id="lastName"
+          id={`${uid}-lastName`}
           type="text"
           name="lastName"
+          autoComplete="family-name"
           value={formData.lastName}
           onChange={handleChange}
           placeholder="Last Name"
@@ -161,11 +166,12 @@ export default function LeadForm({ formId = 15 }) {
       </div>
 
       <div className="lead-form-field">
-        <label htmlFor="email">Email</label>
+        <label htmlFor={`${uid}-email`}>Email</label>
         <input
-          id="email"
+          id={`${uid}-email`}
           type="email"
           name="email"
+          autoComplete="email"
           value={formData.email}
           onChange={handleChange}
           placeholder="you@company.com"
@@ -175,11 +181,12 @@ export default function LeadForm({ formId = 15 }) {
       </div>
 
       <div className="lead-form-field">
-        <label htmlFor="phone">Phone</label>
+        <label htmlFor={`${uid}-phone`}>Phone</label>
         <input
-          id="phone"
+          id={`${uid}-phone`}
           type="tel"
           name="phone"
+          autoComplete="tel"
           value={formData.phone}
           onChange={handleChange}
           placeholder="(555) 000-0000"
@@ -187,12 +194,13 @@ export default function LeadForm({ formId = 15 }) {
         />
       </div>
 
-      <div className="lead-form-field">
-        <label htmlFor="company">Company</label>
+      <div className="lead-form-field lead-form-field--full">
+        <label htmlFor={`${uid}-company`}>Company</label>
         <input
-          id="company"
+          id={`${uid}-company`}
           type="text"
           name="company"
+          autoComplete="organization"
           value={formData.company}
           onChange={handleChange}
           placeholder="Company Name"
@@ -200,10 +208,10 @@ export default function LeadForm({ formId = 15 }) {
         />
       </div>
 
-      <div className="lead-form-field">
-        <label htmlFor="multipleChoice">What do you need help with?</label>
+      <div className="lead-form-field lead-form-field--full">
+        <label htmlFor={`${uid}-multipleChoice`}>What do you need help with?</label>
         <select
-          id="multipleChoice"
+          id={`${uid}-multipleChoice`}
           name="multipleChoice"
           value={formData.multipleChoice}
           onChange={handleChange}
@@ -216,10 +224,10 @@ export default function LeadForm({ formId = 15 }) {
         </select>
       </div>
 
-      <div className="lead-form-field">
-        <label htmlFor="message">Message</label>
+      <div className="lead-form-field lead-form-field--full">
+        <label htmlFor={`${uid}-message`}>Message</label>
         <textarea
-          id="message"
+          id={`${uid}-message`}
           name="message"
           rows={4}
           value={formData.message}
@@ -229,13 +237,16 @@ export default function LeadForm({ formId = 15 }) {
         />
       </div>
 
-      <button
-        type="submit"
-        disabled={status === 'submitting'}
-        className="lead-form-submit-btn"
-      >
-        {status === 'submitting' ? 'Submitting...' : "Let's Talk"}
-      </button>
+      <div className="lead-form-field--full">
+        <button
+          type="submit"
+          disabled={status === 'submitting'}
+          className="lead-form-submit-btn"
+        >
+          {status === 'submitting' ? 'Submitting...' : submitLabel}
+        </button>
+      </div>
     </form>
+    </div>
   );
 }
