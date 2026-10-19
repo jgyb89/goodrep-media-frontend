@@ -25,36 +25,36 @@
   - **Cutover Step 3 (Wordfence & CORS):** Ensure Wordfence and LiteSpeed allow API requests from the new host / domain for forms (`LeadForm`).
   - **Cutover Step 4 (Build Webhook):** Configure a WordPress publish webhook (e.g. *Deploy Hooks* plugin) to trigger an Astro rebuild whenever marketing publishes a new article.
 
-28: ## 📐 Master Page Templates & Design Consistency Rules
-29: - **Core Principle:** Every group of same-type pages across the site **must** follow a single unified master template design for consistent branding, layout structure, typography, color tokens, and GSAP choreography—swapping in page-specific copy, metrics, and illustrations while preserving the shared look and feel:
-30:   1. **Individual Service Pages (`/services/*`):** Must strictly follow the modular template architecture implemented across [`src/pages/services/web-design.astro`](file:///Users/jamesgreen/software_engineer/goodrep-media-frontend/src/pages/services/web-design.astro), [`ecommerce-web-design.astro`](file:///Users/jamesgreen/software_engineer/goodrep-media-frontend/src/pages/services/ecommerce-web-design.astro), [`email-marketing.astro`](file:///Users/jamesgreen/software_engineer/goodrep-media-frontend/src/pages/services/email-marketing.astro), and [`local-seo.astro`](file:///Users/jamesgreen/software_engineer/goodrep-media-frontend/src/pages/services/local-seo.astro):
-31:      - **Modular Component Breakdown:** Page files (`src/pages/services/*.astro`) are lightweight orchestration shells (~30–40 lines) with zero raw data or inline CSS/scripts. They import structured data from `src/data/*Data.js` and render modular components from `src/components/`:
-32:        - `ServiceHero.astro`: Light background (`var(--color-bg)`) with radial cyan dot grid mask, pill `.breadcrumb`, `.service-hero__kicker`, compact single-line `.service-hero__title-top` (`var(--color-cyan)`) + 3D GSAP rotating `.service-hero__word` (`var(--color-primary)`), `.service-hero__checklist-card` (white card with `4px solid var(--color-cyan)` left border), `.service-hero__actions` (`Contact Us` + `Send Us a Message` modal trigger), multi-layered `.hero-stage` (`/Asset 2.webp` blob + main graphic + 4 floating satellites with pointer parallax), and dark bottom `.marquee` strip (`border-bottom: 4px solid var(--color-cyan)`).
-33:        - `StartsSection.astro`: Multi-plane scroll parallax media stage with blob, floating satellites, glassmorphic `.starts-feature__pill`, and animated SVG circular progress `.mobile-callout`. Supports `mediaFirst` (left/right) layout and `light`/`bg` backgrounds.
-34:        - `StatsBand.astro`: Dark geometric pattern with 50% opacity dark overlay (`linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5))`), `border-top: 4px solid var(--color-cyan)`, glassmorphic `.stat-card` items, live GSAP number counters, and gradient meter bars.
-35:        - `PillarsSection.astro`: 3 horizontal `.pillar-row-card` items (`4px solid var(--color-cyan)` left border, numbered badges, pill tags) paired with multi-plane parallax stage.
-36:        - `ProcessSection.astro`: Native `<details class="step">` accordion with number icons, cyan pill tags, and synchronized dark `.process__stage` with progress bar, rotating blob, multi-layer visual scenes, and step dots.
-37:        - `ReadyBand.astro`: `.ready-band__surface` with 50% opacity dark overlay over the SVG pattern, compelling CTA copy, and `.ready-band__art` (`/grm-partner-with-us.webp` + floating badges).
-38:        - `DeliverablesGrid.astro`: 3-column `.deliverables__grid` of `.deliverable-card` articles featuring `.deliverable-card__medallion` (spinning dashed `.deliverable-card__orbit`, `.deliverable-card__icon-tile`, floating `.deliverable-card__accent`) and `.deliverable-card__metric` pill.
-39:        - `ConsultSection.astro`: Cyan wave section with dual morphing `<svg class="consult__wave">`, floating `.consult__art`, direct phone/email links, and `.consult__card` with `<LeadForm />`.
-40:      - **Isolated Data Layer (`src/data/*.js`):** All copy, steps, statistics, checklist points, and metadata reside cleanly in dedicated JS data files (`webDesignData.js`, `ecommerceWebDesignData.js`, `emailMarketingData.js`, `localSeoData.js`).
-41:      - **Scoped CSS & GSAP Scripts:** Component-specific styles and GSAP timelines (`matchMedia`, `ScrollTrigger`, pointer physics) are encapsulated directly inside each child component's `<style>` and `<script>` tags, preventing cross-page style bleed and eliminating monolithic 3,000-line templates.
-42:   2. **Individual "Our Work" Project Case Study Pages (`/work/[slug]`):** Will follow a dedicated master case study template design for consistency across all portfolio project deep-dives.
-43:   3. **Individual Blog Article Pages (`/blog/[slug]`):** Follow the established 70/30 editorial + sticky conversion sidebar template in `src/pages/blog/[slug].astro`.
-44: 
-45: ## 📌 Active Context & Files
-46: - `src/layouts/MainLayout.astro` -> Global layout wrapper with DRY head metadata, navigation bar, consultation modal, and footer.
-47: - `src/components/LeadForm.jsx` & `src/components/LeadForm.css` -> Interactive React Gravity Form island (Form ID 15) with fallback status feedback.
-48: - `src/components/ServiceHero.astro` -> Reusable service hero with 3D rotator, checklist card, multi-plane parallax stage, and bottom marquee.
-49: - `src/components/StartsSection.astro` -> Reusable spotlight section with multi-plane parallax art, progress ring callout, and checklist.
-50: - `src/components/StatsBand.astro` -> Reusable glassmorphic stats ribbon with 50% overlay, live GSAP number counter, and meters.
-51: - `src/components/PillarsSection.astro` -> Reusable 3-pillar row card layout paired with multi-plane parallax stage.
-52: - `src/components/ProcessSection.astro` -> Reusable interactive accordion synchronized with dark progress stage and scenes.
-53: - `src/components/ReadyBand.astro` -> Reusable dark breakout band with 50% overlay and parallax partner artwork.
-54: - `src/components/DeliverablesGrid.astro` -> Reusable 3-column orbital medallion deliverables/strategies grid.
-55: - `src/components/ConsultSection.astro` -> Reusable morphing SVG wave consultation funnel with floating art and LeadForm.
-56: - `src/data/*.js` -> Dedicated data modules for each service (`webDesignData.js`, `ecommerceWebDesignData.js`, `emailMarketingData.js`, `localSeoData.js`).
-57: - `src/pages/services/*.astro` -> Ultra-compact (~35 line) service page orchestrations importing from `src/data/` and rendering modular components.
+## 📐 Master Page Templates & Design Consistency Rules
+- **Core Principle:** Every group of same-type pages across the site **must** follow a single unified master template design for consistent branding, layout structure, typography, color tokens, and GSAP choreography—swapping in page-specific copy, metrics, and illustrations while preserving the shared look and feel:
+  1. **Individual Service Pages (`/services/*`):** Must strictly follow the modular template architecture implemented across [`src/pages/services/web-design.astro`](file:///Users/jamesgreen/software_engineer/goodrep-media-frontend/src/pages/services/web-design.astro), [`ecommerce-web-design.astro`](file:///Users/jamesgreen/software_engineer/goodrep-media-frontend/src/pages/services/ecommerce-web-design.astro), [`email-marketing.astro`](file:///Users/jamesgreen/software_engineer/goodrep-media-frontend/src/pages/services/email-marketing.astro), and [`local-seo.astro`](file:///Users/jamesgreen/software_engineer/goodrep-media-frontend/src/pages/services/local-seo.astro):
+     - **Modular Component Breakdown:** Page files (`src/pages/services/*.astro`) are lightweight orchestration shells (~30–40 lines) with zero raw data or inline CSS/scripts. They import structured data from `src/data/*Data.js` and render modular components from `src/components/`:
+       - `ServiceHero.astro`: Light background (`var(--color-bg)`) with radial cyan dot grid mask, pill `.breadcrumb`, `.service-hero__kicker`, compact single-line `.service-hero__title-top` (`var(--color-cyan)`) + 3D GSAP rotating `.service-hero__word` (`var(--color-primary)`), `.service-hero__checklist-card` (white card with `4px solid var(--color-cyan)` left border), `.service-hero__actions` (`Contact Us` + `Send Us a Message` modal trigger), multi-layered `.hero-stage` (`/Asset 2.webp` blob + main graphic + 4 floating satellites with pointer parallax), and dark bottom `.marquee` strip (`border-bottom: 4px solid var(--color-cyan)`).
+       - `StartsSection.astro`: Multi-plane scroll parallax media stage with blob, floating satellites, glassmorphic `.starts-feature__pill`, and animated SVG circular progress `.mobile-callout`. Supports `mediaFirst` (left/right) layout and `light`/`bg` backgrounds.
+       - `StatsBand.astro`: Dark geometric pattern with 50% opacity dark overlay (`linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5))`), `border-top: 4px solid var(--color-cyan)`, glassmorphic `.stat-card` items, live GSAP number counters, and gradient meter bars.
+       - `PillarsSection.astro`: 3 horizontal `.pillar-row-card` items (`4px solid var(--color-cyan)` left border, numbered badges, pill tags) paired with multi-plane parallax stage.
+       - `ProcessSection.astro`: Native `<details class="step">` accordion with number icons, cyan pill tags, and synchronized dark `.process__stage` with progress bar, rotating blob, multi-layer visual scenes, and step dots.
+       - `ReadyBand.astro`: `.ready-band__surface` with 50% opacity dark overlay over the SVG pattern, compelling CTA copy, and `.ready-band__art` (`/grm-partner-with-us.webp` + floating badges).
+       - `DeliverablesGrid.astro`: 3-column `.deliverables__grid` of `.deliverable-card` articles featuring `.deliverable-card__medallion` (spinning dashed `.deliverable-card__orbit`, `.deliverable-card__icon-tile`, floating `.deliverable-card__accent`) and `.deliverable-card__metric` pill.
+       - `ConsultSection.astro`: Cyan wave section with dual morphing `<svg class="consult__wave">`, floating `.consult__art`, direct phone/email links, and `.consult__card` with `<LeadForm />`.
+     - **Isolated Data Layer (`src/data/*.js`):** All copy, steps, statistics, checklist points, and metadata reside cleanly in dedicated JS data files (`webDesignData.js`, `ecommerceWebDesignData.js`, `emailMarketingData.js`, `localSeoData.js`).
+     - **Scoped CSS & GSAP Scripts:** Component-specific styles and GSAP timelines (`matchMedia`, `ScrollTrigger`, pointer physics) are encapsulated directly inside each child component's `<style>` and `<script>` tags, preventing cross-page style bleed and eliminating monolithic 3,000-line templates.
+  2. **Individual "Our Work" Project Case Study Pages (`/work/[slug]`):** Will follow a dedicated master case study template design for consistency across all portfolio project deep-dives.
+  3. **Individual Blog Article Pages (`/blog/[slug]`):** Follow the established 70/30 editorial + sticky conversion sidebar template in `src/pages/blog/[slug].astro`.
+
+## 📌 Active Context & Files
+- `src/layouts/MainLayout.astro` -> Global layout wrapper with DRY head metadata, navigation bar, consultation modal, and footer.
+- `src/components/LeadForm.jsx` & `src/components/LeadForm.css` -> Interactive React Gravity Form island (Form ID 15) with fallback status feedback.
+- `src/components/ServiceHero.astro` -> Reusable service hero with 3D rotator, checklist card, multi-plane parallax stage, and bottom marquee.
+- `src/components/StartsSection.astro` -> Reusable spotlight section with multi-plane parallax art, progress ring callout, and checklist.
+- `src/components/StatsBand.astro` -> Reusable glassmorphic stats ribbon with 50% overlay, live GSAP number counter, and meters.
+- `src/components/PillarsSection.astro` -> Reusable 3-pillar row card layout paired with multi-plane parallax stage.
+- `src/components/ProcessSection.astro` -> Reusable interactive accordion synchronized with dark progress stage and scenes.
+- `src/components/ReadyBand.astro` -> Reusable dark breakout band with 50% overlay and parallax partner artwork.
+- `src/components/DeliverablesGrid.astro` -> Reusable 3-column orbital medallion deliverables/strategies grid.
+- `src/components/ConsultSection.astro` -> Reusable morphing SVG wave consultation funnel with floating art and LeadForm.
+- `src/data/*.js` -> Dedicated data modules for each service (`webDesignData.js`, `ecommerceWebDesignData.js`, `emailMarketingData.js`, `localSeoData.js`).
+- `src/pages/services/*.astro` -> Ultra-compact (~35 line) service page orchestrations importing from `src/data/` and rendering modular components.
 
 ## 🧱 Work Breakdown Structure (WBS)
 - [x] Step 1: Initialize Astro project with React and GSAP integrations
@@ -173,10 +173,10 @@
      - **Interactive Accordion & Stage (`.process`):** *"SEO FOR LOCAL BUSINESSES IS A MUST: Why Local SEO is Crucial for Small Business"* 4-step `<details class="step">` accordion (*Capture Active Buyers*, *Stop Being Invisible*, *Build Better Relationships*, *Affordable and Powerful*) synchronized with dark `.process__stage`.
      - **Deliverables & Facts Grids (`.deliverables`):** 9 orbital medallion cards for *"OUR PROCESS: How We Optimize Your Local SEO Long Term"* and 9 orbital medallion cards for *"THE FACTS: Eye-Opening Local SEO Facts"*, separated by the dark `.ready-band` breakout section (*"Improve Your Local SEO Results and Get You More Customers?"* with `/grm-partner-with-us.webp`).
      - **Consultation Funnel (`.consult`):** Dual morphing SVG waves, floating art, and `<LeadForm client:visible submitLabel="Book My Free Local SEO Audit" />`.
-   10. Refactored all Service Pages into a Modular Component Architecture:
+  10. Refactored all Service Pages into a Modular Component Architecture:
       - **Extracted UI Components (`src/components/`):** Created 8 reusable, self-contained Astro components (`ServiceHero.astro`, `StartsSection.astro`, `StatsBand.astro`, `PillarsSection.astro`, `ProcessSection.astro`, `ReadyBand.astro`, `DeliverablesGrid.astro`, and `ConsultSection.astro`).
       - **Isolated Data Layer (`src/data/`):** Created dedicated data files (`webDesignData.js`, `ecommerceWebDesignData.js`, `emailMarketingData.js`, and `localSeoData.js`) containing all metadata, copy, step definitions, metric items, and checklist arrays. Frontmatter in `.astro` service files is completely free of raw content data.
       - **Scoped CSS & GSAP Animations:** Distributed styles and GSAP timelines directly into their respective child components. Scoped query selectors ensure parallax physics, counters, and scroll triggers operate safely without cross-page pollution.
       - **Dramatically Streamlined Page Shells:** Reduced service pages (`web-design.astro`, `ecommerce-web-design.astro`, `email-marketing.astro`, and `local-seo.astro`) from 12,304 lines of monolithic duplicate code down to 148 lines (~35 lines each), achieving a 98.8% codebase reduction while maintaining 100% visual and behavioral parity.
-      - **Build Verification:** Tested and verified with `npm run build`—all 136 pages built cleanly with 0 errors in 9.15s.
-- **Current Objective:** Commit modularization refactor and build out the next service page in Step 7 (`src/pages/services/technical-seo.astro`) using the new modular component and data architecture.
+      - **Build Verification & Git Commit:** Tested and verified with `npm run build`—all 136 pages built cleanly with 0 errors in 9.15s. Committed to `page-productions` branch (`c0d74ef: refactor(services): extract modular UI components, isolate data arrays, and scope styles/scripts`).
+- **Current Objective:** Build out the next service page in Step 7 (`src/pages/services/technical-seo.astro`) using the new modular component and data architecture.
