@@ -1589,7 +1589,7 @@ const deliverables = [
     .service-hero {
       position: relative;
       background-color: var(--color-bg);
-      padding: clamp(2.5rem, 5vw, 4rem) 0 0;
+      padding: clamp(1.75rem, 3.5vw, 2.75rem) 0 0;
       overflow: hidden;
       display: flex;
       flex-direction: column;
@@ -1613,9 +1613,9 @@ const deliverables = [
       z-index: 1;
       display: grid;
       grid-template-columns: 1fr;
-      gap: 3.5rem;
+      gap: 3rem;
       align-items: center;
-      padding-bottom: clamp(3.5rem, 6vw, 5.5rem);
+      padding-bottom: clamp(2rem, 4vw, 3rem);
     }
 
     @media (min-width: 1024px) {
@@ -1682,16 +1682,23 @@ const deliverables = [
       display: flex;
       flex-direction: column;
       gap: 0.1em;
-      font-size: clamp(2.1rem, 4.2vw, 3.2rem);
+      font-size: clamp(1.65rem, 2.7vw, 2.35rem);
       font-weight: 700;
-      line-height: 1.16;
+      line-height: 1.12;
       letter-spacing: -0.015em;
-      margin: 0 0 1.25rem;
+      margin: 0 0 1rem;
     }
 
     .service-hero__title-top {
       color: var(--color-cyan);
       display: block;
+      white-space: nowrap;
+    }
+
+    @media (max-width: 480px) {
+      .service-hero__title-top {
+        white-space: normal;
+      }
     }
 
     .service-hero__rotator {
@@ -1699,6 +1706,7 @@ const deliverables = [
       grid-template-areas: "word";
       justify-items: start;
       align-items: center;
+      min-height: 1.15em;
     }
 
     .service-hero__word {
@@ -1718,9 +1726,9 @@ const deliverables = [
 
     .service-hero__lead {
       color: var(--color-muted);
-      font-size: 1.06rem;
-      line-height: 1.75;
-      margin: 0 0 1.75rem;
+      font-size: 1.04rem;
+      line-height: 1.7;
+      margin: 0 0 1.35rem;
     }
 
     .service-hero__lead strong {
@@ -1732,8 +1740,8 @@ const deliverables = [
       border: 1px solid var(--color-border);
       border-left: 4px solid var(--color-cyan);
       border-radius: 16px;
-      padding: 1.25rem 1.5rem;
-      margin-bottom: 2rem;
+      padding: 1.15rem 1.4rem;
+      margin-bottom: 1.5rem;
       box-shadow: var(--shadow-soft);
     }
 
@@ -2077,6 +2085,7 @@ const deliverables = [
     .stats-band {
       color: var(--color-light);
       background:
+        linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
         url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cg fill='none' stroke='%23ffffff' stroke-opacity='0.045' stroke-width='22' stroke-linecap='round'%3E%3Cpath d='M30 130 L80 30'/%3E%3Cpath d='M110 170 L150 90'/%3E%3C/g%3E%3C/svg%3E"),
         var(--color-darker);
       padding: clamp(4.5rem, 8vw, 6.5rem) 0;
@@ -2428,6 +2437,7 @@ const deliverables = [
     .ready-band__surface {
       color: #e5e5e5;
       background:
+        linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
         url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cg fill='none' stroke='%23ffffff' stroke-opacity='0.045' stroke-width='22' stroke-linecap='round'%3E%3Cpath d='M30 130 L80 30'/%3E%3Cpath d='M110 170 L150 90'/%3E%3C/g%3E%3C/svg%3E"),
         var(--color-dark);
     }

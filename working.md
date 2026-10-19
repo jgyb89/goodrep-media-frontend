@@ -25,6 +25,19 @@
   - **Cutover Step 3 (Wordfence & CORS):** Ensure Wordfence and LiteSpeed allow API requests from the new host / domain for forms (`LeadForm`).
   - **Cutover Step 4 (Build Webhook):** Configure a WordPress publish webhook (e.g. *Deploy Hooks* plugin) to trigger an Astro rebuild whenever marketing publishes a new article.
 
+## 📐 Master Page Templates & Design Consistency Rules
+- **Core Principle:** Every group of same-type pages across the site **must** follow a single unified master template design for consistent branding, layout structure, typography, color tokens, and GSAP choreography—swapping in page-specific copy, metrics, and illustrations while preserving the shared look and feel:
+  1. **Individual Service Pages (`/services/*`):** Must strictly follow [`src/pages/services/web-design.astro`](file:///Users/jamesgreen/software_engineer/goodrep-media-frontend/src/pages/services/web-design.astro) (and [`src/pages/services/ecommerce-web-design.astro`](file:///Users/jamesgreen/software_engineer/goodrep-media-frontend/src/pages/services/ecommerce-web-design.astro)):
+     - **Hero (`.service-hero`):** Light background (`var(--color-bg)`) with radial cyan dot grid mask, pill `.breadcrumb`, `.service-hero__kicker`, compact single-line `.service-hero__title-top` (`var(--color-cyan)`) + 3D GSAP rotating `.service-hero__word` (`var(--color-primary)`), `.service-hero__checklist-card` (white card with `4px solid var(--color-cyan)` left border), `.service-hero__actions` (`Contact Us` + `Send Us a Message` modal trigger), multi-layered `.hero-stage` (`/Asset 2.webp` blob + main graphic + 4 floating satellites with pointer parallax), and dark bottom `.marquee` strip (`border-bottom: 4px solid var(--color-cyan)`).
+     - **Spotlight Feature (`.starts-section` / `.starts-feature`):** Multi-plane scroll parallax media stage with `/Asset 2.webp` blob, floating satellites, glassmorphic `.starts-feature__pill`, and animated SVG circular progress `.mobile-callout`.
+     - **Stats Band (`.stats-band`):** Dark geometric pattern with 50% opacity dark overlay (`linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5))`), `border-top: 4px solid var(--color-cyan)`, glassmorphic `.stat-card` items, live GSAP number counters, and gradient meter bars.
+     - **Interactive Process / Goals (`.process`):** Native `<details class="step">` accordion with number icons, cyan pill tags, and synchronized dark `.process__stage` with progress bar, rotating blob, multi-layer visual scenes, and step dots.
+     - **Ready Breakout Band (`.ready-band`):** `.ready-band__surface` with 50% opacity dark overlay over the SVG pattern, compelling CTA copy, and `.ready-band__art` (`/grm-partner-with-us.webp` + floating badges).
+     - **Deliverables / Strategies Grid (`.deliverables`):** 3-column `.deliverables__grid` of `.deliverable-card` articles featuring `.deliverable-card__medallion` (spinning dashed `.deliverable-card__orbit`, `.deliverable-card__icon-tile`, floating `.deliverable-card__accent`) and `.deliverable-card__metric` pill. When a page requires an additional distinct card section (such as "THE PILLARS" on Email Marketing), it must use the same light/cyan/red design tokens (e.g., `.pillar-row-card` with `4px solid var(--color-cyan)` left border, `.pillar-row-card__tag` pill, and `var(--shadow-soft)`) so it blends seamlessly with the template.
+     - **Consultation Funnel (`.consult`):** Cyan wave section with dual morphing `<svg class="consult__wave">`, floating `.consult__art`, direct phone/email links, and `.consult__card` with `<LeadForm />`.
+  2. **Individual "Our Work" Project Case Study Pages (`/work/[slug]`):** Will follow a dedicated master case study template design for consistency across all portfolio project deep-dives.
+  3. **Individual Blog Article Pages (`/blog/[slug]`):** Follow the established 70/30 editorial + sticky conversion sidebar template in `src/pages/blog/[slug].astro`.
+
 ## 📌 Active Context & Files
 - `src/layouts/MainLayout.astro` -> Global layout wrapper with DRY head metadata, navigation bar, consultation modal, and footer.
 - `src/components/LeadForm.jsx` & `src/components/LeadForm.css` -> Interactive React Gravity Form island (Form ID 15) with fallback status feedback.
@@ -37,6 +50,9 @@
 - `src/pages/blog/index.astro` -> Master blog feed with BEM architecture (`blog-feed`) displaying all published articles from WordPress.
 - `src/pages/blog/[slug].astro` -> Dynamic single blog route with 70/30 funnel layout, DOMPurify XSS sanitization, and sticky `LeadForm` sidebar.
 - `src/pages/services/web-design.astro` -> Flagship master service detail template page (Web Design & Development) upgraded with homepage-caliber GSAP choreography and decomposed multi-layer vector assets.
+- `src/pages/services/ecommerce-web-design.astro` -> eCommerce Web Design service page built on the `web-design.astro` master template.
+- `src/pages/services/email-marketing.astro` -> Email Marketing Services page built on the `web-design.astro` master template.
+- `src/pages/services/local-seo.astro` -> Local SEO Services page built on the `web-design.astro` master template.
 
 ## 🧱 Work Breakdown Structure (WBS)
 - [x] Step 1: Initialize Astro project with React and GSAP integrations
@@ -57,15 +73,18 @@
   - [x] Adjust `ul.checklist` line-height to `2rem` in `services.astro`
   - [x] Fix stats ribbon disappearing text in `work.astro` (eliminated conflicting `data-reveal` and migrated to `gsap.fromTo` with `clearProps: "all"`)
 - [/] Step 7: Build out dedicated individual pages per service (`/services/[service]`): <!-- CURRENTLY WORKING HERE -->
-  - [x] **Web Design & Development** (`src/pages/services/web-design.astro`) — Flagship Master Template
-  - [ ] **Local SEO & Google Maps** (`src/pages/services/local-seo.astro`) — Next Target
-  - [ ] **Technical SEO & Speed** (`src/pages/services/technical-seo.astro`)
-  - [ ] **Paid Search & Social Ads** (`src/pages/services/paid-ads.astro`)
-  - [ ] **Social Media Management** (`src/pages/services/social-media.astro`)
-  - [ ] **Digital Media & Video** (`src/pages/services/digital-media.astro`)
-  - [ ] **E-Commerce & Amazon** (`src/pages/services/amazon-ecommerce.astro`)
-  - [ ] **Link Building & Authority** (`src/pages/services/link-building.astro`)
-  - [ ] **Email & SMS Marketing** (`src/pages/services/email-marketing.astro`)
+  - [x] **Website Design** (`src/pages/services/web-design.astro`) — Flagship Master Template
+  - [x] **eCommerce Web Design** (`src/pages/services/ecommerce-web-design.astro`)
+  - [x] **Email Marketing Services** (`src/pages/services/email-marketing.astro`)
+  - [x] **Local SEO** (`src/pages/services/local-seo.astro`)
+  - [ ] **Technical SEO** (`src/pages/services/technical-seo.astro`)
+  - [ ] **Link Building Services** (`src/pages/services/link-building.astro`)
+  - [ ] **Amazon Marketing Services** (`src/pages/services/amazon-marketing.astro`)
+  - [ ] **Digital Media Production** (`src/pages/services/digital-media.astro`)
+  - [ ] **SMS Marketing** (`src/pages/services/sms-marketing.astro`)
+  - [ ] **Video Production** (`src/pages/services/video-production.astro`)
+  - [ ] **Social Media Marketing** (`src/pages/services/social-media.astro`)
+  - [ ] **Pay-per-click Marketing** (`src/pages/services/paid-ads.astro`)
 - [ ] Step 8: End-to-end responsiveness, accessibility auditing, and performance optimization
 - [ ] Step 9: Production cutover & security lockdown (WordPress subdomain setup, CORS whitelisting, build webhooks)
 
@@ -116,4 +135,40 @@
 - **2026-10-19:**
   1. Created branch `page-productions`, staged all accumulated changes, committed (`feat(work): update project showcase cards and container styling`), and pushed upstream to GitHub.
   2. Updated homepage (`src/pages/index.astro`) "Our Work" section: replaced the composite layered illustration in `.work__art` with [goodrep-our-work-grid.webp](file:///Users/jamesgreen/software_engineer/goodrep-media-frontend/public/Good%20Rep%20Our%20Work%20Website%20Graphics/goodrep-our-work-grid.webp) (`957 × 876`), optimized the frame container, elevation shadow, and hover states.
-- **Current Objective:** Review automated summary plan with user; proceed with Step 7 (`src/pages/services/local-seo.astro`).
+  3. Added global **Services Mega Menu** to `src/layouts/MainLayout.astro`:
+     - Full-width charcoal panel (`#2b2b2b`) with 4 service category columns (*Web Design and Build*, *Search Engine Optimization*, *Digital Media*, and *Paid Media*), white underlined headings, and 12 dedicated `/services/*` route links.
+     - Added active/hover cyan state with a rotating caret and primary red underline on the `Services` trigger (`setupMegaMenu()` with pointer, focus, and `Escape` keyboard support).
+  4. Built out dedicated **eCommerce Web Design** service detail page (`src/pages/services/ecommerce-web-design.astro`):
+     - Completely aligned with the design system, typography, tokens, and layout rhythm of `web-design.astro`.
+     - Mirrored `web-design.astro` styling: pill capsule breadcrumbs, cyan/red rotator headline (`.service-hero__title-top` / `.service-hero__word`), 4px cyan bordered checklist card, multi-plane floating hero composition, dark marquee, `.starts-section` with multi-plane scrub parallax, SVG circular animated mobile callout meter (`.mobile-callout`), dark geometric pattern `.stats-band` with live counter animations, 4-step accordion with interactive stage (`.process__stage`) and progress bar, dark `.ready-band` with parallax art, 6 orbital medallion deliverable cards (`.deliverable-card__orbit`), and the morphing wave consultation funnel (`.consult__wave`).
+     - Extracted and integrated graphics matching the client screenshots: `/GRM Web Graphics/grm-ecommerce-setup.webp`, `grm-ecommerce-store-easy.webp`, `grm-ecommerce-setup-critical.webp`, `/grm-partner-with-us.webp`, and `grm-ecommerce-product-packages.webp`.
+     - Integrated the 4-phase process accordion with client-specified copy (*Research and Onboarding*, *Expert Site Construction*, *Testing and Optimization*, *Seamless Launch*) and synchronized interactive stage.
+     - Verified static build passes cleanly (all 134 pages pre-rendered).
+  5. Updated `.stats-band` background across service pages (`src/pages/services/web-design.astro` and `src/pages/services/ecommerce-web-design.astro`):
+     - Added a 50% opacity dark-color layer (`linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5))`) directly over the SVG geometric pattern in the CSS `background` stack.
+     - Dims the background diagonal pill shapes so they recede softly without affecting the foreground text, statistics numbers, meters, or glassmorphic cards.
+  6. Updated `.ready-band__surface` background across service pages (`src/pages/services/web-design.astro` and `src/pages/services/ecommerce-web-design.astro`):
+     - Added the matching 50% opacity dark-color layer (`linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5))`) over the SVG diagonal background pattern in `.ready-band__surface`.
+     - Subtly softens the background graphics and preserves full foreground readability and art prominence.
+  7. Optimized `.service-hero__title` and rotator sizing across service pages (`src/pages/services/web-design.astro` and `src/pages/services/ecommerce-web-design.astro`):
+     - Scaled headline font size to `clamp(1.65rem, 2.7vw, 2.35rem)` with `line-height: 1.12` and added `white-space: nowrap` to `.service-hero__title-top` so that "Websites Engineered For" and "eCommerce Stores Built For" stay cleanly on a single line without wrapping.
+     - Reduced hero padding and vertical margins to decrease overall hero height, ensuring the key highlights, checklist card, and CTAs remain immediately visible above the fold on initial page load.
+  8. Built and aligned dedicated **Email Marketing Services** page (`src/pages/services/email-marketing.astro`) to strictly follow the `web-design.astro` master template:
+     - Replicated the exact hero layout (`.service-hero` light background with cyan radial dot grid, pill `.breadcrumb`, `.service-hero__kicker`, compact 1-line `.service-hero__title-top` + 3D GSAP rotating `.service-hero__word`, 4px cyan-bordered `.service-hero__checklist-card`, `.service-hero__actions`, multi-plane `.hero-stage` with `/Asset 2.webp` blob + `grm-email-header.webp` + 4 floating satellites, and bottom `.marquee`).
+     - Replicated `.starts-section` multi-plane parallax spotlight for *"Are You Underestimating Email Marketing?"* (`grm-email-importance.webp` + animated `$44+` SVG progress ring `.mobile-callout`).
+     - Replicated `.stats-band` with 50% dark layer over SVG pattern and animated counters (`4,300%`, `$44+`, `60%`, `75%`).
+     - Designed **"THE PILLARS: Why Do Our Email Campaigns Work?"** inside a reversed `.starts-section` (`grm-email-powerful-done-correctly.webp` parallax stage on the right, and 3 horizontal `.pillar-row-card` items on the left featuring `4px solid var(--color-cyan)` left borders, numbered badges, cyan soft icon boxes, and pill tags—visually distinct from the 6-card orbital medallion grid while 100% consistent with `web-design.astro` styling).
+     - Replicated `.process` interactive `<details class="step">` accordion and dark `.process__stage` for *"EMAIL GOALS: Roles of Email Marketing"*.
+     - Replicated `.deliverables` orbital medallion grids (`.deliverable-card__medallion` with spinning `.deliverable-card__orbit` and floating accents) for *"OUR STRATEGIES"* and *"WHY EMAIL: What Can Email Marketing Do?"*, separated by the dark `.ready-band` breakout section (`/grm-partner-with-us.webp`).
+     - Replicated `.consult` funnel with dual morphing SVG wave paths, floating `.consult__art`, and `<LeadForm />`.
+     - Documented the **Master Page Templates & Design Consistency Rules** in `working.md` for all same-type pages (services, our-work project pages, blog posts).
+  9. Built out dedicated **Local SEO** service detail page (`src/pages/services/local-seo.astro`):
+     - Extracted all content from `https://goodrep.media/services/local-seo/` and mapped it strictly to the `web-design.astro` master template.
+     - **Hero (`.service-hero`):** Compact single-line headline (`Local SEO Engineered For` + 3D GSAP rotating words: `"Google Maps Top 3"`, `"High-Intent Local Leads"`, `"50+ Directory Citations"`, `"Nearby Buyer Traffic"`), exact lead copy, 5-point Local SEO checklist card, CTAs, multi-plane `.hero-stage` with `/grm-local-seo.webp` + 4 floating satellites, and dark `.marquee` strip.
+     - **Spotlight (`.starts-section`):** *"MOST COMPANIES DON'T UNDERSTAND... The #1 Local SEO Mistake"* (16% vs. 84% non-branded search insight + *Trust Comes First* narrative) paired with `/GRM Web Graphics/good-rep-media-marketing.webp` parallax stage and animated 72% SVG circular progress `.mobile-callout` (HubSpot stat).
+     - **Stats Band (`.stats-band`):** 50% dark layer over SVG pattern + 4 animated counters (`+200%` 'near me' growth, `93%` local searchers, `76%` visit within 24 hours, `90%` read Google Maps reviews).
+     - **The Pillars (`.pillars-section`):** *"THE PILLARS: How We Boost Local SEO"* featuring 3 `.pillar-row-card` items (*Google Business Profile*, *Get Listed EVERYWHERE*, *Website Development & SEO*) alongside `/grm-attract-users-resources.webp` multi-plane parallax stage.
+     - **Interactive Accordion & Stage (`.process`):** *"SEO FOR LOCAL BUSINESSES IS A MUST: Why Local SEO is Crucial for Small Business"* 4-step `<details class="step">` accordion (*Capture Active Buyers*, *Stop Being Invisible*, *Build Better Relationships*, *Affordable and Powerful*) synchronized with dark `.process__stage`.
+     - **Deliverables & Facts Grids (`.deliverables`):** 9 orbital medallion cards for *"OUR PROCESS: How We Optimize Your Local SEO Long Term"* and 9 orbital medallion cards for *"THE FACTS: Eye-Opening Local SEO Facts"*, separated by the dark `.ready-band` breakout section (*"Improve Your Local SEO Results and Get You More Customers?"* with `/grm-partner-with-us.webp`).
+     - **Consultation Funnel (`.consult`):** Dual morphing SVG waves, floating art, and `<LeadForm client:visible submitLabel="Book My Free Local SEO Audit" />`.
+- **Current Objective:** Build out remaining service pages in Step 7 (`/services/*`) using the `web-design.astro` master template.
