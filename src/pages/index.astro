@@ -976,80 +976,11 @@ const heroSlides = [
       <div class="container work__layout">
         <div class="work__art" aria-hidden="true" data-reveal>
           <img
-            class="work__art-blob"
-            data-work-parallax="24"
-            src="/Asset 2.webp"
-            alt=""
-            width="869"
-            height="663"
-            loading="lazy"
-          />
-          <img
-            class="work__device work__device--monitor"
-            data-work-parallax="-26"
-            src="/Asset 54.webp"
-            alt=""
-            width="506"
-            height="413"
-            loading="lazy"
-          />
-          <img
-            class="work__device work__device--laptop"
-            data-work-parallax="-42"
-            src="/Asset 28.webp"
-            alt=""
-            width="696"
-            height="411"
-            loading="lazy"
-          />
-          <img
-            class="work__device work__device--phone"
-            data-work-parallax="-65"
-            data-float
-            src="/Asset 53.webp"
-            alt=""
-            width="188"
-            height="342"
-            loading="lazy"
-          />
-          <img
-            class="work__badge work__badge--likes"
-            data-work-parallax="-54"
-            data-float
-            src="/Asset 55.webp"
-            alt=""
-            width="197"
-            height="98"
-            loading="lazy"
-          />
-          <img
-            class="work__badge work__badge--gauge"
-            data-work-parallax="-48"
-            data-float
-            src="/Asset 42.webp"
-            alt=""
-            width="148"
-            height="178"
-            loading="lazy"
-          />
-          <img
-            class="work__badge work__badge--growth"
-            data-work-parallax="-70"
-            data-float
-            src="/Asset 4.webp"
-            alt=""
-            width="291"
-            height="419"
-            loading="lazy"
-          />
-          <img
-            class="work__badge work__badge--smiley"
-            data-work-parallax="-36"
-            data-float
-            src="/Asset 9.webp"
-            alt=""
-            width="137"
-            height="162"
+            class="work__art-img"
+            src="/Good Rep Our Work Website Graphics/goodrep-our-work-grid.webp"
+            alt="Good Rep Media portfolio projects showcase grid"
+            width="957"
+            height="876"
             loading="lazy"
           />
         </div>
@@ -2622,78 +2553,34 @@ const heroSlides = [
         grid-template-columns: 1fr 1fr;
         gap: 4rem;
       }
-      /* Device composition breaks out of the top of the band */
       .work__art {
-        margin-top: -9rem;
+        margin-top: -3.5rem;
       }
     }
 
     .work__art {
       position: relative;
-      aspect-ratio: 1 / 0.84;
       max-width: 580px;
       width: 100%;
       justify-self: center;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
 
-    .work__art img {
-      position: absolute;
+    .work__art-img {
+      width: 100%;
       height: auto;
-      will-change: transform;
+      display: block;
+      border-radius: 18px;
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.45);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      transition: transform 0.4s ease, box-shadow 0.4s ease;
     }
 
-    .work__art-blob {
-      width: 90%;
-      left: 5%;
-      top: 6%;
-      opacity: 0.9;
-    }
-
-    .work__device {
-      filter: drop-shadow(0 26px 30px rgba(0, 0, 0, 0.38));
-    }
-    .work__device--monitor {
-      width: 60%;
-      left: 6%;
-      top: 4%;
-      z-index: 1;
-    }
-    .work__device--laptop {
-      width: 66%;
-      right: -2%;
-      bottom: 8%;
-      z-index: 2;
-    }
-    .work__device--phone {
-      width: 19%;
-      left: 6%;
-      bottom: 2%;
-      z-index: 3;
-    }
-
-    .work__badge {
-      filter: drop-shadow(0 14px 20px rgba(0, 0, 0, 0.35));
-      z-index: 4;
-    }
-    .work__badge--likes {
-      width: 26%;
-      right: 2%;
-      top: 6%;
-    }
-    .work__badge--gauge {
-      width: 17%;
-      left: -2%;
-      top: 12%;
-    }
-    .work__badge--growth {
-      width: 20%;
-      right: -4%;
-      bottom: 22%;
-    }
-    .work__badge--smiley {
-      width: 15%;
-      left: 30%;
-      bottom: -2%;
+    .work__art:hover .work__art-img {
+      transform: translateY(-4px);
+      box-shadow: 0 30px 60px -15px rgba(0, 0, 0, 0.55);
     }
 
     .work__title {
