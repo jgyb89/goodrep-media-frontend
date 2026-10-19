@@ -1,13 +1,20 @@
 ---
 import DOMPurify from "isomorphic-dompurify";
-import { fetchWP } from "../../lib/api.js";
+import {
+  fetchWP,
+  getCategories,
+  DEFAULT_CATEGORIES,
+  decodeHtmlEntities,
+} from "../../lib/api.js";
 import MainLayout from "../../layouts/MainLayout.astro";
 import LeadForm from "../../components/LeadForm.jsx";
 import { Image } from "astro:assets";
 
 let posts: any[] = [];
+let wpCategories = DEFAULT_CATEGORIES;
 
 try {
+  wpCategories = await getCategories();
   const data = await fetchWP(`
     query GetBlogFeed {
       posts(first: 200) {
@@ -29,19 +36,38 @@ try {
   `);
   posts = (data?.posts?.nodes || []).map((post: any) => ({
     ...post,
-    excerpt: DOMPurify.sanitize(post.excerpt || "", { ALLOWED_TAGS: [] }),
+    excerpt: decodeHtmlEntities(
+      DOMPurify.sanitize(post.excerpt || "", { ALLOWED_TAGS: [] }),
+    ).trim(),
   }));
 } catch (error: any) {
   console.warn("Could not fetch posts for blog feed:", error?.message || error);
 }
 
+// Compute live counts per category from fetched posts, falling back to WP count
+const categoryCounts = new Map<string, number>();
+for (const post of posts) {
+  for (const cat of post.categories || []) {
+    if (cat?.slug) {
+      categoryCounts.set(cat.slug, (categoryCounts.get(cat.slug) || 0) + 1);
+    }
+  }
+}
+
 const categories = [
-  "All Articles",
-  "Local SEO",
-  "Website Design",
-  "Paid Google Ads",
-  "Social Media",
-  "Lead Generation",
+  {
+    name: "All Articles",
+    slug: "all",
+    count: posts.length > 0 ? posts.length : 127,
+  },
+  ...wpCategories.map((cat: any) => ({
+    name: cat.name,
+    slug: cat.slug,
+    count:
+      posts.length > 0
+        ? (categoryCounts.get(cat.slug) ?? cat.count ?? 0)
+        : (cat.count ?? 0),
+  })),
 ];
 ---
 
@@ -55,22 +81,15 @@ const categories = [
       <div class="blog-hero__content" data-reveal>
         <span class="blog-hero__kicker">KNOWLEDGE CENTER &amp; STRATEGY</span>
         <h1 class="blog-hero__title">
-          Actionable Marketing Insights To <span class="text-cyan">Attract More Customers</span>
+          Actionable Marketing Insights To <span class="text-cyan"
+            >Attract More Customers</span
+          >
         </h1>
         <p class="blog-hero__lead">
-          No fluff, no vanity metrics. Just practical, proven digital marketing guides, search engine optimization breakdowns, and growth tactics for small business owners.
+          No fluff, no vanity metrics. Just practical, proven digital marketing
+          guides, search engine optimization breakdowns, and growth tactics for
+          small business owners.
         </p>
-        <div class="blog-hero__search">
-          <input
-            type="search"
-            class="blog-hero__input"
-            placeholder="Search marketing articles, SEO tips, ads..."
-            aria-label="Search articles"
-          />
-          <button type="button" class="btn btn--primary blog-hero__search-btn">
-            Search
-          </button>
-        </div>
       </div>
 
       <div class="blog-hero__graphic" aria-hidden="true" data-reveal>
@@ -103,84 +122,248 @@ const categories = [
     </div>
   </section>
 
-  <!-- CATEGORY PILLS BAR -->
-  <nav class="blog-nav" aria-label="Article categories">
-    <div class="container blog-nav__container">
-      <div class="blog-nav__pills">
-        {categories.map((cat, idx) => (
-          <button
-            type="button"
-            class:list={["blog-nav__pill", { "is-active": idx === 0 }]}
-          >
-            {cat}
-          </button>
-        ))}
-      </div>
-    </div>
-  </nav>
-
-  <!-- POSTS GRID -->
+  <!-- BLOG FEED & CATEGORY LAYOUT -->
   <section class="section blog-feed">
-    <div class="container">
-      {posts.length > 0 ? (
-        <div class="blog-feed__grid" data-reveal-group>
-          {posts.map((post) => (
-            <article class="post-card">
-              <a
-                class="post-card__media"
-                href={`/blog/${post.slug}`}
-                tabindex="-1"
-                aria-hidden="true"
-              >
-                {post.featuredImage?.node?.sourceUrl ? (
-                  <img
-                    src={post.featuredImage.node.sourceUrl}
-                    alt={post.featuredImage.node.altText || post.title}
-                    loading="lazy"
-                    width="600"
-                    height="375"
-                  />
-                ) : (
-                  <img
-                    class="post-card__placeholder"
-                    src="/Asset 43.webp"
-                    alt=""
-                    loading="lazy"
-                    width="183"
-                    height="237"
-                  />
-                )}
-              </a>
-              <div class="post-card__body">
-                <span class="post-card__tag">Small Business Strategy</span>
-                <h2 class="post-card__title">
-                  <a href={`/blog/${post.slug}`}>{post.title}</a>
-                </h2>
-                <p class="post-card__excerpt" set:html={post.excerpt} />
-                <a
-                  class="post-card__more"
-                  href={`/blog/${post.slug}`}
-                  aria-label={`Read more: ${post.title}`}
+    <div class="container blog-feed__container">
+      <div class="blog-layout">
+        <!-- LEFT SIDEBAR ON DESKTOP (> 980px) / HORIZONTAL PILL BAR ON TABLET & PHONE (<= 980px) -->
+        <aside class="blog-layout__sidebar" aria-label="Article categories">
+          <div class="blog-sidebar__header">Categories</div>
+          <nav class="blog-nav" aria-label="Filter articles by category">
+            <div class="blog-nav__pills" role="group">
+              {
+                categories.map((cat, idx) => (
+                  <button
+                    type="button"
+                    class:list={["blog-nav__pill", { "is-active": idx === 0 }]}
+                    data-category={cat.slug}
+                    data-category-name={cat.name}
+                    aria-pressed={idx === 0 ? "true" : "false"}
+                  >
+                    <span class="blog-nav__pill-label">{cat.name}</span>
+                    <span class="blog-nav__pill-count">{cat.count}</span>
+                  </button>
+                ))
+              }
+            </div>
+          </nav>
+        </aside>
+
+        <!-- RIGHT CONTENT COLUMN (POSTS GRID) -->
+        <div class="blog-layout__main">
+          {
+            posts.length > 0 ? (
+              <>
+                <div class="blog-feed__toolbar" id="blog-filter-toolbar">
+                  <div class="blog-feed__toolbar-left">
+                    <div class="blog-feed__search">
+                      <span
+                        class="material-symbols-outlined blog-feed__search-icon"
+                        aria-hidden="true"
+                      >
+                        search
+                      </span>
+                      <input
+                        type="search"
+                        id="blog-search-input"
+                        class="blog-feed__search-input"
+                        placeholder="Search marketing articles, SEO tips, ads..."
+                        aria-label="Search articles"
+                      />
+                      <button
+                        type="button"
+                        id="blog-search-btn"
+                        class="btn btn--primary blog-feed__search-btn"
+                      >
+                        Search
+                      </button>
+                    </div>
+                    <p class="blog-feed__status" aria-live="polite">
+                      Showing{" "}
+                      <strong id="blog-visible-count">{posts.length}</strong>{" "}
+                      <span id="blog-visible-label">articles</span> in{" "}
+                      <strong id="blog-active-category">All Articles</strong>
+                    </p>
+                  </div>
+                  <button
+                    type="button"
+                    id="blog-reset-btn"
+                    class="blog-feed__reset"
+                    hidden
+                  >
+                    Reset Filters
+                  </button>
+                </div>
+
+                <div
+                  class="blog-feed__grid"
+                  id="blog-posts-grid"
+                  data-reveal-group
                 >
-                  Read Full Guide{" "}
-                  <span class="material-symbols-outlined" aria-hidden="true">
-                    arrow_forward
-                  </span>
+                  {posts.map((post) => {
+                    const catSlugs = (post.categories || [])
+                      .map((c: any) => c.slug)
+                      .filter(Boolean)
+                      .join(",");
+                    const primaryCat = post.primaryCategory || {
+                      name: "Small Business Marketing & Strategy",
+                      slug: "small-business-marketing-strategy",
+                    };
+
+                    return (
+                      <article
+                        class="post-card"
+                        data-categories={catSlugs}
+                        data-search={`${post.title} ${post.excerpt} ${(post.categories || []).map((c: any) => c.name).join(" ")}`.toLowerCase()}
+                      >
+                        <a
+                          class="post-card__media"
+                          href={`/blog/${post.slug}`}
+                          tabindex="-1"
+                          aria-hidden="true"
+                        >
+                          {post.featuredImage?.node?.sourceUrl ? (
+                            <img
+                              src={post.featuredImage.node.sourceUrl}
+                              alt={
+                                post.featuredImage.node.altText || post.title
+                              }
+                              loading="lazy"
+                              width="600"
+                              height="375"
+                            />
+                          ) : (
+                            <img
+                              class="post-card__placeholder"
+                              src="/Asset 43.webp"
+                              alt=""
+                              loading="lazy"
+                              width="183"
+                              height="237"
+                            />
+                          )}
+                        </a>
+                        <div class="post-card__body">
+                          <button
+                            type="button"
+                            class="post-card__tag"
+                            data-filter-category={primaryCat.slug}
+                            title={`Filter by ${primaryCat.name}`}
+                          >
+                            {primaryCat.name}
+                          </button>
+                          <h2 class="post-card__title">
+                            <a href={`/blog/${post.slug}`}>{post.title}</a>
+                          </h2>
+                          <p
+                            class="post-card__excerpt"
+                            set:html={post.excerpt}
+                          />
+                          <a
+                            class="post-card__more"
+                            href={`/blog/${post.slug}`}
+                            aria-label={`Read more: ${post.title}`}
+                          >
+                            Read Full Guide{" "}
+                            <span
+                              class="material-symbols-outlined"
+                              aria-hidden="true"
+                            >
+                              arrow_forward
+                            </span>
+                          </a>
+                        </div>
+                      </article>
+                    );
+                  })}
+                </div>
+
+                <!-- DESKTOP PAGINATION (12 articles per page) -->
+                <nav
+                  class="blog-pagination"
+                  id="blog-pagination"
+                  aria-label="Blog articles pagination"
+                  hidden
+                >
+                  <button
+                    type="button"
+                    class="blog-pagination__btn blog-pagination__btn--prev"
+                    id="blog-pagination-prev"
+                    aria-label="Go to previous page"
+                  >
+                    <span class="material-symbols-outlined" aria-hidden="true">arrow_back</span>
+                    <span>Previous</span>
+                  </button>
+                  <div class="blog-pagination__pages" id="blog-pagination-pages">
+           
+                  </div>
+                  <button
+                    type="button"
+                    class="blog-pagination__btn blog-pagination__btn--next"
+                    id="blog-pagination-next"
+                    aria-label="Go to next page"
+                  >
+                    <span>Next</span>
+                    <span class="material-symbols-outlined" aria-hidden="true">arrow_forward</span>
+                  </button>
+                </nav>
+
+                <!-- MOBILE LOAD MORE (6 articles at a time) -->
+                <div class="blog-load-more" id="blog-load-more" hidden>
+                  <button
+                    type="button"
+                    class="btn blog-load-more__btn"
+                    id="blog-load-more-btn"
+                    aria-controls="blog-posts-grid"
+                  >
+                    <span class="material-symbols-outlined" aria-hidden="true">expand_more</span>
+                    <span>Load More Articles</span>
+                    <span class="blog-load-more__count" id="blog-load-more-count"></span>
+                  </button>
+                  <p class="blog-load-more__status" id="blog-load-more-status" aria-live="polite">
+                  </p>
+                </div>
+
+                <div
+                  class="blog-feed__empty text-center"
+                  id="blog-no-results"
+                  hidden
+                >
+                  <img src="/Asset 43.webp" alt="" width="183" height="237" />
+                  <h2 class="blog-feed__empty-title">
+                    No Matching Articles Found
+                  </h2>
+                  <p class="blog-feed__empty-text">
+                    We couldn't find any articles matching your current category
+                    or search filter. Try clearing your filter to browse all
+                    guides.
+                  </p>
+                  <button
+                    type="button"
+                    id="blog-empty-reset-btn"
+                    class="btn btn--primary"
+                  >
+                    Show All Articles
+                  </button>
+                </div>
+              </>
+            ) : (
+              <div class="blog-feed__empty text-center" data-reveal>
+                <img src="/Asset 43.webp" alt="" width="183" height="237" />
+                <h2 class="blog-feed__empty-title">Articles Coming Soon!</h2>
+                <p class="blog-feed__empty-text">
+                  We are currently updating our knowledge center with new
+                  marketing guides. In the meantime, feel free to book a free
+                  strategy call with our team.
+                </p>
+                <a href="#consultation" class="btn btn--primary">
+                  Book A Strategy Session
                 </a>
               </div>
-            </article>
-          ))}
+            )
+          }
         </div>
-      ) : (
-        <div class="blog-feed__empty text-center" data-reveal>
-          <img src="/Asset 43.webp" alt="" width="183" height="237" />
-          <h2 class="blog-feed__empty-title">Articles Coming Soon!</h2>
-          <p class="blog-feed__empty-text">
-            We are currently updating our knowledge center with new marketing guides. In the meantime, feel free to book a free strategy call with our team.
-          </p>
-          <a href="#consultation" class="btn btn--primary">Book A Strategy Session</a>
-        </div>
-      )}
+      </div>
     </div>
   </section>
 
@@ -189,13 +372,19 @@ const categories = [
     <div class="container sms-ribbon__container" data-reveal>
       <div class="sms-ribbon__content">
         <span class="sms-ribbon__badge">VIP Small Business Circle</span>
-        <h2 class="sms-ribbon__title">Get Proven Growth Strategies Sent Directly to Your Phone</h2>
+        <h2 class="sms-ribbon__title">
+          Get Proven Growth Strategies Sent Directly to Your Phone
+        </h2>
         <p class="sms-ribbon__text">
-          Join hundreds of local Michigan business owners getting weekly tactical tips on SEO, ad spend optimization, and conversion hacks.
+          Join hundreds of local Michigan business owners getting weekly
+          tactical tips on SEO, ad spend optimization, and conversion hacks.
         </p>
         <p class="sms-ribbon__callout">
-          <span class="material-symbols-outlined" aria-hidden="true">smartphone</span>
-          Text <strong>JOIN</strong> to <strong>49872</strong> for Exclusive Marketing Updates.
+          <span class="material-symbols-outlined" aria-hidden="true"
+            >smartphone</span
+          >
+          Text <strong>JOIN</strong> to <strong>49872</strong> for Exclusive Marketing
+          Updates.
         </p>
       </div>
     </div>
@@ -208,15 +397,21 @@ const categories = [
         <p class="consult__kicker">Need personalized guidance?</p>
         <h2 class="consult__title">Book A Free 1-on-1 Marketing Audit</h2>
         <p class="consult__text">
-          Instead of guessing what to fix, let our marketing experts audit your website and local search presence. We'll show you exactly where to focus next.
+          Instead of guessing what to fix, let our marketing experts audit your
+          website and local search presence. We'll show you exactly where to
+          focus next.
         </p>
         <ul class="consult__contact">
           <li>
-            <span class="material-symbols-outlined" aria-hidden="true">call</span>
+            <span class="material-symbols-outlined" aria-hidden="true"
+              >call</span
+            >
             <a href="tel:+16163009868">(616) 300-9868</a>
           </li>
           <li>
-            <span class="material-symbols-outlined" aria-hidden="true">mail</span>
+            <span class="material-symbols-outlined" aria-hidden="true"
+              >mail</span
+            >
             <a href="mailto:team@goodrep.media">team@goodrep.media</a>
           </li>
         </ul>
@@ -229,13 +424,486 @@ const categories = [
     </div>
   </section>
 
-  <!-- GSAP ANIMATIONS -->
+  <!-- GSAP ANIMATIONS & CATEGORY FILTERING -->
   <script>
     import { gsap } from "gsap";
     import { ScrollTrigger } from "gsap/ScrollTrigger";
 
     gsap.registerPlugin(ScrollTrigger);
 
+    // ---------- Category, Search & Responsive Pagination Logic ----------
+    const DESKTOP_PAGE_SIZE = 12;
+    const MOBILE_PAGE_SIZE = 6;
+
+    const pills = Array.from(
+      document.querySelectorAll<HTMLButtonElement>(
+        ".blog-nav__pill[data-category]",
+      ),
+    );
+    const cards = Array.from(
+      document.querySelectorAll<HTMLElement>(".post-card[data-categories]"),
+    );
+    const cardCategoryTags = Array.from(
+      document.querySelectorAll<HTMLButtonElement>("[data-filter-category]"),
+    );
+    const searchInput = document.getElementById(
+      "blog-search-input",
+    ) as HTMLInputElement | null;
+    const searchBtn = document.getElementById("blog-search-btn");
+    const visibleCountEl = document.getElementById("blog-visible-count");
+    const visibleLabelEl = document.getElementById("blog-visible-label");
+    const activeCategoryEl = document.getElementById("blog-active-category");
+    const resetBtn = document.getElementById("blog-reset-btn");
+    const emptyResetBtn = document.getElementById("blog-empty-reset-btn");
+    const noResultsEl = document.getElementById("blog-no-results");
+    const postsGridEl = document.getElementById("blog-posts-grid");
+
+    // Pagination & Load More Elements
+    const paginationEl = document.getElementById("blog-pagination");
+    const paginationPagesEl = document.getElementById("blog-pagination-pages");
+    const prevBtn = document.getElementById(
+      "blog-pagination-prev",
+    ) as HTMLButtonElement | null;
+    const nextBtn = document.getElementById(
+      "blog-pagination-next",
+    ) as HTMLButtonElement | null;
+    const loadMoreContainerEl = document.getElementById("blog-load-more");
+    const loadMoreBtn = document.getElementById(
+      "blog-load-more-btn",
+    ) as HTMLButtonElement | null;
+    const loadMoreCountEl = document.getElementById("blog-load-more-count");
+    const loadMoreStatusEl = document.getElementById("blog-load-more-status");
+
+    let activeCategory = "all";
+    let searchQuery = "";
+    let currentPage = 1;
+    let mobileVisibleCount = MOBILE_PAGE_SIZE;
+    let matchingCards: HTMLElement[] = [];
+
+    function isMobileView(): boolean {
+      return window.innerWidth <= 768;
+    }
+
+    function getPaginationRange(current: number, total: number): (number | string)[] {
+      if (total <= 7) {
+        return Array.from({ length: total }, (_, i) => i + 1);
+      }
+      if (current <= 4) {
+        return [1, 2, 3, 4, 5, "...", total];
+      }
+      if (current >= total - 3) {
+        return [1, "...", total - 4, total - 3, total - 2, total - 1, total];
+      }
+      return [1, "...", current - 1, current, current + 1, "...", total];
+    }
+
+    function renderDesktopPagination(totalPages: number) {
+      if (!paginationEl || !paginationPagesEl || !prevBtn || !nextBtn) return;
+
+      if (totalPages <= 1) {
+        paginationEl.hidden = true;
+        return;
+      }
+      paginationEl.hidden = false;
+
+      prevBtn.disabled = currentPage <= 1;
+      nextBtn.disabled = currentPage >= totalPages;
+
+      paginationPagesEl.innerHTML = "";
+      const range = getPaginationRange(currentPage, totalPages);
+
+      range.forEach((item) => {
+        if (item === "...") {
+          const span = document.createElement("span");
+          span.className = "blog-pagination__ellipsis";
+          span.textContent = "…";
+          span.setAttribute("aria-hidden", "true");
+          paginationPagesEl.appendChild(span);
+        } else {
+          const pageNum = Number(item);
+          const btn = document.createElement("button");
+          btn.type = "button";
+          btn.className = `blog-pagination__page${pageNum === currentPage ? " is-active" : ""}`;
+          btn.textContent = String(pageNum);
+          btn.setAttribute("aria-label", `Page ${pageNum}`);
+          if (pageNum === currentPage) {
+            btn.setAttribute("aria-current", "page");
+          }
+          btn.addEventListener("click", () => {
+            if (pageNum !== currentPage) {
+              goToPage(pageNum);
+            }
+          });
+          paginationPagesEl.appendChild(btn);
+        }
+      });
+    }
+
+    function goToPage(pageNum: number) {
+      currentPage = pageNum;
+      applyFilters(true, false);
+
+      const toolbarEl = document.getElementById("blog-filter-toolbar");
+      if (toolbarEl) {
+        const navOffset = 90;
+        const elPos =
+          toolbarEl.getBoundingClientRect().top + window.scrollY - navOffset;
+        window.scrollTo({ top: Math.max(0, elPos), behavior: "smooth" });
+      }
+    }
+
+    function updateMobileLoadMoreUI() {
+      if (!loadMoreContainerEl || !loadMoreBtn || !loadMoreCountEl) return;
+
+      const total = matchingCards.length;
+      const visibleLimit = Math.min(mobileVisibleCount, total);
+
+      loadMoreContainerEl.hidden = false;
+
+      if (visibleLimit >= total) {
+        loadMoreBtn.hidden = true;
+        if (loadMoreStatusEl) {
+          loadMoreStatusEl.textContent = `Showing all ${total} ${total === 1 ? "article" : "articles"}`;
+        }
+      } else {
+        loadMoreBtn.hidden = false;
+        const remaining = total - visibleLimit;
+        const nextBatch = Math.min(MOBILE_PAGE_SIZE, remaining);
+        loadMoreCountEl.textContent = `(${nextBatch} more)`;
+        if (loadMoreStatusEl) {
+          loadMoreStatusEl.textContent = `Showing ${visibleLimit} of ${total} articles`;
+        }
+      }
+    }
+
+    function applyFilters(animate = true, resetPaging = true) {
+      if (resetPaging) {
+        currentPage = 1;
+        mobileVisibleCount = MOBILE_PAGE_SIZE;
+      }
+
+      const normalizedQuery = searchQuery.trim().toLowerCase();
+
+      matchingCards = cards.filter((card) => {
+        const cardCats = (card.dataset.categories || "")
+          .split(",")
+          .filter(Boolean);
+        const cardSearchText = card.dataset.search || "";
+
+        const matchesCategory =
+          activeCategory === "all" || cardCats.includes(activeCategory);
+        const matchesSearch =
+          !normalizedQuery || cardSearchText.includes(normalizedQuery);
+
+        return matchesCategory && matchesSearch;
+      });
+
+      // Update active category pill UI
+      let activeCategoryName = "All Articles";
+      let matchedPill: HTMLButtonElement | null = null;
+      pills.forEach((pill) => {
+        const isMatch = pill.dataset.category === activeCategory;
+        pill.classList.toggle("is-active", isMatch);
+        pill.setAttribute("aria-pressed", isMatch ? "true" : "false");
+        if (isMatch) {
+          matchedPill = pill;
+          if (pill.dataset.categoryName) {
+            activeCategoryName = pill.dataset.categoryName;
+          }
+        }
+      });
+
+      // On tablet/phone horizontal scroll strip, keep the active pill centered in view
+      if (animate && matchedPill && window.innerWidth <= 980) {
+        (matchedPill as HTMLButtonElement).scrollIntoView({
+          behavior: "smooth",
+          inline: "center",
+          block: "nearest",
+        });
+      }
+
+      // Update active category text in toolbar status
+      if (activeCategoryEl) {
+        activeCategoryEl.textContent = normalizedQuery
+          ? `${activeCategoryName} matching "${searchQuery.trim()}"`
+          : activeCategoryName;
+      }
+
+      const isFiltered = activeCategory !== "all" || normalizedQuery.length > 0;
+      if (resetBtn) {
+        resetBtn.hidden = !isFiltered;
+      }
+
+      // Empty results state
+      if (matchingCards.length === 0) {
+        cards.forEach((card) => {
+          card.hidden = true;
+        });
+        if (postsGridEl && noResultsEl) {
+          postsGridEl.hidden = true;
+          noResultsEl.hidden = false;
+        }
+        if (paginationEl) paginationEl.hidden = true;
+        if (loadMoreContainerEl) loadMoreContainerEl.hidden = true;
+
+        if (visibleCountEl) visibleCountEl.textContent = "0";
+        if (visibleLabelEl) visibleLabelEl.textContent = "articles";
+
+        ScrollTrigger.refresh();
+        return;
+      }
+
+      if (postsGridEl && noResultsEl) {
+        postsGridEl.hidden = false;
+        noResultsEl.hidden = true;
+      }
+
+      const isMobile = isMobileView();
+      let cardsToAnimate: HTMLElement[] = [];
+
+      if (isMobile) {
+        // MOBILE MODE: 6 at a time with "Load More"
+        if (paginationEl) paginationEl.hidden = true;
+
+        const visibleLimit = Math.min(mobileVisibleCount, matchingCards.length);
+        const visibleSet = new Set(matchingCards.slice(0, visibleLimit));
+
+        cards.forEach((card) => {
+          card.hidden = !visibleSet.has(card);
+        });
+
+        updateMobileLoadMoreUI();
+
+        if (visibleCountEl) {
+          visibleCountEl.textContent =
+            matchingCards.length <= MOBILE_PAGE_SIZE
+              ? String(matchingCards.length)
+              : `${visibleLimit} of ${matchingCards.length}`;
+        }
+        if (visibleLabelEl) {
+          visibleLabelEl.textContent =
+            matchingCards.length === 1 ? "article" : "articles";
+        }
+
+        cardsToAnimate = matchingCards.slice(0, visibleLimit);
+      } else {
+        // DESKTOP MODE: 12 per page with numbered pagination
+        if (loadMoreContainerEl) loadMoreContainerEl.hidden = true;
+
+        const totalPages =
+          Math.ceil(matchingCards.length / DESKTOP_PAGE_SIZE) || 1;
+        if (currentPage > totalPages) currentPage = totalPages;
+        if (currentPage < 1) currentPage = 1;
+
+        const startIndex = (currentPage - 1) * DESKTOP_PAGE_SIZE;
+        const endIndex = startIndex + DESKTOP_PAGE_SIZE;
+        const pageCards = matchingCards.slice(startIndex, endIndex);
+        const pageSet = new Set(pageCards);
+
+        cards.forEach((card) => {
+          card.hidden = !pageSet.has(card);
+        });
+
+        renderDesktopPagination(totalPages);
+
+        if (visibleCountEl) {
+          visibleCountEl.textContent =
+            matchingCards.length <= DESKTOP_PAGE_SIZE
+              ? String(matchingCards.length)
+              : `${startIndex + 1}–${Math.min(endIndex, matchingCards.length)} of ${matchingCards.length}`;
+        }
+        if (visibleLabelEl) {
+          visibleLabelEl.textContent =
+            matchingCards.length === 1 ? "article" : "articles";
+        }
+
+        cardsToAnimate = pageCards;
+      }
+
+      // Sync URL query params for shareable URLs
+      const url = new URL(window.location.href);
+      if (activeCategory === "all") {
+        url.searchParams.delete("category");
+      } else {
+        url.searchParams.set("category", activeCategory);
+      }
+      if (!isMobile && currentPage > 1) {
+        url.searchParams.set("page", String(currentPage));
+      } else {
+        url.searchParams.delete("page");
+      }
+      window.history.replaceState({}, "", url.toString());
+
+      // Entrance animation for newly shown cards
+      if (
+        animate &&
+        cardsToAnimate.length > 0 &&
+        !window.matchMedia("(prefers-reduced-motion: reduce)").matches
+      ) {
+        gsap.killTweensOf(cardsToAnimate);
+        gsap.fromTo(
+          cardsToAnimate,
+          { autoAlpha: 0, y: 18 },
+          {
+            autoAlpha: 1,
+            y: 0,
+            duration: 0.35,
+            stagger: { amount: 0.2, from: "start" },
+            ease: "power2.out",
+            clearProps: "all",
+          },
+        );
+      }
+
+      ScrollTrigger.refresh();
+    }
+
+    // Prev / Next button listeners
+    prevBtn?.addEventListener("click", () => {
+      if (currentPage > 1) {
+        goToPage(currentPage - 1);
+      }
+    });
+
+    nextBtn?.addEventListener("click", () => {
+      const totalPages =
+        Math.ceil(matchingCards.length / DESKTOP_PAGE_SIZE) || 1;
+      if (currentPage < totalPages) {
+        goToPage(currentPage + 1);
+      }
+    });
+
+    // Mobile Load More button listener
+    loadMoreBtn?.addEventListener("click", () => {
+      const oldLimit = mobileVisibleCount;
+      mobileVisibleCount += MOBILE_PAGE_SIZE;
+      const newLimit = Math.min(mobileVisibleCount, matchingCards.length);
+
+      const newlyRevealed = matchingCards.slice(oldLimit, newLimit);
+      newlyRevealed.forEach((card) => {
+        card.hidden = false;
+      });
+
+      if (
+        newlyRevealed.length > 0 &&
+        !window.matchMedia("(prefers-reduced-motion: reduce)").matches
+      ) {
+        gsap.fromTo(
+          newlyRevealed,
+          { autoAlpha: 0, y: 20 },
+          {
+            autoAlpha: 1,
+            y: 0,
+            duration: 0.35,
+            stagger: 0.08,
+            ease: "power2.out",
+            clearProps: "all",
+          },
+        );
+      }
+
+      updateMobileLoadMoreUI();
+
+      if (visibleCountEl) {
+        visibleCountEl.textContent = `${newLimit} of ${matchingCards.length}`;
+      }
+
+      ScrollTrigger.refresh();
+    });
+
+    // Category pill listeners
+    pills.forEach((pill) => {
+      pill.addEventListener("click", () => {
+        const selected = pill.dataset.category || "all";
+        if (activeCategory === selected && !searchQuery) return;
+        activeCategory = selected;
+        applyFilters(true, true);
+      });
+    });
+
+    // Post card category badge listeners
+    cardCategoryTags.forEach((tag) => {
+      tag.addEventListener("click", () => {
+        const selected = tag.dataset.filterCategory || "all";
+        activeCategory = selected;
+        applyFilters(true, true);
+        const feedEl = document.querySelector(".blog-feed");
+        feedEl?.scrollIntoView({ behavior: "smooth", block: "start" });
+      });
+    });
+
+    // Search bar listeners
+    if (searchInput) {
+      searchInput.addEventListener("input", () => {
+        searchQuery = searchInput.value;
+        applyFilters(false, true);
+      });
+      searchInput.addEventListener("keydown", (e) => {
+        if (e.key === "Enter") {
+          e.preventDefault();
+          searchQuery = searchInput.value;
+          applyFilters(true, true);
+        }
+      });
+    }
+
+    if (searchBtn && searchInput) {
+      searchBtn.addEventListener("click", () => {
+        searchQuery = searchInput.value;
+        applyFilters(true, true);
+      });
+    }
+
+    function resetAllFilters() {
+      activeCategory = "all";
+      searchQuery = "";
+      if (searchInput) searchInput.value = "";
+      applyFilters(true, true);
+    }
+
+    resetBtn?.addEventListener("click", resetAllFilters);
+    emptyResetBtn?.addEventListener("click", resetAllFilters);
+
+    // Responsive viewport change listener
+    let resizeTimer: any = null;
+    let lastWasMobile = isMobileView();
+
+    window.addEventListener("resize", () => {
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(() => {
+        const currentIsMobile = isMobileView();
+        if (currentIsMobile !== lastWasMobile) {
+          lastWasMobile = currentIsMobile;
+          if (!currentIsMobile) {
+            currentPage = Math.max(
+              1,
+              Math.ceil(mobileVisibleCount / DESKTOP_PAGE_SIZE),
+            );
+          }
+          applyFilters(false, false);
+        }
+      }, 150);
+    });
+
+    // Initialize from URL query parameters (?category= & ?page=)
+    const urlParams = new URLSearchParams(window.location.search);
+    const initialCategory = urlParams.get("category");
+    const initialPage = parseInt(urlParams.get("page") || "1", 10);
+
+    if (
+      initialCategory &&
+      pills.some((p) => p.dataset.category === initialCategory)
+    ) {
+      activeCategory = initialCategory;
+    }
+    if (!isNaN(initialPage) && initialPage > 1) {
+      currentPage = initialPage;
+    }
+
+    // Apply initial pagination and filter state immediately
+    applyFilters(false, false);
+
+    // ---------- Scroll & Entrance Animations ----------
     const mm = gsap.matchMedia();
 
     mm.add("(prefers-reduced-motion: no-preference)", () => {
@@ -279,20 +947,27 @@ const categories = [
         });
       });
 
-      gsap.utils.toArray<HTMLElement>("[data-reveal-group]").forEach((group) => {
-        gsap.from(group.children, {
-          y: 36,
-          opacity: 0,
-          duration: 0.7,
-          stagger: 0.1,
-          ease: "power3.out",
-          scrollTrigger: {
-            trigger: group,
-            start: "top 85%",
-            once: true,
-          },
+      gsap.utils
+        .toArray<HTMLElement>("[data-reveal-group]")
+        .forEach((group) => {
+          gsap.fromTo(
+            group.children,
+            { y: 36, opacity: 0 },
+            {
+              y: 0,
+              opacity: 1,
+              duration: 0.7,
+              stagger: { amount: 0.4 },
+              ease: "power3.out",
+              clearProps: "all",
+              scrollTrigger: {
+                trigger: group,
+                start: "top 85%",
+                once: true,
+              },
+            },
+          );
         });
-      });
     });
   </script>
 
@@ -359,33 +1034,6 @@ const categories = [
       margin: 0 0 2rem;
     }
 
-    .blog-hero__search {
-      display: flex;
-      gap: 0.5rem;
-      max-width: 520px;
-      background: var(--color-light);
-      padding: 0.4rem;
-      border-radius: 12px;
-      border: 1px solid var(--color-border);
-      box-shadow: var(--shadow-card);
-    }
-
-    .blog-hero__input {
-      flex: 1;
-      border: none;
-      padding: 0.6rem 1rem;
-      font-size: 0.95rem;
-      outline: none;
-      background: transparent;
-      color: var(--color-dark);
-      font-family: inherit;
-    }
-
-    .blog-hero__search-btn {
-      padding: 0.6rem 1.4rem;
-      font-size: 0.9rem;
-    }
-
     .blog-hero__graphic {
       display: flex;
       justify-content: center;
@@ -423,44 +1071,89 @@ const categories = [
       bottom: -6%;
     }
 
-    /* ---------- Category Nav ---------- */
-    .blog-nav {
+    /* ---------- Blog Feed & Responsive Category Layout ---------- */
+    .blog-feed {
       background: var(--color-light);
-      border-bottom: 1px solid var(--color-border);
+      padding-top: 0;
+      padding-bottom: 5rem;
+    }
+
+    .blog-feed__container {
+      max-width: 1380px;
+    }
+
+    .blog-layout {
+      display: block;
+    }
+
+    /* Tablet & Phone (<= 980px): Sticky horizontal scrolling pill bar */
+    .blog-layout__sidebar {
       position: sticky;
       top: var(--header-h);
       z-index: 30;
+      background: rgba(255, 255, 255, 0.96);
       backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--color-border);
+      margin: 0 -2rem 2rem;
     }
 
-    .blog-nav__container {
-      padding-top: 0.85rem;
-      padding-bottom: 0.85rem;
-      overflow-x: auto;
-      scrollbar-width: none;
+    .blog-sidebar__header {
+      display: none;
     }
-    .blog-nav__container::-webkit-scrollbar {
+
+    .blog-nav {
+      overflow-x: auto;
+      white-space: nowrap;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+      padding: 0.85rem 2rem;
+    }
+
+    .blog-nav::-webkit-scrollbar {
       display: none;
     }
 
     .blog-nav__pills {
       display: flex;
+      flex-direction: row;
+      flex-wrap: nowrap;
+      align-items: center;
+      justify-content: flex-start;
       gap: 0.5rem;
     }
 
     .blog-nav__pill {
-      display: inline-block;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      flex-shrink: 0;
       font-size: 0.82rem;
       font-weight: 600;
       color: var(--color-dark);
       background: var(--color-bg);
       border: 1px solid var(--color-border);
-      padding: 0.4rem 1rem;
+      padding: 0.44rem 0.95rem;
       border-radius: 999px;
       cursor: pointer;
       white-space: nowrap;
       transition: all 0.2s ease;
       font-family: inherit;
+    }
+
+    .blog-nav__pill-count {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      min-width: 1.45rem;
+      height: 1.35rem;
+      padding: 0 0.38rem;
+      border-radius: 999px;
+      font-size: 0.72rem;
+      font-weight: 700;
+      background: rgba(15, 23, 42, 0.08);
+      color: var(--color-muted);
+      transition: all 0.2s ease;
     }
 
     .blog-nav__pill:hover,
@@ -470,17 +1163,223 @@ const categories = [
       color: var(--color-light);
     }
 
-    /* ---------- Blog Feed ---------- */
-    .blog-feed {
+    .blog-nav__pill:hover .blog-nav__pill-count,
+    .blog-nav__pill.is-active .blog-nav__pill-count {
+      background: rgba(255, 255, 255, 0.22);
+      color: var(--color-light);
+    }
+
+    /* Desktop (> 980px): Posts grid on left + Sticky category list on right */
+    @media (min-width: 981px) {
+      .blog-feed {
+        padding-top: 3.5rem;
+      }
+
+      .blog-layout {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) 265px;
+        gap: 2.5rem;
+        align-items: start;
+      }
+
+      .blog-layout__main {
+        order: 1;
+      }
+
+      .blog-layout__sidebar {
+        order: 2;
+        position: sticky;
+        top: calc(var(--header-h) + 1.5rem);
+        z-index: 10;
+        background: var(--color-bg);
+        backdrop-filter: none;
+        border: 1px solid var(--color-border);
+        border-radius: 16px;
+        margin: 0;
+        padding: 1.2rem 0.85rem;
+      }
+
+      .blog-sidebar__header {
+        display: block;
+        font-family: var(--font-heading);
+        font-size: 0.76rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.12em;
+        color: var(--color-muted);
+        padding: 0 0.75rem 0.75rem;
+        margin-bottom: 0.5rem;
+        border-bottom: 1px solid var(--color-border);
+      }
+
+      .blog-nav {
+        overflow: visible;
+        white-space: normal;
+        padding: 0;
+      }
+
+      .blog-nav__pills {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 0.25rem;
+      }
+
+      .blog-nav__pill {
+        width: 100%;
+        justify-content: space-between;
+        text-align: left;
+        white-space: normal;
+        line-height: 1.35;
+        font-size: 0.84rem;
+        background: transparent;
+        border-color: transparent;
+        border-radius: 10px;
+        padding: 0.55rem 0.75rem;
+      }
+
+      .blog-nav__pill:hover {
+        background: rgba(27, 196, 217, 0.1);
+        border-color: transparent;
+        color: var(--color-cyan-dark);
+      }
+
+      .blog-nav__pill:hover .blog-nav__pill-count {
+        background: rgba(27, 196, 217, 0.18);
+        color: var(--color-cyan-dark);
+      }
+
+      .blog-nav__pill.is-active {
+        background: var(--color-cyan);
+        border-color: var(--color-cyan);
+        color: var(--color-light);
+        box-shadow: 0 6px 16px -4px rgba(27, 196, 217, 0.45);
+      }
+
+      .blog-nav__pill.is-active .blog-nav__pill-count {
+        background: rgba(255, 255, 255, 0.24);
+        color: var(--color-light);
+      }
+    }
+
+    .blog-feed__toolbar {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1.25rem;
+      margin-bottom: 2rem;
+      padding-bottom: 1.25rem;
+      border-bottom: 1px solid var(--color-border);
+    }
+
+    .blog-feed__toolbar-left {
+      display: flex;
+      align-items: center;
+      gap: 1.25rem;
+      flex-wrap: wrap;
+      flex: 1;
+    }
+
+    .blog-feed__search {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
       background: var(--color-light);
-      padding-top: 4rem;
-      padding-bottom: 5rem;
+      border: 1px solid var(--color-border);
+      border-radius: 999px;
+      padding: 0.25rem 0.35rem 0.25rem 0.85rem;
+      box-shadow: var(--shadow-card);
+      width: 100%;
+      max-width: 600px;
+      transition:
+        border-color 0.2s ease,
+        box-shadow 0.2s ease;
+    }
+
+    .blog-feed__search:focus-within {
+      border-color: var(--color-cyan);
+      box-shadow: 0 0 0 3px rgba(27, 196, 217, 0.15);
+    }
+
+    .blog-feed__search-icon {
+      font-size: 1.2rem;
+      color: #94a3b8;
+    }
+
+    .blog-feed__search-input {
+      border: none;
+      outline: none;
+      background: transparent;
+      font-family: inherit;
+      font-size: 0.88rem;
+      color: var(--color-dark);
+      flex: 1;
+      min-width: 120px;
+    }
+
+    .blog-feed__search-btn {
+      padding: 0.42rem 1.15rem;
+      font-size: 0.84rem;
+      border-radius: 999px;
+    }
+
+    .blog-feed__status {
+      margin: 0;
+      font-size: 0.84rem;
+      color: var(--color-muted);
+      line-height: 1.4;
+    }
+
+    .blog-feed__status strong {
+      color: var(--color-dark);
+      font-weight: 600;
+    }
+
+    .blog-feed__reset {
+      background: var(--color-bg);
+      border: 1px solid var(--color-border);
+      color: var(--color-dark);
+      font-family: inherit;
+      font-size: 0.82rem;
+      font-weight: 600;
+      padding: 0.4rem 0.9rem;
+      border-radius: 999px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .blog-feed__reset:hover {
+      border-color: var(--color-cyan);
+      color: var(--color-cyan-dark);
+      background: var(--color-cyan-soft);
     }
 
     .blog-feed__grid {
       display: grid;
-      gap: 2rem;
-      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 1.75rem;
+      grid-template-columns: 1fr;
+    }
+
+    @media (min-width: 640px) {
+      .blog-feed__grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (min-width: 1240px) {
+      .blog-feed__grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+    }
+
+    .blog-feed__grid[hidden],
+    .post-card[hidden],
+    .blog-feed__empty[hidden],
+    .blog-feed__reset[hidden],
+    .blog-pagination[hidden],
+    .blog-load-more[hidden],
+    .blog-load-more__btn[hidden] {
+      display: none !important;
     }
 
     .post-card {
@@ -491,7 +1390,9 @@ const categories = [
       border-radius: 14px;
       overflow: hidden;
       box-shadow: var(--shadow-card);
-      transition: translate 0.3s ease, box-shadow 0.3s ease;
+      transition:
+        translate 0.3s ease,
+        box-shadow 0.3s ease;
     }
 
     .post-card:hover {
@@ -532,12 +1433,25 @@ const categories = [
     }
 
     .post-card__tag {
+      align-self: flex-start;
+      background: none;
+      border: none;
+      padding: 0;
+      font-family: inherit;
       font-size: 0.75rem;
       font-weight: 700;
       text-transform: uppercase;
       letter-spacing: 0.08em;
       color: var(--color-cyan-dark);
       margin-bottom: 0.5rem;
+      cursor: pointer;
+      text-align: left;
+      transition: color 0.2s ease;
+    }
+
+    .post-card__tag:hover {
+      color: var(--color-primary);
+      text-decoration: underline;
     }
 
     .post-card__title {
@@ -605,6 +1519,197 @@ const categories = [
       color: var(--color-muted);
       line-height: 1.7;
       margin-bottom: 2rem;
+    }
+
+    /* ---------- Desktop Pagination & Mobile Load More ---------- */
+    .blog-pagination {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      margin-top: 3rem;
+      padding-top: 2rem;
+      border-top: 1px solid var(--color-border);
+      flex-wrap: wrap;
+    }
+
+    .blog-pagination__btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 0.55rem 1.25rem;
+      border-radius: 999px;
+      border: 1px solid var(--color-border);
+      background: var(--color-light);
+      color: var(--color-dark);
+      font-family: inherit;
+      font-size: 0.88rem;
+      font-weight: 600;
+      cursor: pointer;
+      box-shadow: 0 2px 8px -2px rgba(15, 23, 42, 0.06);
+      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .blog-pagination__btn .material-symbols-outlined {
+      font-size: 1.15rem;
+      transition: transform 0.2s ease;
+    }
+
+    .blog-pagination__btn:hover:not(:disabled) {
+      border-color: var(--color-cyan);
+      color: var(--color-cyan-dark);
+      background: var(--color-cyan-soft);
+      box-shadow: 0 4px 12px rgba(27, 196, 217, 0.2);
+      transform: translateY(-1px);
+    }
+
+    .blog-pagination__btn--prev:hover:not(:disabled) .material-symbols-outlined {
+      transform: translateX(-2px);
+    }
+
+    .blog-pagination__btn--next:hover:not(:disabled) .material-symbols-outlined {
+      transform: translateX(2px);
+    }
+
+    .blog-pagination__btn:disabled {
+      opacity: 0.38;
+      cursor: not-allowed;
+      pointer-events: none;
+      box-shadow: none;
+    }
+
+    .blog-pagination__pages {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.25rem;
+      background: var(--color-light);
+      border: 1px solid var(--color-border);
+      border-radius: 999px;
+      padding: 0.28rem 0.38rem;
+      box-shadow: 0 2px 8px -2px rgba(15, 23, 42, 0.06);
+    }
+
+    :global(.blog-pagination__page) {
+      appearance: none;
+      -webkit-appearance: none;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 2.35rem;
+      height: 2.35rem;
+      padding: 0 0.5rem;
+      border-radius: 999px;
+      border: 1px solid transparent;
+      background: transparent;
+      color: var(--color-dark);
+      font-family: inherit;
+      font-size: 0.9rem;
+      font-weight: 600;
+      line-height: 1;
+      cursor: pointer;
+      user-select: none;
+      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    :global(.blog-pagination__page:hover:not(.is-active)) {
+      background: var(--color-cyan-soft);
+      border-color: transparent;
+      color: var(--color-cyan-dark);
+      transform: translateY(-1px);
+    }
+
+    :global(.blog-pagination__page.is-active) {
+      background: var(--color-cyan);
+      border-color: var(--color-cyan);
+      color: var(--color-light);
+      font-weight: 700;
+      box-shadow: 0 4px 12px -2px rgba(27, 196, 217, 0.45);
+      cursor: default;
+    }
+
+    :global(.blog-pagination__ellipsis) {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 1.75rem;
+      height: 2.35rem;
+      color: var(--color-muted);
+      font-weight: 700;
+      font-size: 0.95rem;
+      letter-spacing: 0.05em;
+      user-select: none;
+    }
+
+    /* Mobile Load More */
+    .blog-load-more {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 0.75rem;
+      margin-top: 2.5rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid var(--color-border);
+      text-align: center;
+    }
+
+    .blog-load-more__btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      width: 100%;
+      max-width: 340px;
+      padding: 0.85rem 1.5rem;
+      font-size: 0.95rem;
+      font-weight: 700;
+      border-radius: 999px;
+      background: var(--color-light);
+      border: 1.5px solid var(--color-cyan);
+      color: var(--color-cyan-dark);
+      cursor: pointer;
+      box-shadow: var(--shadow-card);
+      transition: all 0.2s ease;
+    }
+
+    .blog-load-more__btn .material-symbols-outlined {
+      font-size: 1.25rem;
+      transition: transform 0.2s ease;
+    }
+
+    .blog-load-more__btn:hover {
+      background: var(--color-cyan);
+      color: var(--color-light);
+      box-shadow: 0 6px 18px -3px rgba(27, 196, 217, 0.4);
+    }
+
+    .blog-load-more__btn:hover .material-symbols-outlined {
+      transform: translateY(2px);
+    }
+
+    .blog-load-more__count {
+      font-size: 0.82rem;
+      font-weight: 600;
+      opacity: 0.85;
+    }
+
+    .blog-load-more__status {
+      font-size: 0.82rem;
+      color: var(--color-muted);
+      margin: 0;
+    }
+
+    /* Viewport Display Guarantees */
+    @media (max-width: 768px) {
+      .blog-pagination {
+        display: none !important;
+      }
+    }
+
+    @media (min-width: 769px) {
+      .blog-load-more {
+        display: none !important;
+      }
     }
 
     /* ---------- SMS Ribbon ---------- */
