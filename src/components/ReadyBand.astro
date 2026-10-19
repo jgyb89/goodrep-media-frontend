@@ -1,0 +1,294 @@
+---
+// src/components/ReadyBand.astro
+import { Image } from "astro:assets";
+
+interface BadgeAsset {
+  src: string;
+  alt?: string;
+  width: number;
+  height: number;
+  parallax?: number;
+  className?: string;
+}
+
+interface ReadyArt {
+  blob: { src: string; width: number; height: number; parallax?: number };
+  main: { src: string; alt: string; width: number; height: number; parallax?: number };
+  badges: BadgeAsset[];
+}
+
+interface Props {
+  id?: string;
+  eyebrow?: string;
+  title: string;
+  text: string;
+  primaryCta?: { label: string; href: string };
+  secondaryCta?: { label: string; href: string };
+  art: ReadyArt;
+}
+
+const {
+  id = "ready-band",
+  eyebrow = "ARE YOU READY TO...",
+  title,
+  text,
+  primaryCta = { label: "Contact Us", href: "#consultation" },
+  secondaryCta = { label: "View Work Showcase", href: "/work" },
+  art,
+} = Astro.props;
+
+const paragraphs = text.includes("\n\n") ? text.split("\n\n") : [text];
+---
+
+<section class="ready-band" id={id}>
+  <div class="ready-band__surface">
+    <div class="container ready-band__layout">
+      <div class="ready-band__content" data-reveal>
+        <span class="eyebrow ready-band__eyebrow">{eyebrow}</span>
+        <h2 class="section-title ready-band__title">{title}</h2>
+        {paragraphs.map((p) => (
+          <p class="ready-band__text" set:html={p} />
+        ))}
+        <div class="ready-band__actions">
+          {primaryCta && (
+            <a href={primaryCta.href} class="btn btn--primary">
+              {primaryCta.label}
+            </a>
+          )}
+          {secondaryCta && (
+            <a href={secondaryCta.href} class="btn btn--ghost-light">
+              {secondaryCta.label}
+            </a>
+          )}
+        </div>
+      </div>
+
+      <div class="ready-band__art" aria-hidden="true" data-reveal>
+        {art.blob && (
+          <img
+            class="ready-band__blob"
+            data-ready-parallax={art.blob.parallax ?? 22}
+            src={art.blob.src}
+            alt=""
+            width={art.blob.width}
+            height={art.blob.height}
+            loading="lazy"
+          />
+        )}
+        {art.main && (
+          <Image
+            class="ready-band__main"
+            data-ready-parallax={art.main.parallax ?? -28}
+            src={art.main.src}
+            alt={art.main.alt}
+            width={art.main.width}
+            height={art.main.height}
+            loading="lazy"
+            decoding="async"
+          />
+        )}
+        {
+          art.badges?.map((badge) => (
+            <img
+              class:list={["ready-band__badge", badge.className]}
+              data-ready-parallax={badge.parallax ?? -48}
+              data-float
+              src={badge.src}
+              alt={badge.alt ?? ""}
+              width={badge.width}
+              height={badge.height}
+              loading="lazy"
+            />
+          ))
+        }
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  import { gsap } from "gsap";
+  import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+  gsap.registerPlugin(ScrollTrigger);
+
+  const readyBands = document.querySelectorAll<HTMLElement>(".ready-band");
+  readyBands.forEach((root) => {
+    const mm = gsap.matchMedia();
+    mm.add("(prefers-reduced-motion: no-preference)", () => {
+      // Reveal
+      root.querySelectorAll("[data-reveal]").forEach((el) => {
+        gsap.fromTo(
+          el,
+          { y: 38, opacity: 0 },
+          {
+            y: 0,
+            opacity: 1,
+            duration: 0.85,
+            ease: "power3.out",
+            clearProps: "all",
+            scrollTrigger: {
+              trigger: el,
+              start: "top 85%",
+              once: true,
+            },
+          },
+        );
+      });
+
+      // Multi-plane Scrub Parallax
+      gsap.utils
+        .toArray<HTMLElement>("[data-ready-parallax]", root)
+        .forEach((layer) => {
+          const deltaY = Number(layer.dataset.readyParallax || -30);
+          gsap.fromTo(
+            layer,
+            { y: -deltaY * 0.45 },
+            {
+              y: deltaY * 0.55,
+              ease: "none",
+              scrollTrigger: {
+                trigger: root,
+                start: "top bottom",
+                end: "bottom top",
+                scrub: 0.6,
+              },
+            },
+          );
+        });
+
+      // Float animation
+      root.querySelectorAll<HTMLElement>("[data-float]").forEach((el, i) => {
+        gsap.to(el, {
+          y: -12,
+          rotation: i % 2 ? 3 : -3,
+          duration: 2.4 + (i % 3) * 0.5,
+          ease: "sine.inOut",
+          yoyo: true,
+          repeat: -1,
+          delay: (i % 3) * 0.3,
+        });
+      });
+    });
+  });
+</script>
+
+<style>
+  /* ---------- Ready Breakout Band ---------- */
+  .ready-band {
+    padding-top: clamp(2rem, 5vw, 4rem);
+    background: var(--color-light);
+  }
+
+  .ready-band__surface {
+    color: #e5e5e5;
+    background:
+      linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cg fill='none' stroke='%23ffffff' stroke-opacity='0.045' stroke-width='22' stroke-linecap='round'%3E%3Cpath d='M30 130 L80 30'/%3E%3Cpath d='M110 170 L150 90'/%3E%3C/g%3E%3C/svg%3E"),
+      var(--color-dark);
+  }
+
+  .ready-band__layout {
+    display: grid;
+    gap: 3rem;
+    align-items: center;
+    padding-top: 4rem;
+    padding-bottom: 4.5rem;
+  }
+
+  @media (min-width: 960px) {
+    .ready-band__layout {
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 4rem;
+    }
+    .ready-band__art {
+      margin-top: -6rem;
+    }
+  }
+
+  .ready-band__eyebrow {
+    color: var(--color-cyan);
+  }
+
+  .ready-band__title {
+    color: var(--color-light);
+    margin: 0.25rem 0 1.25rem;
+  }
+
+  .ready-band__text {
+    line-height: 1.8;
+    margin: 0 0 2rem;
+    color: #d4d4d4;
+    font-size: 1.05rem;
+  }
+
+  .ready-band__actions {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+
+  .btn--ghost-light {
+    border: 2px solid rgba(255, 255, 255, 0.25);
+    color: var(--color-light);
+    background: rgba(255, 255, 255, 0.06);
+  }
+
+  .btn--ghost-light:hover {
+    border-color: var(--color-cyan);
+    background: rgba(27, 196, 217, 0.15);
+  }
+
+  .ready-band__art {
+    position: relative;
+    aspect-ratio: 1 / 0.82;
+    max-width: 540px;
+    width: 100%;
+    justify-self: center;
+  }
+
+  .ready-band__art img {
+    position: absolute;
+    height: auto;
+    will-change: transform;
+    pointer-events: none;
+  }
+
+  .ready-band__blob {
+    width: 88%;
+    left: 6%;
+    top: 6%;
+    opacity: 0.85;
+  }
+
+  .ready-band__main {
+    width: 90%;
+    left: 5%;
+    top: 10%;
+    z-index: 1;
+    filter: drop-shadow(0 26px 32px rgba(0, 0, 0, 0.4));
+  }
+
+  .ready-band__badge {
+    z-index: 2;
+    filter: drop-shadow(0 14px 20px rgba(0, 0, 0, 0.35));
+  }
+
+  .ready-band__badge--handshake {
+    width: 34%;
+    left: -2%;
+    bottom: 2%;
+  }
+
+  .ready-band__badge--growth {
+    width: 20%;
+    right: -3%;
+    top: 0%;
+  }
+
+  .ready-band__badge--heart {
+    width: 15%;
+    right: 4%;
+    bottom: 4%;
+  }
+</style>

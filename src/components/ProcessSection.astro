@@ -1,0 +1,557 @@
+---
+// src/components/ProcessSection.astro
+
+interface VisualAsset {
+  src: string;
+  w: number;
+  h: number;
+  style: string;
+}
+
+interface ProcessStep {
+  numIcon: string;
+  tag: string;
+  title: string;
+  body: string;
+  main: VisualAsset;
+  floats: VisualAsset[];
+}
+
+interface Props {
+  id?: string;
+  accordionName?: string;
+  eyebrow?: string;
+  title: string;
+  lead: string;
+  stageLabelPrefix?: string;
+  steps: ProcessStep[];
+}
+
+const {
+  id = "our-process",
+  accordionName = "process-accordion",
+  eyebrow = "OUR PROCESS",
+  title,
+  lead,
+  stageLabelPrefix = "Pillar",
+  steps = [],
+} = Astro.props;
+---
+
+<section class="section process" id={id}>
+  <div class="container">
+    <header class="section-head" data-reveal>
+      <span class="eyebrow">{eyebrow}</span>
+      <h2 class="section-title">{title}</h2>
+      <p class="section-lead">{lead}</p>
+    </header>
+
+    <div class="process__layout">
+      <div class="process__list" data-reveal>
+        {
+          steps.map((step, i) => (
+            <details
+              class="step"
+              name={accordionName}
+              open={i === 0}
+              data-step={i}
+            >
+              <summary class="step__summary">
+                <img
+                  class="step__num-icon"
+                  src={step.numIcon}
+                  alt=""
+                  width="36"
+                  height="36"
+                  loading="lazy"
+                />
+                <span class="step__title">{step.title}</span>
+                <span class="step__tag">{step.tag}</span>
+                <span
+                  class="material-symbols-outlined step__chevron"
+                  aria-hidden="true"
+                >
+                  expand_more
+                </span>
+              </summary>
+              <p class="step__body">{step.body}</p>
+            </details>
+          ))
+        }
+      </div>
+
+      <div
+        class="process__stage"
+        data-active-step="0"
+        aria-hidden="true"
+        data-reveal
+      >
+        <div class="process__stage-progress">
+          <div class="process__stage-progress-bar" id="process-progress-bar">
+          </div>
+        </div>
+        <img
+          class="process__stage-blob"
+          src="/Asset 2.webp"
+          alt=""
+          width="869"
+          height="663"
+          loading="lazy"
+        />
+        {
+          steps.map((step, i) => (
+            <div class="process__visual" data-visual={i}>
+              <img
+                class="process__visual-main"
+                src={step.main.src}
+                alt=""
+                width={step.main.w}
+                height={step.main.h}
+                style={step.main.style}
+                loading="lazy"
+              />
+              {step.floats.map((f) => (
+                <img
+                  class="process__visual-float"
+                  data-float
+                  src={f.src}
+                  alt=""
+                  width={f.w}
+                  height={f.h}
+                  style={f.style}
+                  loading="lazy"
+                />
+              ))}
+            </div>
+          ))
+        }
+        <div class="process__stage-footer">
+          <span class="process__stage-label">
+            {stageLabelPrefix} <span id="process-step-label">1</span> of{" "}
+            {steps.length} ·{" "}
+            <span id="process-step-tag">{steps[0]?.tag}</span>
+          </span>
+          <div class="process__stage-dots">
+            {
+              steps.map((_, i) => (
+                <button
+                  type="button"
+                  class:list={["process__dot", { "is-active": i === 0 }]}
+                  data-step-dot={i}
+                  tabindex="-1"
+                />
+              ))
+            }
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  import { gsap } from "gsap";
+  import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+  gsap.registerPlugin(ScrollTrigger);
+
+  const processSections = document.querySelectorAll<HTMLElement>(".process");
+  processSections.forEach((root) => {
+    const stage = root.querySelector<HTMLElement>(".process__stage");
+    const stepLabel = root.querySelector("#process-step-label");
+    const stepTag = root.querySelector("#process-step-tag");
+    const progressBar = root.querySelector<HTMLElement>(
+      "#process-progress-bar",
+    );
+    const stageBlob = root.querySelector<HTMLElement>(
+      ".process__stage-blob",
+    );
+    const allDetails = gsap.utils.toArray<HTMLDetailsElement>(".step", root);
+    const allDots = gsap.utils.toArray<HTMLButtonElement>("[data-step-dot]", root);
+    const stepTags = allDetails.map(
+      (d) => d.querySelector(".step__tag")?.textContent || "",
+    );
+
+    // Reveal animations
+    const headEl = root.querySelector(".section-head");
+    if (headEl) {
+      gsap.fromTo(
+        headEl,
+        { y: 38, opacity: 0 },
+        {
+          y: 0,
+          opacity: 1,
+          duration: 0.85,
+          ease: "power3.out",
+          clearProps: "all",
+          scrollTrigger: {
+            trigger: headEl,
+            start: "top 85%",
+            once: true,
+          },
+        },
+      );
+    }
+
+    const processLayout = root.querySelector(".process__layout");
+    if (processLayout) {
+      gsap.fromTo(
+        processLayout.children,
+        { y: 36, opacity: 0 },
+        {
+          y: 0,
+          opacity: 1,
+          duration: 0.75,
+          stagger: 0.15,
+          ease: "power3.out",
+          clearProps: "all",
+          scrollTrigger: {
+            trigger: processLayout,
+            start: "top 85%",
+            once: true,
+          },
+        },
+      );
+    }
+
+    const activateProcessStep = (stepIndex: number) => {
+      if (!stage) return;
+      const prevStep = Number(stage.dataset.activeStep ?? "0");
+      stage.dataset.activeStep = String(stepIndex);
+
+      if (stepLabel) stepLabel.textContent = String(stepIndex + 1);
+      if (stepTag && stepTags[stepIndex]) {
+        stepTag.textContent = stepTags[stepIndex];
+      }
+
+      allDots.forEach((dot, idx) => {
+        dot.classList.toggle("is-active", idx === stepIndex);
+      });
+
+      const prefersReduced = window.matchMedia(
+        "(prefers-reduced-motion: reduce)",
+      ).matches;
+
+      if (progressBar) {
+        const ratio = (stepIndex + 1) / Math.max(allDetails.length, 1);
+        if (prefersReduced) {
+          progressBar.style.transform = `scaleX(${ratio})`;
+        } else {
+          gsap.to(progressBar, {
+            scaleX: ratio,
+            duration: 0.55,
+            ease: "power3.out",
+          });
+        }
+      }
+
+      if (prefersReduced || prevStep === stepIndex) return;
+
+      const nextVisual = stage.querySelector<HTMLElement>(
+        `[data-visual="${stepIndex}"]`,
+      );
+      if (stageBlob) {
+        gsap.to(stageBlob, {
+          rotation: stepIndex * 45,
+          scale: 1 + (stepIndex % 2) * 0.08,
+          duration: 0.8,
+          ease: "power2.out",
+        });
+      }
+
+      if (nextVisual) {
+        const mainImg = nextVisual.querySelector(".process__visual-main");
+        const floatImgs = nextVisual.querySelectorAll(".process__visual-float");
+
+        if (mainImg) {
+          gsap.fromTo(
+            mainImg,
+            { y: 28, scale: 0.85, opacity: 0 },
+            {
+              y: 0,
+              scale: 1,
+              opacity: 1,
+              duration: 0.55,
+              ease: "back.out(1.5)",
+              overwrite: "auto",
+            },
+          );
+        }
+        if (floatImgs.length) {
+          gsap.fromTo(
+            floatImgs,
+            { scale: 0.5, opacity: 0 },
+            {
+              scale: 1,
+              opacity: 1,
+              duration: 0.5,
+              stagger: 0.08,
+              ease: "back.out(2.1)",
+              delay: 0.1,
+              overwrite: "auto",
+            },
+          );
+        }
+      }
+    };
+
+    allDetails.forEach((details) => {
+      details.addEventListener("toggle", () => {
+        if (!details.open) return;
+        const stepIdx = Number(details.dataset.step ?? "0");
+        activateProcessStep(stepIdx);
+      });
+    });
+
+    allDots.forEach((dot) => {
+      dot.addEventListener("click", () => {
+        const idx = Number(dot.dataset.stepDot ?? "0");
+        const targetDetails = allDetails[idx];
+        if (targetDetails) {
+          targetDetails.open = true;
+        } else {
+          activateProcessStep(idx);
+        }
+      });
+    });
+  });
+</script>
+
+<style>
+  /* ---------- Process Section (Accordion + Stage) ---------- */
+  .process {
+    background: var(--color-light);
+  }
+
+  .process__layout {
+    display: grid;
+    gap: 3rem;
+    align-items: center;
+  }
+
+  @media (min-width: 960px) {
+    .process__layout {
+      grid-template-columns: 5.2fr 5.8fr;
+      gap: 4rem;
+    }
+  }
+
+  .step {
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .step__summary {
+    list-style: none;
+    display: flex;
+    align-items: center;
+    gap: 0.9rem;
+    padding: 1.35rem 0;
+    cursor: pointer;
+    font-family: var(--font-heading);
+    font-size: 1.15rem;
+    font-weight: 600;
+    color: var(--color-dark);
+  }
+
+  .step__summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .step__num-icon {
+    flex: none;
+    width: 36px;
+    height: 36px;
+    transition: transform 0.3s ease;
+  }
+
+  .step[open] .step__num-icon {
+    transform: scale(1.1);
+  }
+
+  .step__title {
+    flex: 1;
+    transition: color 0.25s ease;
+  }
+
+  .step[open] .step__title {
+    color: var(--color-cyan-dark);
+  }
+
+  .step__tag {
+    font-family: var(--font-body);
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--color-cyan-dark);
+    background: var(--color-cyan-soft);
+    padding: 0.25rem 0.65rem;
+    border-radius: 999px;
+  }
+
+  @media (max-width: 540px) {
+    .step__tag {
+      display: none;
+    }
+  }
+
+  .step__chevron {
+    transition: transform 0.3s ease;
+    color: var(--color-dark);
+  }
+
+  .step[open] .step__chevron {
+    transform: rotate(180deg);
+    color: var(--color-cyan-dark);
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .step::details-content {
+      block-size: 0;
+      overflow: hidden;
+      transition:
+        block-size 0.35s ease,
+        content-visibility 0.35s allow-discrete;
+    }
+
+    .step[open]::details-content {
+      block-size: auto;
+    }
+  }
+
+  .step__body {
+    margin: 0;
+    padding: 0 0 1.5rem 3.15rem;
+    color: var(--color-muted);
+    line-height: 1.7;
+    font-size: 0.98rem;
+  }
+
+  .process__stage {
+    position: relative;
+    aspect-ratio: 4 / 3;
+    border-radius: 24px;
+    overflow: hidden;
+    background:
+      radial-gradient(
+        circle at 50% 52%,
+        rgba(27, 196, 217, 0.38),
+        transparent 62%
+      ),
+      radial-gradient(rgba(255, 255, 255, 0.08) 1px, transparent 1px) 0 0 /
+        22px 22px,
+      #1f1f1f;
+    box-shadow: var(--shadow-lift);
+  }
+
+  .process__stage-progress {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 5px;
+    background: rgba(255, 255, 255, 0.1);
+    z-index: 4;
+  }
+
+  .process__stage-progress-bar {
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+      90deg,
+      var(--color-cyan),
+      #38bdf8
+    );
+    transform-origin: 0 50%;
+    transform: scaleX(0.25);
+  }
+
+  .process__stage-blob {
+    position: absolute;
+    width: 74%;
+    left: 13%;
+    top: 10%;
+    height: auto;
+    opacity: 0.22;
+    pointer-events: none;
+  }
+
+  .process__visual {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transition: opacity 0.35s ease;
+  }
+
+  .process__stage[data-active-step="0"] [data-visual="0"],
+  .process__stage[data-active-step="1"] [data-visual="1"],
+  .process__stage[data-active-step="2"] [data-visual="2"],
+  .process__stage[data-active-step="3"] [data-visual="3"] {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  .process__visual img {
+    position: absolute;
+    height: auto;
+  }
+
+  .process__visual-main {
+    filter: drop-shadow(0 24px 30px rgba(0, 0, 0, 0.5));
+    z-index: 1;
+  }
+
+  .process__visual-float {
+    filter: drop-shadow(0 14px 20px rgba(0, 0, 0, 0.42));
+    z-index: 2;
+  }
+
+  .process__stage-footer {
+    position: absolute;
+    left: 1.25rem;
+    right: 1.25rem;
+    bottom: 1.15rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    z-index: 4;
+  }
+
+  .process__stage-label {
+    padding: 0.4rem 0.9rem;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.12);
+    backdrop-filter: blur(6px);
+    color: var(--color-light);
+    font-size: 0.78rem;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+
+  .process__stage-dots {
+    display: flex;
+    gap: 0.45rem;
+  }
+
+  .process__dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 999px;
+    border: none;
+    padding: 0;
+    background: rgba(255, 255, 255, 0.28);
+    cursor: pointer;
+    transition:
+      width 0.3s ease,
+      background-color 0.3s ease;
+  }
+
+  .process__dot.is-active {
+    width: 26px;
+    background: var(--color-cyan);
+  }
+</style>

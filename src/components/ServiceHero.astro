@@ -1,0 +1,706 @@
+---
+// src/components/ServiceHero.astro
+import { Image } from "astro:assets";
+
+interface BreadcrumbItem {
+  label: string;
+  href?: string;
+}
+
+interface FloatAsset {
+  src: string;
+  alt?: string;
+  width: number;
+  height: number;
+  depth?: number;
+  className?: string;
+}
+
+interface HeroStage {
+  blob: { src: string; width: number; height: number; depth?: number };
+  main: { src: string; alt: string; width: number; height: number; depth?: number };
+  floats: FloatAsset[];
+}
+
+interface MarqueeItem {
+  icon: string;
+  label: string;
+}
+
+interface Props {
+  breadcrumb: BreadcrumbItem[];
+  kicker: string;
+  titleTop: string;
+  rotatorWords: string[];
+  rotatorId?: string;
+  lead: string;
+  highlights: string[];
+  primaryCta?: { label: string; href: string };
+  secondaryCta?: { label: string };
+  stage: HeroStage;
+  marqueeItems: MarqueeItem[];
+}
+
+const {
+  breadcrumb = [],
+  kicker,
+  titleTop,
+  rotatorWords = [],
+  rotatorId = "service-hero-rotator",
+  lead,
+  highlights = [],
+  primaryCta = { label: "Contact Us", href: "#consultation" },
+  secondaryCta = { label: "Send Us a Message" },
+  stage,
+  marqueeItems = [],
+} = Astro.props;
+---
+
+<section class="service-hero">
+  <div class="container service-hero__container">
+    <div class="service-hero__content">
+      <nav class="breadcrumb" aria-label="Breadcrumb">
+        <ol class="breadcrumb__list">
+          {
+            breadcrumb.map((item, idx) => (
+              <>
+                {idx > 0 && (
+                  <li class="breadcrumb__sep" aria-hidden="true">
+                    <span class="material-symbols-outlined">chevron_right</span>
+                  </li>
+                )}
+                <li
+                  class="breadcrumb__item"
+                  aria-current={idx === breadcrumb.length - 1 ? "page" : undefined}
+                >
+                  {item.href ? (
+                    <a href={item.href} class="breadcrumb__link">
+                      {item.label}
+                    </a>
+                  ) : (
+                    item.label
+                  )}
+                </li>
+              </>
+            ))
+          }
+        </ol>
+      </nav>
+
+      <span class="service-hero__kicker">{kicker}</span>
+
+      <h1 class="service-hero__title">
+        <span class="service-hero__title-top">{titleTop}</span>
+        <span class="service-hero__rotator" id={rotatorId}>
+          {
+            rotatorWords.map((word, idx) => (
+              <span
+                class="service-hero__word"
+                data-hero-word
+                aria-hidden={idx === 0 ? "false" : "true"}
+              >
+                {word}
+              </span>
+            ))
+          }
+        </span>
+      </h1>
+
+      <p class="service-hero__lead" set:html={lead} />
+
+      <div class="service-hero__checklist-card">
+        <ul class="checklist service-hero__checklist" data-checklist>
+          {highlights.map((item) => <li>{item}</li>)}
+        </ul>
+      </div>
+
+      <div class="service-hero__actions">
+        {primaryCta && (
+          <a href={primaryCta.href} class="btn btn--primary">
+            {primaryCta.label}
+          </a>
+        )}
+        {secondaryCta && (
+          <button type="button" class="btn btn--outline" data-open-modal>
+            {secondaryCta.label}
+          </button>
+        )}
+      </div>
+    </div>
+
+    <!-- Multi-layered isometric hero composition -->
+    <div class="service-hero__graphic" aria-hidden="true">
+      <div class="hero-stage" id="hero-parallax-stage">
+        {stage.blob && (
+          <img
+            class="hero-stage__blob"
+            data-hero-depth={stage.blob.depth ?? 12}
+            src={stage.blob.src}
+            alt=""
+            width={stage.blob.width}
+            height={stage.blob.height}
+            decoding="async"
+          />
+        )}
+        {stage.main && (
+          <Image
+            class="hero-stage__main"
+            data-hero-depth={stage.main.depth ?? -18}
+            src={stage.main.src}
+            alt={stage.main.alt}
+            width={stage.main.width}
+            height={stage.main.height}
+            fetchpriority="high"
+            decoding="async"
+          />
+        )}
+        {
+          stage.floats?.map((f) => (
+            <img
+              class:list={["hero-stage__float", f.className]}
+              data-float
+              data-hero-depth={f.depth ?? -30}
+              src={f.src}
+              alt={f.alt ?? ""}
+              width={f.width}
+              height={f.height}
+              decoding="async"
+            />
+          ))
+        }
+      </div>
+    </div>
+  </div>
+
+  <!-- INFINITE CAPABILITIES MARQUEE -->
+  <div class="marquee">
+    <div class="marquee__track">
+      <div class="marquee__content">
+        {
+          marqueeItems.map((item) => (
+            <div class="marquee__item">
+              <span class="material-symbols-outlined" aria-hidden="true">
+                {item.icon}
+              </span>
+              {item.label}
+            </div>
+          ))
+        }
+      </div>
+      <div class="marquee__content" aria-hidden="true">
+        {
+          marqueeItems.map((item) => (
+            <div class="marquee__item">
+              <span class="material-symbols-outlined" aria-hidden="true">
+                {item.icon}
+              </span>
+              {item.label}
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  import { gsap } from "gsap";
+  import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+  gsap.registerPlugin(ScrollTrigger);
+
+  const heroSections = document.querySelectorAll<HTMLElement>(".service-hero");
+
+  heroSections.forEach((root) => {
+    const wordEls = gsap.utils.toArray<HTMLElement>("[data-hero-word]", root);
+    const mm = gsap.matchMedia();
+
+    mm.add("(prefers-reduced-motion: no-preference)", () => {
+      // 1. 3D Headline Rotator in Hero
+      if (wordEls.length > 1) {
+        const hidden = { yPercent: 60, rotationX: -80, autoAlpha: 0 };
+        const shown = { yPercent: 0, rotationX: 0, autoAlpha: 1 };
+
+        gsap.set(wordEls, {
+          transformPerspective: 650,
+          transformOrigin: "50% 100%",
+          force3D: true,
+        });
+        gsap.set(wordEls[0], shown);
+        gsap.set(wordEls.slice(1), hidden);
+
+        const setActive = (active: number) =>
+          wordEls.forEach((el, idx) =>
+            el.setAttribute("aria-hidden", String(idx !== active)),
+          );
+
+        const flipTl = gsap.timeline({ repeat: -1 });
+
+        wordEls.forEach((current, index) => {
+          const nextIndex = (index + 1) % wordEls.length;
+          const next = wordEls[nextIndex];
+
+          flipTl.to(
+            current,
+            { ...hidden, duration: 0.5, ease: "power2.in" },
+            "+=2.3",
+          );
+
+          flipTl.fromTo(
+            next,
+            hidden,
+            {
+              ...shown,
+              duration: 0.6,
+              ease: "power3.out",
+              immediateRender: false,
+              onStart: () => setActive(nextIndex),
+            },
+            "<0.25",
+          );
+        });
+      }
+
+      // 2. Infinite Marquee Animation (pauses on hover)
+      const marqueeContents = root.querySelectorAll(".marquee__content");
+      if (marqueeContents.length) {
+        const marqueeTween = gsap.to(marqueeContents, {
+          xPercent: -100,
+          repeat: -1,
+          duration: 34,
+          ease: "linear",
+        });
+        const marquee = root.querySelector(".marquee");
+        marquee?.addEventListener("mouseenter", () => marqueeTween.pause());
+        marquee?.addEventListener("mouseleave", () => marqueeTween.play());
+      }
+
+      // 3. Hero Entrance Stagger
+      gsap.fromTo(
+        root.querySelectorAll(
+          ".breadcrumb, .service-hero__kicker, .service-hero__title, .service-hero__lead, .service-hero__checklist-card, .service-hero__actions",
+        ),
+        { y: 28, opacity: 0 },
+        {
+          y: 0,
+          opacity: 1,
+          duration: 0.8,
+          stagger: 0.12,
+          ease: "power3.out",
+          delay: 0.15,
+          clearProps: "all",
+        },
+      );
+
+      const heroBlob = root.querySelector(".hero-stage__blob");
+      if (heroBlob) {
+        gsap.fromTo(
+          heroBlob,
+          { scale: 0.82, opacity: 0 },
+          {
+            scale: 1,
+            opacity: 1,
+            duration: 1.1,
+            ease: "power3.out",
+            delay: 0.15,
+            clearProps: "all",
+          },
+        );
+      }
+
+      const heroMain = root.querySelector(".hero-stage__main");
+      if (heroMain) {
+        gsap.fromTo(
+          heroMain,
+          { y: 36, scale: 0.92, opacity: 0 },
+          {
+            y: 0,
+            scale: 1,
+            opacity: 1,
+            duration: 0.95,
+            ease: "power3.out",
+            delay: 0.3,
+            clearProps: "all",
+          },
+        );
+      }
+
+      const heroFloats = root.querySelectorAll(".hero-stage__float");
+      if (heroFloats.length) {
+        gsap.fromTo(
+          heroFloats,
+          { scale: 0, opacity: 0 },
+          {
+            scale: 1,
+            opacity: 1,
+            duration: 0.75,
+            stagger: 0.12,
+            ease: "back.out(2)",
+            delay: 0.55,
+            clearProps: "all",
+          },
+        );
+      }
+
+      // Pointer Parallax
+      const heroDepthLayers = gsap.utils.toArray<HTMLElement>(
+        "[data-hero-depth]",
+        root,
+      );
+      if (heroDepthLayers.length) {
+        root.addEventListener("pointermove", (e) => {
+          const rect = root.getBoundingClientRect();
+          const nx = (e.clientX - rect.left) / rect.width - 0.5;
+          const ny = (e.clientY - rect.top) / rect.height - 0.5;
+          heroDepthLayers.forEach((layer) => {
+            const depth = Number(layer.dataset.heroDepth || 20);
+            gsap.to(layer, {
+              x: nx * depth,
+              y: ny * depth,
+              duration: 0.6,
+              ease: "power2.out",
+              overwrite: "auto",
+            });
+          });
+        });
+        root.addEventListener("pointerleave", () => {
+          heroDepthLayers.forEach((layer) => {
+            gsap.to(layer, {
+              x: 0,
+              y: 0,
+              duration: 0.8,
+              ease: "power3.out",
+              overwrite: "auto",
+            });
+          });
+        });
+      }
+
+      // Continuous float animation
+      root.querySelectorAll<HTMLElement>("[data-float]").forEach((el, i) => {
+        gsap.to(el, {
+          y: -12,
+          rotation: i % 2 ? 3 : -3,
+          duration: 2.4 + (i % 3) * 0.5,
+          ease: "sine.inOut",
+          yoyo: true,
+          repeat: -1,
+          delay: (i % 3) * 0.3,
+        });
+      });
+
+      // Checklist Stagger
+      const checklistCard = root.querySelector(".service-hero__checklist-card");
+      const checklistItems = root.querySelectorAll("[data-checklist] li");
+      if (checklistCard && checklistItems.length) {
+        gsap.fromTo(
+          checklistItems,
+          { x: -20, opacity: 0 },
+          {
+            x: 0,
+            opacity: 1,
+            duration: 0.55,
+            stagger: 0.09,
+            ease: "back.out(1.4)",
+            clearProps: "all",
+            scrollTrigger: {
+              trigger: checklistCard,
+              start: "top 88%",
+              once: true,
+            },
+          },
+        );
+      }
+    });
+  });
+</script>
+
+<style>
+  /* ---------- Service Hero ---------- */
+  .service-hero {
+    position: relative;
+    background-color: var(--color-bg);
+    padding: clamp(1.75rem, 3.5vw, 2.75rem) 0 0;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .service-hero::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image: radial-gradient(
+      rgba(27, 196, 217, 0.18) 1.5px,
+      transparent 1.5px
+    );
+    background-size: 28px 28px;
+    mask-image: radial-gradient(ellipse at 75% 40%, #000 0%, transparent 68%);
+    pointer-events: none;
+  }
+
+  .service-hero__container {
+    position: relative;
+    z-index: 1;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 3rem;
+    align-items: center;
+    padding-bottom: clamp(2rem, 4vw, 3rem);
+  }
+
+  @media (min-width: 1024px) {
+    .service-hero__container {
+      grid-template-columns: 1.15fr 0.85fr;
+      gap: 4rem;
+    }
+  }
+
+  /* Breadcrumb */
+  .breadcrumb {
+    margin-bottom: 1.15rem;
+  }
+
+  .breadcrumb__list {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    list-style: none;
+    margin: 0;
+    padding: 0.35rem 0.95rem;
+    background: var(--color-light);
+    border: 1px solid var(--color-border);
+    border-radius: 999px;
+    font-size: 0.82rem;
+    font-weight: 600;
+    box-shadow: 0 2px 8px rgba(15, 23, 42, 0.04);
+  }
+
+  .breadcrumb__link {
+    color: var(--color-cyan-dark);
+    text-decoration: none;
+    transition: color 0.2s ease;
+  }
+
+  .breadcrumb__link:hover {
+    color: var(--color-primary);
+  }
+
+  .breadcrumb__sep {
+    display: inline-flex;
+    color: #94a3b8;
+  }
+
+  .breadcrumb__sep .material-symbols-outlined {
+    font-size: 1rem;
+  }
+
+  .breadcrumb__item[aria-current="page"] {
+    color: var(--color-dark);
+  }
+
+  .service-hero__kicker {
+    display: block;
+    color: #64748b;
+    font-weight: 600;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    margin-bottom: 0.65rem;
+  }
+
+  .service-hero__title {
+    display: flex;
+    flex-direction: column;
+    gap: 0.1em;
+    font-size: clamp(1.65rem, 2.7vw, 2.35rem);
+    font-weight: 700;
+    line-height: 1.12;
+    letter-spacing: -0.015em;
+    margin: 0 0 1rem;
+  }
+
+  .service-hero__title-top {
+    color: var(--color-cyan);
+    display: block;
+    white-space: nowrap;
+  }
+
+  @media (max-width: 480px) {
+    .service-hero__title-top {
+      white-space: normal;
+    }
+  }
+
+  .service-hero__rotator {
+    display: grid;
+    grid-template-areas: "word";
+    justify-items: start;
+    align-items: center;
+    min-height: 1.15em;
+  }
+
+  .service-hero__word {
+    grid-area: word;
+    display: block;
+    color: var(--color-primary);
+    white-space: nowrap;
+    backface-visibility: hidden;
+    will-change: transform, opacity;
+  }
+
+  .service-hero__word:not(:first-child) {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+  }
+
+  .service-hero__lead {
+    color: var(--color-muted);
+    font-size: 1.04rem;
+    line-height: 1.7;
+    margin: 0 0 1.35rem;
+  }
+
+  .service-hero__lead strong {
+    color: var(--color-dark);
+  }
+
+  .service-hero__checklist-card {
+    background: var(--color-light);
+    border: 1px solid var(--color-border);
+    border-left: 4px solid var(--color-cyan);
+    border-radius: 16px;
+    padding: 1.15rem 1.4rem;
+    margin-bottom: 1.5rem;
+    box-shadow: var(--shadow-soft);
+  }
+
+  .service-hero__checklist {
+    margin: 0;
+    display: grid;
+    gap: 0.45rem 1.5rem;
+    line-height: 2rem;
+  }
+
+  @media (min-width: 640px) {
+    .service-hero__checklist {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  .service-hero__checklist li {
+    font-size: 0.95rem;
+    color: var(--color-dark);
+    line-height: 2rem;
+    align-items: center;
+  }
+
+  .service-hero__actions {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+
+  /* Multi-layered Hero Graphic Stage */
+  .service-hero__graphic {
+    display: flex;
+    justify-content: center;
+  }
+
+  .hero-stage {
+    position: relative;
+    width: 100%;
+    max-width: 520px;
+    aspect-ratio: 1 / 0.86;
+  }
+
+  .hero-stage img {
+    position: absolute;
+    height: auto;
+    will-change: transform;
+    pointer-events: none;
+  }
+
+  .hero-stage__blob {
+    width: 92%;
+    left: 4%;
+    top: 4%;
+    opacity: 0.85;
+  }
+
+  .hero-stage__main {
+    width: 88%;
+    left: 6%;
+    top: 8%;
+    filter: drop-shadow(0 24px 32px rgba(15, 23, 42, 0.18));
+    z-index: 1;
+  }
+
+  .hero-stage__float {
+    filter: drop-shadow(0 12px 18px rgba(15, 23, 42, 0.2));
+    z-index: 2;
+  }
+
+  .hero-stage__float--growth {
+    width: 21%;
+    right: -3%;
+    top: -4%;
+  }
+
+  .hero-stage__float--gauge {
+    width: 17%;
+    left: -3%;
+    top: 6%;
+  }
+
+  .hero-stage__float--cursor {
+    width: 10%;
+    left: 10%;
+    bottom: 6%;
+  }
+
+  .hero-stage__float--likes {
+    width: 26%;
+    right: 0%;
+    bottom: 2%;
+  }
+
+  /* Marquee Strip */
+  .marquee {
+    background-color: var(--color-dark);
+    color: var(--color-light);
+    padding: 1.15rem 0;
+    overflow: hidden;
+    width: 100%;
+    border-bottom: 4px solid var(--color-cyan);
+    margin-top: auto;
+    position: relative;
+    z-index: 2;
+  }
+
+  .marquee__track {
+    display: flex;
+    width: max-content;
+  }
+
+  .marquee__content {
+    display: flex;
+    gap: 3.5rem;
+    padding-right: 3.5rem;
+  }
+
+  .marquee__item {
+    display: flex;
+    align-items: center;
+    gap: 0.65rem;
+    font-size: 0.98rem;
+    font-weight: 600;
+    white-space: nowrap;
+  }
+
+  .marquee__item .material-symbols-outlined {
+    color: var(--color-cyan);
+    font-size: 1.35rem;
+  }
+</style>
