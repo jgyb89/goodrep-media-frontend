@@ -22,9 +22,9 @@ const projects = [
       { num: "#1", desc: "Google Map Pack ranking" },
       { num: "0.8s", desc: "Mobile page load time" },
     ],
-    img: "/cape-coral-lawn-care-web-samples.webp",
-    w: 2000,
-    h: 1372,
+    img: "/Good Rep Our Work Website Graphics/cape-coral-lawn-care-project-card.jpg",
+    w: 800,
+    h: 1050,
     deliverables: ["Custom WordPress Theme", "Local Map Pack SEO", "Review Automation", "Call Tracking"],
   },
   {
@@ -38,9 +38,9 @@ const projects = [
       { num: "-62%", desc: "Mobile bounce rate" },
       { num: "100%", desc: "Accessibility & Best Practices" },
     ],
-    img: "/coral-breeze-services-web-sample.webp",
-    w: 720,
-    h: 857,
+    img: "/Good Rep Our Work Website Graphics/coral-breeze-project-card.jpg",
+    w: 800,
+    h: 1050,
     deliverables: ["UI/UX Mobile Design", "Lead Capture Funnel", "Service Pricing Calculator", "Speed Optimization"],
   },
   {
@@ -54,10 +54,9 @@ const projects = [
       { num: "125+", desc: "New 5-star Google reviews" },
       { num: "Top 3", desc: "Rankings for core search terms" },
     ],
-    logo: "/glowing-results-skin-spa-logo-white.webp",
-    img: "/Asset 36.webp",
-    w: 678,
-    h: 414,
+    img: "/Good Rep Our Work Website Graphics/glowing-result-skin-spa-project.jpg",
+    w: 800,
+    h: 1050,
     deliverables: ["Google Business Profile Strategy", "Reputation Management", "Local Citation Building", "Booking Integration"],
   },
   {
@@ -71,11 +70,42 @@ const projects = [
       { num: "2.4x", desc: "Average time on site" },
       { num: "99%", desc: "Core Web Vitals health" },
     ],
-    logo: "/be-balanced-bodyworks-logo-white.svg",
-    img: "/Asset 17.webp",
-    w: 503,
-    h: 586,
+    img: "/Good Rep Our Work Website Graphics/be-balanced-project-card-placeholder.webp",
+    w: 800,
+    h: 1050,
     deliverables: ["Brand Identity Refresh", "Technical SEO Cleanup", "Automated Intake Forms", "Content Strategy"],
+  },
+  {
+    title: "Cape Coral Reviewed",
+    category: "Headless Web Application",
+    tag: "Local Directory & SEO",
+    summary:
+      "Built a high-performance headless local business directory utilizing a decoupled Next.js frontend and WordPress database. This architecture features instant page loads, predictive search, and automated JSON-LD structured data to maximize local search visibility.",
+    metrics: [
+      { num: "+134%", desc: "Active user growth" },
+      { num: "+147%", desc: "Increase in page views" },
+      { num: "100/100", desc: "Technical SEO score" },
+    ],
+    img: "/Good Rep Our Work Website Graphics/cape-coral-reviewed-project-card-placeholder.webp",
+    w: 800,
+    h: 1050,
+    deliverables: ["Headless Web Application", "Custom API Development", "Technical SEO", "UI/UX Design"],
+  },
+  {
+    title: "Pink Slushy Media",
+    category: "Web Design & Conversion Funnel",
+    tag: "Media Buying & Performance",
+    summary:
+      "Engineered a bold, high-contrast agency web presence and strategy call funnel for Pink Slushy Media that captures paid traffic leads and showcases their campaign creative capabilities.",
+    metrics: [
+      { num: "+195%", desc: "Strategy call bookings" },
+      { num: "5.1x", desc: "Landing page conversion rate" },
+      { num: "100%", desc: "Mobile performance score" },
+    ],
+    img: "/Good Rep Our Work Website Graphics/pink-slushy-project-card.jpg",
+    w: 800,
+    h: 1050,
+    deliverables: ["Custom Web Design", "Strategy Call Funnel", "Interactive UI Graphics", "Technical SEO"],
   },
 ];
 ---
@@ -87,7 +117,7 @@ const projects = [
   <!-- WORK HERO -->
   <section class="work-hero">
     <div class="container work-hero__container">
-      <div class="work-hero__content" data-reveal>
+      <div class="work-hero__content">
         <span class="work-hero__kicker">OUR PORTFOLIO &amp; PROVEN RESULTS</span>
         <h1 class="work-hero__title">
           Real Results For <span class="text-cyan">Real Small Businesses</span>
@@ -101,7 +131,7 @@ const projects = [
         </div>
       </div>
 
-      <div class="work-hero__graphic" aria-hidden="true" data-reveal>
+      <div class="work-hero__graphic" aria-hidden="true">
         <div class="work-hero__art">
           <Image
             class="work-hero__main"
@@ -135,7 +165,7 @@ const projects = [
   <section class="stats-bar">
     <div class="container stats-bar__container">
       {stats.map((st) => (
-        <div class="stat-item" data-reveal>
+        <div class="stat-item">
           <span class="stat-item__value">{st.value}</span>
           <span class="stat-item__label">{st.label}</span>
         </div>
@@ -164,21 +194,23 @@ const projects = [
             data-reveal
           >
             <div class="case-card__visual">
-              <div class="case-card__browser">
-                <div class="case-card__browser-dots">
+              <div class="window-graphic">
+                <div class="window-graphic__dots" aria-hidden="true">
                   <span />
                   <span />
                   <span />
                 </div>
-                <Image
-                  class="case-card__img"
-                  src={project.img}
-                  alt={project.title}
-                  width={project.w}
-                  height={project.h}
-                  loading="lazy"
-                  decoding="async"
-                />
+                <div class="window-graphic__body">
+                  <Image
+                    class="window-graphic__img"
+                    src={project.img}
+                    alt={`${project.title} project card`}
+                    width={project.w}
+                    height={project.h}
+                    loading="lazy"
+                    decoding="async"
+                  />
+                </div>
               </div>
             </div>
 
@@ -295,18 +327,23 @@ const projects = [
         delay: 0.5,
       });
 
-      gsap.from(".stat-item", {
-        y: 20,
-        opacity: 0,
-        duration: 0.6,
-        stagger: 0.1,
-        ease: "power3.out",
-        scrollTrigger: {
-          trigger: ".stats-bar",
-          start: "top 88%",
-          once: true,
-        },
-      });
+      gsap.fromTo(
+        ".stat-item",
+        { y: 20, opacity: 0 },
+        {
+          y: 0,
+          opacity: 1,
+          duration: 0.6,
+          stagger: 0.1,
+          ease: "power3.out",
+          clearProps: "all",
+          scrollTrigger: {
+            trigger: ".stats-bar",
+            start: "top 88%",
+            once: true,
+          },
+        }
+      );
 
       gsap.utils.toArray<HTMLElement>("[data-reveal]").forEach((el) => {
         gsap.from(el, {
@@ -481,39 +518,72 @@ const projects = [
 
     @media (min-width: 960px) {
       .case-card {
+        grid-template-columns: 5fr 6fr;
+        gap: 4.5rem;
+      }
+      .case-card--reverse {
         grid-template-columns: 6fr 5fr;
-        gap: 5rem;
       }
       .case-card--reverse .case-card__visual {
         order: 2;
       }
     }
 
-    .case-card__browser {
-      background: #1e293b;
-      border-radius: 16px;
-      overflow: hidden;
-      border: 1px solid var(--color-border);
-    }
-
-    .case-card__browser-dots {
-      padding: 0.75rem 1rem;
+    .case-card__visual {
       display: flex;
-      gap: 0.4rem;
-      background: #0f172a;
+      justify-content: center;
     }
 
-    .case-card__browser-dots span {
-      width: 9px;
-      height: 9px;
+    .window-graphic {
+      width: 100%;
+      max-width: 440px;
+      background: #1e293b;
+      border-radius: 18px;
+      overflow: hidden;
+      border: 1px solid rgba(15, 23, 42, 0.14);
+      box-shadow: var(--shadow-lift);
+      transition:
+        transform 0.35s ease,
+        box-shadow 0.35s ease;
+    }
+
+    .window-graphic:hover {
+      transform: translateY(-4px);
+    }
+
+    .window-graphic__dots {
+      padding: 0.85rem 1.15rem;
+      display: flex;
+      align-items: center;
+      gap: 0.45rem;
+      background: #0f172a;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .window-graphic__dots span {
+      width: 10px;
+      height: 10px;
       border-radius: 50%;
       background: rgba(255, 255, 255, 0.25);
     }
 
-    .case-card__img {
+    .window-graphic__body {
+      position: relative;
+      overflow: hidden;
+      background: #1e293b;
+    }
+
+    .window-graphic__img {
       width: 100%;
       height: auto;
+      aspect-ratio: 800 / 1050;
+      object-fit: cover;
       display: block;
+      transition: transform 0.5s ease;
+    }
+
+    .window-graphic:hover .window-graphic__img {
+      transform: scale(1.02);
     }
 
     .case-card__meta {

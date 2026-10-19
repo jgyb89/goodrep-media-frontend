@@ -1,23 +1,15 @@
 ---
 import DOMPurify from 'isomorphic-dompurify';
-import { fetchWP } from '../../lib/api.js';
-import LeadForm from '../../components/LeadForm.jsx';
+import { getAllPosts, getPostBySlug } from '../../lib/api.js';
 import MainLayout from '../../layouts/MainLayout.astro';
 import '../../styles/gutenberg.css';
 
 export async function getStaticPaths() {
   try {
-    const data = await fetchWP(`
-      query AllPosts {
-        posts(first: 1000) {
-          nodes {
-            slug
-          }
-        }
-      }
-    `);
-    return (data?.posts?.nodes || []).map((post: { slug: string }) => ({
+    const posts = await getAllPosts({ maxPosts: 200 });
+    return posts.map((post: any) => ({
       params: { slug: post.slug },
+      props: { post },
     }));
   } catch (error: any) {
     console.warn('Could not fetch posts during getStaticPaths():', error?.message || error);
@@ -26,92 +18,499 @@ export async function getStaticPaths() {
 }
 
 const { slug } = Astro.params;
-let post: any = null;
+const { post: propPost } = Astro.props;
+let post: any = propPost;
 
-try {
-  const data = await fetchWP(`
-    query GetPost($id: ID!) {
-      post(id: $id, idType: SLUG) {
-        title
-        content
-        seo {
-          title
-          metaDesc
-        }
-      }
-    }
-  `, { id: slug });
-  post = data?.post;
-} catch (error: any) {
-  console.warn(`Could not fetch post data for slug "${slug}":`, error?.message || error);
+if (!post && slug) {
+  try {
+    post = await getPostBySlug(slug);
+  } catch (error: any) {
+    console.warn(`Could not fetch post data for slug "${slug}":`, error?.message || error);
+  }
 }
 
-const sanitizedContent = post?.content ? DOMPurify.sanitize(post.content) : '';
+// Format post date
+let formattedDate = "";
+if (post?.date) {
+  try {
+    formattedDate = new Date(post.date).toLocaleDateString("en-US", {
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+    });
+  } catch {
+    formattedDate = post.date;
+  }
+}
+
+// Estimate reading time from word count
+const wordCount = post?.content
+  ? post.content.replace(/<[^>]+>/g, " ").trim().split(/\s+/).length
+  : 0;
+const readingTime = Math.max(1, Math.ceil(wordCount / 225));
+
+const primaryCategory = post?.primaryCategory || post?.categories?.[0] || {
+  name: "Small Business Marketing & Strategy",
+  slug: "small-business-marketing-strategy",
+};
+
+const sanitizedContent = post?.content
+  ? DOMPurify.sanitize(post.content, {
+      ADD_TAGS: ['iframe', 'figure', 'figcaption'],
+      ADD_ATTR: [
+        'target',
+        'allowfullscreen',
+        'frameborder',
+        'loading',
+        'decoding',
+        'sizes',
+        'srcset',
+      ],
+    })
+  : '';
 ---
 
-<MainLayout title={post?.seo?.title || post?.title} description={post?.seo?.metaDesc}>
-  <div class="post-layout">
-    <!-- 70% Content Column -->
-    <main class="post-layout__main">
-      <h1 class="post-layout__title">{post?.title}</h1>
-      <!-- Content uses Gutenberg CSS logic via className -->
-      <article class="post-layout__content" set:html={sanitizedContent} />
-    </main>
+<MainLayout
+  title={post?.seo?.title || post?.title || "Blog Post | Good Rep Media"}
+  description={post?.seo?.metaDesc || post?.excerpt || "Expert digital marketing, web design, and SEO strategies from Good Rep Media."}
+>
+  <div class="post-page">
+    <div class="container post-page__container">
+      <!-- Breadcrumb navigation -->
+      <nav class="post-breadcrumb" aria-label="Breadcrumb">
+        <a href="/blog" class="post-breadcrumb__link">
+          <span class="material-symbols-outlined" aria-hidden="true">arrow_back</span>
+          <span>Back to Articles</span>
+        </a>
+        <span class="post-breadcrumb__separator" aria-hidden="true">/</span>
+        <a
+          href={`/blog?category=${primaryCategory.slug}`}
+          class="post-breadcrumb__category"
+        >
+          {primaryCategory.name}
+        </a>
+      </nav>
 
-    <!-- 30% Sidebar Funnel Column -->
-    <aside class="post-layout__sidebar">
-      <div class="post-layout__sidebar-widget">
-        <h3 class="post-layout__widget-title">Ready to scale?</h3>
-        <p class="post-layout__widget-desc">Book a free consultation with our growth experts today.</p>
-        <LeadForm client:visible />
+      <div class="post-layout">
+        <!-- 70% Content Column -->
+        <main class="post-layout__main">
+          <header class="post-header">
+            <a
+              href={`/blog?category=${primaryCategory.slug}`}
+              class="post-header__tag"
+            >
+              {primaryCategory.name}
+            </a>
+            <h1 class="post-header__title">{post?.title}</h1>
+
+            <div class="post-header__meta">
+              {formattedDate && (
+                <span class="post-header__meta-item">
+                  <span class="material-symbols-outlined" aria-hidden="true">calendar_today</span>
+                  <time datetime={post.date}>{formattedDate}</time>
+                </span>
+              )}
+              <span class="post-header__meta-item">
+                <span class="material-symbols-outlined" aria-hidden="true">schedule</span>
+                <span>{readingTime} min read</span>
+              </span>
+              <span class="post-header__meta-item">
+                <span class="material-symbols-outlined" aria-hidden="true">verified</span>
+                <span>Good Rep Media Team</span>
+              </span>
+            </div>
+          </header>
+
+          <!-- Featured Media / Hero Image -->
+          {post?.featuredImage?.node?.sourceUrl && (
+            <figure class="post-featured-media">
+              <img
+                src={post.featuredImage.node.sourceUrl}
+                alt={post.featuredImage.node.altText || post.title}
+                width="1200"
+                height="675"
+                loading="eager"
+                decoding="async"
+                class="post-featured-media__img"
+              />
+              {post.featuredImage.node.altText && post.featuredImage.node.altText !== post.title && (
+                <figcaption class="post-featured-media__caption">
+                  {post.featuredImage.node.altText}
+                </figcaption>
+              )}
+            </figure>
+          )}
+
+          <!-- Gutenberg Content with Responsive Images -->
+          <article class="post-layout__content" set:html={sanitizedContent} />
+
+          <!-- Post Footer / Author Signoff -->
+          <footer class="post-footer">
+            <div class="post-footer__card">
+              <div class="post-footer__author">
+                <img
+                  src="/goodrep-media-favicon-white.webp"
+                  alt="Good Rep Media"
+                  class="post-footer__avatar"
+                  width="56"
+                  height="56"
+                  loading="lazy"
+                  decoding="async"
+                />
+                <div class="post-footer__info">
+                  <h4 class="post-footer__name">Good Rep Media Editorial Team</h4>
+                  <p class="post-footer__bio">
+                    We help local Michigan and national businesses grow revenue with high-converting web design, localized SEO, and paid media advertising.
+                  </p>
+                </div>
+              </div>
+              <div class="post-footer__action">
+                <a href="/blog" class="btn btn--secondary btn--sm">
+                  <span class="material-symbols-outlined" aria-hidden="true">menu_book</span>
+                  <span>Explore More Guides</span>
+                </a>
+              </div>
+            </div>
+          </footer>
+        </main>
+
+        <!-- 30% Sidebar Funnel Column -->
+        <aside class="post-layout__sidebar">
+          <div class="post-sidebar-card">
+            <span class="post-sidebar-card__badge">Free Growth Audit</span>
+            <h3 class="post-sidebar-card__title">Ready to scale your business?</h3>
+            <p class="post-sidebar-card__desc">
+              Get an actionable website, SEO, and lead-gen audit from our marketing directors. Zero obligation.
+            </p>
+            <a href="/#consultation" class="btn btn--primary post-sidebar-card__cta">
+              Request Free Audit
+            </a>
+
+            <div class="post-sidebar-card__contact">
+              <p class="post-sidebar-card__contact-label">Prefer to talk directly?</p>
+              <a href="tel:+16163009868" class="post-sidebar-card__contact-link">
+                <span class="material-symbols-outlined" aria-hidden="true">call</span>
+                <span>(616) 300-9868</span>
+              </a>
+              <a href="mailto:team@goodrep.media" class="post-sidebar-card__contact-link">
+                <span class="material-symbols-outlined" aria-hidden="true">mail</span>
+                <span>team@goodrep.media</span>
+              </a>
+            </div>
+          </div>
+        </aside>
       </div>
-    </aside>
+    </div>
   </div>
 </MainLayout>
 
 <style>
-  /* BEM: Block */
+  .post-page {
+    background: var(--color-bg);
+    padding: clamp(2rem, 4vw, 3.5rem) 0 5rem;
+    min-height: 80vh;
+  }
+
+  .post-page__container {
+    max-width: 1240px;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+  }
+
+  /* ---------- Breadcrumb ---------- */
+  .post-breadcrumb {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    margin-bottom: 2rem;
+    font-size: 0.88rem;
+    color: var(--color-muted);
+    flex-wrap: wrap;
+  }
+
+  .post-breadcrumb__link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    color: var(--color-dark);
+    font-weight: 600;
+    text-decoration: none;
+    transition: color 0.2s ease;
+  }
+
+  .post-breadcrumb__link:hover {
+    color: var(--color-cyan-dark);
+  }
+
+  .post-breadcrumb__link .material-symbols-outlined {
+    font-size: 1.1rem;
+  }
+
+  .post-breadcrumb__separator {
+    color: var(--color-border);
+    font-weight: 600;
+  }
+
+  .post-breadcrumb__category {
+    color: var(--color-muted);
+    text-decoration: none;
+    transition: color 0.2s ease;
+  }
+
+  .post-breadcrumb__category:hover {
+    color: var(--color-cyan-dark);
+  }
+
+  /* ---------- Layout Grid ---------- */
   .post-layout {
     display: grid;
     grid-template-columns: 1fr;
-    gap: 4rem;
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 4rem 2rem;
+    gap: 3rem;
+    align-items: start;
   }
-  
+
   @media (min-width: 1024px) {
     .post-layout {
-      grid-template-columns: 7fr 3fr; 
+      grid-template-columns: minmax(0, 7fr) minmax(320px, 4fr);
+      gap: 3.5rem;
     }
   }
 
-  /* BEM: Elements */
-  .post-layout__title {
-    font-size: 2.5rem;
+  /* ---------- Post Header ---------- */
+  .post-header {
+    margin-bottom: 2rem;
+  }
+
+  .post-header__tag {
+    display: inline-block;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    font-size: 0.78rem;
+    font-weight: 700;
+    color: var(--color-cyan-dark);
+    background: var(--color-cyan-soft);
+    padding: 0.38rem 0.95rem;
+    border-radius: 999px;
+    text-decoration: none;
+    margin-bottom: 1.25rem;
+    transition: all 0.2s ease;
+  }
+
+  .post-header__tag:hover {
+    background: var(--color-cyan);
+    color: var(--color-light);
+  }
+
+  .post-header__title {
+    font-size: clamp(2rem, 3.8vw, 3rem);
+    font-weight: 700;
     line-height: 1.2;
-    color: #0f172a;
-    margin-bottom: 2rem;
+    color: var(--color-dark);
+    margin: 0 0 1.25rem;
+    letter-spacing: -0.01em;
   }
 
-  .post-layout__sidebar-widget {
-    background: #f8fafc;
-    padding: 2.5rem 2rem;
-    border-radius: 12px;
-    border: 1px solid #e2e8f0;
+  .post-header__meta {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 1.25rem;
+    font-size: 0.88rem;
+    color: var(--color-muted);
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .post-header__meta-item {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+  }
+
+  .post-header__meta-item .material-symbols-outlined {
+    font-size: 1.15rem;
+    color: var(--color-cyan-dark);
+  }
+
+  /* ---------- Featured Media ---------- */
+  .post-featured-media {
+    margin: 0 0 2.5rem 0;
+    border-radius: 16px;
+    overflow: hidden;
+    background: var(--color-cyan-soft);
+    border: 1px solid var(--color-border);
+    box-shadow: var(--shadow-card);
+  }
+
+  .post-featured-media__img {
+    width: 100%;
+    height: auto;
+    max-height: 520px;
+    object-fit: cover;
+    display: block;
+  }
+
+  .post-featured-media__caption {
+    padding: 0.75rem 1.25rem;
+    font-size: 0.85rem;
+    color: var(--color-muted);
+    background: var(--color-light);
+    border-top: 1px solid var(--color-border);
+    text-align: center;
+  }
+
+  /* ---------- Post Content Card ---------- */
+  .post-layout__content {
+    background: var(--color-light);
+    border: 1px solid var(--color-border);
+    border-radius: 16px;
+    padding: clamp(1.75rem, 4vw, 3rem);
+    box-shadow: var(--shadow-card);
+    margin-bottom: 2.5rem;
+  }
+
+  /* ---------- Post Footer ---------- */
+  .post-footer__card {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    background: var(--color-light);
+    border: 1px solid var(--color-border);
+    border-radius: 16px;
+    padding: 2rem;
+    box-shadow: var(--shadow-card);
+  }
+
+  @media (min-width: 640px) {
+    .post-footer__card {
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+    }
+  }
+
+  .post-footer__author {
+    display: flex;
+    align-items: center;
+    gap: 1.25rem;
+  }
+
+  .post-footer__avatar {
+    width: 52px;
+    height: 52px;
+    border-radius: 50%;
+    background: var(--color-dark);
+    padding: 0.4rem;
+    flex-shrink: 0;
+  }
+
+  .post-footer__name {
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: var(--color-dark);
+    margin: 0 0 0.35rem;
+  }
+
+  .post-footer__bio {
+    font-size: 0.88rem;
+    color: var(--color-muted);
+    line-height: 1.5;
+    margin: 0;
+    max-width: 480px;
+  }
+
+  .post-footer__action {
+    flex-shrink: 0;
+  }
+
+  /* ---------- Sidebar Card ---------- */
+  .post-sidebar-card {
+    background: var(--color-light);
+    border: 1px solid var(--color-border);
+    border-radius: 16px;
+    padding: 2rem;
+    box-shadow: var(--shadow-card);
     position: sticky;
-    top: 2rem;
+    top: calc(var(--header-h, 72px) + 1.5rem);
+    box-sizing: border-box;
+    width: 100%;
+    max-width: 100%;
   }
 
-  .post-layout__widget-title {
-    font-size: 1.5rem;
-    margin: 0 0 1rem 0;
-    color: #0f172a;
+  .post-sidebar-card__badge {
+    display: inline-block;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--color-cyan-dark);
+    background: var(--color-cyan-soft);
+    padding: 0.3rem 0.75rem;
+    border-radius: 999px;
+    margin-bottom: 0.85rem;
   }
 
-  .post-layout__widget-desc {
-    color: #475569;
-    margin-bottom: 2rem;
+  .post-sidebar-card__title {
+    font-size: 1.45rem;
+    font-weight: 700;
+    color: var(--color-dark);
+    margin: 0 0 0.75rem;
+    line-height: 1.3;
+  }
+
+  .post-sidebar-card__desc {
+    font-size: 0.92rem;
+    color: var(--color-muted);
     line-height: 1.6;
+    margin-bottom: 1.5rem;
+  }
+
+  .post-sidebar-card__cta {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+    text-align: center;
+    text-decoration: none;
+    margin-bottom: 1.5rem;
+    padding: 0.85rem 1.25rem;
+  }
+
+  .post-sidebar-card__contact {
+    margin-top: 2rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--color-border);
+  }
+
+  .post-sidebar-card__contact-label {
+    font-size: 0.82rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--color-muted);
+    margin: 0 0 0.85rem;
+  }
+
+  .post-sidebar-card__contact-link {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    color: var(--color-dark);
+    text-decoration: none;
+    font-size: 0.95rem;
+    font-weight: 600;
+    padding: 0.45rem 0;
+    transition: color 0.2s ease;
+  }
+
+  .post-sidebar-card__contact-link:hover {
+    color: var(--color-cyan-dark);
+  }
+
+  .post-sidebar-card__contact-link .material-symbols-outlined {
+    font-size: 1.2rem;
+    color: var(--color-cyan-dark);
   }
 </style>

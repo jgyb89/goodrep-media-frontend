@@ -6,7 +6,6 @@
   --color-primary: #e94f37; /* Clay Red */
   --color-primary-dark: #d63d26;
   --color-secondary: #ffc845; /* Rustic Yellow */
-  --color-accent: #f6eee3; /* Soft Sand */
   --color-cyan: #1bc4d9; /* GRM Cyan */
   --color-cyan-dark: #0fa3b6;
   --color-cyan-soft: #e3f7fa;
@@ -30,6 +29,12 @@
 
   /* Lets accordions animate to `height: auto` (progressive enhancement) */
   interpolate-size: allow-keywords;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
 }
 
 html {
@@ -160,7 +165,7 @@ h6 {
 }
 
 .btn--light:hover {
-  background-color: var(--color-accent);
+  background-color: var(--color-bg);
   transform: translateY(-2px);
 }
 

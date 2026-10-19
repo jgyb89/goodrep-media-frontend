@@ -6,6 +6,7 @@ import { Image } from "astro:assets";
 const servicesList = [
   {
     id: "web-design",
+    href: "/services/web-design",
     kicker: "Web Design & Development",
     title: "Custom Websites Built to Turn Visitors into Paying Customers",
     desc: "Your website is your 24/7 storefront. We design and build ultra-fast, mobile-first websites tailored to your brand identity, designed specifically for conversion and high search visibility.",
@@ -159,16 +160,25 @@ const servicesList = [
   <section class="services-hero">
     <div class="container services-hero__container">
       <div class="services-hero__content" data-reveal>
-        <span class="services-hero__kicker">FULL-SERVICE DIGITAL MARKETING</span>
+        <span class="services-hero__kicker">FULL-SERVICE DIGITAL MARKETING</span
+        >
         <h1 class="services-hero__title">
-          Everything Your Small Business Needs To <span class="text-cyan">Scale Online</span>
+          Everything Your Small Business Needs To <span class="text-cyan"
+            >Scale Online</span
+          >
         </h1>
         <p class="services-hero__lead">
-          From high-converting custom websites to full-funnel search and paid marketing, we provide hands-on, transparent support that turns digital marketing into measurable revenue.
+          From high-converting custom websites to full-funnel search and paid
+          marketing, we provide hands-on, transparent support that turns digital
+          marketing into measurable revenue.
         </p>
         <div class="services-hero__actions">
-          <a href="#consultation" class="btn btn--primary">Book Free 30-Min Strategy Call</a>
-          <a href="#services-catalog" class="btn btn--outline">Browse All Services</a>
+          <a href="#consultation" class="btn btn--primary"
+            >Book Free 30-Min Strategy Call</a
+          >
+          <a href="#services-catalog" class="btn btn--outline"
+            >Browse All Services</a
+          >
         </div>
       </div>
 
@@ -207,11 +217,13 @@ const servicesList = [
     <div class="container services-nav__container">
       <span class="services-nav__label">Jump to:</span>
       <div class="services-nav__pills">
-        {servicesList.map((s) => (
-          <a class="services-nav__pill" href={`#${s.id}`}>
-            {s.kicker.split("&")[0]}
-          </a>
-        ))}
+        {
+          servicesList.map((s) => (
+            <a class="services-nav__pill" href={`#${s.id}`}>
+              {s.kicker.split("&")[0]}
+            </a>
+          ))
+        }
       </div>
     </div>
   </nav>
@@ -220,47 +232,52 @@ const servicesList = [
   <section class="section services-catalog" id="services-catalog">
     <div class="container">
       <div class="services-catalog__list">
-        {servicesList.map((service, idx) => (
-          <article
-            class:list={[
-              "service-block",
-              { "service-block--reverse": idx % 2 === 1 },
-            ]}
-            id={service.id}
-            data-reveal
-          >
-            <div class="service-block__media">
-              <div class="service-block__frame">
-                <Image
-                  class="service-block__img"
-                  src={service.img}
-                  alt={service.title}
-                  width={service.w}
-                  height={service.h}
-                  loading="lazy"
-                />
+        {
+          servicesList.map((service, idx) => (
+            <article
+              class:list={[
+                "service-block",
+                { "service-block--reverse": idx % 2 === 1 },
+              ]}
+              id={service.id}
+              data-reveal
+            >
+              <div class="service-block__media">
+                <div class="service-block__frame">
+                  <Image
+                    class="service-block__img"
+                    src={service.img}
+                    alt={service.title}
+                    width={service.w}
+                    height={service.h}
+                    loading="lazy"
+                  />
+                </div>
               </div>
-            </div>
 
-            <div class="service-block__content">
-              <span class="eyebrow">{service.kicker}</span>
-              <h2 class="service-block__title">{service.title}</h2>
-              <p class="service-block__text">{service.desc}</p>
+              <div class="service-block__content">
+                <span class="eyebrow">{service.kicker}</span>
+                <h2 class="service-block__title">{service.title}</h2>
+                <p class="service-block__text">{service.desc}</p>
 
-              <ul class="checklist">
-                {service.features.map((feat) => (
-                  <li>{feat}</li>
-                ))}
-              </ul>
+                <ul class="checklist">
+                  {service.features.map((feat) => (
+                    <li>{feat}</li>
+                  ))}
+                </ul>
 
-              <div class="service-block__cta">
-                <a href="#consultation" class="btn btn--primary">
-                  Get Started With {service.kicker.split("&")[0]}
-                </a>
+                <div class="service-block__cta">
+                  <a
+                    href={service.href || "#consultation"}
+                    class="btn btn--primary"
+                  >
+                    Get Started With {service.kicker.split("&")[0]}
+                  </a>
+                </div>
               </div>
-            </div>
-          </article>
-        ))}
+            </article>
+          ))
+        }
       </div>
     </div>
   </section>
@@ -272,15 +289,21 @@ const servicesList = [
         <p class="consult__kicker">Ready to grow?</p>
         <h2 class="consult__title">Let's Build Your Custom Marketing Plan</h2>
         <p class="consult__text">
-          Schedule a free 30-minute consultation. We'll evaluate your current presence, audit competitor traffic, and share a step-by-step roadmap tailored to your budget.
+          Schedule a free 30-minute consultation. We'll evaluate your current
+          presence, audit competitor traffic, and share a step-by-step roadmap
+          tailored to your budget.
         </p>
         <ul class="consult__contact">
           <li>
-            <span class="material-symbols-outlined" aria-hidden="true">call</span>
+            <span class="material-symbols-outlined" aria-hidden="true"
+              >call</span
+            >
             <a href="tel:+16163009868">(616) 300-9868</a>
           </li>
           <li>
-            <span class="material-symbols-outlined" aria-hidden="true">mail</span>
+            <span class="material-symbols-outlined" aria-hidden="true"
+              >mail</span
+            >
             <a href="mailto:team@goodrep.media">team@goodrep.media</a>
           </li>
         </ul>
@@ -564,6 +587,15 @@ const servicesList = [
       font-size: 1.05rem;
       line-height: 1.7;
       margin: 0 0 1.75rem;
+    }
+
+    .service-block__content ul,
+    .checklist {
+      line-height: 2rem;
+    }
+
+    .checklist li {
+      line-height: 2rem;
     }
 
     .service-block__cta {

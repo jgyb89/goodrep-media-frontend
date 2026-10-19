@@ -42,10 +42,60 @@ const year = new Date().getFullYear();
           </span>
         </a>
         <div class="global-nav__links">
-          <a href="/services">Services</a>
-          <a href="/work">Our Work</a>
-          <a href="/about">About</a>
-          <a href="/blog">Insights</a>
+          <div class="nav-item nav-item--mega">
+            <a
+              href="/services"
+              class="nav-item__trigger"
+              aria-haspopup="true"
+              aria-expanded="false"
+            >
+              <span>Services</span>
+              <span class="material-symbols-outlined nav-item__caret" aria-hidden="true">expand_more</span>
+            </a>
+
+            <div class="mega-menu" role="region" aria-label="Services submenu">
+              <div class="mega-menu__inner">
+                <div class="mega-menu__col">
+                  <h3 class="mega-menu__heading">Web Design and Build</h3>
+                  <ul class="mega-menu__list">
+                    <li><a href="/services/web-design">Website Design</a></li>
+                    <li><a href="/services/ecommerce-web-design">eCommerce Web Design</a></li>
+                    <li><a href="/services/email-marketing">Email Marketing Services</a></li>
+                  </ul>
+                </div>
+
+                <div class="mega-menu__col">
+                  <h3 class="mega-menu__heading">Search Engine Optimization</h3>
+                  <ul class="mega-menu__list">
+                    <li><a href="/services/local-seo">Local SEO</a></li>
+                    <li><a href="/services/technical-seo">Technical SEO</a></li>
+                    <li><a href="/services/link-building">Link Building Services</a></li>
+                    <li><a href="/services/amazon-marketing">Amazon Marketing Services</a></li>
+                  </ul>
+                </div>
+
+                <div class="mega-menu__col">
+                  <h3 class="mega-menu__heading">Digital Media</h3>
+                  <ul class="mega-menu__list">
+                    <li><a href="/services/digital-media">Digital Media Production</a></li>
+                    <li><a href="/services/sms-marketing">SMS Marketing</a></li>
+                    <li><a href="/services/video-production">Video Production</a></li>
+                    <li><a href="/services/social-media">Social Media Marketing</a></li>
+                  </ul>
+                </div>
+
+                <div class="mega-menu__col">
+                  <h3 class="mega-menu__heading">Paid Media</h3>
+                  <ul class="mega-menu__list">
+                    <li><a href="/services/paid-ads">Pay-per-click Marketing</a></li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+          <a href="/work" class="nav-link">Our Work</a>
+          <a href="/about" class="nav-link">About</a>
+          <a href="/blog" class="nav-link">Insights</a>
         </div>
         <a href="/#consultation" class="btn btn--primary global-nav__cta">Book a Call</a>
       </nav>
@@ -97,7 +147,7 @@ const year = new Date().getFullYear();
         <div class="global-footer__col">
           <h2 class="global-footer__heading">Services</h2>
           <ul>
-            <li><a href="/services#web-design">Website Design</a></li>
+            <li><a href="/services/web-design">Website Design</a></li>
             <li><a href="/services#local-seo">Local SEO</a></li>
             <li><a href="/services#paid-ads">Paid Ads</a></li>
             <li><a href="/services">View All Services &rarr;</a></li>
@@ -198,12 +248,47 @@ const year = new Date().getFullYear();
         });
       }
 
-      if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', setupContactModal);
-      } else {
-        setupContactModal();
+      function setupMegaMenu() {
+        const megaItem = document.querySelector<HTMLElement>('.nav-item--mega');
+        const trigger = megaItem?.querySelector<HTMLAnchorElement>('.nav-item__trigger');
+        if (!megaItem || !trigger) return;
+
+        const setExpanded = (expanded: boolean) => {
+          trigger.setAttribute('aria-expanded', String(expanded));
+          if (expanded) {
+            megaItem.classList.remove('is-closed');
+          }
+        };
+
+        megaItem.addEventListener('pointerenter', () => setExpanded(true));
+        megaItem.addEventListener('pointerleave', () => setExpanded(false));
+        megaItem.addEventListener('focusin', () => setExpanded(true));
+        megaItem.addEventListener('focusout', (e) => {
+          if (!megaItem.contains(e.relatedTarget as Node)) {
+            setExpanded(false);
+          }
+        });
+
+        megaItem.addEventListener('keydown', (e) => {
+          if (e.key === 'Escape') {
+            megaItem.classList.add('is-closed');
+            trigger.setAttribute('aria-expanded', 'false');
+            trigger.focus();
+          }
+        });
       }
-      document.addEventListener('astro:page-load', setupContactModal);
+
+      function initLayout() {
+        setupContactModal();
+        setupMegaMenu();
+      }
+
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', initLayout);
+      } else {
+        initLayout();
+      }
+      document.addEventListener('astro:page-load', initLayout);
     </script>
   </body>
 </html>
@@ -284,10 +369,13 @@ const year = new Date().getFullYear();
 
   .global-nav__links {
     display: none;
+    align-items: center;
+    height: 100%;
     gap: 2rem;
   }
 
-  .global-nav__links a {
+  .nav-link,
+  .nav-item__trigger {
     color: var(--color-dark);
     text-decoration: none;
     font-weight: 600;
@@ -295,9 +383,13 @@ const year = new Date().getFullYear();
     position: relative;
     padding: 0.25rem 0;
     transition: color 0.2s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.2rem;
   }
 
-  .global-nav__links a::after {
+  .nav-link::after,
+  .nav-item__trigger::after {
     content: '';
     position: absolute;
     left: 0;
@@ -307,15 +399,127 @@ const year = new Date().getFullYear();
     background: var(--color-cyan);
     transform: scaleX(0);
     transform-origin: left;
-    transition: transform 0.25s ease;
+    transition: transform 0.25s ease, background-color 0.25s ease;
   }
 
-  .global-nav__links a:hover {
+  .nav-link:hover {
     color: var(--color-cyan-dark);
   }
 
-  .global-nav__links a:hover::after {
+  .nav-link:hover::after {
     transform: scaleX(1);
+  }
+
+  /* ---------- Services Mega Menu ---------- */
+  .nav-item--mega {
+    height: 100%;
+    display: flex;
+    align-items: center;
+  }
+
+  .nav-item__caret {
+    font-size: 1.15rem;
+    line-height: 1;
+    transition: transform 0.25s ease, color 0.2s ease;
+  }
+
+  .nav-item--mega:hover:not(.is-closed) .nav-item__trigger,
+  .nav-item--mega:focus-within:not(.is-closed) .nav-item__trigger {
+    color: var(--color-cyan);
+  }
+
+  .nav-item--mega:hover:not(.is-closed) .nav-item__trigger::after,
+  .nav-item--mega:focus-within:not(.is-closed) .nav-item__trigger::after {
+    background: var(--color-primary);
+    transform: scaleX(1);
+  }
+
+  .nav-item--mega:hover:not(.is-closed) .nav-item__caret,
+  .nav-item--mega:focus-within:not(.is-closed) .nav-item__caret {
+    transform: rotate(180deg);
+    color: var(--color-cyan);
+  }
+
+  .mega-menu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    width: 100%;
+    background: #2b2b2b;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    box-shadow: 0 24px 48px -12px rgba(0, 0, 0, 0.45);
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transform: translateY(-6px);
+    transition:
+      opacity 0.22s ease,
+      transform 0.22s ease,
+      visibility 0.22s;
+    z-index: 60;
+  }
+
+  .nav-item--mega:hover:not(.is-closed) .mega-menu,
+  .nav-item--mega:focus-within:not(.is-closed) .mega-menu {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+    transform: translateY(0);
+  }
+
+  .mega-menu__inner {
+    max-width: var(--container);
+    margin: 0 auto;
+    padding: 2.75rem 2rem 3.25rem;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2.25rem 3rem;
+  }
+
+  @media (min-width: 1024px) {
+    .mega-menu__inner {
+      grid-template-columns: repeat(4, 1fr);
+      gap: 2.5rem 3.5rem;
+    }
+  }
+
+  .mega-menu__heading {
+    font-family: var(--font-body);
+    font-size: 0.92rem;
+    font-weight: 700;
+    color: var(--color-light);
+    margin: 0 0 1.25rem;
+    padding-bottom: 0.35rem;
+    border-bottom: 2px solid var(--color-light);
+    display: inline-block;
+  }
+
+  .mega-menu__list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 1.05rem;
+  }
+
+  .mega-menu__list a {
+    color: #e5e7eb;
+    text-decoration: none;
+    font-size: 0.88rem;
+    font-weight: 400;
+    line-height: 1.4;
+    display: inline-block;
+    transition:
+      color 0.2s ease,
+      transform 0.2s ease;
+  }
+
+  .mega-menu__list a:hover,
+  .mega-menu__list a:focus-visible {
+    color: var(--color-cyan);
+    transform: translateX(3px);
   }
 
   .global-nav__cta {
