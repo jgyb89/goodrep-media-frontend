@@ -53,7 +53,7 @@
 - `src/components/ReadyBand.astro` -> Reusable dark breakout band with 50% overlay and parallax partner artwork.
 - `src/components/DeliverablesGrid.astro` -> Reusable 3-column orbital medallion deliverables/strategies grid.
 - `src/components/ConsultSection.astro` -> Reusable morphing SVG wave consultation funnel with floating art and LeadForm.
-- `src/data/*.js` -> Dedicated data modules for each service (`webDesignData.js`, `ecommerceWebDesignData.js`, `emailMarketingData.js`, `localSeoData.js`, `technicalSeoData.js`).
+- `src/data/*.js` -> Dedicated data modules for each service (`webDesignData.js`, `ecommerceWebDesignData.js`, `emailMarketingData.js`, `localSeoData.js`, `technicalSeoData.js`, `linkBuildingData.js`).
 - `src/pages/services/*.astro` -> Ultra-compact (~35 line) service page orchestrations importing from `src/data/` and rendering modular components.
 
 ## 🧱 Work Breakdown Structure (WBS)
@@ -80,7 +80,7 @@
   - [x] **Email Marketing Services** (`src/pages/services/email-marketing.astro`)
   - [x] **Local SEO** (`src/pages/services/local-seo.astro`)
   - [x] **Technical SEO** (`src/pages/services/technical-seo.astro`)
-  - [ ] **Link Building Services** (`src/pages/services/link-building.astro`)
+  - [x] **Link Building Services** (`src/pages/services/link-building-services.astro` & `src/pages/services/link-building.astro`)
   - [ ] **Amazon Marketing Services** (`src/pages/services/amazon-marketing.astro`)
   - [ ] **Digital Media Production** (`src/pages/services/digital-media.astro`)
   - [ ] **SMS Marketing** (`src/pages/services/sms-marketing.astro`)
@@ -191,4 +191,18 @@
       - **Strategies Grid (`.deliverables`):** 6 orbital medallion cards for *"Our Technical SEO Strategies"* (*Technical SEO Audit*, *Competitive Analysis*, *Speed Tune-Up*, *Optimize Images*, *Analyzing Meta Data*, *Data Markup Structure*).
       - **Consultation Funnel (`.consult`):** Dual morphing SVG waves, floating art, and `<LeadForm client:visible submitLabel="Book My Free Technical SEO Audit" />`.
       - **Build Verification:** Tested with `npm run build`—all 137 pages generated cleanly in 11.34s with 0 errors.
-- **Current Objective:** Build out the next service page in Step 7 (`src/pages/services/link-building.astro`) using the modular component and data architecture.
+  12. Built out dedicated **Link Building Services** pages (`src/pages/services/link-building-services.astro` & `src/pages/services/link-building.astro`):
+      - Created dedicated data module `src/data/linkBuildingData.js` isolating all page copy, metrics, and step objects; kept both page shells to ~37 lines.
+      - Supported dual routing for `/services/link-building-services` and `/services/link-building` to prevent 404s from either navigation format.
+      - **Hero (`.service-hero`):** Compact single-line title (`Link Building Engineered For` + 3D GSAP rotating words: `"First-Page Domain Authority"`, `"High-DA Editorial Backlinks"`, `"100% White-Hat Outreach"`, `"Compounding Organic Traffic"`), exact lead copy, 5-point Link Building checklist card, CTAs, and multi-plane `.hero-stage` with `/GRM Web Graphics/GRM-link-building-graphic.webp` (`3251 × 2250`) + 4 floating satellites.
+      - **Spotlight (`.starts-section`):** *"MOST COMPANIES DON'T UNDERSTAND... Why Link Building is Critical to SEO & Domain Authority"* paired with `/GRM Web Graphics/GRM-link-building-seo.webp` (`2878 × 2250`) parallax stage and animated 92% SVG circular progress Google ranking factor callout.
+      - **Stats Band (`.stats-band`):** 50% dark overlay over geometric pattern with 4 live animated counters (`92%` top pages have backlinks, `+300%` organic referral growth, `66%` web pages have zero links, `100%` white-hat methodology).
+      - **The Pillars (`.pillars-section`):** *"THE PILLARS: What is the Good Rep Way?"* featuring 3 `.pillar-row-card` items (*High Authority Domains*, *Tailor Made Strategies*, *An Expert Team*) paired with `/grm-attract-users-resources.webp` parallax stage.
+      - **Interactive Accordion & Stage (`.process`):** *"OUR PROCESS: The Right Way to Approach a Backlink Strategy"* 4-step accordion (*Create Outstanding Content*, *Strict White Hat Methods*, *High-Authority Relevance*, *Toxic Link Audits & Disavow*) synchronized with dark `.process__stage`.
+      - **Pitfalls Checklist (`.starts-section`):** *"AVOID THE PITFALLS: Backlinks from High DA Sites - What Mistakes Do Companies Make?"* 4-point risk checklist paired with `/GRM Web Graphics/good-rep-media-marketing.webp` parallax stage.
+      - **9-Card Strategy Grid (`.deliverables`):** *"OUR STRATEGIES: Our Link Building Strategies"* (*Backlink Audits*, *Keyword Strategies*, *Competitive Analysis*, *Relationship Management*, *Broken Link Repair*, *Targeted Content Edits*, *Guest Posting*, *Press Releases*, *Brand Placement*).
+      - **Ready Breakout Band (`.ready-band`):** *"A Backlink Strategy that Improves Your SEO Rankings"* with 50% dark overlay and `/grm-partner-with-us.webp`.
+      - **Working with Good Rep Grid (`.deliverables`):** *"WORKING WITH GOODREP: When You Work with Good Rep for Your Backlinking"* 6-card methodology grid (*Strategy Meetings*, *In-Depth Website Audit*, *Identify Clear Goals*, *White Hat Link Building*, *Grow Your Target Audience*, *An Expert Link Building Team*).
+      - **Consultation Funnel (`.consult`):** Dual morphing SVG waves, floating art collage, and `<LeadForm client:visible submitLabel="Book My Free Link Building Audit" />`.
+      - **Build Verification:** Tested with `npm run build`—all 139 pages generated cleanly in 11.77s with 0 errors.
+- **Current Objective:** Build out the next service page in Step 7 (`src/pages/services/amazon-marketing.astro`) using the modular component and data architecture.
