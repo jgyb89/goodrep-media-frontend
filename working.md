@@ -53,7 +53,7 @@
 - `src/components/ReadyBand.astro` -> Reusable dark breakout band with 50% overlay and parallax partner artwork.
 - `src/components/DeliverablesGrid.astro` -> Reusable 3-column orbital medallion deliverables/strategies grid.
 - `src/components/ConsultSection.astro` -> Reusable morphing SVG wave consultation funnel with floating art and LeadForm.
-- `src/data/*.js` -> Dedicated data modules for each service (`webDesignData.js`, `ecommerceWebDesignData.js`, `emailMarketingData.js`, `localSeoData.js`, `technicalSeoData.js`, `linkBuildingData.js`).
+- `src/data/*.js` -> Dedicated data modules for each service (`webDesignData.js`, `ecommerceWebDesignData.js`, `emailMarketingData.js`, `localSeoData.js`, `technicalSeoData.js`, `linkBuildingData.js`, `amazonMarketingData.js`).
 - `src/pages/services/*.astro` -> Ultra-compact (~35 line) service page orchestrations importing from `src/data/` and rendering modular components.
 
 ## 🧱 Work Breakdown Structure (WBS)
@@ -81,7 +81,7 @@
   - [x] **Local SEO** (`src/pages/services/local-seo.astro`)
   - [x] **Technical SEO** (`src/pages/services/technical-seo.astro`)
   - [x] **Link Building Services** (`src/pages/services/link-building-services.astro` & `src/pages/services/link-building.astro`)
-  - [ ] **Amazon Marketing Services** (`src/pages/services/amazon-marketing.astro`)
+  - [x] **Amazon Marketing Services** (`src/pages/services/amazon-marketing-services.astro` & `src/pages/services/amazon-marketing.astro`)
   - [ ] **Digital Media Production** (`src/pages/services/digital-media.astro`)
   - [ ] **SMS Marketing** (`src/pages/services/sms-marketing.astro`)
   - [ ] **Video Production** (`src/pages/services/video-production.astro`)
@@ -205,4 +205,17 @@
       - **Working with Good Rep Grid (`.deliverables`):** *"WORKING WITH GOODREP: When You Work with Good Rep for Your Backlinking"* 6-card methodology grid (*Strategy Meetings*, *In-Depth Website Audit*, *Identify Clear Goals*, *White Hat Link Building*, *Grow Your Target Audience*, *An Expert Link Building Team*).
       - **Consultation Funnel (`.consult`):** Dual morphing SVG waves, floating art collage, and `<LeadForm client:visible submitLabel="Book My Free Link Building Audit" />`.
       - **Build Verification:** Tested with `npm run build`—all 139 pages generated cleanly in 11.77s with 0 errors.
-- **Current Objective:** Build out the next service page in Step 7 (`src/pages/services/amazon-marketing.astro`) using the modular component and data architecture.
+  13. Built out dedicated **Amazon Marketing Services** pages (`src/pages/services/amazon-marketing-services.astro` & `src/pages/services/amazon-marketing.astro`):
+      - Created dedicated data module `src/data/amazonMarketingData.js` isolating all page copy, metrics, and step objects; kept both page shells to ~37 lines.
+      - Supported dual routing for `/services/amazon-marketing-services` and `/services/amazon-marketing` to match all navigation patterns and prevent 404s.
+      - **Hero (`.service-hero`):** Compact single-line title (`Amazon Marketing Engineered For` + 3D GSAP rotating words: `"Top-Ranking Buy Box Wins"`, `"Sponsored Brand Dominance"`, `"Maximum ROAS & Low ACoS"`, `"Custom Storefront Growth"`), exact lead copy, 5-point Amazon Marketing checklist card, CTAs, and multi-plane `.hero-stage` with `/GRM Web Graphics/GRM-amazon-marketplace-services.webp` (`2878 × 2250`) + 4 floating satellites.
+      - **Spotlight (`.starts-section`):** *"AMAZON THE RIGHT WAY: Maximize Your Sales Potential with Amazon Marketing Services"* paired with `/GRM Web Graphics/GRM-why-amazon-marketplace-services.webp` (`2878 × 2250`) parallax stage and animated 66% SVG circular progress buyer search dominance callout.
+      - **Stats Band (`.stats-band`):** 50% dark overlay over geometric pattern with 4 live animated counters (`66%` of product searches start on Amazon, `300M+` active customer accounts, `+45%` average organic sales lift, `100%` transparency & money-back guarantee).
+      - **The Pillars (`.pillars-section`):** *"THE PILLARS: How Do We Make it Happen?"* featuring 3 `.pillar-row-card` items (*Meaningful Onboarding*, *Knowing the Platforms*, *Paid and Organic Mix*) paired with `/grm-attract-users-resources.webp` parallax stage.
+      - **Interactive Accordion & Stage (`.process`):** *"OUR PROCESS: Our Amazon Marketing Services"* 4-step accordion (*Sponsored Products*, *Sponsored Brands*, *Amazon Brand Stores*, *Sponsored Display & DSP*) synchronized with dark `.process__stage`.
+      - **Approach Spotlight (`.starts-section`):** *"OUR APPROACH TO AMAZON MARKETING: It Goes Beyond Just Being on Amazon"* 5-point management checklist paired with `/GRM Web Graphics/good-rep-media-marketing.webp` parallax stage.
+      - **Deliverables Grid (`.deliverables`):** *"STRATEGIC CAPABILITIES: Comprehensive Amazon Growth Solutions"* 6 orbital medallion cards (*Keyword Research & Bidding*, *Listing Optimization & Copywriting*, *A+ Enhanced Brand Content*, *Amazon Brand Storefronts*, *Competitor Conquesting*, *Analytics & Monthly Reporting*).
+      - **Ready Breakout Band (`.ready-band`):** *"Why Choose Us to Grow Your Amazon Store"* with 50% dark overlay, partner artwork `/grm-partner-with-us.webp`, and 100% money-back guarantee badge.
+      - **Consultation Funnel (`.consult`):** Dual morphing SVG waves, floating art collage, and `<LeadForm client:visible submitLabel="Book My Free Amazon Audit" />`.
+      - **Build Verification:** Tested with `npm run build`—all 141 pages generated cleanly in 11.44s with 0 errors.
+- **Current Objective:** Build out the next service page in Step 7 (`src/pages/services/digital-media.astro`) using the modular component and data architecture.
