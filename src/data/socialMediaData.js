@@ -37,12 +37,12 @@ export const heroData = {
       depth: 12,
     },
     main: {
-      src: "/grm-web-assets/social-media-likes-comments-stats-graphic.svg",
+      src: "/woman-engaged-social-media-image.webp",
       alt: "Social Media Marketing Services and Audience Growth",
-      width: 746,
-      height: 780,
+      width: 2642,
+      height: 2000,
       depth: -18,
-      style: "width: 62%; left: 19%; top: 12%;",
+      style: "width: 64%; left: 18%; top: 10%;",
     },
     floats: [
       {

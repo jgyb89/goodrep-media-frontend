@@ -431,4 +431,8 @@
       - Updated `src/pages/index.astro` hero markup from `<div class="hero__container">` to `<div class="container hero__container">` to inherit the global container utility class.
       - Refactored `.hero__container` CSS rules in `src/pages/index.astro` to use `width: 100%; max-width: var(--container);` ensuring full-width expansion up to the 1600px ceiling across desktop displays.
       - Verified production build: all 151 pages generated cleanly with 0 errors.
+  27. **Updated Social Media Hero Centerpiece Asset:**
+      - Replaced `hero-stage__main` image in `src/data/socialMediaData.js` with `woman-engaged-social-media-image.webp` (2642x2000 cutout) for `/services/social-media` and `/services/social-media-marketing`.
+      - Verified layout sizing and centering over the background blob with zero text occlusion.
+      - Verified build: all 151 pages generated cleanly with 0 errors.
 - **Current Objective:** Proceed to Step 8: End-to-end responsiveness, accessibility auditing, and performance optimization across all service pages and core routes.
