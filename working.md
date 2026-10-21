@@ -92,7 +92,7 @@
 - [x] Step 6: Layout refinements & animation bug fixes:
   - [x] Adjust `ul.checklist` line-height to `2rem` in `services.astro`
   - [x] Fix stats ribbon disappearing text in `work.astro` (eliminated conflicting `data-reveal` and migrated to `gsap.fromTo` with `clearProps: "all"`)
-- [/] Step 7: Build out dedicated individual pages per service (`/services/[service]`): <!-- CURRENTLY WORKING HERE -->
+- [x] Step 7: Build out dedicated individual pages per service (`/services/[service]`):
   - [x] **Website Design** (`src/pages/services/web-design.astro`) — Flagship Master Template
   - [x] **eCommerce Web Design** (`src/pages/services/ecommerce-web-design.astro`)
   - [x] **Email Marketing Services** (`src/pages/services/email-marketing.astro`)
@@ -104,8 +104,8 @@
   - [x] **SMS Marketing** (`src/pages/services/sms-marketing.astro` & `src/pages/services/sms-marketing-services.astro`)
   - [x] **Video Production** (`src/pages/services/video-production.astro` & `src/pages/services/video-production-services.astro`)
   - [x] **Social Media Marketing** (`src/pages/services/social-media.astro` & `src/pages/services/social-media-marketing.astro`)
-  - [ ] **Pay-per-click Marketing** (`src/pages/services/paid-ads.astro`)
-- [ ] Step 8: End-to-end responsiveness, accessibility auditing, and performance optimization
+  - [x] **Pay-per-click Marketing** (`src/pages/services/paid-ads.astro` & `src/pages/services/pay-per-click-marketing.astro`)
+- [/] Step 8: End-to-end responsiveness, accessibility auditing, and performance optimization <!-- CURRENTLY WORKING HERE -->
 - [ ] Step 9: Production cutover & security lockdown (WordPress subdomain setup, CORS whitelisting, build webhooks)
 
 ## 🪵 Session Progress Log
@@ -410,4 +410,20 @@
         - Preserved element combination limits (1 background blob + 1 center graphic + max 2 small corner accents).
         - Maintained strict blob corner placement geometry (Blob 1: Lower-Left / Top-Right; Blob 2: Top-Left / Bottom-Right).
       - **Build Verification:** Tested with `ASTRO_TELEMETRY_DISABLED=1 npm run build`—all 149 pages compiled cleanly in 13.25s with 0 errors.
-- **Current Objective:** Build out the final service page in Step 7 (`src/pages/services/paid-ads.astro` / Pay-per-click Marketing) using the modular component and data architecture.
+  25. **Built out dedicated Pay-Per-Click Marketing pages (`src/pages/services/paid-ads.astro` & `src/pages/services/pay-per-click-marketing.astro`):**
+      - Extracted live copy, stats, pillars, process steps, and platform capabilities from `https://goodrep.media/services/pay-per-click-marketing/` via WordPress REST API (`/tmp/ppc.json`, ID 237493).
+      - Created dedicated data module `src/data/paidAdsData.js` isolating all page copy, metrics, and step objects; kept both page shells to ~41 lines.
+      - Supported dual routing for `/services/paid-ads` and `/services/pay-per-click-marketing` to match all navigation patterns and prevent 404s.
+      - Updated `src/layouts/MainLayout.astro` mega-menu and footer links directly to `/services/paid-ads`, and updated `src/pages/services.astro` paid ads card `href` to `/services/paid-ads`.
+      - **Strict Alignment with Element Combination & Blob Geometry Rules:**
+        - Stage 1 (Hero): Blob 1 (`blue-circular-background-graphic.svg`) + center graphic (`tablet-ads-targeting-graphic.svg`, 58%) + Lower-Left (`coin-stack-graphic.svg`, 24%) + Top-Right (`arrow-in-target-graphic.svg`, 22%).
+        - Stage 2 (Starts Spotlight): Blob 2 (`blue-circular-background-2-graphic.svg`) + center graphic (`stocks-going-up-graphic.svg`, 62%) + Top-Left (`upward-trend-graph-graphic.svg`, 24%) + Bottom-Right (`3d-star-graphic.svg`, 22%) with 65% SMB adoption callout.
+        - Stage 3 (Stats Ribbon): 4 live animated counters extracted from the live page (`65%` of SMBs have an active PPC campaign, `50%` higher purchase probability vs organic visitors, `200%` average ROI, `52%` of PPC clicks from mobile devices).
+        - Stage 4 (Pillars): Blob 1 + center graphic (`spiral-notebook-with-target-graphic.svg`, 62%) + Lower-Left (`arrow-in-target-graphic.svg`, 24%) + Top-Right (`3-arrows-up-graphic.svg`, 22%) featuring 3 data-driven pillars (*Data-Driven Decisions*, *Audience-Centered Targeting*, *Conversion-Focused Tactics*).
+        - Stage 5 (Process Accordion): 4 synchronized steps (*Discovery & Competitor Analysis*, *Strategy & Architecture*, *Creative & Copywriting*, *Launch & Month-Over-Month Optimization*).
+        - Stage 6 (Approach Spotlight): Blob 2 + center graphic (`tablet-ads-targeting-graphic.svg`, 62%) + Top-Left (`arrow-in-target-graphic.svg`, 24%) + Bottom-Right (`coin-stack-graphic.svg`, 22%) with 100% Quality Score and ad rank optimization callout.
+        - Stage 7 (Capabilities Grid): 6 platform-focused orbital medallion cards (*Google Search Ads*, *Google Display Network*, *Meta & Social Paid Ads*, *Precision Retargeting*, *Landing Page Optimization*, *Conversion Tracking & Reporting*).
+        - Stage 8 (Ready Breakout Band): Blob 1 + center graphic (`stocks-going-up-graphic.svg`, 58%) + Lower-Left (`arrow-in-target-graphic.svg`, 24%) + Top-Right (`3-arrows-up-graphic.svg`, 22%).
+        - Stage 9 (Consultation Funnel): Clean `/grm-web-assets/online-support-graphic.svg` with chat and heart floats, dual morphing SVG waves, and `<LeadForm client:visible submitLabel="Book My Free PPC Strategy Call" />`.
+      - **Build Verification:** Tested with `ASTRO_TELEMETRY_DISABLED=1 npm run build`—all 151 pages compiled cleanly in 15.24s with 0 errors.
+- **Current Objective:** Proceed to Step 8: End-to-end responsiveness, accessibility auditing, and performance optimization across all service pages and core routes.
