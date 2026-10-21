@@ -9,6 +9,8 @@ interface Satellite {
   height: number;
   parallax?: number;
   className?: string;
+  style?: string;
+  noFloat?: boolean;
 }
 
 interface MediaPill {
@@ -20,8 +22,8 @@ interface MediaPill {
 }
 
 interface MediaStage {
-  blob?: { src: string; width: number; height: number };
-  main: { src: string; alt: string; width: number; height: number };
+  blob?: { src: string; width: number; height: number; style?: string };
+  main: { src: string; alt: string; width: number; height: number; style?: string };
   satellites?: Satellite[];
   pill?: MediaPill;
 }
@@ -100,16 +102,18 @@ if (callout && typeof callout.percent === "number") {
                 alt=""
                 width={media.blob.width}
                 height={media.blob.height}
+                style={media.blob.style}
                 loading="lazy"
               />
             )}
-            <Image
+            <img
               class="starts-feature__main"
               data-spotlight-parallax="-18"
               src={media.main.src}
               alt={media.main.alt}
               width={media.main.width}
               height={media.main.height}
+              style={media.main.style}
               loading="lazy"
               decoding="async"
             />
@@ -117,11 +121,12 @@ if (callout && typeof callout.percent === "number") {
               <img
                 class:list={["starts-feature__sat", sat.className]}
                 data-spotlight-parallax={sat.parallax ?? -36}
-                data-float
+                data-float={sat.noFloat ? undefined : ""}
                 src={sat.src}
                 alt={sat.alt ?? ""}
                 width={sat.width}
                 height={sat.height}
+                style={sat.style}
                 loading="lazy"
               />
             ))}
@@ -230,16 +235,18 @@ if (callout && typeof callout.percent === "number") {
                 alt=""
                 width={media.blob.width}
                 height={media.blob.height}
+                style={media.blob.style}
                 loading="lazy"
               />
             )}
-            <Image
+            <img
               class="starts-feature__main"
               data-spotlight-parallax="-18"
               src={media.main.src}
               alt={media.main.alt}
               width={media.main.width}
               height={media.main.height}
+              style={media.main.style}
               loading="lazy"
               decoding="async"
             />
@@ -247,11 +254,12 @@ if (callout && typeof callout.percent === "number") {
               <img
                 class:list={["starts-feature__sat", sat.className]}
                 data-spotlight-parallax={sat.parallax ?? -36}
-                data-float
+                data-float={sat.noFloat ? undefined : ""}
                 src={sat.src}
                 alt={sat.alt ?? ""}
                 width={sat.width}
                 height={sat.height}
+                style={sat.style}
                 loading="lazy"
               />
             ))}
@@ -397,7 +405,7 @@ if (callout && typeof callout.percent === "number") {
 
   .starts-feature__media {
     position: relative;
-    aspect-ratio: 1 / 0.86;
+    aspect-ratio: 1 / 0.92;
     max-width: 560px;
     width: 100%;
     justify-self: center;
@@ -405,47 +413,61 @@ if (callout && typeof callout.percent === "number") {
 
   .starts-feature__media img {
     position: absolute;
-    height: auto;
+    height: auto !important;
+    max-height: none !important;
+    object-fit: contain;
     will-change: transform;
     pointer-events: none;
   }
 
   .starts-feature__blob {
-    width: 90%;
-    left: 5%;
-    top: 6%;
-    opacity: 0.65;
+    width: 88%;
+    left: 6%;
+    top: 4%;
+    opacity: 0.85;
   }
 
   .starts-feature__main {
-    width: 92%;
-    left: 4%;
-    top: 6%;
-    z-index: 1;
-    filter: drop-shadow(0 22px 30px rgba(15, 23, 42, 0.14));
+    width: 64%;
+    left: 18%;
+    top: 10%;
+    z-index: 2;
+    filter: drop-shadow(0 20px 28px rgba(15, 23, 42, 0.16));
   }
 
   .starts-feature__sat {
-    z-index: 2;
+    max-width: 28% !important;
+    z-index: 3;
     filter: drop-shadow(0 14px 20px rgba(15, 23, 42, 0.2));
+  }
+
+  .starts-feature__sat--line {
+    z-index: 1;
+    filter: none;
+    opacity: 0.85;
+  }
+
+  .starts-feature__sat--sub {
+    z-index: 2;
+    filter: drop-shadow(0 16px 24px rgba(15, 23, 42, 0.18));
   }
 
   .starts-feature__sat--target {
     width: 22%;
-    right: -2%;
-    top: -4%;
+    right: 2%;
+    top: 2%;
   }
 
   .starts-feature__sat--smiley {
-    width: 14%;
-    left: 2%;
+    width: 18%;
+    left: 4%;
     top: 6%;
   }
 
   .starts-feature__sat--likes {
     width: 24%;
     right: 4%;
-    bottom: 8%;
+    bottom: 12%;
   }
 
   .starts-feature__pill {

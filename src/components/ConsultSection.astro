@@ -14,10 +14,11 @@ interface FloatAsset {
   width: number;
   height: number;
   className?: string;
+  style?: string;
 }
 
 interface ConsultArt {
-  main: { src: string; width: number; height: number };
+  main: { src: string; width: number; height: number; style?: string };
   floats: FloatAsset[];
 }
 
@@ -107,6 +108,7 @@ const {
             alt=""
             width={art.main.width}
             height={art.main.height}
+            style={art.main.style}
             loading="lazy"
           />
         )}
@@ -118,6 +120,7 @@ const {
             alt={f.alt ?? ""}
             width={f.width}
             height={f.height}
+            style={f.style}
             loading="lazy"
           />
         ))}
@@ -197,7 +200,7 @@ const {
             opacity: 1,
             duration: 0.75,
             ease: "back.out(1.5)",
-            clearProps: "all",
+            clearProps: "transform,opacity",
           },
         );
       }
@@ -212,7 +215,7 @@ const {
             duration: 0.6,
             stagger: 0.1,
             ease: "back.out(2.2)",
-            clearProps: "all",
+            clearProps: "transform,opacity",
           },
           "<0.2",
         );
@@ -290,9 +293,10 @@ const {
   .consult__art {
     position: relative;
     width: 100%;
-    max-width: 420px;
-    aspect-ratio: 1.35 / 1;
-    margin-bottom: 1.5rem;
+    max-width: 400px;
+    aspect-ratio: 1.25 / 1;
+    margin-bottom: 2.25rem;
+    pointer-events: none;
   }
 
   .consult__art::before {
@@ -305,43 +309,60 @@ const {
 
   .consult__art img {
     position: absolute;
-    height: auto;
+    height: auto !important;
+    max-height: none !important;
+    object-fit: contain;
+    pointer-events: none;
   }
 
   .consult__art-main {
-    width: 92%;
-    left: 4%;
-    top: 16%;
+    width: 66%;
+    left: 17%;
+    top: 8%;
     z-index: 1;
   }
 
   .consult__art-float {
+    max-width: 28% !important;
     filter: drop-shadow(0 10px 14px rgba(15, 23, 42, 0.22));
     z-index: 2;
+    pointer-events: none;
   }
 
   .consult__art-float--chat {
-    width: 28%;
-    right: 2%;
-    top: 0;
+    width: 26%;
+    right: 4%;
+    top: 2%;
   }
 
   .consult__art-float--megaphone {
     width: 20%;
-    left: 0;
-    top: 4%;
+    left: 2%;
+    top: 6%;
   }
 
   .consult__art-float--handshake {
-    width: 38%;
-    left: 26%;
-    bottom: -4%;
+    width: 34%;
+    left: 6%;
+    bottom: 4%;
   }
 
   .consult__art-float--heart {
     width: 18%;
+    right: 6%;
+    bottom: 6%;
+  }
+
+  .consult__float--top {
+    width: 22%;
     right: 4%;
-    bottom: 2%;
+    top: 0;
+  }
+
+  .consult__float--bottom {
+    width: 24%;
+    left: 4%;
+    bottom: 0;
   }
 
   .consult__kicker {

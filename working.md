@@ -27,6 +27,24 @@
 
 ## 📐 Master Page Templates & Design Consistency Rules
 - **Core Principle:** Every group of same-type pages across the site **must** follow a single unified master template design for consistent branding, layout structure, typography, color tokens, and GSAP choreography—swapping in page-specific copy, metrics, and illustrations while preserving the shared look and feel:
+  - **CRITICAL DESIGN RULE - Zero Text Occlusion (Never Cover Text with Graphical Elements):**
+    - **Never cover, obscure, or collide with any text, headings, kickers, paragraphs, lists, or interactive controls with graphical elements, decorative art, floating satellites, or background assets at any viewport width or breakpoint.**
+    - All floating graphics, badges, and satellites must be strictly anchored within their dedicated media containers, given explicit max-widths/percentages, configured with `pointer-events: none` where decorative, and spaced with sufficient margins/padding so typography is 100% visible, legible, and unhindered on all desktop, tablet, and mobile devices.
+    - Component styles (such as `.consult__art`, `.hero-stage`, `.starts-feature__media`) must enforce strict bounding boxes and protective margins before text elements.
+  - **CRITICAL DESIGN RULE - Element Combination & Anti-Clutter Limit (Exempting Homepage):**
+    - **All element combinations across all pages (with the explicit exemption of the homepage) should only consist of:**
+      1. **1 background** (optional, e.g. blue blob or subtle texture).
+      2. **1 center graphic** (large centerpiece, ~58–64% width).
+      3. **No more than 2 smaller accent graphics on opposite corners** (~18–24% width, e.g. top-left & lower-right).
+      - **At most 3 graphics total** (1 large, 2 small) + optionally 1 background.
+    - **Blob Corner Placement Rules:**
+      - **Blob 1 (`blue-circular-background-graphic.svg`):** Left small graphic placed in **Lower-Left Corner** (`left: 6%; bottom: 10%–12%;`); Right small graphic placed in **Top-Right Corner** (`right: 6%; top: 6%–8%;`).
+      - **Blob 2 (`blue-circular-background-2-graphic.svg`):** Left small graphic placed in **Top-Left Corner** (`left: 6%; top: 8%;`); Right small graphic placed in **Bottom-Right Corner** (`right: 6%; bottom: 10%;`).
+      - Each blob's corner placement mirrors its actual geometry: Blob 1's protruding circular lobes are lower-left and top-right; Blob 2's protruding lobes are top-left and bottom-right.
+    - **Computer Screen Exception:** Device screen graphics (such as blue and transparent computer screens / monitors) can hold **1 additional graphic within the screen display area**:
+      - 1 computer screen, 1 small graphic within screen area (never a screen/device graphic), 2 smalls on opposite corners, and optionally 1 background.
+    - **GSAP & Inline Styles Rule:** Never use `clearProps: "all"` on elements that rely on inline styles (`style="width: ...; left: ...;"`) for sizing or layout. Always use `clearProps: "transform,opacity"` to prevent browsers from reverting to intrinsic SVG dimensions and blowing up elements.
+    - **No sprawling connector lines:** Do not include meandering dashed lines across stages or cards that create visual clutter and disorganized overlapping.
   1. **Individual Service Pages (`/services/*`):** Must strictly follow the modular template architecture implemented across [`src/pages/services/web-design.astro`](file:///Users/jamesgreen/software_engineer/goodrep-media-frontend/src/pages/services/web-design.astro), [`ecommerce-web-design.astro`](file:///Users/jamesgreen/software_engineer/goodrep-media-frontend/src/pages/services/ecommerce-web-design.astro), [`email-marketing.astro`](file:///Users/jamesgreen/software_engineer/goodrep-media-frontend/src/pages/services/email-marketing.astro), and [`local-seo.astro`](file:///Users/jamesgreen/software_engineer/goodrep-media-frontend/src/pages/services/local-seo.astro):
      - **Modular Component Breakdown:** Page files (`src/pages/services/*.astro`) are lightweight orchestration shells (~30–40 lines) with zero raw data or inline CSS/scripts. They import structured data from `src/data/*Data.js` and render modular components from `src/components/`:
        - `ServiceHero.astro`: Light background (`var(--color-bg)`) with radial cyan dot grid mask, pill `.breadcrumb`, `.service-hero__kicker`, compact single-line `.service-hero__title-top` (`var(--color-cyan)`) + 3D GSAP rotating `.service-hero__word` (`var(--color-primary)`), `.service-hero__checklist-card` (white card with `4px solid var(--color-cyan)` left border), `.service-hero__actions` (`Contact Us` + `Send Us a Message` modal trigger), multi-layered `.hero-stage` (`/Asset 2.webp` blob + main graphic + 4 floating satellites with pointer parallax), and dark bottom `.marquee` strip (`border-bottom: 4px solid var(--color-cyan)`).
@@ -53,7 +71,7 @@
 - `src/components/ReadyBand.astro` -> Reusable dark breakout band with 50% overlay and parallax partner artwork.
 - `src/components/DeliverablesGrid.astro` -> Reusable 3-column orbital medallion deliverables/strategies grid.
 - `src/components/ConsultSection.astro` -> Reusable morphing SVG wave consultation funnel with floating art and LeadForm.
-- `src/data/*.js` -> Dedicated data modules for each service (`webDesignData.js`, `ecommerceWebDesignData.js`, `emailMarketingData.js`, `localSeoData.js`, `technicalSeoData.js`, `linkBuildingData.js`, `amazonMarketingData.js`).
+- `src/data/*.js` -> Dedicated data modules for each service (`webDesignData.js`, `ecommerceWebDesignData.js`, `emailMarketingData.js`, `localSeoData.js`, `technicalSeoData.js`, `linkBuildingData.js`, `amazonMarketingData.js`, `digitalMediaProductionData.js`, `smsMarketingData.js`, `videoProductionData.js`, `socialMediaData.js`).
 - `src/pages/services/*.astro` -> Ultra-compact (~35 line) service page orchestrations importing from `src/data/` and rendering modular components.
 
 ## 🧱 Work Breakdown Structure (WBS)
@@ -82,10 +100,10 @@
   - [x] **Technical SEO** (`src/pages/services/technical-seo.astro`)
   - [x] **Link Building Services** (`src/pages/services/link-building-services.astro` & `src/pages/services/link-building.astro`)
   - [x] **Amazon Marketing Services** (`src/pages/services/amazon-marketing-services.astro` & `src/pages/services/amazon-marketing.astro`)
-  - [ ] **Digital Media Production** (`src/pages/services/digital-media.astro`)
-  - [ ] **SMS Marketing** (`src/pages/services/sms-marketing.astro`)
-  - [ ] **Video Production** (`src/pages/services/video-production.astro`)
-  - [ ] **Social Media Marketing** (`src/pages/services/social-media.astro`)
+  - [x] **Digital Media Production** (`src/pages/services/digital-media-production.astro` & `src/pages/services/digital-media.astro`)
+  - [x] **SMS Marketing** (`src/pages/services/sms-marketing.astro` & `src/pages/services/sms-marketing-services.astro`)
+  - [x] **Video Production** (`src/pages/services/video-production.astro` & `src/pages/services/video-production-services.astro`)
+  - [x] **Social Media Marketing** (`src/pages/services/social-media.astro` & `src/pages/services/social-media-marketing.astro`)
   - [ ] **Pay-per-click Marketing** (`src/pages/services/paid-ads.astro`)
 - [ ] Step 8: End-to-end responsiveness, accessibility auditing, and performance optimization
 - [ ] Step 9: Production cutover & security lockdown (WordPress subdomain setup, CORS whitelisting, build webhooks)
@@ -218,4 +236,178 @@
       - **Ready Breakout Band (`.ready-band`):** *"Why Choose Us to Grow Your Amazon Store"* with 50% dark overlay, partner artwork `/grm-partner-with-us.webp`, and 100% money-back guarantee badge.
       - **Consultation Funnel (`.consult`):** Dual morphing SVG waves, floating art collage, and `<LeadForm client:visible submitLabel="Book My Free Amazon Audit" />`.
       - **Build Verification:** Tested with `npm run build`—all 141 pages generated cleanly in 11.44s with 0 errors.
-- **Current Objective:** Build out the next service page in Step 7 (`src/pages/services/digital-media.astro`) using the modular component and data architecture.
+  14. **Design Quality Fix - Zero Text Occlusion & Consultation Art Standardization:**
+      - Resolved graphical element collision on `src/pages/services/amazon-marketing-services.astro` (and across service data files) where unconstrained floating decorative assets were protruding into the consultation kicker and headline text (`media_1792462931229_034a98d5.png`).
+      - Updated `src/components/ConsultSection.astro` with strict `pointer-events: none` on art layers, added defensive sizing (`max-width: 38%`) on `.consult__art-float`, increased clearance margin below art to `2rem`, and added explicit bounding styles for `.consult__float--top` and `.consult__float--bottom`.
+      - Aligned `amazonMarketingData.js`, `technicalSeoData.js`, and `linkBuildingData.js` with the master template consultation art (`/Asset 48.webp` with chat, megaphone, handshake, and heart satellites).
+      - Documented the rule explicitly in Section 28: Never cover or occlude text with graphical elements at any breakpoint.
+  15. **Built out dedicated Digital Media Production pages (`src/pages/services/digital-media-production.astro` & `src/pages/services/digital-media.astro`):**
+      - Extracted live content and structure from `https://goodrep.media/services/digital-media-production/` via WordPress REST API and page analysis.
+      - Created dedicated data module `src/data/digitalMediaProductionData.js` isolating all page copy, metrics, and step objects; kept both page shells to ~41 lines.
+      - Supported dual routing for `/services/digital-media-production` and `/services/digital-media` to match all navigation links and prevent 404s.
+      - **Hero (`.service-hero`):** Compact single-line title (`Digital Media Production Built For` + 3D GSAP rotating words: `"Brand Authority & Reach"`, `"Commercial-Grade Video"`, `"High-Impact Graphic Design"`, `"Memorable Visual Identity"`), exact lead copy, 5-point production checklist card, CTAs, and multi-plane `.hero-stage` with `/GRM Web Graphics/grm-digital-media-production.webp` (`1909 × 1392`) + 4 floating satellites.
+      - **Spotlight (`.starts-section`):** *"VISUAL ASSETS THAT CONVERT: Photos, Videos, and Graphics for Your Small Business"* paired with `/GRM Web Graphics/grm-video-marketing.webp` (`1942 × 1397`) parallax stage and animated 94% SVG circular progress visual first impressions callout.
+      - **Stats Band (`.stats-band`):** 50% dark overlay over geometric pattern with 4 live animated counters (`94%` first impressions are design-driven, `88%` more time on pages with video, `2.1x` higher social engagement, `100%` satisfaction guarantee).
+      - **The Pillars (`.pillars-section`):** *"THE PILLARS: Why Partner with Good Rep Media for Production?"* featuring 3 `.pillar-row-card` items (*Affordable Pricing Tailored to Your Exact Project*, *Guidance and Expertise to Get the Best Final Design*, *Clear, Consistent Branding That Tells Your Story*) paired with `/GRM Web Graphics/gmr-affordable.webp` parallax stage.
+      - **Interactive Accordion & Stage (`.process`):** *"OUR PROCESS: Get Creative, Memorable Digital Designs of Any Kind"* 4-step accordion (*Discuss Your Needs*, *Collaboration and Consultation*, *Creating Your Design*, *Keep Looking Good*) synchronized with dark `.process__stage`.
+      - **Approach Spotlight (`.starts-section`):** *"A LONG-TERM DESIGN PARTNER: A Creative Production Department Dedicated to Your Business"* paired with `/GRM Web Graphics/good-rep-media-marketing.webp` parallax stage and 100% full commercial asset ownership callout.
+      - **Deliverables Grid (`.deliverables`):** *"STRATEGIC CAPABILITIES: Comprehensive Digital Media Production Services"* 6 orbital medallion cards (*Graphic Design*, *Commercial Photography*, *Video Production*, *Logo Design & Identity*, *Print & Merchandise Collateral*, *Brand Guidelines & Systems*).
+      - **Ready Breakout Band (`.ready-band`):** *"Elevate Your Brand with Professional Digital Media"* with 50% dark overlay, partner artwork `/grm-partner-with-us.webp`, and 100% money-back guarantee badge.
+      - **Consultation Funnel (`.consult`):** Dual morphing SVG waves, standard template floating art collage (`/Asset 48.webp` + satellites), and `<LeadForm client:visible submitLabel="Book My Free Creative Consultation" />`.
+      - **Build Verification:** Tested with `npm run build`—all 143 pages generated cleanly in 11.76s with 0 errors.
+  16. **Migrated Entire Frontend to Semantic Vector Assets (`public/grm-web-assets/`, `public/grm-web-icons/`, `public/grm-logos/`) & Multi-Layered SVG Compositions:**
+      - **Zero Broken Images / Zero `Asset #.webp` References:** Audited all 90+ unique asset paths across `src/layouts/`, `src/pages/`, `src/components/`, and `src/data/` and replaced every legacy `/Asset #.webp`, `/GRM Web Graphics/*.webp`, `/grm-*.webp`, and `/icons/*.svg` path with semantic named `.svg` graphics from `public/grm-web-assets/`, `public/grm-web-icons/`, and `public/grm-logos/`.
+      - **Multi-Layered SVG Stage Architecture & GSAP Animations:** Upgraded shared stage components (`ServiceHero.astro`, `StartsSection.astro`, `PillarsSection.astro`, `ProcessSection.astro`, `ReadyBand.astro`, `ConsultSection.astro`) and page stages (`index.astro`, `services.astro`, `about.astro`, `work.astro`, `blog/index.astro`) to composite `blue-circular-background-graphic.svg` / `blue-circular-background-2-graphic.svg`, connector lines (`dashed-lines-l-shaped-graphic.svg`, `dashed-line-bend-graphic.svg`, `dashed-line-straight-graphic.svg`), primary device/storefront centerpiece SVGs, secondary window/browser SVGs, and floating accent badges animated via GSAP (`[data-float]` yoyo bobbing, entrance staggers, pointer/scroll parallax) and CSS hover transitions.
+      - **Zero Text Occlusion Compliance:** Tuned aspect ratios and `object-fit: contain` bounds across all stage containers so ~1:1 viewBox SVGs remain strictly inside their media boxes and never collide with or occlude text at any breakpoint.
+      - **Navigation & Route Link Fixes:** Updated broken navigation and card links in `MainLayout.astro` and `services.astro` (`/services/local-seo`, `/services/digital-media-production`, `/services/email-marketing`, `/services#social-media`, `/services#paid-ads`) and verified with `astro build` (143 pages built with 0 errors).
+  17. **Standardized Minimalist Decluttering Rule Across All Graphic Compositions (Exempting Homepage):**
+      - **Composition Rule:** To eliminate messy visual overlap and chaotic clutter across the site, all element combinations outside the homepage must consist of:
+        1. **1 background** (optional, e.g. `blue-circular-background-graphic.svg` or `blue-circular-background-2-graphic.svg`).
+        2. **1 center graphic** (large centerpiece, ~58–64% width, centered).
+        3. **No more than 2 smaller accent graphics on opposite corners** (~18–24% width, e.g. top-right & bottom-left, or top-left & bottom-right).
+        - Maximum 3 graphics total (1 large, 2 small) + optionally 1 background.
+      - **Computer Screen Exception:** Device screens (such as `mac-computer-monitor-cyan-screen-background-graphic.svg`) can hold **1 additional graphic within the screen display area** (~26–30% width, centered inside screen):
+        - 1 computer screen + 1 small within screen + 2 smalls on opposite corners + optionally 1 background.
+      - **Eliminated Connector Lines:** Removed sprawling dashed lines (`dashed-lines-l-shaped-graphic.svg`, `dashed-line-bend-graphic.svg`) from stages and cards to keep compositions clean, balanced, and readable.
+      - **Applied Across All Service Data Files:** Refactored all 8 data modules (`emailMarketingData.js`, `ecommerceWebDesignData.js`, `webDesignData.js`, `localSeoData.js`, `technicalSeoData.js`, `linkBuildingData.js`, `amazonMarketingData.js`, `digitalMediaProductionData.js`) across `heroData.stage`, `startsData.media`, `pillarsData.media`, `processData.steps`, `scopeData`/`approachData.media`, `readyData.art`, and `consultData.art`.
+      - **Applied Across All Secondary Pages:**
+        - `src/pages/services.astro`: Hero stage and all 9 services in `servicesList` (standardized to 1 blob, 1 main, 2 opposite corner accents, with monitor exception applied for link building).
+        - `src/pages/about.astro`: About hero art and `about-story__frame` (1 blob, 1 main, 2 opposite corner accents).
+        - `src/pages/work.astro`: Work hero art and all 6 case studies in `projects` (1 blob, 1 main, 2 opposite corner accents, with monitor exception applied for Be Balanced Bodyworks and hero).
+        - `src/pages/blog/index.astro`: Blog hero art (1 blob, 1 laptop, 2 opposite corner accents: user speech bubble top-right & magnifying glass bottom-left).
+      - **Homepage Exemption:** Left `src/pages/index.astro` completely untouched per user requirement.
+      - **Build Verification:** Tested with `ASTRO_TELEMETRY_DISABLED=1 ./node_modules/.bin/astro build`—all 143 pages compiled cleanly in 9.89s with 0 errors.
+  18. **Shape Retention & Conditional Corner Alignment Implementation:**
+      - **Resolved Shape Distortion:**
+        - Identified root cause of SVG squashing and stretching: restrictive CSS `max-height` constraints (e.g. `max-height: 76%`, `max-height: 92%`) on `.hero-stage__main`, `.hero-stage__blob`, `.starts-feature__blob`, `.starts-feature__main`, etc., which clamped element height while `width` stayed at fixed percentages, distorting intrinsic aspect ratios. Also corrected mismatched HTML `width` and `height` attributes across components and data files so they strictly match natural SVG viewBoxes (`746 × 780` for standard vectors, `687 × 663` for monitor/support vectors).
+        - Enforced `height: auto !important; max-height: none !important; object-fit: contain;` across `ServiceHero.astro`, `StartsSection.astro`, `PillarsSection.astro`, `ReadyBand.astro`, `ProcessSection.astro`, `ConsultSection.astro`, `services.astro`, `about.astro`, and `blog/index.astro`.
+      - **Applied Conditional Blob Corner Positioning Rules (Excluding Homepage, Skipping `work.astro`):**
+        - **Blob 2 (`blue-circular-background-2-graphic.svg`):**
+          - Left small graphic placed in **Top-Left Corner** (`left: 6%; top: 8%;`).
+          - Right small graphic placed in **Bottom-Right Corner** (`right: 6%; bottom: 10%;`).
+        - **Blob 1 (`blue-circular-background-graphic.svg`):**
+          - Left small graphic placed in **Lower-Left Corner** (`left: 6%; bottom: 10%–12%;`).
+          - Right small graphic placed in **Top-Right Corner** (`right: 6%; top: 8%;`).
+      - **Enforced Screen-Inside-Screen Restrictions:**
+        - Audited all uses of `mac-computer-monitor-cyan-screen-background-graphic.svg` and `mac-computer-monitor-transparent-screen-graphic.svg`.
+        - Replaced any screen-containing elements placed inside monitor screens (such as `video-player-graphic.svg` in `digitalMediaProductionData.js`) with non-screen vector elements (`image-placeholder-graphic.svg`, `link-graphic.svg`, `screwdriver-graphic.svg`, `arrow-in-target-graphic.svg`).
+      - **Strict Scope Boundaries:**
+        - Skipped `src/pages/work.astro` per user direction.
+        - Left homepage `src/pages/index.astro` 100% untouched.
+      - **Build Verification:** Tested with `ASTRO_TELEMETRY_DISABLED=1 ./node_modules/.bin/astro build`—all 143 pages compiled cleanly in 13.81s with 0 errors.
+  19. **Icon Enlarging Bug Investigation & Resolution + Blob 1 Corner Placement Update:**
+      - **Diagnosis & Root Cause of the Icon Enlarging Bug:**
+        - Investigated why small icons/graphics loaded at small size but immediately enlarged after ~1.3 seconds (as documented in client screenshots).
+        - Discovered in `ServiceHero.astro` and `ConsultSection.astro` that GSAP entrance animations had `clearProps: "all"` configured upon tween completion (`duration: 0.75, delay: 0.55`).
+        - Because positioning and percentage dimensions are defined directly on inline `style` attributes (e.g. `style="width: 22%; left: 6%; top: 8%;"`), `clearProps: "all"` stripped the entire inline `style` attribute upon completion. Without `width: 22%`, the browser immediately rendered the SVG at its intrinsic attribute dimension (`width="746"`), blowing up the icon to 100% stage width.
+      - **Fix Implemented:**
+        - Changed `clearProps: "all"` to `clearProps: "transform,opacity"` across `ServiceHero.astro` and `ConsultSection.astro`. This resets GSAP transforms/opacity cleanly while preserving all inline `style` positioning coordinates and width constraints intact.
+        - Added defensive CSS safeguard: enforced `max-width: 28% !important;` across all floating element classes (`.hero-stage__float`, `.starts-feature__sat`, `.process__visual-float`, `.ready-band__badge`, `.consult__art-float`, `.services-hero__badge`, `.about-hero__badge`, `.about-story__accent`, `.blog-hero__badge`). Even if an inline width style were ever cleared, the element cannot physically enlarge past 28% width of the stage.
+      - **Updated Corner Placement Rule for `blue-circular-background-graphic.svg`:**
+        - For any graphical arrangement using `blue-circular-background-graphic.svg` as the background:
+          - **Left small graphic:** moved to **Top-Left Corner** (`left: 6%; top: 8%;`).
+          - **Right small graphic:** moved to **Lower-Right Corner** (`right: 6%; bottom: 10%;` or `12%`).
+        - Updated across all 8 data files and secondary pages:
+          - `webDesignData.js`: `heroData.stage`, `processData.steps` (Steps 1–4), `readyData.art`.
+          - `ecommerceWebDesignData.js`: `heroData.stage`, `startsData.media`, `processData.steps` (Steps 1–4), `readyData.art`.
+          - `emailMarketingData.js`: `heroData.stage`, `startsData.media`, `processData.steps` (Steps 1–4), `readyData.art`.
+          - `localSeoData.js`: `heroData.stage`, `startsData.media`, `processData.steps` (Steps 1–4), `readyData.art`.
+          - `technicalSeoData.js`: `heroData.stage`, `startsData.media`, `processData.steps` (Steps 1–4), `readyData.art`.
+          - `linkBuildingData.js`: `pillarsData.media`, `processData.steps` (Steps 1–4), `scopeData.media`.
+          - `amazonMarketingData.js`: `heroData.stage`, `startsData.media`, `processData.steps` (Steps 1–4), `readyData.art`.
+          - `digitalMediaProductionData.js`: `heroData.stage`, `startsData.media`, `processData.steps` (Steps 1–4), `readyData.art`.
+          - `src/pages/services.astro`: Hero stage and all service cards in `servicesList` with Blob 1.
+          - `src/pages/about.astro`: Hero stage badges.
+          - `src/pages/blog/index.astro`: Blog hero stage badges.
+      - **Scope Boundaries Maintained:**
+        - Homepage (`src/pages/index.astro`) kept **100% untouched**.
+        - `src/pages/work.astro` kept **skipped** per user instruction.
+        - Screen-inside-screen restrictions strictly preserved (no screen graphics inside monitor graphics).
+      - **Build Verification:** Tested with `ASTRO_TELEMETRY_DISABLED=1 ./node_modules/.bin/astro build`—all 143 pages compiled cleanly in 14.83s with 0 errors.
+  20. **Restored Rule 2: Lower-Left & Top-Right Placement for `blue-circular-background-graphic.svg`:**
+      - **Rule Clarification & Geometry Alignment:**
+        - **Rule 1 (`blue-circular-background-2-graphic.svg`):** Left small graphic placed in **Top-Left Corner** (`left: 6%; top: 8%;`); Right small graphic placed in **Bottom-Right Corner** (`right: 6%; bottom: 10%;`). (Verified correct & preserved).
+        - **Rule 2 (`blue-circular-background-graphic.svg`):** Left small graphic placed in **Lower-Left Corner** (`left: 6%; bottom: 10%–12%;`); Right small graphic placed in **Top-Right Corner** (`right: 6%; top: 6%–8%;`).
+      - **Applied Across All Files Using Blob 1:**
+        - `src/data/webDesignData.js`: `heroData.stage`, `processData.steps` (Steps 1–4), `readyData.art`.
+        - `src/data/ecommerceWebDesignData.js`: `heroData.stage`, `startsData.media`, `processData.steps` (Steps 1–4), `readyData.art`.
+        - `src/data/emailMarketingData.js`: `heroData.stage`, `startsData.media`, `processData.steps` (Steps 1–4), `readyData.art`.
+        - `src/data/localSeoData.js`: `heroData.stage`, `startsData.media`, `processData.steps` (Steps 1–4), `readyData.art`.
+        - `src/data/technicalSeoData.js`: `heroData.stage`, `startsData.media`, `processData.steps` (Steps 1–4), `readyData.art`.
+        - `src/data/linkBuildingData.js`: `pillarsData.media`, `processData.steps` (Steps 1–4), `scopeData.media`.
+        - `src/data/amazonMarketingData.js`: `heroData.stage`, `startsData.media`, `processData.steps` (Steps 1–4), `readyData.art`.
+        - `src/data/digitalMediaProductionData.js`: `heroData.stage`, `startsData.media`, `processData.steps` (Steps 1–4), `readyData.art`.
+        - `src/pages/services.astro`: Hero stage and all service cards in `servicesList` utilizing Blob 1.
+        - `src/pages/about.astro`: About hero stage badges.
+        - `src/pages/blog/index.astro`: Blog hero stage badges.
+      - **Strict Scope Boundaries Maintained:**
+        - Homepage (`src/pages/index.astro`) kept **100% untouched**.
+        - `src/pages/work.astro` kept **skipped** per user direction.
+        - Monitor screen restrictions strictly enforced (no screen/device graphics inside monitor screens).
+      - **Build Verification:** Tested with `ASTRO_TELEMETRY_DISABLED=1 ./node_modules/.bin/astro build`—all 143 pages compiled cleanly with 0 errors.
+  21. **Built out dedicated SMS Marketing pages (`src/pages/services/sms-marketing.astro` & `src/pages/services/sms-marketing-services.astro`):**
+      - Extracted live content and structure from `https://goodrep.media/services/sms-marketing/` via WordPress REST API and page analysis.
+      - Created dedicated data module `src/data/smsMarketingData.js` isolating all page copy, metrics, and step objects; kept both page shells to ~41 lines.
+      - Supported dual routing for `/services/sms-marketing` and `/services/sms-marketing-services` to match all navigation patterns and prevent 404s; updated `src/layouts/MainLayout.astro` services mega-menu.
+      - **Strict Alignment with Element Combination & Blob Geometry Rules:**
+        - Stage 1 (Hero): Blob 1 (`blue-circular-background-graphic.svg`) + center graphic (`red-phone-graphic.svg`, 58%) + Lower-Left (`user-speech-bubble-graphic.svg`, 24%) + Top-Right (`megaphone-alert-notification-graphic.svg`, 22%).
+        - Stage 2 (Starts Spotlight): Blob 2 (`blue-circular-background-2-graphic.svg`) + center graphic (`mobile-email-alerts-graphic.svg`, 58%) + Top-Left (`happy-face-speech-bubble-graphic.svg`, 24%) + Bottom-Right (`star-app-icon-graphic.svg`, 22%).
+        - Stage 3 (Pillars): Blob 1 + center graphic (`tablet-ads-targeting-graphic.svg`, 62%) + Lower-Left (`999-hearts-likes-graphic.svg`, 24%) + Top-Right (`3-arrows-up-graphic.svg`, 22%).
+        - Stage 4 (Process Accordion): 4 synchronized steps (*It’s a Best Kept Secret*, *Conversation Sells*, *Next Level Personalization*, *Quick and Easy Support*).
+        - Stage 5 (Approach Spotlight): Blob 2 + center graphic (`tablet-ads-targeting-graphic.svg`, 62%) + Top-Left (`user-speech-bubble-graphic.svg`, 24%) + Bottom-Right (`star-app-icon-graphic.svg`, 22%) with 100% TCPA & 10DLC compliance callout.
+        - Stage 6 (Capabilities Grid): 6 orbital medallion cards (*Promotional Broadcasts*, *Behavioral Drip Sequences*, *Audience Segmentation*, *Conversational Commerce*, *Loyalty & Birthday Rewards*, *Analytics & Monthly Reporting*).
+        - Stage 7 (Ready Breakout Band): Blob 1 + center graphic (`red-phone-graphic.svg`, 58%) + Lower-Left (`shopping-cart-graphic.svg`, 24%) + Top-Right (`3-arrows-up-graphic.svg`, 22%).
+        - Stage 8 (Consultation Funnel): Clean `/grm-web-assets/online-support-graphic.svg` with chat and heart floats, dual morphing SVG waves, and `<LeadForm client:visible submitLabel="Book My Free SMS Strategy Call" />`.
+      - **Build Verification:** Tested with `ASTRO_TELEMETRY_DISABLED=1 npm run build`—all 145 pages generated cleanly in 13.25s with 0 errors.
+  22. **Built out dedicated Video Production pages (`src/pages/services/video-production.astro` & `src/pages/services/video-production-services.astro`):**
+      - Extracted live content, stats, and structure from `https://goodrep.media/services/video-production/` via WordPress REST API and page analysis.
+      - Created dedicated data module `src/data/videoProductionData.js` isolating all page copy, metrics, and step objects; kept both page shells to ~41 lines.
+      - Supported dual routing for `/services/video-production` and `/services/video-production-services` to match all navigation patterns and prevent 404s; updated `src/layouts/MainLayout.astro` services mega-menu directly to `/services/video-production`.
+      - **Strict Alignment with Element Combination & Blob Geometry Rules:**
+        - Stage 1 (Hero): Blob 1 (`blue-circular-background-graphic.svg`) + center graphic (`video-player-graphic.svg`, 62%) + Lower-Left (`megaphone-alert-notification-graphic.svg`, 24%) + Top-Right (`3-arrows-up-graphic.svg`, 22%).
+        - Stage 2 (Starts Spotlight): Blob 2 (`blue-circular-background-2-graphic.svg`) + center graphic (`video-player-graphic.svg`, 62%) + Top-Left (`happy-face-speech-bubble-graphic.svg`, 24%) + Bottom-Right (`star-app-icon-graphic.svg`, 22%) with 86% market adoption callout.
+        - Stage 3 (Stats Ribbon): 4 live animated counters extracted from the live page (`500+` completed video projects, `100+` satisfied clients, `2500+ hrs` editing & post-production, `20+` states filmed in).
+        - Stage 4 (Pillars): Blob 1 + center graphic (`tablet-ads-targeting-graphic.svg`, 62%) + Lower-Left (`999-hearts-likes-graphic.svg`, 24%) + Top-Right (`3-arrows-up-graphic.svg`, 22%) featuring 3 full-studio pillars (*Photography + Images*, *Custom Graphic Design*, *Professional Audio Production*).
+        - Stage 5 (Process Accordion): 4 synchronized steps (*Detailed Planning*, *Expert Production*, *Editing & Post-Production*, *Revisions & Final Approval*).
+        - Stage 6 (Approach Spotlight): Blob 2 + center graphic (`video-player-graphic.svg`, 62%) + Top-Left (`user-speech-bubble-graphic.svg`, 24%) + Bottom-Right (`star-app-icon-graphic.svg`, 22%) with universal multi-platform aspect ratio export callout (16:9, 9:16, 1:1, 4:5).
+        - Stage 7 (Capabilities Grid): 6 orbital medallion cards (*Drone Footage*, *Product Featurettes*, *Promos & Commercial Ads*, *Event Videos*, *Commemorative & Story Videos*, *Custom Video Projects*).
+        - Stage 8 (Ready Breakout Band): Blob 1 + center graphic (`video-player-graphic.svg`, 62%) + Lower-Left (`shopping-cart-graphic.svg`, 24%) + Top-Right (`3-arrows-up-graphic.svg`, 22%).
+        - Stage 9 (Consultation Funnel): Clean `/grm-web-assets/online-support-graphic.svg` with chat and heart floats, dual morphing SVG waves, and `<LeadForm client:visible submitLabel="Book My Free Video Strategy Call" />`.
+      - **Build Verification:** Tested with `ASTRO_TELEMETRY_DISABLED=1 npm run build`—all 147 pages generated cleanly in 11.16s with 0 errors.
+  23. **Built out dedicated Social Media Marketing pages (`src/pages/services/social-media.astro` & `src/pages/services/social-media-marketing.astro`):**
+      - Extracted live content, statistics, pillars, process steps, and platform capabilities from `https://goodrep.media/services/social-media-marketing/` via WordPress REST API and page analysis.
+      - Created dedicated data module `src/data/socialMediaData.js` isolating all page copy, metrics, and step objects; kept both page shells to ~41 lines.
+      - Supported dual routing for `/services/social-media` and `/services/social-media-marketing` to match all navigation patterns and prevent 404s; updated `src/layouts/MainLayout.astro` services mega-menu directly to `/services/social-media`.
+      - **Strict Alignment with Element Combination & Blob Geometry Rules:**
+        - Stage 1 (Hero): Blob 1 (`blue-circular-background-graphic.svg`) + center graphic (`social-media-likes-comments-stats-graphic.svg`, 62%) + Lower-Left (`999-hearts-likes-graphic.svg`, 24%) + Top-Right (`3-arrows-up-graphic.svg`, 22%).
+        - Stage 2 (Starts Spotlight): Blob 2 (`blue-circular-background-2-graphic.svg`) + center graphic (`tablet-ads-targeting-graphic.svg`, 62%) + Top-Left (`happy-face-speech-bubble-graphic.svg`, 24%) + Bottom-Right (`star-app-icon-graphic.svg`, 22%) with 93% active market reach callout.
+        - Stage 3 (Stats Ribbon): 4 live animated counters extracted from the live page (`4.5B` active social media users globally, `346M+` new users joined in the last year, `2.5 hrs` average daily usage, `4–8` distinct platforms used monthly).
+        - Stage 4 (Pillars): Blob 1 + center graphic (`tablet-ads-targeting-graphic.svg`, 62%) + Lower-Left (`user-speech-bubble-graphic.svg`, 24%) + Top-Right (`3-arrows-up-graphic.svg`, 22%) featuring 3 strategic pillars (*Meaningful Onboarding*, *Knowing the Platforms*, *Paid and Organic Mix*).
+        - Stage 5 (Process Accordion): 4 synchronized steps (*Discovery*, *Strategy*, *Content Creation*, *Launch & Management*).
+        - Stage 6 (Approach Spotlight): Blob 2 + center graphic (`social-media-likes-comments-stats-graphic.svg`, 62%) + Top-Left (`user-speech-bubble-graphic.svg`, 24%) + Bottom-Right (`star-app-icon-graphic.svg`, 22%) with 99.8% customer delight and audience alignment callout.
+        - Stage 7 (Capabilities Grid): 6 platform-focused orbital medallion cards (*Facebook Advertising & Groups*, *Instagram & Threads Growth*, *TikTok Viral Campaigns*, *LinkedIn B2B Lead Gen*, *X / Twitter Real-Time Brand Voice*, *Pinterest, YouTube & Reddit Community Hubs*).
+        - Stage 8 (Ready Breakout Band): Blob 1 + center graphic (`social-media-likes-comments-stats-graphic.svg`, 62%) + Lower-Left (`shopping-cart-graphic.svg`, 24%) + Top-Right (`3-arrows-up-graphic.svg`, 22%).
+        - Stage 9 (Consultation Funnel): Clean `/grm-web-assets/online-support-graphic.svg` with chat and heart floats, dual morphing SVG waves, and `<LeadForm client:visible submitLabel="Book My Free Social Strategy Call" />`.
+      - **Build Verification:** Tested with `ASTRO_TELEMETRY_DISABLED=1 npm run build`—all 149 pages generated cleanly in 12.95s with 0 errors.
+  24. **Comprehensive Graphic Upgrades Across Service Pages & Data Layer with New 3D Assets:**
+      - Audited the newly added SVG assets in `public/grm-web-assets` and mapped each asset to its corresponding service discipline:
+        - **Web Design (`src/data/webDesignData.js`):** Integrated `laptop-web-design-layout-graphic.svg` as Hero centerpiece, `3d-laptop-www-website.svg` in StartsSection and Process, `3d-color-picker-graphic.svg` for UI/UX styling, `3d-ruler-graphic.svg` for responsive precision, `code-window-graphic.svg` for clean code build, and `3d-rocket-graphic.svg` for launch.
+        - **SMS Marketing (`src/data/smsMarketingData.js`):** Replaced generic phone/ads graphics with `3d-sms-icon-graphic.svg` across Hero, Process, and ReadyBand, `3d-texting-on-mobile-graphic.svg` in StartsSection and Process, `3d-chat-bubbles-graphic.svg` for conversational commerce, `phone-with-mobile-apps-icons-graphic.svg` in Pillars, and `mobile-password-secure-graphic.svg` for TCPA & 10DLC compliance.
+        - **Link Building (`src/data/linkBuildingData.js`):** Replaced legacy 1.8MB `link-graphic.svg` with high-performance `3d-chain-links-graphic.svg` (8KB) across Hero, Starts, Pillars, Process, and ReadyBand; paired with `upward-trend-graph-graphic.svg` for domain authority lift and `3d-globe-in-speech-bubble-graphic.svg` for digital PR.
+        - **Technical SEO (`src/data/technicalSeoData.js`):** Replaced generic window graphics with `3d-window-with-gear-graphic.svg` across Hero, Process, and ReadyBand, `3d-tools-graphic.svg` for technical fixes, `3d-magnify-glass.svg` for site audits, `code-window-graphic.svg` for schema markup, `cloud-upload-download-graphic.svg` for server crawlability, and `3d-stats-data-graphic.svg` for monitoring.
+        - **Local SEO (`src/data/localSeoData.js`):** Replaced repeated storefront graphics with `3d-map-destination-route-graphic.svg` across Hero, Process, and ReadyBand, `3d-map-indicator-icon-graphic.svg` for map pin markers, `number-one-award-graphic.svg` for Google 3-Pack rankings, and `customer-review-graphic.svg` for reputation management.
+        - **Email Marketing (`src/data/emailMarketingData.js`):** Upgraded Hero, Pillars, and ReadyBand to `3d-email-icon-graphic.svg`, paired with `paper-plane-graphic.svg` for broadcast campaigns, and `upward-trend-graph-graphic.svg` for open/click-through rates.
+        - **eCommerce Web Design (`src/data/ecommerceWebDesignData.js`):** Integrated `pc-screen-online-marketplace-graphic.svg` in StartsSection and Process, `mobile-password-secure-graphic.svg` for secure checkout testing, and `3d-rocket-graphic.svg` for launch.
+        - **Amazon Marketing (`src/data/amazonMarketingData.js`):** Integrated `pc-screen-online-marketplace-graphic.svg` in StartsSection, Pillars, and Approach, paired with `number-one-award-graphic.svg` for Buy Box dominance, and `stocks-going-up-graphic.svg` for DSP ad scale.
+        - **Digital Media Production (`src/data/digitalMediaProductionData.js`):** Replaced image placeholders with `3d-art-computer-program-graphic.svg` across Hero, Pillars, and Process, `photo-img-graphic.svg` for commercial photography, `pencil-graphic.svg` for creative ideation, and `3d-file-folder-graphic.svg` for brand asset delivery.
+        - **Video Production (`src/data/videoProductionData.js`):** Replaced generic tablet ads with `3d-art-computer-program-graphic.svg` for post-production editing suite and `photo-img-graphic.svg` for studio filming.
+        - **Social Media Marketing (`src/data/socialMediaData.js`):** Upgraded StartsSection to `3d-globe-in-speech-bubble-graphic.svg`, Pillars to `phone-with-mobile-apps-icons-graphic.svg`, Strategy to `spiral-notebook-with-target-graphic.svg`, and Community Management to `3d-chat-bubbles-graphic.svg`.
+        - **Services Master Directory (`src/pages/services.astro`):** Updated all service cards with their new thematic 3D SVGs and linked Social Media Marketing card to `/services/social-media`.
+        - **Blog Insights Hero (`src/pages/blog/index.astro`):** Modernized hero art with `3d-search-window-graphic.svg`, `3d-doc-file-graphic.svg`, and `3d-magnify-glass.svg`.
+      - **Strict Constraints Enforced:**
+        - Kept Homepage (`src/pages/index.astro`) **100% untouched**.
+        - Kept `src/pages/work.astro` **skipped** per user direction.
+        - Preserved element combination limits (1 background blob + 1 center graphic + max 2 small corner accents).
+        - Maintained strict blob corner placement geometry (Blob 1: Lower-Left / Top-Right; Blob 2: Top-Left / Bottom-Right).
+      - **Build Verification:** Tested with `ASTRO_TELEMETRY_DISABLED=1 npm run build`—all 149 pages compiled cleanly in 13.25s with 0 errors.
+- **Current Objective:** Build out the final service page in Step 7 (`src/pages/services/paid-ads.astro` / Pay-per-click Marketing) using the modular component and data architecture.

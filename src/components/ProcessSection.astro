@@ -92,10 +92,10 @@ const {
         </div>
         <img
           class="process__stage-blob"
-          src="/Asset 2.webp"
+          src="/grm-web-assets/blue-circular-background-graphic.svg"
           alt=""
-          width="869"
-          height="663"
+          width="746"
+          height="780"
           loading="lazy"
         />
         {
@@ -495,7 +495,10 @@ const {
 
   .process__visual img {
     position: absolute;
-    height: auto;
+    height: auto !important;
+    max-height: none !important;
+    object-fit: contain;
+    pointer-events: none;
   }
 
   .process__visual-main {
@@ -504,6 +507,7 @@ const {
   }
 
   .process__visual-float {
+    max-width: 28% !important;
     filter: drop-shadow(0 14px 20px rgba(0, 0, 0, 0.42));
     z-index: 2;
   }

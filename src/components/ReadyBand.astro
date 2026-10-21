@@ -9,11 +9,13 @@ interface BadgeAsset {
   height: number;
   parallax?: number;
   className?: string;
+  style?: string;
+  noFloat?: boolean;
 }
 
 interface ReadyArt {
-  blob: { src: string; width: number; height: number; parallax?: number };
-  main: { src: string; alt: string; width: number; height: number; parallax?: number };
+  blob: { src: string; width: number; height: number; parallax?: number; style?: string };
+  main: { src: string; alt: string; width: number; height: number; parallax?: number; style?: string };
   badges: BadgeAsset[];
 }
 
@@ -72,17 +74,19 @@ const paragraphs = text.includes("\n\n") ? text.split("\n\n") : [text];
             alt=""
             width={art.blob.width}
             height={art.blob.height}
+            style={art.blob.style}
             loading="lazy"
           />
         )}
         {art.main && (
-          <Image
+          <img
             class="ready-band__main"
             data-ready-parallax={art.main.parallax ?? -28}
             src={art.main.src}
             alt={art.main.alt}
             width={art.main.width}
             height={art.main.height}
+            style={art.main.style}
             loading="lazy"
             decoding="async"
           />
@@ -92,11 +96,12 @@ const paragraphs = text.includes("\n\n") ? text.split("\n\n") : [text];
             <img
               class:list={["ready-band__badge", badge.className]}
               data-ready-parallax={badge.parallax ?? -48}
-              data-float
+              data-float={badge.noFloat ? undefined : ""}
               src={badge.src}
               alt={badge.alt ?? ""}
               width={badge.width}
               height={badge.height}
+              style={badge.style}
               loading="lazy"
             />
           ))
@@ -241,54 +246,57 @@ const paragraphs = text.includes("\n\n") ? text.split("\n\n") : [text];
 
   .ready-band__art {
     position: relative;
-    aspect-ratio: 1 / 0.82;
-    max-width: 540px;
+    aspect-ratio: 1 / 0.88;
+    max-width: 520px;
     width: 100%;
     justify-self: center;
   }
 
   .ready-band__art img {
     position: absolute;
-    height: auto;
+    height: auto !important;
+    max-height: none !important;
+    object-fit: contain;
     will-change: transform;
     pointer-events: none;
   }
 
   .ready-band__blob {
-    width: 88%;
-    left: 6%;
-    top: 6%;
+    width: 86%;
+    left: 7%;
+    top: 4%;
     opacity: 0.85;
   }
 
   .ready-band__main {
-    width: 90%;
-    left: 5%;
+    width: 68%;
+    left: 16%;
     top: 10%;
     z-index: 1;
     filter: drop-shadow(0 26px 32px rgba(0, 0, 0, 0.4));
   }
 
   .ready-band__badge {
+    max-width: 28% !important;
     z-index: 2;
     filter: drop-shadow(0 14px 20px rgba(0, 0, 0, 0.35));
   }
 
   .ready-band__badge--handshake {
-    width: 34%;
-    left: -2%;
-    bottom: 2%;
+    width: 32%;
+    left: 2%;
+    bottom: 6%;
   }
 
   .ready-band__badge--growth {
-    width: 20%;
-    right: -3%;
-    top: 0%;
+    width: 22%;
+    right: 2%;
+    top: 4%;
   }
 
   .ready-band__badge--heart {
-    width: 15%;
-    right: 4%;
-    bottom: 4%;
+    width: 18%;
+    right: 6%;
+    bottom: 6%;
   }
 </style>
