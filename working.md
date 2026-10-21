@@ -426,4 +426,9 @@
         - Stage 8 (Ready Breakout Band): Blob 1 + center graphic (`stocks-going-up-graphic.svg`, 58%) + Lower-Left (`arrow-in-target-graphic.svg`, 24%) + Top-Right (`3-arrows-up-graphic.svg`, 22%).
         - Stage 9 (Consultation Funnel): Clean `/grm-web-assets/online-support-graphic.svg` with chat and heart floats, dual morphing SVG waves, and `<LeadForm client:visible submitLabel="Book My Free PPC Strategy Call" />`.
       - **Build Verification:** Tested with `ASTRO_TELEMETRY_DISABLED=1 npm run build`—all 151 pages compiled cleanly in 15.24s with 0 errors.
+  26. **Converted Homepage Hero Container to 1600px Global Standard:**
+      - Updated `src/styles/global.css` to define `--container: 1600px;` and added `width: 100%;` to `.container` to prevent flex items from shrink-wrapping during horizontal centering.
+      - Updated `src/pages/index.astro` hero markup from `<div class="hero__container">` to `<div class="container hero__container">` to inherit the global container utility class.
+      - Refactored `.hero__container` CSS rules in `src/pages/index.astro` to use `width: 100%; max-width: var(--container);` ensuring full-width expansion up to the 1600px ceiling across desktop displays.
+      - Verified production build: all 151 pages generated cleanly with 0 errors.
 - **Current Objective:** Proceed to Step 8: End-to-end responsiveness, accessibility auditing, and performance optimization across all service pages and core routes.
