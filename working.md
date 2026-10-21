@@ -444,4 +444,9 @@
       - Updated `src/data/socialMediaData.js` hero stage to feature solely `woman-engaged-social-media-image.webp` (70% width, centered at `left: 15%; top: 10%`) paired with `blue-circular-background-graphic.svg`, removing peripheral accent floats.
       - Updated `working.md` Master Page Templates to formalize the Service Hero Template Rule: exactly 1 background blue graphic + 1 front centerpiece graphic, 0 smaller accent floats.
       - Verified production build: all 151 pages generated cleanly with 0 errors.
+  29. **Completed Sweep Across All /services Hero Sections (1 Front Graphic + 1 Background Graphic):**
+      - Swept all 12 service data files (`webDesignData.js`, `ecommerceWebDesignData.js`, `emailMarketingData.js`, `localSeoData.js`, `technicalSeoData.js`, `linkBuildingData.js`, `amazonMarketingData.js`, `digitalMediaProductionData.js`, `smsMarketingData.js`, `videoProductionData.js`, `paidAdsData.js`, and `socialMediaData.js`).
+      - Stripped all peripheral corner floats (`floats: []`) from each service hero stage.
+      - Re-centered each front centerpiece graphic directly over the blue circular background blob (~64–66% width, centered geometry) for a clean, unified, zero-distraction presentation.
+      - Verified production build: all 151 pages compiled cleanly in 15.28s with 0 errors.
 - **Current Objective:** Proceed to Step 8: End-to-end responsiveness, accessibility auditing, and performance optimization across all service pages and core routes.

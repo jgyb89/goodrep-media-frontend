@@ -37,33 +37,14 @@ export const heroData = {
       depth: 12,
     },
     main: {
-      src: "/grm-web-assets/laptop-web-design-layout-graphic.svg",
+      src: "/grm-web-assets/web-design-development-image.webp",
       alt: "Custom Website Design Monitor and Wireframe",
-      width: 746,
-      height: 780,
+      width: 846,
+      height: 880,
       depth: -18,
-      style: "width: 62%; left: 19%; top: 12%;",
+      style: "width: 66%; left: 17%; top: 12%;",
     },
-    floats: [
-      {
-        src: "/grm-web-assets/3d-color-picker-graphic.svg",
-        alt: "",
-        width: 746,
-        height: 780,
-        depth: -40,
-        className: "hero-stage__float--cursor",
-        style: "width: 22%; left: 6%; bottom: 10%;",
-      },
-      {
-        src: "/grm-web-assets/3d-browser-window-graphic.svg",
-        alt: "",
-        width: 746,
-        height: 780,
-        depth: -24,
-        className: "hero-stage__float--sub",
-        style: "width: 22%; right: 6%; top: 8%;",
-      },
-    ],
+    floats: [],
   },
   marqueeItems: [
     { icon: "devices", label: "Mobile-First Responsive Design" },
@@ -409,10 +390,18 @@ export const consultData = {
   submitLabel: "Book My Free Website Audit",
   contact: [
     { icon: "call", label: "(616) 300-9868", href: "tel:+16163009868" },
-    { icon: "mail", label: "team@goodrep.media", href: "mailto:team@goodrep.media" },
+    {
+      icon: "mail",
+      label: "team@goodrep.media",
+      href: "mailto:team@goodrep.media",
+    },
   ],
   art: {
-    main: { src: "/grm-web-assets/online-support-graphic.svg", width: 612, height: 330 },
+    main: {
+      src: "/grm-web-assets/online-support-graphic.svg",
+      width: 612,
+      height: 330,
+    },
     floats: [
       {
         src: "/grm-web-assets/user-speech-bubble-graphic.svg",
