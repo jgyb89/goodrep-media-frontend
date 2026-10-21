@@ -39,10 +39,10 @@ export const heroData = {
     main: {
       src: "/grm-web-assets/web-design-development-image.webp",
       alt: "Custom Website Design Monitor and Wireframe",
-      width: 846,
-      height: 880,
+      width: 2642,
+      height: 2000,
       depth: -18,
-      style: "width: 66%; left: 17%; top: 12%;",
+      style: "width: 90%; left: 5%; top: 12%;",
     },
     floats: [],
   },

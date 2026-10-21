@@ -449,4 +449,16 @@
       - Stripped all peripheral corner floats (`floats: []`) from each service hero stage.
       - Re-centered each front centerpiece graphic directly over the blue circular background blob (~64–66% width, centered geometry) for a clean, unified, zero-distraction presentation.
       - Verified production build: all 151 pages compiled cleanly in 15.28s with 0 errors.
+  30. **Replaced Hero Centerpiece Graphics Across /services with New Matching 2642x2000 WebP Assets:**
+      - Audited newly added WebP assets in `public/grm-web-assets` and mapped each to its corresponding service:
+        - **Web Design (`webDesignData.js`):** `/grm-web-assets/web-design-development-image.webp` (2642x2000, `width: 90%; left: 5%; top: 12%;`).
+        - **eCommerce Web Design (`ecommerceWebDesignData.js`):** `/grm-web-assets/ecommerce-website-experience.webp` (2642x2000, `width: 90%; left: 5%; top: 12%;`).
+        - **Email Marketing (`emailMarketingData.js`):** `/grm-web-assets/email-newsletter-marketing-image.webp` (2642x2000, `width: 90%; left: 5%; top: 12%;`).
+        - **Local SEO (`localSeoData.js`):** `/grm-web-assets/local-business-seo-image.webp` (2642x2000, `width: 90%; left: 5%; top: 12%;`).
+        - **Technical SEO (`technicalSeoData.js`):** `/grm-web-assets/technical-seo-analysis-image.webp` (2642x2000, `width: 90%; left: 5%; top: 12%;`).
+        - **Link Building (`linkBuildingData.js`):** `/grm-web-assets/back-link-seo-building-image.webp` (2642x2000, `width: 90%; left: 5%; top: 12%;`).
+        - **Amazon Marketing (`amazonMarketingData.js`):** `/grm-web-assets/online-shopping-amazon-marketing-graphic.webp` (2642x2000, `width: 90%; left: 5%; top: 12%;`).
+        - **Social Media Marketing (`socialMediaData.js`):** `/grm-web-assets/woman-engaged-social-media-image.webp` (2642x2000, `width: 90%; left: 5%; top: 12%;`).
+        - Retained existing clean single graphics for services without dedicated new webp assets (Digital Media, SMS, Video, Paid Ads).
+      - Verified production build: all 151 pages compiled cleanly in 13.29s with 0 errors.
 - **Current Objective:** Proceed to Step 8: End-to-end responsiveness, accessibility auditing, and performance optimization across all service pages and core routes.
