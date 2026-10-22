@@ -3,6 +3,7 @@ import 'material-symbols/outlined.css';
 import '../styles/global.css'; // Assuming your global variables are here
 import { Image } from 'astro:assets';
 import LeadForm from '../components/LeadForm.jsx';
+import LightboxModal from '../components/LightboxModal.astro';
 const { title = 'Goodrep Media', description = 'Grow your business with Goodrep Media.' } = Astro.props;
 const year = new Date().getFullYear();
 ---
@@ -211,6 +212,9 @@ const year = new Date().getFullYear();
         <LeadForm client:idle submitLabel="Send Message" />
       </div>
     </dialog>
+
+    <!-- Global Image Lightbox Modal -->
+    <LightboxModal />
 
     <script>
       function setupContactModal() {
