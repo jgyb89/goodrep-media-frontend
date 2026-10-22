@@ -132,8 +132,15 @@
       if (img.closest('button')) return false;
       // Exclude lightbox's own elements
       if (img.closest('#lightbox-modal') || img.closest('.lightbox-modal')) return false;
-      // Exclude explicit opt-outs
-      if (img.hasAttribute('data-no-lightbox')) return false;
+      // Exclude explicit opt-outs and project cards/modals on /work
+      if (
+        img.hasAttribute('data-no-lightbox') ||
+        img.closest('[data-no-lightbox]') ||
+        img.closest('[data-project-card]') ||
+        img.closest('.project-modal')
+      ) {
+        return false;
+      }
       // Exclude decorative background blobs, textures, and tiny SVG decorations
       if (
         img.classList.contains('work-hero__blob') ||
