@@ -456,28 +456,46 @@ const {
 <script>
   import { gsap } from "gsap";
 
-  const heroSection = document.querySelector<HTMLElement>(".case-hero");
-  if (heroSection) {
+  const heroSections = document.querySelectorAll<HTMLElement>(".case-hero");
+  heroSections.forEach((heroSection) => {
     const mm = gsap.matchMedia();
     mm.add("(prefers-reduced-motion: no-preference)", () => {
-      const itemsToStagger = heroSection.querySelectorAll(
-        ".case-hero__breadcrumb, .case-hero__kicker-top, .case-hero__title, .case-hero__story, .case-hero__work",
+      const headerItems = heroSection.querySelectorAll(
+        ".case-hero__breadcrumb, .case-hero__kicker-top, .case-hero__title, .case-hero__story, .case-hero__work .case-hero__kicker",
       );
+      const workItems = heroSection.querySelectorAll(".case-hero__work-list li");
       const visual = heroSection.querySelector(".case-hero__visual");
 
       const tl = gsap.timeline({ defaults: { ease: "power3.out" } });
 
-      if (itemsToStagger.length) {
+      if (headerItems.length) {
         tl.fromTo(
-          itemsToStagger,
+          headerItems,
           { y: 26, opacity: 0 },
           {
             y: 0,
             opacity: 1,
-            duration: 0.8,
+            duration: 0.75,
             stagger: 0.1,
             clearProps: "all",
           },
+        );
+      }
+
+      // Fade in each work column item one after another on load
+      if (workItems.length) {
+        tl.fromTo(
+          workItems,
+          { y: 16, opacity: 0 },
+          {
+            y: 0,
+            opacity: 1,
+            duration: 0.5,
+            stagger: 0.1,
+            ease: "power2.out",
+            clearProps: "all",
+          },
+          "-=0.35",
         );
       }
 
@@ -493,9 +511,9 @@ const {
             ease: "power2.out",
             clearProps: "all",
           },
-          "-=0.5",
+          "-=0.7",
         );
       }
     });
-  }
+  });
 </script>
