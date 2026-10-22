@@ -823,7 +823,7 @@ const projects = [
       content: "";
       position: absolute;
       inset: 0;
-      background: linear-gradient(180deg, #000000 0%, rgba(0, 0, 0, 0.6) 35%, rgba(0, 0, 0, 0) 75%);
+      background: linear-gradient(180deg, #000000 0%, rgba(0, 0, 0, 0.6) 40%, rgba(0, 0, 0, 0) 85%);
       pointer-events: none;
       z-index: 2;
     }
@@ -850,7 +850,7 @@ const projects = [
 
     .window-graphic__brand {
       position: absolute;
-      top: 1.25rem;
+      top: 2.5rem;
       left: 50%;
       transform: translateX(-50%);
       z-index: 4;
@@ -858,15 +858,15 @@ const projects = [
       align-items: center;
       justify-content: center;
       width: 100%;
-      max-width: 260px;
+      max-width: 360px;
       padding: 0 1rem;
       pointer-events: none;
     }
 
     .window-graphic__brand img {
-      width: auto;
-      max-width: 220px;
-      max-height: 52px;
+      width: clamp(220px, 32vw, 320px);
+      max-width: 320px;
+      max-height: 72px;
       height: auto;
       display: block;
       object-fit: contain;
