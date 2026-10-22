@@ -260,14 +260,15 @@ const projects = [
 
       <div class="case-studies__list">
         {projects.map((project, idx) => (
-          <article
-            class:list={[
-              "case-card",
-              { "case-card--reverse": idx % 2 === 1 },
-            ]}
-            data-reveal
-          >
-            <div class="case-card__visual">
+          <>
+            <article
+              class:list={[
+                "case-card",
+                { "case-card--reverse": idx % 2 === 1 },
+              ]}
+              data-reveal
+            >
+              <div class="case-card__visual">
               <div class="window-graphic">
                 <div class="window-graphic__dots" aria-hidden="true">
                   <span />
@@ -373,8 +374,12 @@ const projects = [
               )}
             </div>
           </article>
-        ))}
-      </div>
+          {idx < projects.length - 1 && (
+            <hr class="case-card__divider" aria-hidden="true" />
+          )}
+        </>
+      ))}
+    </div>
     </div>
   </section>
 
@@ -788,8 +793,16 @@ const projects = [
 
     .case-studies__list {
       display: grid;
-      gap: clamp(4rem, 8vw, 6.5rem);
-      margin-top: 3.5rem;
+      gap: clamp(4.5rem, 8vw, 6.5rem);
+      margin-top: 4.5rem;
+    }
+
+    .case-card__divider {
+      border: 0;
+      height: 1px;
+      background-color: var(--color-border);
+      width: 100%;
+      margin: 0;
     }
 
     .case-card {
