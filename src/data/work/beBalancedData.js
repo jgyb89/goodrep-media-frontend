@@ -79,7 +79,7 @@ export const statsData = {
 export const narrativeData = {
   title: "Enhancing the Online Presence",
   image: {
-    src: "/grm-graphic-samples/be-balanced-bodywork-web-sample.jpg",
+    src: "/grm-graphic-samples/be-balanced-bodyworks-website-sample.jpeg",
     alt: "Be Balanced Bodywork online presence and service offerings showcase",
     width: 1920,
     height: 1024,
