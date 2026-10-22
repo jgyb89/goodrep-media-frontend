@@ -18,9 +18,9 @@ const projects = [
     summary:
       "A complete custom web redesign paired with an aggressive Local SEO campaign took Cape Coral Lawn Care from unranked to dominating the Google 3-Pack across 12 high-intent search terms.",
     metrics: [
-      { num: "+280%", desc: "Inbound quote requests" },
-      { num: "#1", desc: "Google Map Pack ranking" },
-      { num: "0.8s", desc: "Mobile page load time" },
+      { num: "+280%", desc: "Inbound quote requests", icon: "request_quote" },
+      { num: "#1", desc: "Google Map Pack ranking", icon: "location_on" },
+      { num: "0.8s", desc: "Mobile page load time", icon: "speed" },
     ],
     logo: "/grm-web-assets/cape-coral-lawn-care-logo-white.svg",
     logoClass: "window-graphic__brand--cclc",
@@ -36,9 +36,9 @@ const projects = [
     summary:
       "Modernized their legacy website into an intuitive, mobile-first booking experience with automated quote forms and clear service pricing tiers that instantly increased customer trust.",
     metrics: [
-      { num: "4.8x", desc: "Form conversion lift" },
-      { num: "-62%", desc: "Mobile bounce rate" },
-      { num: "100%", desc: "Accessibility & Best Practices" },
+      { num: "4.8x", desc: "Form conversion lift", icon: "trending_up" },
+      { num: "-62%", desc: "Mobile bounce rate", icon: "trending_down" },
+      { num: "100%", desc: "Accessibility & Best Practices", icon: "verified" },
     ],
     img: "/grm-graphic-samples/coral-breeze-project-card.jpg",
     w: 800,
@@ -53,9 +53,9 @@ const projects = [
     summary:
       "Engineered an automated review generation system and localized keyword pages that propelled Glowing Results Skin Spa to the top of Grand Rapids spa searches.",
     metrics: [
-      { num: "+180%", desc: "Monthly online appointments" },
-      { num: "125+", desc: "New 5-star Google reviews" },
-      { num: "Top 3", desc: "Rankings for core search terms" },
+      { num: "+180%", desc: "Monthly online appointments", icon: "calendar_month" },
+      { num: "125+", desc: "New 5-star Google reviews", icon: "star" },
+      { num: "Top 3", desc: "Rankings for core search terms", icon: "search" },
     ],
     logo: "/grm-graphic-samples/glowing-results-skin-spa-logo-white.webp",
     img: "/grm-graphic-samples/glowing-result-skin-spa-project.jpg",
@@ -70,9 +70,9 @@ const projects = [
     summary:
       "Re-architected site structure and refreshed branding elements to simplify appointment scheduling and clearly communicate treatment modalities for new clients.",
     metrics: [
-      { num: "+310%", desc: "Organic search visibility" },
-      { num: "2.4x", desc: "Average time on site" },
-      { num: "99%", desc: "Core Web Vitals health" },
+      { num: "+310%", desc: "Organic search visibility", icon: "visibility" },
+      { num: "2.4x", desc: "Average time on site", icon: "schedule" },
+      { num: "99%", desc: "Core Web Vitals health", icon: "speed" },
     ],
     logo: "/grm-graphic-samples/be-balanced-bodyworks-logo-white.svg",
     img: "/grm-graphic-samples/be-balanced-bodyworks-project-card.webp",
@@ -87,9 +87,9 @@ const projects = [
     summary:
       "Built a high-performance headless local business directory utilizing a decoupled Next.js frontend and WordPress database. This architecture features instant page loads, predictive search, and automated JSON-LD structured data to maximize local search visibility.",
     metrics: [
-      { num: "+134%", desc: "Active user growth" },
-      { num: "+147%", desc: "Increase in page views" },
-      { num: "100/100", desc: "Technical SEO score" },
+      { num: "+134%", desc: "Active user growth", icon: "group" },
+      { num: "+147%", desc: "Increase in page views", icon: "pageview" },
+      { num: "100/100", desc: "Technical SEO score", icon: "code" },
     ],
     img: "/grm-graphic-samples/cape-coral-reviewed-project-card-placeholder.webp",
     w: 800,
@@ -103,9 +103,9 @@ const projects = [
     summary:
       "Engineered a bold, high-contrast agency web presence and strategy call funnel for Pink Slushy Media that captures paid traffic leads and showcases their campaign creative capabilities.",
     metrics: [
-      { num: "+195%", desc: "Strategy call bookings" },
-      { num: "5.1x", desc: "Landing page conversion rate" },
-      { num: "100%", desc: "Mobile performance score" },
+      { num: "+195%", desc: "Strategy call bookings", icon: "call" },
+      { num: "5.1x", desc: "Landing page conversion rate", icon: "ads_click" },
+      { num: "100%", desc: "Mobile performance score", icon: "bolt" },
     ],
     img: "/grm-graphic-samples/pink-slushy-project-card.jpg",
     w: 800,
@@ -278,13 +278,23 @@ const projects = [
               <p class="case-card__summary">{project.summary}</p>
 
               <div class="case-card__columns">
-                <!-- Left: Stats stacked in a column (no pill look) -->
+                <!-- Left: Stats stacked in a column with Google icons -->
                 <div class="case-card__stats">
                   <div class="case-card__stats-list">
                     {project.metrics.map((m) => (
                       <div class="case-card__stat-item">
-                        <span class="case-card__stat-num">{m.num}</span>
-                        <span class="case-card__stat-desc">{m.desc}</span>
+                        {m.icon && (
+                          <span
+                            class="case-card__stat-icon material-symbols-outlined"
+                            aria-hidden="true"
+                          >
+                            {m.icon}
+                          </span>
+                        )}
+                        <div class="case-card__stat-text">
+                          <span class="case-card__stat-num">{m.num}</span>
+                          <span class="case-card__stat-desc">{m.desc}</span>
+                        </div>
                       </div>
                     ))}
                   </div>
@@ -957,7 +967,7 @@ const projects = [
       }
     }
 
-    /* Left side: Stats stacked in a column (no pill look) */
+    /* Left side: Stats stacked in a column with Google icons */
     .case-card__stats {
       display: flex;
       flex-direction: column;
@@ -966,10 +976,28 @@ const projects = [
     .case-card__stats-list {
       display: flex;
       flex-direction: column;
-      gap: 1.15rem;
+      gap: 1.25rem;
     }
 
     .case-card__stat-item {
+      display: flex;
+      align-items: center;
+      gap: 0.95rem;
+    }
+
+    .case-card__stat-icon {
+      flex: none;
+      font-size: 2.35rem;
+      line-height: 1;
+      color: var(--color-cyan-dark);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 44px;
+      height: 44px;
+    }
+
+    .case-card__stat-text {
       display: flex;
       flex-direction: column;
       gap: 0.15rem;
