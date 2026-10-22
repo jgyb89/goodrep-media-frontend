@@ -1648,15 +1648,23 @@ const projects = [
         justify-content: center;
       }
 
+      .project-modal__wrapper {
+        padding: 0.75rem;
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
       .project-modal__stats-card {
         width: 100%;
-        max-width: 480px;
+        max-width: 420px;
         background: #ffffff;
         border-radius: 20px;
         box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
         border: 1px solid rgba(0, 0, 0, 0.08);
         overflow: hidden;
-        max-height: 88vh;
+        max-height: 94vh;
         overflow-y: auto;
         -webkit-overflow-scrolling: touch;
       }
@@ -1675,7 +1683,7 @@ const projects = [
         padding: 5px 1rem;
         box-sizing: border-box;
         width: 100%;
-        min-height: 56px;
+        min-height: 50px;
       }
 
       .project-modal__mobile-header-bg {
@@ -1708,9 +1716,9 @@ const projects = [
       }
 
       .project-modal__mobile-logo {
-        max-height: 46px;
+        max-height: 40px;
         width: auto;
-        max-width: 220px;
+        max-width: 200px;
         margin: 5px 0;
         display: block;
         object-fit: contain;
@@ -1718,13 +1726,13 @@ const projects = [
       }
 
       .project-modal__mobile-logo--cclc {
-        max-height: 52px;
-        max-width: 58px;
+        max-height: 46px;
+        max-width: 52px;
       }
 
       .project-modal__mobile-title-fallback {
         font-family: var(--font-heading);
-        font-size: 1.1rem;
+        font-size: 1rem;
         font-weight: 700;
         color: #ffffff;
         margin: 5px 0;
@@ -1734,7 +1742,140 @@ const projects = [
       }
 
       .project-modal__stats-body {
-        padding: 1.5rem 1.25rem 1.75rem;
+        padding: 0.85rem 1rem 1rem;
+      }
+
+      .project-modal__stats-body .case-card__meta {
+        gap: 0.4rem;
+        margin-bottom: 0.25rem;
+      }
+
+      .project-modal__stats-body .case-card__tag {
+        font-size: 0.7rem;
+        letter-spacing: 1px;
+      }
+
+      .project-modal__stats-body .case-card__sep {
+        font-size: 0.65rem;
+      }
+
+      .project-modal__stats-body .case-card__category {
+        font-size: 0.7rem;
+        letter-spacing: 0.5px;
+      }
+
+      .project-modal__stats-body .case-card__title {
+        font-size: 1.25rem;
+        margin: 0 0 0.35rem;
+        line-height: 1.2;
+      }
+
+      .project-modal__stats-body .case-card__summary {
+        font-size: 0.8rem;
+        line-height: 1.4;
+        margin: 0 0 0.65rem;
+        color: #64748b;
+      }
+
+      /* Remove the 2 divider lines on mobile */
+      .project-modal__divider {
+        display: none !important;
+      }
+
+      .project-modal__stats-body .case-card__columns {
+        border-top: none !important;
+        padding-top: 0 !important;
+        margin-top: 0 !important;
+        margin-bottom: 0.65rem;
+        gap: 0.65rem;
+        display: flex;
+        flex-direction: column;
+      }
+
+      /* 3-col stats grid: icon on top, stat below, description below that */
+      .project-modal__stats-body .case-card__stats-list {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 0.4rem;
+        align-items: start;
+        text-align: center;
+      }
+
+      .project-modal__stats-body .case-card__stat-item {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        gap: 0.25rem;
+      }
+
+      .project-modal__stats-body .case-card__stat-icon {
+        margin: 0 auto;
+        width: 30px;
+        height: 30px;
+        font-size: 1.2rem;
+        background-color: var(--color-dark);
+        color: var(--color-light);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex: none;
+      }
+
+      .project-modal__stats-body .case-card__stat-text {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        gap: 0.12rem;
+        width: 100%;
+      }
+
+      .project-modal__stats-body .case-card__stat-num {
+        font-size: 1.05rem;
+        font-weight: 700;
+        line-height: 1.15;
+        color: var(--color-primary);
+        text-align: center;
+      }
+
+      .project-modal__stats-body .case-card__stat-desc {
+        font-size: 0.68rem;
+        line-height: 1.25;
+        color: var(--color-muted);
+        text-align: center;
+        font-weight: 500;
+      }
+
+      /* Deliverables list */
+      .project-modal__stats-body .case-card__deliv-list {
+        gap: 0.35rem;
+      }
+
+      .project-modal__stats-body .case-card__deliv-list li {
+        font-size: 0.8rem;
+        line-height: 1.35;
+        gap: 0.5rem;
+      }
+
+      .project-modal__stats-body .case-card__deliv-list li::before {
+        width: 17px;
+        height: 17px;
+        font-size: 11px;
+      }
+
+      /* Button / CTA */
+      .project-modal__stats-body .case-card__action {
+        margin-top: 0.65rem;
+      }
+
+      .project-modal__stats-body .case-card__btn {
+        width: 100%;
+        justify-content: center;
+        margin: 0;
+        padding: 0.6rem 1.25rem;
+        font-size: 0.85rem;
       }
     }
 
