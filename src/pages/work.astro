@@ -342,19 +342,22 @@ const projects = [
               data-modal-panel={idx}
               style="display: none;"
             >
-              <div class="project-modal__content">
-                <!-- Desktop Visual Card (slides left on open) -->
-                <div class="project-modal__desktop-visual">
-                  <div class="window-graphic">
-                    <div class="window-graphic__dots" aria-hidden="true">
-                      <span />
-                      <span />
-                      <span />
-                      <span class="window-graphic__url">{project.title}</span>
-                    </div>
-                    <div class="window-graphic__body">
+              <div class="project-modal__card">
+                <!-- Shared Window Bar Header Graphic across both columns -->
+                <div class="window-graphic__dots project-modal__window-bar" aria-hidden="true">
+                  <span />
+                  <span />
+                  <span />
+                  <span class="window-graphic__url">{project.title}</span>
+                </div>
+
+                <!-- Combined Modal Body -->
+                <div class="project-modal__body">
+                  <!-- Left: Project Image (flex 1 on desktop) -->
+                  <div class="project-modal__image-col">
+                    <div class="project-modal__image-wrap">
                       {project.logo && (
-                        <div class:list={["window-graphic__brand", project.logoClass]}>
+                        <div class:list={["window-graphic__brand", "project-modal__brand", project.logoClass]}>
                           <img
                             src={project.logo}
                             alt={project.title}
@@ -363,7 +366,7 @@ const projects = [
                         </div>
                       )}
                       <img
-                        class="window-graphic__img"
+                        class="project-modal__img"
                         src={project.img}
                         alt={`${project.title} showcase`}
                         width={project.w || 800}
@@ -371,11 +374,8 @@ const projects = [
                       />
                     </div>
                   </div>
-                </div>
 
-                <!-- Stats Card (slides right on desktop; mobile card with header on mobile) -->
-                <div class="project-modal__stats-card">
-                  <!-- Mobile Header with logo and background slice -->
+                  <!-- Mobile Header Banner (visible only on <= 859px) -->
                   <div class="project-modal__mobile-header">
                     <div class="project-modal__mobile-header-bg">
                       <img src={project.img} alt="" aria-hidden="true" />
@@ -397,73 +397,75 @@ const projects = [
                     </div>
                   </div>
 
-                  <!-- Stats Card Inner Content -->
-                  <div class="project-modal__stats-body">
-                    <div class="case-card__meta">
-                      <span class="case-card__tag">{project.tag}</span>
-                      <span class="case-card__sep" aria-hidden="true">&bull;</span>
-                      <span class="case-card__category">{project.category}</span>
-                    </div>
+                  <!-- Right: Stats Card (flex 3 on desktop) -->
+                  <div class="project-modal__stats-col">
+                    <div class="project-modal__stats-body">
+                      <div class="case-card__meta">
+                        <span class="case-card__tag">{project.tag}</span>
+                        <span class="case-card__sep" aria-hidden="true">&bull;</span>
+                        <span class="case-card__category">{project.category}</span>
+                      </div>
 
-                    <h3 class="case-card__title">
-                      {project.href ? (
-                        <a href={project.href}>{project.title}</a>
-                      ) : (
-                        project.title
-                      )}
-                    </h3>
-                    <p class="case-card__summary">{project.summary}</p>
+                      <h3 class="case-card__title">
+                        {project.href ? (
+                          <a href={project.href}>{project.title}</a>
+                        ) : (
+                          project.title
+                        )}
+                      </h3>
+                      <p class="case-card__summary">{project.summary}</p>
 
-                    <hr class="project-modal__divider" aria-hidden="true" />
+                      <hr class="project-modal__divider" aria-hidden="true" />
 
-                    <div class="case-card__columns">
-                      <!-- Left: Stats stacked in a column with Google icons -->
-                      <div class="case-card__stats">
-                        <div class="case-card__stats-list">
-                          {project.metrics.map((m) => (
-                            <div class="case-card__stat-item">
-                              {m.icon && (
-                                <span
-                                  class="case-card__stat-icon material-symbols-outlined"
-                                  aria-hidden="true"
-                                >
-                                  {m.icon}
-                                </span>
-                              )}
-                              <div class="case-card__stat-text">
-                                <span class="case-card__stat-num">{m.num}</span>
-                                <span class="case-card__stat-desc">{m.desc}</span>
+                      <div class="case-card__columns">
+                        <!-- Left: Stats stacked in a column with Google icons -->
+                        <div class="case-card__stats">
+                          <div class="case-card__stats-list">
+                            {project.metrics.map((m) => (
+                              <div class="case-card__stat-item">
+                                {m.icon && (
+                                  <span
+                                    class="case-card__stat-icon material-symbols-outlined"
+                                    aria-hidden="true"
+                                  >
+                                    {m.icon}
+                                  </span>
+                                )}
+                                <div class="case-card__stat-text">
+                                  <span class="case-card__stat-num">{m.num}</span>
+                                  <span class="case-card__stat-desc">{m.desc}</span>
+                                </div>
                               </div>
-                            </div>
-                          ))}
+                            ))}
+                          </div>
+                        </div>
+
+                        <!-- Right: Delivered list -->
+                        <div class="case-card__deliverables">
+                          <ul class="case-card__deliv-list">
+                            {project.deliverables.map((d) => (
+                              <li>{d}</li>
+                            ))}
+                          </ul>
                         </div>
                       </div>
 
-                      <!-- Right: Delivered list -->
-                      <div class="case-card__deliverables">
-                        <ul class="case-card__deliv-list">
-                          {project.deliverables.map((d) => (
-                            <li>{d}</li>
-                          ))}
-                        </ul>
-                      </div>
+                      {project.href ? (
+                        <div class="case-card__action">
+                          <a href={project.href} class="btn btn--primary case-card__btn">
+                            <span>View Case Study</span>
+                            <span class="material-symbols-outlined" aria-hidden="true">arrow_forward</span>
+                          </a>
+                        </div>
+                      ) : (
+                        <div class="case-card__action">
+                          <a href="#consultation" class="btn btn--primary case-card__btn">
+                            <span>Start Your Project</span>
+                            <span class="material-symbols-outlined" aria-hidden="true">arrow_forward</span>
+                          </a>
+                        </div>
+                      )}
                     </div>
-
-                    {project.href ? (
-                      <div class="case-card__action">
-                        <a href={project.href} class="btn btn--primary case-card__btn">
-                          <span>View Case Study</span>
-                          <span class="material-symbols-outlined" aria-hidden="true">arrow_forward</span>
-                        </a>
-                      </div>
-                    ) : (
-                      <div class="case-card__action">
-                        <a href="#consultation" class="btn btn--primary case-card__btn">
-                          <span>Start Your Project</span>
-                          <span class="material-symbols-outlined" aria-hidden="true">arrow_forward</span>
-                        </a>
-                      </div>
-                    )}
                   </div>
                 </div>
               </div>
@@ -1593,42 +1595,128 @@ const projects = [
       align-items: center;
     }
 
-    .project-modal__content {
+    .project-modal__card {
       width: 100%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 2.5rem;
+      background: #ffffff;
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 30px 70px -15px rgba(0, 0, 0, 0.6);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      position: relative;
     }
 
-    /* Desktop View (>= 860px) */
+    .project-modal__window-bar {
+      border-radius: 0;
+      border-top-left-radius: 20px;
+      border-top-right-radius: 20px;
+      background: #0f172a;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      padding: 0.8rem 1.15rem;
+      display: flex;
+      align-items: center;
+      gap: 0.45rem;
+      width: 100%;
+      box-sizing: border-box;
+    }
+
+    /* Desktop View (>= 860px): One singular card with left image (flex 1) & right stats (flex 3) */
     @media (min-width: 860px) {
-      .project-modal__desktop-visual {
+      .project-modal__card {
+        max-width: 1060px;
+      }
+
+      .project-modal__panel.is-active .project-modal__card {
+        animation: modalPopUp 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+      }
+
+      .project-modal__body {
+        display: flex;
+        flex-direction: row;
+        align-items: stretch;
+      }
+
+      /* Left Column: Project Image (flex 1) */
+      .project-modal__image-col {
+        flex: 1 1 0%;
+        min-width: 0;
+        position: relative;
+        overflow: hidden;
+        background: #1e293b;
         display: block;
-        flex: 0 0 clamp(340px, 34vw, 440px);
-        max-width: 440px;
+        border-right: 1px solid rgba(15, 23, 42, 0.08);
       }
 
-      .project-modal__panel.is-active .project-modal__desktop-visual {
-        animation: modalPopLeft 0.45s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-      }
-
-      .project-modal__stats-card {
-        flex: 1 1 auto;
-        max-width: 580px;
-        background: #ffffff;
-        border-radius: 20px;
-        box-shadow: 0 25px 60px -15px rgba(0, 0, 0, 0.35);
-        border: 1px solid rgba(0, 0, 0, 0.08);
+      .project-modal__image-wrap {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        min-height: 520px;
         overflow: hidden;
       }
 
-      .project-modal__panel.is-active .project-modal__stats-card {
-        animation: modalSlideRight 0.45s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+      .project-modal__image-wrap::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(180deg, rgba(0, 0, 0, 0.85) 0%, rgba(0, 0, 0, 0.45) 35%, transparent 75%);
+        pointer-events: none;
+        z-index: 2;
+      }
+
+      .project-modal__img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: center;
+        display: block;
+      }
+
+      .project-modal__brand {
+        position: absolute;
+        top: 2.25rem;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 85%;
+        max-width: 240px;
+        z-index: 3;
+        pointer-events: none;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0;
+      }
+
+      .project-modal__brand img {
+        width: 100%;
+        max-width: 220px;
+        max-height: 64px;
+        height: auto;
+        object-fit: contain;
+        filter: drop-shadow(0 4px 14px rgba(0, 0, 0, 0.8));
+      }
+
+      .project-modal__brand.window-graphic__brand--cclc {
+        top: 1.5rem;
+        max-width: 130px;
+      }
+
+      .project-modal__brand.window-graphic__brand--cclc img {
+        max-width: 120px;
+        max-height: 120px;
       }
 
       .project-modal__mobile-header {
         display: none;
+      }
+
+      /* Right Column: Stats Card (flex 3) */
+      .project-modal__stats-col {
+        flex: 3 1 0%;
+        min-width: 0;
+        background: #ffffff;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
       }
 
       .project-modal__stats-body {
@@ -1638,29 +1726,19 @@ const projects = [
 
     /* Mobile View (< 860px) */
     @media (max-width: 859px) {
-      .project-modal__desktop-visual {
-        display: none !important;
-      }
-
-      .project-modal__content {
-        justify-content: center;
-      }
-
-      .project-modal__stats-card {
-        width: 100%;
+      .project-modal__card {
         max-width: 480px;
-        background: #ffffff;
-        border-radius: 20px;
-        box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
-        border: 1px solid rgba(0, 0, 0, 0.08);
-        overflow: hidden;
         max-height: 88vh;
         overflow-y: auto;
         -webkit-overflow-scrolling: touch;
       }
 
-      .project-modal__panel.is-active .project-modal__stats-card {
+      .project-modal__panel.is-active .project-modal__card {
         animation: modalPopUpMobile 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+      }
+
+      .project-modal__image-col {
+        display: none !important;
       }
 
       /* Mobile Header: Height of logo plus 5px margin top and bottom */
@@ -1756,7 +1834,7 @@ const projects = [
       }
 
       .project-modal__stats-body .case-card__tag {
-        font-size: 0.72rem;
+        font-size: 0.6rem;
         letter-spacing: 0.8px;
       }
 
@@ -1765,7 +1843,7 @@ const projects = [
       }
 
       .project-modal__stats-body .case-card__category {
-        font-size: 0.72rem;
+        font-size: 0.6rem;
         letter-spacing: 0.8px;
       }
 
@@ -1844,34 +1922,22 @@ const projects = [
     @media (prefers-reduced-motion: reduce) {
       .project-card__front,
       .project-card__peek,
-      .project-modal__desktop-visual,
-      .project-modal__stats-card {
+      .project-modal__card {
         transition: none !important;
         animation: none !important;
         transform: none !important;
       }
     }
 
-    /* Modal Pop-Out & Slide Animations */
-    @keyframes modalPopLeft {
+    /* Modal Pop-Up Animations */
+    @keyframes modalPopUp {
       0% {
         opacity: 0;
-        transform: translateX(60px) scale(0.92);
+        transform: translateY(20px) scale(0.96);
       }
       100% {
         opacity: 1;
-        transform: translateX(0) scale(1);
-      }
-    }
-
-    @keyframes modalSlideRight {
-      0% {
-        opacity: 0;
-        transform: translateX(-80px) scale(0.92);
-      }
-      100% {
-        opacity: 1;
-        transform: translateX(0) scale(1);
+        transform: translateY(0) scale(1);
       }
     }
 
