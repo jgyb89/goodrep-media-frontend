@@ -833,7 +833,7 @@ const projects = [
       content: "";
       position: absolute;
       inset: 0;
-      background: linear-gradient(180deg, #000000 0%, rgba(0, 0, 0, 0.6) 40%, rgba(0, 0, 0, 0) 85%);
+         background: linear-gradient(#000 0%, #0009 1%, #0000 55%);
       pointer-events: none;
       z-index: 2;
     }
@@ -987,10 +987,10 @@ const projects = [
 
     .case-card__stat-icon {
       flex: none;
-      font-size: 1.75rem;
+      font-size: 1.6rem;
       line-height: 1;
-      color: var(--color-cyan-soft);
-      background-color: var(--color-cyan);
+      color: var(--color-light);
+     background-color: var(--color-dark);
       border-radius: 50%;
       display: flex;
       align-items: center;
@@ -1008,7 +1008,7 @@ const projects = [
     .case-card__stat-num {
       display: block;
       font-family: var(--font-heading);
-      font-size: 2rem;
+      font-size: 1.55rem;
       font-weight: 700;
       color: var(--color-primary);
       line-height: 1.1;
@@ -1019,7 +1019,7 @@ const projects = [
       font-size: .9rem;
       color: var(--color-muted);
       line-height: 1.35;
-      font-weight: 600;
+      font-weight: 500;
     }
 
     /* Right side: Delivered list (a clean list, not pill buttons) */
@@ -1062,8 +1062,8 @@ const projects = [
       align-items: center;
       justify-content: center;
       line-height: 1;
-      background: rgba(27, 196, 217, 0.15);
-      color: var(--color-cyan-dark);
+      background: var(--color-cyan-dark);
+      color: var(--color-light);
       font-size: 14px;
       font-weight: 700;
     }
