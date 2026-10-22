@@ -1,0 +1,341 @@
+---
+// src/components/DeliverablesGrid.astro
+
+interface DeliverableItem {
+  icon: string;
+  accent: string;
+  accentW: number;
+  accentH: number;
+  metric: string;
+  title: string;
+  body: string;
+}
+
+interface Props {
+  id?: string;
+  eyebrow?: string;
+  title: string;
+  lead: string;
+  background?: "light" | "bg";
+  deliverables: DeliverableItem[];
+}
+
+const {
+  id = "deliverables",
+  eyebrow = "DELIVERABLES",
+  title,
+  lead,
+  background = "bg",
+  deliverables = [],
+} = Astro.props;
+---
+
+<section
+  class="section deliverables"
+  id={id}
+  style={background === "light" ? "background: var(--color-light);" : undefined}
+>
+  <div class="container">
+    <header class="section-head" data-reveal>
+      <span class="eyebrow">{eyebrow}</span>
+      <h2 class="section-title">{title}</h2>
+      <p class="section-lead">{lead}</p>
+    </header>
+
+    <div class="deliverables__grid" data-deliverables-grid>
+      {
+        deliverables.map((item) => (
+          <article class="deliverable-card" data-deliverable-card>
+            <div class="deliverable-card__top">
+              <div class="deliverable-card__medallion" aria-hidden="true">
+                <span class="deliverable-card__orbit" />
+                <div class="deliverable-card__icon-tile">
+                  <img
+                    class="deliverable-card__icon"
+                    data-deliverable-icon
+                    src={item.icon}
+                    alt=""
+                    width="48"
+                    height="48"
+                    loading="lazy"
+                  />
+                </div>
+                <img
+                  class="deliverable-card__accent"
+                  data-deliverable-accent
+                  src={item.accent}
+                  alt=""
+                  width={item.accentW}
+                  height={item.accentH}
+                  loading="lazy"
+                />
+              </div>
+              <span class="deliverable-card__metric">{item.metric}</span>
+            </div>
+
+            <h3 class="deliverable-card__title">{item.title}</h3>
+            <p class="deliverable-card__body">{item.body}</p>
+          </article>
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+<script>
+  import { gsap } from "gsap";
+  import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+  gsap.registerPlugin(ScrollTrigger);
+
+  const delivSections = document.querySelectorAll<HTMLElement>(".deliverables");
+  delivSections.forEach((root) => {
+    const mm = gsap.matchMedia();
+    mm.add("(prefers-reduced-motion: no-preference)", () => {
+      // Header reveal
+      const headEl = root.querySelector(".section-head");
+      if (headEl) {
+        gsap.fromTo(
+          headEl,
+          { y: 38, opacity: 0 },
+          {
+            y: 0,
+            opacity: 1,
+            duration: 0.85,
+            ease: "power3.out",
+            clearProps: "all",
+            scrollTrigger: {
+              trigger: headEl,
+              start: "top 85%",
+              once: true,
+            },
+          },
+        );
+      }
+
+      const delivGrid = root.querySelector<HTMLElement>("[data-deliverables-grid]");
+      if (delivGrid) {
+        const cards = gsap.utils.toArray<HTMLElement>(
+          "[data-deliverable-card]",
+          delivGrid,
+        );
+        const orbits = delivGrid.querySelectorAll(".deliverable-card__orbit");
+        const icons = delivGrid.querySelectorAll("[data-deliverable-icon]");
+
+        gsap.to(orbits, {
+          rotation: 360,
+          duration: 26,
+          repeat: -1,
+          ease: "none",
+        });
+
+        const delivTl = gsap.timeline({
+          scrollTrigger: {
+            trigger: delivGrid,
+            start: "top 82%",
+            once: true,
+          },
+        });
+
+        delivTl
+          .fromTo(
+            cards,
+            { y: 36, opacity: 0 },
+            {
+              y: 0,
+              opacity: 1,
+              duration: 0.65,
+              stagger: 0.1,
+              ease: "power3.out",
+              clearProps: "all",
+            },
+          )
+          .fromTo(
+            icons,
+            { scale: 0.5, rotation: -15 },
+            {
+              scale: 1,
+              rotation: 0,
+              duration: 0.7,
+              stagger: 0.1,
+              ease: "back.out(1.8)",
+              clearProps: "all",
+            },
+            "<0.05",
+          );
+
+        cards.forEach((card) => {
+          const icon = card.querySelector("[data-deliverable-icon]");
+          const accent = card.querySelector("[data-deliverable-accent]");
+
+          card.addEventListener("pointerenter", () => {
+            if (icon) {
+              gsap.to(icon, {
+                scale: 1.15,
+                rotation: -6,
+                duration: 0.4,
+                ease: "back.out(2)",
+              });
+            }
+            if (accent) {
+              gsap.to(accent, {
+                x: 6,
+                y: -6,
+                scale: 1.14,
+                rotation: 8,
+                duration: 0.4,
+                ease: "back.out(2)",
+              });
+            }
+          });
+
+          card.addEventListener("pointerleave", () => {
+            if (icon) {
+              gsap.to(icon, {
+                scale: 1,
+                rotation: 0,
+                duration: 0.55,
+                ease: "elastic.out(1, 0.5)",
+              });
+            }
+            if (accent) {
+              gsap.to(accent, {
+                x: 0,
+                y: 0,
+                scale: 1,
+                rotation: 0,
+                duration: 0.55,
+                ease: "elastic.out(1, 0.5)",
+              });
+            }
+          });
+        });
+      }
+    });
+  });
+</script>
+
+<style>
+  /* ---------- Deliverables Grid ---------- */
+  .deliverables {
+    background: var(--color-bg);
+  }
+
+  .deliverables__grid {
+    display: grid;
+    gap: 1.75rem;
+    grid-template-columns: 1fr;
+  }
+
+  @media (min-width: 640px) {
+    .deliverables__grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .deliverables__grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  .deliverable-card {
+    background: var(--color-light);
+    border: 1px solid rgba(15, 23, 42, 0.08);
+    border-radius: 20px;
+    padding: 2rem 1.75rem;
+    display: flex;
+    flex-direction: column;
+    box-shadow: var(--shadow-soft);
+    transition:
+      translate 0.3s ease,
+      box-shadow 0.3s ease,
+      border-color 0.3s ease;
+  }
+
+  .deliverable-card:hover {
+    translate: 0 -6px;
+    box-shadow: var(--shadow-lift);
+    border-color: rgba(27, 196, 217, 0.45);
+  }
+
+  .deliverable-card__top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-bottom: 1.35rem;
+  }
+
+  .deliverable-card__medallion {
+    position: relative;
+    width: 92px;
+    height: 92px;
+    display: grid;
+    place-items: center;
+    flex-shrink: 0;
+  }
+
+  .deliverable-card__orbit {
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    border: 2px dashed rgba(27, 196, 217, 0.5);
+    pointer-events: none;
+  }
+
+  .deliverable-card__icon-tile {
+    width: 74px;
+    height: 74px;
+    border-radius: 50%;
+    background: var(--color-cyan-soft);
+    display: grid;
+    place-items: center;
+    position: relative;
+    z-index: 1;
+  }
+
+  .deliverable-card__icon {
+    width: 38px;
+    height: 38px;
+    object-fit: contain;
+    will-change: transform;
+  }
+
+  .deliverable-card__accent {
+    position: absolute;
+    width: 34px;
+    height: auto;
+    right: -4px;
+    bottom: -4px;
+    z-index: 2;
+    filter: drop-shadow(0 6px 10px rgba(15, 23, 42, 0.2));
+    will-change: transform;
+    pointer-events: none;
+  }
+
+  .deliverable-card__metric {
+    font-size: 0.76rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--color-cyan-dark);
+    background: var(--color-cyan-soft);
+    padding: 0.35rem 0.75rem;
+    border-radius: 999px;
+    white-space: nowrap;
+  }
+
+  .deliverable-card__title {
+    font-size: 1.25rem;
+    margin: 0 0 0.75rem;
+    color: var(--color-dark);
+  }
+
+  .deliverable-card__body {
+    color: var(--color-muted);
+    font-size: 0.95rem;
+    line-height: 1.7;
+    margin: 0;
+  }
+</style>

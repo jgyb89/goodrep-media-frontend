@@ -1,0 +1,617 @@
+---
+// src/components/StartsSection.astro
+import { Image } from "astro:assets";
+
+interface Satellite {
+  src: string;
+  alt?: string;
+  width: number;
+  height: number;
+  parallax?: number;
+  className?: string;
+  style?: string;
+  noFloat?: boolean;
+}
+
+interface MediaPill {
+  icon: string;
+  iconBg?: string;
+  title: string;
+  subtitle: string;
+  parallax?: number;
+}
+
+interface MediaStage {
+  blob?: { src: string; width: number; height: number; style?: string };
+  main: { src: string; alt: string; width: number; height: number; style?: string };
+  satellites?: Satellite[];
+  pill?: MediaPill;
+}
+
+interface Callout {
+  percent: number | string;
+  percentPrefix?: string;
+  percentSuffix?: string;
+  title: string;
+  text: string;
+}
+
+interface Checklist {
+  title: string;
+  items: string[];
+  footerText?: string;
+}
+
+interface Action {
+  label: string;
+  href: string;
+  variant?: string;
+}
+
+interface Props {
+  eyebrow: string;
+  title: string;
+  question?: string;
+  body: string | string[];
+  mediaFirst?: boolean;
+  background?: "light" | "bg";
+  callout?: Callout;
+  checklist?: Checklist;
+  actions?: Action[];
+  media: MediaStage;
+}
+
+const {
+  eyebrow,
+  title,
+  question,
+  body,
+  mediaFirst = true,
+  background = "light",
+  callout,
+  checklist,
+  actions = [],
+  media,
+} = Astro.props;
+
+const paragraphs = Array.isArray(body) ? body : [body];
+
+// Calculate SVG ring offset if callout with numeric percent is provided
+// Circumference for r=34 is 213.6
+let targetOffset = 42.7; // default 80%
+if (callout && typeof callout.percent === "number") {
+  targetOffset = 213.6 * (1 - callout.percent / 100);
+}
+---
+
+<section
+  class="section starts-section"
+  style={background === "bg" ? "background: var(--color-bg);" : undefined}
+>
+  <div class="container">
+    <div class="starts-feature" data-reveal>
+      {/* Media on Left (when mediaFirst = true) */}
+      {
+        mediaFirst && (
+          <div class="starts-feature__media" aria-hidden="true">
+            {media.blob && (
+              <img
+                class="starts-feature__blob"
+                data-spotlight-parallax="24"
+                src={media.blob.src}
+                alt=""
+                width={media.blob.width}
+                height={media.blob.height}
+                style={media.blob.style}
+                loading="lazy"
+              />
+            )}
+            <img
+              class="starts-feature__main"
+              data-spotlight-parallax="-18"
+              src={media.main.src}
+              alt={media.main.alt}
+              width={media.main.width}
+              height={media.main.height}
+              style={media.main.style}
+              loading="lazy"
+              decoding="async"
+            />
+            {media.satellites?.map((sat) => (
+              <img
+                class:list={["starts-feature__sat", sat.className]}
+                data-spotlight-parallax={sat.parallax ?? -36}
+                data-float={sat.noFloat ? undefined : ""}
+                src={sat.src}
+                alt={sat.alt ?? ""}
+                width={sat.width}
+                height={sat.height}
+                style={sat.style}
+                loading="lazy"
+              />
+            ))}
+            {media.pill && (
+              <div
+                class="starts-feature__pill"
+                data-spotlight-parallax={media.pill.parallax ?? -30}
+              >
+                <span
+                  class="starts-feature__pill-icon"
+                  style={media.pill.iconBg ? `background: ${media.pill.iconBg};` : undefined}
+                >
+                  <span class="material-symbols-outlined" aria-hidden="true">
+                    {media.pill.icon}
+                  </span>
+                </span>
+                <div>
+                  <strong>{media.pill.title}</strong>
+                  <span>{media.pill.subtitle}</span>
+                </div>
+              </div>
+            )}
+          </div>
+        )
+      }
+
+      <!-- Feature Content -->
+      <div class="starts-feature__content">
+        <span class="eyebrow">{eyebrow}</span>
+        <h2 class="section-title starts-feature__title">{title}</h2>
+
+        {question && <p class="starts-feature__question">{question}</p>}
+
+        {paragraphs.map((p) => (
+          <p class="starts-feature__body" set:html={p} />
+        ))}
+
+        {checklist && (
+          <div
+            class="service-hero__checklist-card"
+            style="margin-top: 1.5rem; margin-bottom: 1.25rem;"
+          >
+            <p style="font-weight: 700; color: var(--color-dark); margin: 0 0 0.85rem; font-size: 0.95rem;">
+              {checklist.title}
+            </p>
+            <ul class="checklist" style="line-height: 2rem;">
+              {checklist.items.map((item) => (
+                <li style="font-size: 0.94rem; color: var(--color-dark);">{item}</li>
+              ))}
+            </ul>
+          </div>
+        )}
+
+        {checklist?.footerText && (
+          <p
+            class="starts-feature__body"
+            style="font-size: 0.96rem; color: #64748b; margin-bottom: 1.5rem;"
+            set:html={checklist.footerText}
+          />
+        )}
+
+        {actions.length > 0 && (
+          <div class="starts-feature__actions" style="margin-top: 1.25rem;">
+            {actions.map((act) => (
+              <a href={act.href} class:list={["btn", act.variant || "btn--primary"]}>
+                {act.label}
+              </a>
+            ))}
+          </div>
+        )}
+
+        {callout && (
+          <div class="mobile-callout">
+            <div class="mobile-callout__ring" aria-hidden="true">
+              <svg viewBox="0 0 80 80" class="mobile-callout__svg">
+                <circle class="mobile-callout__track" cx="40" cy="40" r="34" />
+                <circle
+                  class="mobile-callout__progress"
+                  cx="40"
+                  cy="40"
+                  r="34"
+                  data-target-offset={targetOffset}
+                />
+              </svg>
+              <span class="mobile-callout__percent">
+                {callout.percentPrefix ?? ""}{callout.percent}{callout.percentSuffix ?? (typeof callout.percent === "number" ? "%" : "")}
+              </span>
+            </div>
+            <div class="mobile-callout__copy">
+              <h3 class="mobile-callout__title">{callout.title}</h3>
+              <p class="mobile-callout__text" set:html={callout.text} />
+            </div>
+          </div>
+        )}
+      </div>
+
+      {/* Media on Right (when mediaFirst = false) */}
+      {
+        !mediaFirst && (
+          <div class="starts-feature__media" aria-hidden="true">
+            {media.blob && (
+              <img
+                class="starts-feature__blob"
+                data-spotlight-parallax="24"
+                src={media.blob.src}
+                alt=""
+                width={media.blob.width}
+                height={media.blob.height}
+                style={media.blob.style}
+                loading="lazy"
+              />
+            )}
+            <img
+              class="starts-feature__main"
+              data-spotlight-parallax="-18"
+              src={media.main.src}
+              alt={media.main.alt}
+              width={media.main.width}
+              height={media.main.height}
+              style={media.main.style}
+              loading="lazy"
+              decoding="async"
+            />
+            {media.satellites?.map((sat) => (
+              <img
+                class:list={["starts-feature__sat", sat.className]}
+                data-spotlight-parallax={sat.parallax ?? -36}
+                data-float={sat.noFloat ? undefined : ""}
+                src={sat.src}
+                alt={sat.alt ?? ""}
+                width={sat.width}
+                height={sat.height}
+                style={sat.style}
+                loading="lazy"
+              />
+            ))}
+            {media.pill && (
+              <div
+                class="starts-feature__pill"
+                data-spotlight-parallax={media.pill.parallax ?? -30}
+              >
+                <span
+                  class="starts-feature__pill-icon"
+                  style={media.pill.iconBg ? `background: ${media.pill.iconBg};` : undefined}
+                >
+                  <span class="material-symbols-outlined" aria-hidden="true">
+                    {media.pill.icon}
+                  </span>
+                </span>
+                <div>
+                  <strong>{media.pill.title}</strong>
+                  <span>{media.pill.subtitle}</span>
+                </div>
+              </div>
+            )}
+          </div>
+        )
+      }
+    </div>
+  </div>
+</section>
+
+<script>
+  import { gsap } from "gsap";
+  import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+  gsap.registerPlugin(ScrollTrigger);
+
+  const sections = document.querySelectorAll<HTMLElement>(".starts-section");
+  sections.forEach((root) => {
+    const mm = gsap.matchMedia();
+    mm.add("(prefers-reduced-motion: no-preference)", () => {
+      // 1. Reveal animation
+      const revealEl = root.querySelector("[data-reveal]");
+      if (revealEl) {
+        gsap.fromTo(
+          revealEl,
+          { y: 38, opacity: 0 },
+          {
+            y: 0,
+            opacity: 1,
+            duration: 0.85,
+            ease: "power3.out",
+            clearProps: "all",
+            scrollTrigger: {
+              trigger: revealEl,
+              start: "top 85%",
+              once: true,
+            },
+          },
+        );
+      }
+
+      // 2. Continuous float for satellites
+      root.querySelectorAll<HTMLElement>("[data-float]").forEach((el, i) => {
+        gsap.to(el, {
+          y: -12,
+          rotation: i % 2 ? 3 : -3,
+          duration: 2.4 + (i % 3) * 0.5,
+          ease: "sine.inOut",
+          yoyo: true,
+          repeat: -1,
+          delay: (i % 3) * 0.3,
+        });
+      });
+
+      // 3. Multi-plane ScrollTrigger scrub parallax
+      const startsFeature = root.querySelector<HTMLElement>(".starts-feature");
+      if (startsFeature) {
+        gsap.utils
+          .toArray<HTMLElement>("[data-spotlight-parallax]", root)
+          .forEach((sat) => {
+            const deltaY = Number(sat.dataset.spotlightParallax || -36);
+            gsap.fromTo(
+              sat,
+              { y: -deltaY * 0.4 },
+              {
+                y: deltaY * 0.6,
+                ease: "none",
+                scrollTrigger: {
+                  trigger: startsFeature,
+                  start: "top bottom",
+                  end: "bottom top",
+                  scrub: 0.6,
+                },
+              },
+            );
+          });
+      }
+
+      // 4. Mobile Callout Ring Progress Animation
+      const ringProgress = root.querySelector<SVGCircleElement>(
+        ".mobile-callout__progress",
+      );
+      const calloutEl = root.querySelector<HTMLElement>(".mobile-callout");
+      if (ringProgress && calloutEl) {
+        const offset = Number(ringProgress.dataset.targetOffset || "42.7");
+        gsap.fromTo(
+          ringProgress,
+          { strokeDashoffset: 213.6 },
+          {
+            strokeDashoffset: offset,
+            duration: 1.4,
+            ease: "power3.out",
+            scrollTrigger: {
+              trigger: calloutEl,
+              start: "top 85%",
+              once: true,
+            },
+          },
+        );
+      }
+    });
+  });
+</script>
+
+<style>
+  /* ---------- Spotlight / Starts Section ---------- */
+  .starts-section {
+    background: var(--color-light);
+    overflow: hidden;
+  }
+
+  .starts-feature {
+    display: grid;
+    gap: 3.5rem;
+    align-items: center;
+  }
+
+  @media (min-width: 960px) {
+    .starts-feature {
+      grid-template-columns: 1fr 1.08fr;
+      gap: 5rem;
+    }
+  }
+
+  .starts-feature__media {
+    position: relative;
+    aspect-ratio: 1 / 0.92;
+    max-width: 560px;
+    width: 100%;
+    justify-self: center;
+  }
+
+  .starts-feature__media img {
+    position: absolute;
+    height: auto !important;
+    max-height: none !important;
+    object-fit: contain;
+    will-change: transform;
+    pointer-events: none;
+  }
+
+  .starts-feature__blob {
+    width: 88%;
+    left: 6%;
+    top: 4%;
+    opacity: 0.85;
+  }
+
+  .starts-feature__main {
+    width: 64%;
+    left: 18%;
+    top: 10%;
+    z-index: 2;
+    filter: drop-shadow(0 20px 28px rgba(15, 23, 42, 0.16));
+  }
+
+  .starts-feature__sat {
+    max-width: 28% !important;
+    z-index: 3;
+    filter: drop-shadow(0 14px 20px rgba(15, 23, 42, 0.2));
+  }
+
+  .starts-feature__sat--line {
+    z-index: 1;
+    filter: none;
+    opacity: 0.85;
+  }
+
+  .starts-feature__sat--sub {
+    z-index: 2;
+    filter: drop-shadow(0 16px 24px rgba(15, 23, 42, 0.18));
+  }
+
+  .starts-feature__sat--target {
+    width: 22%;
+    right: 2%;
+    top: 2%;
+  }
+
+  .starts-feature__sat--smiley {
+    width: 18%;
+    left: 4%;
+    top: 6%;
+  }
+
+  .starts-feature__sat--likes {
+    width: 24%;
+    right: 4%;
+    bottom: 12%;
+  }
+
+  .starts-feature__pill {
+    position: absolute;
+    bottom: 2%;
+    left: 2%;
+    z-index: 3;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+    background: var(--color-light);
+    border: 1px solid var(--color-border);
+    border-radius: 14px;
+    padding: 0.75rem 1.15rem;
+    box-shadow: 0 18px 35px -10px rgba(15, 23, 42, 0.22);
+  }
+
+  .starts-feature__pill-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+    background: var(--color-cyan);
+    color: var(--color-light);
+    display: grid;
+    place-items: center;
+  }
+
+  .starts-feature__pill div {
+    display: flex;
+    flex-direction: column;
+    line-height: 1.25;
+  }
+
+  .starts-feature__pill strong {
+    font-size: 0.92rem;
+    color: var(--color-dark);
+  }
+
+  .starts-feature__pill span {
+    font-size: 0.78rem;
+    color: var(--color-muted);
+  }
+
+  .starts-feature__title {
+    margin: 0.25rem 0 0.85rem;
+  }
+
+  .starts-feature__question {
+    font-family: var(--font-heading);
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: var(--color-cyan-dark);
+    margin: 0 0 1rem;
+  }
+
+  .starts-feature__body {
+    color: var(--color-muted);
+    font-size: 1.04rem;
+    line-height: 1.75;
+    margin: 0 0 1.15rem;
+  }
+
+  .service-hero__checklist-card {
+    background: var(--color-light);
+    border: 1px solid var(--color-border);
+    border-left: 4px solid var(--color-cyan);
+    border-radius: 16px;
+    padding: 1.15rem 1.4rem;
+    box-shadow: var(--shadow-soft);
+  }
+
+  /* Animated Mobile Callout Card */
+  .mobile-callout {
+    margin-top: 1.75rem;
+    background: linear-gradient(135deg, var(--color-bg) 0%, #eef9fb 100%);
+    border: 1px solid rgba(27, 196, 217, 0.35);
+    border-radius: 18px;
+    padding: 1.5rem;
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 1.35rem;
+    align-items: center;
+    box-shadow: 0 14px 30px -18px rgba(15, 23, 42, 0.18);
+  }
+
+  @media (max-width: 560px) {
+    .mobile-callout {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .mobile-callout__ring {
+    position: relative;
+    width: 84px;
+    height: 84px;
+    display: grid;
+    place-items: center;
+    flex-shrink: 0;
+  }
+
+  .mobile-callout__svg {
+    width: 100%;
+    height: 100%;
+    transform: rotate(-90deg);
+  }
+
+  .mobile-callout__track {
+    fill: none;
+    stroke: rgba(27, 196, 217, 0.18);
+    stroke-width: 7;
+  }
+
+  .mobile-callout__progress {
+    fill: none;
+    stroke: var(--color-primary);
+    stroke-width: 7;
+    stroke-linecap: round;
+    stroke-dasharray: 213.6;
+    stroke-dashoffset: 42.7;
+  }
+
+  .mobile-callout__percent {
+    position: absolute;
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: 1.25rem;
+    color: var(--color-dark);
+  }
+
+  .mobile-callout__title {
+    font-size: 1.02rem;
+    letter-spacing: 0.04em;
+    margin: 0 0 0.45rem;
+    color: var(--color-dark);
+  }
+
+  .mobile-callout__text {
+    margin: 0;
+    color: var(--color-muted);
+    font-size: 0.95rem;
+    line-height: 1.65;
+  }
+
+  .mobile-callout__text strong {
+    color: var(--color-dark);
+  }
+</style>

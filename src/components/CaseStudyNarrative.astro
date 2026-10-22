@@ -1,0 +1,220 @@
+---
+// src/components/CaseStudyNarrative.astro
+
+interface ImageData {
+  src: string;
+  alt: string;
+  width: number;
+  height: number;
+}
+
+interface NarrativeBlock {
+  kicker: string;
+  text: string;
+}
+
+interface Props {
+  title: string;
+  image: ImageData;
+  blocks: NarrativeBlock[];
+}
+
+const { title, image, blocks = [] } = Astro.props;
+---
+
+<section class="case-narrative" aria-labelledby="case-narrative-title">
+  <div class="container case-narrative__container">
+    <div class="case-narrative__grid">
+      <!-- Left Column: Visual Showcase -->
+      <div class="case-narrative__media">
+        <div class="case-narrative__frame">
+          <img
+            src={image.src}
+            alt={image.alt}
+            width={image.width}
+            height={image.height}
+            class="case-narrative__img"
+            loading="lazy"
+            decoding="async"
+          />
+        </div>
+      </div>
+
+      <!-- Right Column: Narrative Copy -->
+      <div class="case-narrative__content">
+        <h2 id="case-narrative-title" class="case-narrative__title">
+          {title}
+        </h2>
+
+        <div class="case-narrative__blocks">
+          {
+            blocks.map((block) => (
+              <div class="case-narrative__block">
+                <h3 class="case-narrative__kicker">{block.kicker}</h3>
+                <p class="case-narrative__text">{block.text}</p>
+              </div>
+            ))
+          }
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .case-narrative {
+    background-color: var(--color-light);
+    color: var(--color-dark);
+    padding: clamp(4rem, 7vw, 7rem) 0 clamp(4.5rem, 8vw, 7.5rem);
+    position: relative;
+  }
+
+  .case-narrative__container {
+    max-width: var(--container);
+  }
+
+  .case-narrative__grid {
+    display: grid;
+    grid-template-columns: 1fr 1.05fr;
+    gap: clamp(2.5rem, 5vw, 5rem);
+    align-items: center;
+  }
+
+  /* Left Column Media Frame */
+  .case-narrative__media {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+  }
+
+  .case-narrative__frame {
+    width: 100%;
+    border-radius: 12px;
+    overflow: hidden;
+    background: #f8fafc;
+    box-shadow: 0 16px 38px -12px rgba(15, 23, 42, 0.16),
+      0 0 0 1px rgba(15, 23, 42, 0.05);
+    transition: transform 0.35s ease, box-shadow 0.35s ease;
+  }
+
+  .case-narrative__frame:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 22px 48px -12px rgba(15, 23, 42, 0.22),
+      0 0 0 1px rgba(15, 23, 42, 0.08);
+  }
+
+  .case-narrative__img {
+    width: 100%;
+    height: auto;
+    display: block;
+    object-fit: cover;
+  }
+
+  /* Right Column Copy */
+  .case-narrative__content {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .case-narrative__title {
+    font-family: var(--font-heading);
+    font-size: clamp(2rem, 3.4vw, 2.75rem);
+    font-weight: 700;
+    color: #1a1a1a;
+    line-height: 1.2;
+    margin: 0 0 clamp(2rem, 3.2vw, 3rem);
+    letter-spacing: -0.01em;
+  }
+
+  .case-narrative__blocks {
+    display: flex;
+    flex-direction: column;
+    gap: clamp(1.8rem, 2.5vw, 2.5rem);
+  }
+
+  .case-narrative__block {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .case-narrative__kicker {
+    font-family: var(--font-heading);
+    font-size: 1rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--color-cyan);
+    margin: 0 0 0.85rem;
+  }
+
+  .case-narrative__text {
+    font-size: 1.05rem;
+    line-height: 1.82;
+    color: #4b5563;
+    margin: 0;
+  }
+
+  @media (max-width: 980px) {
+    .case-narrative__grid {
+      grid-template-columns: 1fr;
+      gap: 3.5rem;
+    }
+
+    .case-narrative__media {
+      max-width: 680px;
+      margin: 0 auto;
+    }
+  }
+
+  @media (max-width: 640px) {
+    .case-narrative {
+      padding: 3.5rem 0 4.5rem;
+    }
+
+    .case-narrative__title {
+      font-size: 2.15rem;
+      margin-bottom: 1.75rem;
+    }
+
+    .case-narrative__text {
+      font-size: 1rem;
+      line-height: 1.75;
+    }
+  }
+</style>
+
+<script>
+  import { gsap } from "gsap";
+  import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+  gsap.registerPlugin(ScrollTrigger);
+
+  const narrativeSections = document.querySelectorAll<HTMLElement>(".case-narrative");
+  narrativeSections.forEach((section) => {
+    const mm = gsap.matchMedia();
+    mm.add("(prefers-reduced-motion: no-preference)", () => {
+      const media = section.querySelector(".case-narrative__media");
+      const content = section.querySelector(".case-narrative__content");
+
+      if (media && content) {
+        gsap.fromTo(
+          [media, content],
+          { y: 35, opacity: 0 },
+          {
+            y: 0,
+            opacity: 1,
+            duration: 0.85,
+            stagger: 0.2,
+            ease: "power3.out",
+            clearProps: "transform,opacity",
+            scrollTrigger: {
+              trigger: section,
+              start: "top 80%",
+              once: true,
+            },
+          }
+        );
+      }
+    });
+  });
+</script>

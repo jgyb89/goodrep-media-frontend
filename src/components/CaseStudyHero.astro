@@ -1,0 +1,499 @@
+---
+// src/components/CaseStudyHero.astro
+
+interface BreadcrumbItem {
+  label: string;
+  href?: string;
+  current?: boolean;
+}
+
+interface StoryBlock {
+  kicker: string;
+  text: string;
+}
+
+interface WorkBlock {
+  kicker: string;
+  items: string[];
+}
+
+interface MockupData {
+  src: string;
+  alt: string;
+  width: number;
+  height: number;
+}
+
+interface CtaData {
+  label: string;
+  href: string;
+  target?: string;
+}
+
+interface Props {
+  breadcrumb: BreadcrumbItem[];
+  kicker?: string;
+  title: string;
+  bgImage?: string;
+  story: StoryBlock;
+  work: WorkBlock;
+  mockup: MockupData;
+  cta: CtaData;
+}
+
+const {
+  breadcrumb,
+  kicker = "CASE STUDY",
+  title,
+  bgImage = "/grm-web-assets/grm-black-map-bg.webp",
+  story,
+  work,
+  mockup,
+  cta,
+} = Astro.props;
+---
+
+<section
+  class="case-hero"
+  aria-labelledby="case-hero-title"
+  style={`--case-hero-bg: url('${bgImage}');`}
+>
+  <div class="case-hero__overlay" aria-hidden="true"></div>
+
+  <div class="container case-hero__container">
+    <!-- Breadcrumb: styled matching ServiceHero pill styling with dark theme support -->
+    <nav class="breadcrumb case-hero__breadcrumb" aria-label="Breadcrumb">
+      <ol class="breadcrumb__list">
+        {
+          breadcrumb.map((item, idx) => (
+            <>
+              {idx > 0 && (
+                <li class="breadcrumb__sep" aria-hidden="true">
+                  <span class="material-symbols-outlined">chevron_right</span>
+                </li>
+              )}
+              <li
+                class="breadcrumb__item"
+                aria-current={item.current || idx === breadcrumb.length - 1 ? "page" : undefined}
+              >
+                {item.href && !item.current ? (
+                  <a href={item.href} class="breadcrumb__link">
+                    {item.label}
+                  </a>
+                ) : (
+                  item.label
+                )}
+              </li>
+            </>
+          ))
+        }
+      </ol>
+    </nav>
+
+    <!-- Hero Kicker: styled matching ServiceHero kicker -->
+    {kicker && <span class="case-hero__kicker-top">{kicker}</span>}
+
+    <!-- Main Title: styled matching ServiceHero title typography -->
+    <h1 id="case-hero-title" class="case-hero__title">
+      {title}
+    </h1>
+
+    <!-- 2-Column Split: Story & Work (Left) vs Devices Mockup (Right) - Layout preserved -->
+    <div class="case-hero__grid">
+      <!-- Left: Story & Work Details -->
+      <div class="case-hero__content">
+        <div class="case-hero__split">
+          <!-- The Story -->
+          <div class="case-hero__story">
+            <h2 class="case-hero__kicker">{story.kicker}</h2>
+            <p class="case-hero__text">{story.text}</p>
+          </div>
+
+          <!-- Vertical Divider -->
+          <div class="case-hero__divider" aria-hidden="true"></div>
+
+          <!-- The Work -->
+          <div class="case-hero__work">
+            <h2 class="case-hero__kicker">{work.kicker}</h2>
+            <ul class="case-hero__work-list">
+              {work.items.map((item) => (
+                <li><span>{item}</span></li>
+              ))}
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right: Device Mockup + Visit Site CTA -->
+      <div class="case-hero__visual">
+        <div class="case-hero__mockup-card">
+          <img
+            src={mockup.src}
+            alt={mockup.alt}
+            width={mockup.width}
+            height={mockup.height}
+            class="case-hero__mockup-img"
+            loading="eager"
+            fetchpriority="high"
+          />
+        </div>
+
+        {cta && (
+          <div class="case-hero__cta-wrap">
+            <a
+              href={cta.href}
+              target={cta.target}
+              rel={cta.target === "_blank" ? "noopener noreferrer" : undefined}
+              class="case-hero__cta-btn"
+            >
+              {cta.label}
+            </a>
+          </div>
+        )}
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .case-hero {
+    position: relative;
+    background-color: #121316;
+    background-image: var(--case-hero-bg);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    color: var(--color-light);
+    padding: clamp(3rem, 5.5vw, 4.75rem) 0 clamp(3.5rem, 6.5vw, 5.5rem);
+    overflow: hidden;
+  }
+
+  .case-hero__overlay {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(
+        circle at 20% 30%,
+        rgba(18, 19, 22, 0.72) 0%,
+        rgba(18, 19, 22, 0.92) 100%
+      ),
+      linear-gradient(to bottom, rgba(0, 0, 0, 0.45), rgba(0, 0, 0, 0.78));
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  .case-hero__container {
+    position: relative;
+    z-index: 2;
+  }
+
+  /* Breadcrumb: matching ServiceHero pill styling with dark theme support */
+  .case-hero__breadcrumb {
+    margin-bottom: 1.15rem;
+  }
+
+  .case-hero__breadcrumb .breadcrumb__list {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    list-style: none;
+    margin: 0;
+    padding: 0.35rem 0.95rem;
+    background: rgba(15, 23, 42, 0.7);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 999px;
+    font-size: 0.82rem;
+    font-weight: 600;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+  }
+
+  .case-hero__breadcrumb .breadcrumb__link {
+    color: var(--color-cyan);
+    text-decoration: none;
+    transition: color 0.2s ease;
+  }
+
+  .case-hero__breadcrumb .breadcrumb__link:hover {
+    color: var(--color-primary);
+  }
+
+  .case-hero__breadcrumb .breadcrumb__sep {
+    display: inline-flex;
+    align-items: center;
+    color: #94a3b8;
+  }
+
+  .case-hero__breadcrumb .breadcrumb__sep .material-symbols-outlined {
+    font-size: 1rem;
+    line-height: 1;
+  }
+
+  .case-hero__breadcrumb .breadcrumb__item[aria-current="page"] {
+    color: #f1f5f9;
+  }
+
+  /* Hero Kicker (Top): matching ServiceHero kicker */
+  .case-hero__kicker-top {
+    display: block;
+    color: var(--color-cyan);
+    font-family: var(--font-body);
+    font-weight: 600;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    margin-bottom: 0.65rem;
+  }
+
+  /* Main Title: matching ServiceHero title typography */
+  .case-hero__title {
+    font-family: var(--font-heading);
+    font-size: clamp(2.1rem, 4vw, 3.4rem);
+    font-weight: 700;
+    line-height: 1.12;
+    letter-spacing: -0.015em;
+    text-transform: uppercase;
+    color: var(--color-light);
+    margin: 0 0 clamp(1.75rem, 3vw, 2.5rem);
+    text-shadow: 0 2px 16px rgba(0, 0, 0, 0.5);
+  }
+
+  /* 2-Column Desktop Grid - Identical Layout */
+  .case-hero__grid {
+    display: grid;
+    grid-template-columns: 1.05fr 1fr;
+    gap: clamp(2rem, 4.5vw, 4.5rem);
+    align-items: center;
+  }
+
+  /* Split for Story & Work */
+  .case-hero__split {
+    display: flex;
+    align-items: stretch;
+    gap: clamp(1.5rem, 2.8vw, 2.5rem);
+  }
+
+  .case-hero__story {
+    flex: 1.25;
+  }
+
+  .case-hero__divider {
+    width: 2px;
+    background-color: var(--color-cyan);
+    flex-shrink: 0;
+    border-radius: 999px;
+  }
+
+  .case-hero__work {
+    flex: 1;
+  }
+
+  /* Sub-kickers for Story & Work */
+  .case-hero__kicker {
+    display: block;
+    font-family: var(--font-body);
+    font-size: 0.85rem;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--color-cyan);
+    margin: 0 0 0.85rem;
+  }
+
+  /* Copy: Narrative Text matching ServiceHero lead styling */
+  .case-hero__text {
+    font-size: 1.04rem;
+    line-height: 1.7;
+    color: #cbd5e1;
+    margin: 0;
+    text-shadow: 0 1px 4px rgba(0, 0, 0, 0.4);
+  }
+
+  /* Copy: Deliverables Checklist matching ServiceHero checklist design */
+  .case-hero__work-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .case-hero__work-list li {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.65rem;
+    font-size: 0.98rem;
+    font-weight: 600;
+    color: #f1f5f9;
+    line-height: 1.5;
+  }
+
+  .case-hero__work-list li::before {
+    content: "check";
+    font-family: "Material Symbols Outlined";
+    flex: none;
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    background: rgba(27, 196, 217, 0.18);
+    border: 1px solid var(--color-cyan);
+    color: var(--color-cyan);
+    font-size: 14px;
+    font-weight: 700;
+    margin-top: 0.1rem;
+  }
+
+  /* Right Visual: Mockup + CTA */
+  .case-hero__visual {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+  }
+
+  .case-hero__mockup-card {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    filter: drop-shadow(0 20px 35px rgba(0, 0, 0, 0.55));
+    transition: transform 0.4s ease;
+  }
+
+  .case-hero__mockup-card:hover {
+    transform: translateY(-4px);
+  }
+
+  .case-hero__mockup-img {
+    width: 100%;
+    height: auto;
+    max-width: 100%;
+    object-fit: contain;
+    display: block;
+  }
+
+  .case-hero__cta-wrap {
+    margin-top: clamp(1.5rem, 2.5vw, 2.2rem);
+    display: flex;
+    justify-content: center;
+    width: 100%;
+  }
+
+  .case-hero__cta-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--color-primary);
+    color: var(--color-light);
+    font-family: var(--font-heading);
+    font-size: 1.05rem;
+    font-weight: 700;
+    text-decoration: none;
+    padding: 0.85rem 2.8rem;
+    border-radius: 6px;
+    box-shadow: 0 8px 24px -4px rgba(233, 79, 55, 0.6);
+    transition: all 0.25s cubic-bezier(0.2, 0.8, 0.2, 1);
+    cursor: pointer;
+  }
+
+  .case-hero__cta-btn:hover {
+    background-color: var(--color-primary-dark);
+    transform: translateY(-2px);
+    box-shadow: 0 12px 28px -4px rgba(233, 79, 55, 0.8);
+  }
+
+  .case-hero__cta-btn:active {
+    transform: translateY(0);
+  }
+
+  /* Responsive Rules */
+  @media (max-width: 1080px) {
+    .case-hero__grid {
+      grid-template-columns: 1fr;
+      gap: 3rem;
+    }
+
+    .case-hero__visual {
+      order: 2;
+      max-width: 720px;
+      margin: 0 auto;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .case-hero {
+      padding: 2.5rem 0 3.5rem;
+    }
+
+    .case-hero__title {
+      font-size: 2.15rem;
+      margin-bottom: 1.75rem;
+    }
+
+    .case-hero__split {
+      flex-direction: column;
+      gap: 1.75rem;
+    }
+
+    .case-hero__divider {
+      width: 100%;
+      height: 2px;
+    }
+
+    .case-hero__cta-btn {
+      width: 100%;
+      max-width: 320px;
+    }
+  }
+</style>
+
+<script>
+  import { gsap } from "gsap";
+
+  const heroSection = document.querySelector<HTMLElement>(".case-hero");
+  if (heroSection) {
+    const mm = gsap.matchMedia();
+    mm.add("(prefers-reduced-motion: no-preference)", () => {
+      const itemsToStagger = heroSection.querySelectorAll(
+        ".case-hero__breadcrumb, .case-hero__kicker-top, .case-hero__title, .case-hero__story, .case-hero__work",
+      );
+      const visual = heroSection.querySelector(".case-hero__visual");
+
+      const tl = gsap.timeline({ defaults: { ease: "power3.out" } });
+
+      if (itemsToStagger.length) {
+        tl.fromTo(
+          itemsToStagger,
+          { y: 26, opacity: 0 },
+          {
+            y: 0,
+            opacity: 1,
+            duration: 0.8,
+            stagger: 0.1,
+            clearProps: "all",
+          },
+        );
+      }
+
+      if (visual) {
+        tl.fromTo(
+          visual,
+          { scale: 0.95, opacity: 0, y: 24 },
+          {
+            scale: 1,
+            opacity: 1,
+            y: 0,
+            duration: 0.95,
+            ease: "power2.out",
+            clearProps: "all",
+          },
+          "-=0.5",
+        );
+      }
+    });
+  }
+</script>

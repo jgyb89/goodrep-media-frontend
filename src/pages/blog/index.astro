@@ -94,28 +94,37 @@ const categories = [
 
       <div class="blog-hero__graphic" aria-hidden="true" data-reveal>
         <div class="blog-hero__art">
-          <Image
+          <img
+            class="blog-hero__blob"
+            src="/grm-web-assets/blue-circular-background-graphic.svg"
+            alt=""
+            width="746"
+            height="780"
+          />
+          <img
             class="blog-hero__main"
-            src="/grm-attract-users-resources.webp"
+            src="/grm-web-assets/3d-search-window-graphic.svg"
             alt="Digital marketing resources and guides"
-            width={1809}
-            height={1381}
+            width="746"
+            height="780"
             loading="eager"
             decoding="async"
           />
           <img
-            class="blog-hero__badge blog-hero__badge--chart"
-            src="/Asset 43.webp"
+            class="blog-hero__badge blog-hero__badge--msg"
+            data-float
+            src="/grm-web-assets/3d-doc-file-graphic.svg"
             alt=""
-            width="183"
-            height="237"
+            width="687"
+            height="663"
           />
           <img
-            class="blog-hero__badge blog-hero__badge--msg"
-            src="/Asset 50.webp"
+            class="blog-hero__badge blog-hero__badge--search"
+            data-float
+            src="/grm-web-assets/3d-magnify-glass.svg"
             alt=""
-            width="186"
-            height="108"
+            width="746"
+            height="780"
           />
         </div>
       </div>
@@ -235,7 +244,7 @@ const categories = [
                           ) : (
                             <img
                               class="post-card__placeholder"
-                              src="/Asset 43.webp"
+                              src="/grm-web-assets/file-in-folder-graphic.svg"
                               alt=""
                               loading="lazy"
                               width="183"
@@ -329,7 +338,7 @@ const categories = [
                   id="blog-no-results"
                   hidden
                 >
-                  <img src="/Asset 43.webp" alt="" width="183" height="237" />
+                  <img src="/grm-web-assets/file-in-folder-graphic.svg" alt="" width="183" height="237" />
                   <h2 class="blog-feed__empty-title">
                     No Matching Articles Found
                   </h2>
@@ -349,7 +358,7 @@ const categories = [
               </>
             ) : (
               <div class="blog-feed__empty text-center" data-reveal>
-                <img src="/Asset 43.webp" alt="" width="183" height="237" />
+                <img src="/grm-web-assets/file-in-folder-graphic.svg" alt="" width="183" height="237" />
                 <h2 class="blog-feed__empty-title">Articles Coming Soon!</h2>
                 <p class="blog-feed__empty-text">
                   We are currently updating our knowledge center with new
@@ -928,9 +937,21 @@ const categories = [
         scale: 0,
         opacity: 0,
         duration: 0.8,
-        stagger: 0.2,
+        stagger: 0.15,
         ease: "back.out(2)",
         delay: 0.5,
+      });
+
+      gsap.utils.toArray<HTMLElement>("[data-float]").forEach((el, i) => {
+        gsap.to(el, {
+          y: -10,
+          rotation: i % 2 ? 3 : -3,
+          duration: 2.4 + (i % 3) * 0.4,
+          ease: "sine.inOut",
+          yoyo: true,
+          repeat: -1,
+          delay: (i % 3) * 0.25,
+        });
       });
 
       gsap.utils.toArray<HTMLElement>("[data-reveal]").forEach((el) => {
@@ -1043,32 +1064,61 @@ const categories = [
       position: relative;
       width: 100%;
       max-width: 500px;
-      aspect-ratio: 1.3 / 1;
+      aspect-ratio: 1 / 0.92;
+    }
+
+    .blog-hero__art img {
+      position: absolute;
+      height: auto !important;
+      max-height: none !important;
+      object-fit: contain;
+      pointer-events: none;
+    }
+
+    .blog-hero__blob {
+      width: 88%;
+      left: 6%;
+      top: 4%;
+      opacity: 0.9;
     }
 
     .blog-hero__main {
-      width: 100%;
-      height: auto;
-      border-radius: 20px;
-      display: block;
+      width: 62%;
+      left: 16%;
+      top: 14%;
+      z-index: 2;
+      filter: drop-shadow(0 20px 28px rgba(15, 23, 42, 0.18));
     }
 
     .blog-hero__badge {
-      position: absolute;
-      height: auto;
-      filter: drop-shadow(0 14px 20px rgba(15, 23, 42, 0.25));
+      max-width: 28% !important;
+      z-index: 3;
+      filter: drop-shadow(0 14px 20px rgba(15, 23, 42, 0.22));
+    }
+
+    .blog-hero__badge--window {
+      width: 38%;
+      right: 4%;
+      bottom: 8%;
+      z-index: 2;
     }
 
     .blog-hero__badge--chart {
-      width: 20%;
-      left: -4%;
-      top: -8%;
+      width: 24%;
+      left: 4%;
+      top: 6%;
     }
 
     .blog-hero__badge--msg {
-      width: 25%;
-      right: -4%;
-      bottom: -6%;
+      width: 28%;
+      right: 4%;
+      top: 8%;
+    }
+
+    .blog-hero__badge--search {
+      width: 22%;
+      left: 8%;
+      bottom: 8%;
     }
 
     /* ---------- Blog Feed & Responsive Category Layout ---------- */
