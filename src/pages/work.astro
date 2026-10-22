@@ -22,7 +22,7 @@ const projects = [
       { num: "#1", desc: "Google Map Pack ranking" },
       { num: "0.8s", desc: "Mobile page load time" },
     ],
-    logo: "/grm-graphic-samples/Cape Coral Lawn Care Logo.webp",
+    logo: "/grm-web-assets/cape-coral-lawn-care-logo-white.svg",
     logoClass: "window-graphic__brand--cclc",
     img: "/grm-graphic-samples/cape-coral-lawn-care-project-card.webp",
     w: 800,
@@ -819,6 +819,15 @@ const projects = [
       background: #1e293b;
     }
 
+    .window-graphic__body::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, #000000 0%, rgba(0, 0, 0, 0.6) 35%, rgba(0, 0, 0, 0) 75%);
+      pointer-events: none;
+      z-index: 2;
+    }
+
     .window-graphic__link {
       display: block;
       width: 100%;
@@ -841,7 +850,7 @@ const projects = [
 
     .window-graphic__brand {
       position: absolute;
-      bottom: clamp(1.25rem, 2.5vw, 1.85rem);
+      top: 1.25rem;
       left: 50%;
       transform: translateX(-50%);
       z-index: 4;
@@ -866,7 +875,7 @@ const projects = [
 
     /* Custom sizing for Cape Coral Lawn Care square brand logo */
     .window-graphic__brand--cclc {
-      bottom: clamp(1.25rem, 2.5vw, 1.85rem);
+      top: 1.25rem;
       max-width: 300px;
     }
 
