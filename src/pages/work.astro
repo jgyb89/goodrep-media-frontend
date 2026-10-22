@@ -3,15 +3,16 @@ import MainLayout from "../layouts/MainLayout.astro";
 import LeadForm from "../components/LeadForm.jsx";
 
 const stats = [
-  { value: "+240%", label: "Average Call & Lead Increase" },
-  { value: "50+", label: "Custom Websites Built & Launched" },
-  { value: "98%", label: "Client Retention Rate" },
-  { value: "$2.5M+", label: "Client Revenue Generated" },
+  { prefix: "+", value: 240, suffix: "%", barPercent: 90, label: "Average Call & Lead Increase" },
+  { value: 50, suffix: "+", barPercent: 85, label: "Custom Websites Built & Launched" },
+  { value: 98, suffix: "%", barPercent: 98, label: "Client Retention Rate" },
+  { prefix: "$", value: 2.5, decimals: 1, suffix: "M+", barPercent: 95, label: "Client Revenue Generated" },
 ];
 
 const projects = [
   {
     title: "Cape Coral Lawn Care",
+    href: "/our-work/cape-coral-lawn-care",
     category: "Web Design & Local SEO",
     tag: "Landscaping & Outdoor Services",
     summary:
@@ -21,21 +22,10 @@ const projects = [
       { num: "#1", desc: "Google Map Pack ranking" },
       { num: "0.8s", desc: "Mobile page load time" },
     ],
-    blob: "/grm-web-assets/blue-circular-background-graphic.svg",
-    main: {
-      src: "/grm-web-assets/lawn-mower-graphic.svg",
-      style: "width: 58%; left: 21%; top: 15%;",
-    },
-    accents: [
-      {
-        src: "/grm-web-assets/3-arrows-up-graphic.svg",
-        style: "width: 22%; right: 6%; top: 8%;",
-      },
-      {
-        src: "/grm-web-assets/customer-review-graphic.svg",
-        style: "width: 26%; left: 6%; bottom: 8%;",
-      },
-    ],
+    logo: "/grm-graphic-samples/Cape Coral Lawn Care Logo.webp",
+    img: "/grm-graphic-samples/cape-coral-lawn-care-project-card.jpg",
+    w: 800,
+    h: 1050,
     deliverables: ["Custom WordPress Theme", "Local Map Pack SEO", "Review Automation", "Call Tracking"],
   },
   {
@@ -49,25 +39,14 @@ const projects = [
       { num: "-62%", desc: "Mobile bounce rate" },
       { num: "100%", desc: "Accessibility & Best Practices" },
     ],
-    blob: "/grm-web-assets/blue-circular-background-2-graphic.svg",
-    main: {
-      src: "/grm-web-assets/website-graphic.svg",
-      style: "width: 58%; left: 21%; top: 14%;",
-    },
-    accents: [
-      {
-        src: "/grm-web-assets/calendar-graphic.svg",
-        style: "width: 24%; right: 6%; top: 8%;",
-      },
-      {
-        src: "/grm-web-assets/laptop-graphic.svg",
-        style: "width: 26%; left: 6%; bottom: 8%;",
-      },
-    ],
+    img: "/grm-graphic-samples/coral-breeze-project-card.jpg",
+    w: 800,
+    h: 1050,
     deliverables: ["UI/UX Mobile Design", "Lead Capture Funnel", "Service Pricing Calculator", "Speed Optimization"],
   },
   {
     title: "Glowing Results Skin Spa",
+    href: "/our-work/glowing-results-skin-spa",
     category: "Local SEO & Reputation",
     tag: "Health & Beauty Spa",
     summary:
@@ -77,22 +56,10 @@ const projects = [
       { num: "125+", desc: "New 5-star Google reviews" },
       { num: "Top 3", desc: "Rankings for core search terms" },
     ],
-    logo: "/glowing-results-skin-spa-logo-white.webp",
-    blob: "/grm-web-assets/blue-circular-background-graphic.svg",
-    main: {
-      src: "/grm-web-assets/market-shop-graphic.svg",
-      style: "width: 58%; left: 21%; top: 14%;",
-    },
-    accents: [
-      {
-        src: "/grm-web-assets/999-hearts-likes-graphic.svg",
-        style: "width: 24%; right: 6%; top: 8%;",
-      },
-      {
-        src: "/grm-web-assets/customer-review-graphic.svg",
-        style: "width: 26%; left: 6%; bottom: 8%;",
-      },
-    ],
+    logo: "/grm-graphic-samples/glowing-results-skin-spa-logo-white.webp",
+    img: "/grm-graphic-samples/glowing-result-skin-spa-project.jpg",
+    w: 800,
+    h: 1050,
     deliverables: ["Google Business Profile Strategy", "Reputation Management", "Local Citation Building", "Booking Integration"],
   },
   {
@@ -106,26 +73,10 @@ const projects = [
       { num: "2.4x", desc: "Average time on site" },
       { num: "99%", desc: "Core Web Vitals health" },
     ],
-    logo: "/be-balanced-bodyworks-logo-white.svg",
-    blob: "/grm-web-assets/blue-circular-background-2-graphic.svg",
-    main: {
-      src: "/grm-web-assets/mac-computer-monitor-cyan-screen-background-graphic.svg",
-      style: "width: 58%; left: 21%; top: 16%;",
-    },
-    accents: [
-      {
-        src: "/grm-web-assets/calendar-graphic.svg",
-        style: "width: 26%; left: 37%; top: 22%; z-index: 2;",
-      },
-      {
-        src: "/grm-web-assets/3-arrows-up-graphic.svg",
-        style: "width: 22%; right: 6%; top: 8%;",
-      },
-      {
-        src: "/grm-web-assets/website-graphic.svg",
-        style: "width: 24%; left: 6%; bottom: 8%;",
-      },
-    ],
+    logo: "/grm-graphic-samples/be-balanced-bodyworks-logo-white.svg",
+    img: "/grm-graphic-samples/be-balanced-project-card-placeholder.webp",
+    w: 800,
+    h: 1050,
     deliverables: ["Brand Identity Refresh", "Technical SEO Cleanup", "Automated Intake Forms", "Content Strategy"],
   },
   {
@@ -139,21 +90,9 @@ const projects = [
       { num: "+147%", desc: "Increase in page views" },
       { num: "100/100", desc: "Technical SEO score" },
     ],
-    blob: "/grm-web-assets/blue-circular-background-graphic.svg",
-    main: {
-      src: "/grm-web-assets/browser-search-results-window-graphic.svg",
-      style: "width: 58%; left: 21%; top: 14%;",
-    },
-    accents: [
-      {
-        src: "/grm-web-assets/gears-graphic.svg",
-        style: "width: 24%; right: 6%; top: 8%;",
-      },
-      {
-        src: "/grm-web-assets/search-bar-graphic.svg",
-        style: "width: 26%; left: 6%; bottom: 8%;",
-      },
-    ],
+    img: "/grm-graphic-samples/cape-coral-reviewed-project-card-placeholder.webp",
+    w: 800,
+    h: 1050,
     deliverables: ["Headless Web Application", "Custom API Development", "Technical SEO", "UI/UX Design"],
   },
   {
@@ -167,21 +106,9 @@ const projects = [
       { num: "5.1x", desc: "Landing page conversion rate" },
       { num: "100%", desc: "Mobile performance score" },
     ],
-    blob: "/grm-web-assets/blue-circular-background-2-graphic.svg",
-    main: {
-      src: "/grm-web-assets/tablet-ads-targeting-graphic.svg",
-      style: "width: 58%; left: 21%; top: 14%;",
-    },
-    accents: [
-      {
-        src: "/grm-web-assets/arrow-in-target-graphic.svg",
-        style: "width: 24%; right: 6%; top: 8%;",
-      },
-      {
-        src: "/grm-web-assets/video-player-graphic.svg",
-        style: "width: 26%; left: 6%; bottom: 8%;",
-      },
-    ],
+    img: "/grm-graphic-samples/pink-slushy-project-card.jpg",
+    w: 800,
+    h: 1050,
     deliverables: ["Custom Web Design", "Strategy Call Funnel", "Interactive UI Graphics", "Technical SEO"],
   },
 ];
@@ -212,6 +139,7 @@ const projects = [
         <div class="work-hero__art">
           <img
             class="work-hero__blob"
+            data-hero-depth="14"
             src="/grm-web-assets/blue-circular-background-graphic.svg"
             alt=""
             width="746"
@@ -219,50 +147,49 @@ const projects = [
           />
           <img
             class="work-hero__main"
-            src="/grm-web-assets/mac-computer-monitor-cyan-screen-background-graphic.svg"
+            data-hero-depth="-20"
+            src="/grm-web-assets/goodrep-media-our-work-graphic.webp"
             alt="Good Rep Media Portfolio Showcase"
-            width="687"
-            height="663"
+            width="2642"
+            height="2000"
             fetchpriority="high"
-          />
-          <img
-            class="work-hero__badge work-hero__badge--web"
-            data-float
-            src="/grm-web-assets/website-graphic.svg"
-            alt=""
-            width="280"
-            height="280"
-          />
-          <img
-            class="work-hero__badge work-hero__badge--arrows"
-            data-float
-            src="/grm-web-assets/3-arrows-up-graphic.svg"
-            alt=""
-            width="291"
-            height="419"
-          />
-          <img
-            class="work-hero__badge work-hero__badge--gauge"
-            data-float
-            src="/grm-web-assets/77-percent-bubble-graphic.svg"
-            alt=""
-            width="148"
-            height="178"
           />
         </div>
       </div>
     </div>
   </section>
 
-  <!-- STATS RIBBON -->
-  <section class="stats-bar">
-    <div class="container stats-bar__container">
-      {stats.map((st) => (
-        <div class="stat-item">
-          <span class="stat-item__value">{st.value}</span>
-          <span class="stat-item__label">{st.label}</span>
-        </div>
-      ))}
+  <!-- STATS RIBBON (matching case-stats style) -->
+  <section class="stats-bar" aria-label="Performance metrics">
+    <div class="container">
+      <div class="stats-bar__grid">
+        {stats.map((stat) => (
+          <div class="stat-card">
+            <div class="stat-card__number">
+              {stat.prefix && (
+                <span class="stat-card__affix">{stat.prefix}</span>
+              )}
+              <span
+                class="stat-card__value"
+                data-stat-counter={stat.value}
+                data-stat-decimals={stat.decimals ?? 0}
+              >
+                {stat.value}
+              </span>
+              {stat.suffix && (
+                <span class="stat-card__affix">{stat.suffix}</span>
+              )}
+            </div>
+            <div class="stat-card__meter" aria-hidden="true">
+              <div
+                class="stat-card__meter-fill"
+                data-stat-bar={(stat.barPercent ?? 85) / 100}
+              />
+            </div>
+            <p class="stat-card__label">{stat.label}</p>
+          </div>
+        ))}
+      </div>
     </div>
   </section>
 
@@ -294,7 +221,7 @@ const projects = [
                   <span />
                   <span class="window-graphic__url">{project.title}</span>
                 </div>
-                <div class="window-graphic__body" aria-hidden="true">
+                <div class="window-graphic__body">
                   {project.logo && (
                     <div class="window-graphic__brand">
                       <img
@@ -304,35 +231,31 @@ const projects = [
                       />
                     </div>
                   )}
-                  <img
-                    class="window-graphic__blob"
-                    src={project.blob}
-                    alt=""
-                    width="746"
-                    height="780"
-                    loading="lazy"
-                  />
-                  <img
-                    class="window-graphic__main"
-                    src={project.main.src}
-                    alt={`${project.title} showcase`}
-                    style={project.main.style}
-                    width="687"
-                    height="663"
-                    loading="lazy"
-                  />
-                  {project.accents.map((acc) => (
+                  {project.href ? (
+                    <a
+                      href={project.href}
+                      class="window-graphic__link"
+                      aria-label={`View ${project.title} case study`}
+                    >
+                      <img
+                        class="window-graphic__img"
+                        src={project.img}
+                        alt={`${project.title} showcase`}
+                        width={project.w || 800}
+                        height={project.h || 1050}
+                        loading="lazy"
+                      />
+                    </a>
+                  ) : (
                     <img
-                      class="window-graphic__accent"
-                      data-float
-                      src={acc.src}
-                      alt=""
-                      style={acc.style}
-                      width="240"
-                      height="240"
+                      class="window-graphic__img"
+                      src={project.img}
+                      alt={`${project.title} showcase`}
+                      width={project.w || 800}
+                      height={project.h || 1050}
                       loading="lazy"
                     />
-                  ))}
+                  )}
                 </div>
               </div>
             </div>
@@ -343,7 +266,13 @@ const projects = [
                 <span class="case-card__category">{project.category}</span>
               </div>
 
-              <h3 class="case-card__title">{project.title}</h3>
+              <h3 class="case-card__title">
+                {project.href ? (
+                  <a href={project.href}>{project.title}</a>
+                ) : (
+                  project.title
+                )}
+              </h3>
               <p class="case-card__summary">{project.summary}</p>
 
               <div class="case-card__metrics">
@@ -363,6 +292,15 @@ const projects = [
                   ))}
                 </ul>
               </div>
+
+              {project.href && (
+                <div class="case-card__action">
+                  <a href={project.href} class="btn btn--primary case-card__btn">
+                    <span>View Case Study</span>
+                    <span class="material-symbols-outlined" aria-hidden="true">arrow_forward</span>
+                  </a>
+                </div>
+              )}
             </div>
           </article>
         ))}
@@ -447,16 +385,43 @@ const projects = [
         duration: 1,
         ease: "power3.out",
         delay: 0.3,
+        clearProps: "all",
       });
 
-      gsap.from(".work-hero__badge", {
-        scale: 0,
-        opacity: 0,
-        duration: 0.8,
-        stagger: 0.14,
-        ease: "back.out(2)",
-        delay: 0.5,
-      });
+      // 2.5D Pointer Parallax on Hero Graphic (matching /services/digital-media-production)
+      const workHero = document.querySelector<HTMLElement>(".work-hero");
+      const heroDepthLayers = gsap.utils.toArray<HTMLElement>(
+        "[data-hero-depth]",
+        workHero,
+      );
+      if (workHero && heroDepthLayers.length) {
+        workHero.addEventListener("pointermove", (e) => {
+          const rect = workHero.getBoundingClientRect();
+          const nx = (e.clientX - rect.left) / rect.width - 0.5;
+          const ny = (e.clientY - rect.top) / rect.height - 0.5;
+          heroDepthLayers.forEach((layer) => {
+            const depth = Number(layer.dataset.heroDepth || 20);
+            gsap.to(layer, {
+              x: nx * depth,
+              y: ny * depth,
+              duration: 0.6,
+              ease: "power2.out",
+              overwrite: "auto",
+            });
+          });
+        });
+        workHero.addEventListener("pointerleave", () => {
+          heroDepthLayers.forEach((layer) => {
+            gsap.to(layer, {
+              x: 0,
+              y: 0,
+              duration: 0.8,
+              ease: "power3.out",
+              overwrite: "auto",
+            });
+          });
+        });
+      }
 
       gsap.utils.toArray<HTMLElement>("[data-float]").forEach((el, i) => {
         gsap.to(el, {
@@ -470,23 +435,71 @@ const projects = [
         });
       });
 
-      gsap.fromTo(
-        ".stat-item",
-        { y: 20, opacity: 0 },
-        {
-          y: 0,
-          opacity: 1,
-          duration: 0.6,
-          stagger: 0.1,
-          ease: "power3.out",
-          clearProps: "all",
-          scrollTrigger: {
-            trigger: ".stats-bar",
-            start: "top 88%",
-            once: true,
-          },
-        }
-      );
+      // Stats Bar Cards Entrance, Number Counter & Meter Animations (matching case-stats)
+      const statsBarGrid = document.querySelector(".stats-bar__grid");
+      if (statsBarGrid) {
+        gsap.fromTo(
+          statsBarGrid.querySelectorAll(".stat-card"),
+          { y: 34, opacity: 0 },
+          {
+            y: 0,
+            opacity: 1,
+            duration: 0.7,
+            stagger: 0.12,
+            ease: "power3.out",
+            clearProps: "all",
+            scrollTrigger: {
+              trigger: statsBarGrid,
+              start: "top 85%",
+              once: true,
+            },
+          }
+        );
+
+        // Counter number animations
+        gsap.utils
+          .toArray<HTMLElement>("[data-stat-counter]", statsBarGrid)
+          .forEach((counterEl) => {
+            const targetVal = Number(counterEl.dataset.statCounter || "0");
+            const decimals = Number(counterEl.dataset.statDecimals || "0");
+            const counterObj = { val: 0 };
+
+            gsap.to(counterObj, {
+              val: targetVal,
+              duration: 1.6,
+              ease: "power2.out",
+              onUpdate: () => {
+                counterEl.textContent = counterObj.val.toFixed(decimals);
+              },
+              scrollTrigger: {
+                trigger: statsBarGrid,
+                start: "top 85%",
+                once: true,
+              },
+            });
+          });
+
+        // Meter fill animations
+        gsap.utils
+          .toArray<HTMLElement>("[data-stat-bar]", statsBarGrid)
+          .forEach((barEl) => {
+            const scaleTarget = Number(barEl.dataset.statBar || "1");
+            gsap.fromTo(
+              barEl,
+              { scaleX: 0 },
+              {
+                scaleX: scaleTarget,
+                duration: 1.4,
+                ease: "power3.out",
+                scrollTrigger: {
+                  trigger: statsBarGrid,
+                  start: "top 85%",
+                  once: true,
+                },
+              }
+            );
+          });
+      }
 
       gsap.utils.toArray<HTMLElement>("[data-reveal]").forEach((el) => {
         gsap.from(el, {
@@ -590,6 +603,7 @@ const projects = [
       height: auto;
       object-fit: contain;
       pointer-events: none;
+      will-change: transform;
     }
 
     .work-hero__blob {
@@ -599,81 +613,106 @@ const projects = [
       z-index: 0;
     }
 
-    .work-hero__line {
-      width: 78%;
-      left: 11%;
-      top: 10%;
-      z-index: 1;
-      opacity: 0.7;
-    }
-
     .work-hero__main {
-      width: 60%;
-      left: 20%;
-      top: 14%;
-      z-index: 2;
-      filter: drop-shadow(0 22px 28px rgba(15, 23, 42, 0.22));
-    }
-
-    .work-hero__badge {
-      z-index: 3;
-      filter: drop-shadow(0 14px 20px rgba(15, 23, 42, 0.25));
-    }
-
-    .work-hero__badge--web {
-      width: 28%;
-      left: 36%;
-      top: 20%;
-    }
-
-    .work-hero__badge--gauge {
-      width: 22%;
+      width: 92%;
       left: 4%;
-      bottom: 6%;
+      top: 9%;
+      z-index: 2;
+      filter: drop-shadow(0 20px 32px rgba(15, 23, 42, 0.22));
     }
 
-    .work-hero__badge--likes {
-      width: 26%;
-      right: 4%;
-      bottom: 6%;
-    }
-
-    .work-hero__badge--arrows {
-      width: 24%;
-      right: 3%;
-      top: 4%;
-    }
-
-    /* ---------- Stats Bar ---------- */
+    /* ---------- Stats Bar (matching case-stats style) ---------- */
     .stats-bar {
-      background: var(--color-dark);
       color: var(--color-light);
-      padding: 2.25rem 0;
+      background:
+        linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cg fill='none' stroke='%23ffffff' stroke-opacity='0.045' stroke-width='22' stroke-linecap='round'%3E%3Cpath d='M30 130 L80 30'/%3E%3Cpath d='M110 170 L150 90'/%3E%3C/g%3E%3C/svg%3E"),
+        var(--color-darker);
+      padding: clamp(3.5rem, 6vw, 5.5rem) 0;
+      border-top: 4px solid var(--color-cyan);
       border-bottom: 4px solid var(--color-cyan);
     }
 
-    .stats-bar__container {
+    .stats-bar__grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 2rem;
-      text-align: center;
+      gap: 1rem;
+      grid-template-columns: repeat(2, 1fr);
     }
 
-    .stat-item__value {
-      display: block;
+    @media (min-width: 640px) {
+      .stats-bar__grid {
+        gap: 1.5rem;
+      }
+    }
+
+    @media (min-width: 1024px) {
+      .stats-bar__grid {
+        grid-template-columns: repeat(4, 1fr);
+      }
+    }
+
+    .stats-bar .stat-card {
+      background: rgba(255, 255, 255, 0.045);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 18px;
+      padding: clamp(1.4rem, 3.5vw, 2rem) clamp(0.85rem, 2.5vw, 1.5rem);
+      text-align: center;
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      transition:
+        translate 0.3s ease,
+        border-color 0.3s ease,
+        box-shadow 0.3s ease;
+    }
+
+    .stats-bar .stat-card:hover {
+      translate: 0 -6px;
+      border-color: rgba(27, 196, 217, 0.55);
+      box-shadow: 0 20px 40px -18px rgba(0, 0, 0, 0.5);
+    }
+
+    .stats-bar .stat-card__number {
       font-family: var(--font-heading);
-      font-size: clamp(2rem, 3.5vw, 2.75rem);
+      font-size: clamp(2.1rem, 4.5vw, 3.4rem);
       font-weight: 700;
       color: var(--color-cyan);
-      line-height: 1;
-      margin-bottom: 0.5rem;
+      line-height: 1.05;
+      margin-bottom: 0.85rem;
+      display: inline-flex;
+      align-items: baseline;
+      justify-content: center;
     }
 
-    .stat-item__label {
-      display: block;
-      font-size: 0.9rem;
-      color: #94a3b8;
-      font-weight: 600;
+    .stats-bar .stat-card__affix {
+      font-size: 0.72em;
+    }
+
+    .stats-bar .stat-card__meter {
+      height: 5px;
+      width: 72%;
+      margin: 0 auto 1.15rem;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 999px;
+      overflow: hidden;
+    }
+
+    .stats-bar .stat-card__meter-fill {
+      height: 100%;
+      width: 100%;
+      background: linear-gradient(
+        90deg,
+        var(--color-cyan),
+        var(--color-primary)
+      );
+      border-radius: 999px;
+      transform-origin: left center;
+    }
+
+    .stats-bar .stat-card__label {
+      color: #e2e8f0;
+      font-size: clamp(0.85rem, 2vw, 0.95rem);
+      line-height: 1.5;
+      margin: 0;
     }
 
     /* ---------- Case Studies ---------- */
@@ -769,23 +808,28 @@ const projects = [
 
     .window-graphic__body {
       position: relative;
-      aspect-ratio: 1 / 0.92;
       overflow: hidden;
-      background:
-        radial-gradient(
-          circle at 50% 54%,
-          rgba(27, 196, 217, 0.25),
-          transparent 68%
-        ),
-        url("/grm-web-assets/grm-our-work-bg-1.webp") center / cover no-repeat,
-        #18181b;
+      background: #1e293b;
     }
 
-    .window-graphic__body > img {
-      position: absolute;
+    .window-graphic__link {
+      display: block;
+      width: 100%;
+      text-decoration: none;
+      overflow: hidden;
+    }
+
+    .window-graphic__img {
+      width: 100%;
       height: auto;
-      object-fit: contain;
-      pointer-events: none;
+      aspect-ratio: 800 / 1050;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.5s ease;
+    }
+
+    .window-graphic:hover .window-graphic__img {
+      transform: scale(1.03);
     }
 
     .window-graphic__brand {
@@ -794,7 +838,7 @@ const projects = [
       left: 50%;
       transform: translateX(-50%);
       z-index: 4;
-      background: rgba(15, 23, 42, 0.72);
+      background: rgba(15, 23, 42, 0.75);
       backdrop-filter: blur(8px);
       border: 1px solid rgba(255, 255, 255, 0.14);
       padding: 0.35rem 0.9rem;
@@ -802,48 +846,15 @@ const projects = [
       display: flex;
       align-items: center;
       justify-content: center;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
     }
 
     .window-graphic__brand img {
-      height: 22px;
+      height: 24px;
       width: auto;
+      max-width: 140px;
       display: block;
-    }
-
-    .window-graphic__blob {
-      width: 84%;
-      left: 8%;
-      top: 6%;
-      z-index: 0;
-      opacity: 0.45;
-      transition: transform 0.5s ease;
-    }
-
-    .window-graphic:hover .window-graphic__blob {
-      transform: scale(1.05) rotate(4deg);
-    }
-
-    .window-graphic__line {
-      width: 74%;
-      left: 13%;
-      top: 12%;
-      z-index: 1;
-      opacity: 0.55;
-    }
-
-    .window-graphic__main {
-      z-index: 2;
-      filter: drop-shadow(0 22px 28px rgba(0, 0, 0, 0.5));
-      transition: transform 0.45s ease;
-    }
-
-    .window-graphic:hover .window-graphic__main {
-      transform: translateY(-6px) scale(1.04);
-    }
-
-    .window-graphic__accent {
-      z-index: 3;
-      filter: drop-shadow(0 12px 18px rgba(0, 0, 0, 0.45));
+      object-fit: contain;
     }
 
     .case-card__meta {
@@ -875,6 +886,16 @@ const projects = [
       font-size: clamp(1.8rem, 3vw, 2.2rem);
       margin: 0 0 1rem;
       line-height: 1.25;
+    }
+
+    .case-card__title a {
+      color: inherit;
+      text-decoration: none;
+      transition: color 0.2s ease;
+    }
+
+    .case-card__title a:hover {
+      color: var(--color-cyan);
     }
 
     .case-card__summary {
@@ -944,6 +965,26 @@ const projects = [
       padding: 0.25rem 0.65rem;
       border-radius: 6px;
       color: var(--color-dark);
+    }
+
+    .case-card__action {
+      margin-top: 1.75rem;
+    }
+
+    .case-card__btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.75rem 1.6rem;
+      font-size: 0.95rem;
+      font-weight: 600;
+      box-shadow: 0 8px 20px -6px rgba(233, 79, 55, 0.6);
+      transition: all 0.25s ease;
+    }
+
+    .case-card__btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 24px -6px rgba(233, 79, 55, 0.8);
     }
 
     /* ---------- Work Ethos ---------- */
