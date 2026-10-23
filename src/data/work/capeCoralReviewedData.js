@@ -17,7 +17,7 @@ export const heroData = {
   bgImage: "/grm-web-assets/grm-black-map-bg.webp",
   story: {
     kicker: "THE STORY",
-    text: "Cape Coral Reviewed partnered with Good Rep Media to transform local business discovery across Southwest Florida into an authoritative, multi-channel growth powerhouse. While early 2026 saw flat organic search traffic, the game changed when Good Rep Media launched their custom headless web application in June. Backed by a perfect 100/100 technical SEO score, Google Search Console impressions exploded to 89.6K, while Google Analytics tracked explosive year-to-date growth: 57K active users (+591.1% increase), 115K page views (+534%), and over 320K user engagement events. In lockstep with the app rollout, a targeted community marketing strategy scaled the Cape Coral Reviewed Facebook group to over 13.6K passionate local members, establishing the definitive social and search ecosystem for Cape Coral businesses.",
+    text: "Cape Coral Reviewed partnered with Good Rep Media to turn local directory discovery into an active community growth engine. When the headless web app launched in June with a flawless 100/100 technical SEO score, organic performance surged—driving 57K active users, 115K page views, and 89.6K search impressions year-to-date. Combined with a Facebook group scaled to over 13.6K local members, Cape Coral Reviewed quickly became Southwest Florida's go-to digital hub.",
   },
   work: {
     kicker: "THE WORK",
