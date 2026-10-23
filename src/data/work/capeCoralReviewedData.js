@@ -3,7 +3,7 @@
 export const metaData = {
   title: "Cape Coral Reviewed - Good Rep Media",
   description:
-    "Cape Coral Reviewed partnered with Good Rep Media to engineer a high-performance headless web application, decoupled directory platform, and local SEO system.",
+    "Cape Coral Reviewed partnered with Good Rep Media to launch a headless directory app, scale a thriving 13.6K+ member Facebook group, achieve a 100/100 technical SEO score, and drive 57K active users YTD.",
   ogUrl: "https://goodrep.media/our-work/cape-coral-reviewed/",
 };
 
@@ -12,22 +12,22 @@ export const heroData = {
     { label: "Our Work", href: "/work" },
     { label: "Cape Coral Reviewed", current: true },
   ],
-  kicker: "CASE STUDY // HEADLESS WEB APPLICATION",
+  kicker: "CASE STUDY // FULL-FUNNEL GROWTH & HEADLESS WEB APP",
   title: "CAPE CORAL REVIEWED",
   bgImage: "/grm-web-assets/grm-black-map-bg.webp",
   story: {
     kicker: "THE STORY",
-    text: "Cape Coral Reviewed is a premier local business and lifestyle directory dedicated to spotlighting top-rated services, dining, and attractions across Cape Coral, Florida. To deliver instant search responses and handle extensive directory databases, they required a modern, enterprise-grade architecture. Good Rep Media designed and built a decoupled headless web application pairing a Next.js frontend with WordPress, delivering ultra-fast page speeds, seamless mobile usability, and maximum local search discoverability.",
+    text: "Cape Coral Reviewed partnered with Good Rep Media to transform local business discovery across Southwest Florida into an authoritative, multi-channel growth powerhouse. While early 2026 saw flat organic search traffic, the game changed when Good Rep Media launched their custom headless web application in June. Backed by a perfect 100/100 technical SEO score, Google Search Console impressions exploded to 89.6K, while Google Analytics tracked explosive year-to-date growth: 57K active users (+591.1% increase), 115K page views (+534%), and over 320K user engagement events. In lockstep with the app rollout, a targeted community marketing strategy scaled the Cape Coral Reviewed Facebook group to over 13.6K passionate local members, establishing the definitive social and search ecosystem for Cape Coral businesses.",
   },
   work: {
     kicker: "THE WORK",
     items: [
-      "Headless Web Application",
-      "Custom API Development",
-      "UI/UX Design",
-      "Technical SEO & Schema",
-      "Brand Identity Refresh",
-      "Content Strategy",
+      "Headless Web App (Launched June)",
+      "13.6K+ Facebook Community Growth",
+      "Organic Google SEO (89.6K Impressions)",
+      "Flawless 100/100 Technical SEO Score",
+      "GA4 Analytics Architecture (57K Users)",
+      "Local Directory UI/UX & Content Strategy",
     ],
   },
   mockup: {
@@ -45,35 +45,33 @@ export const heroData = {
 
 export const statsData = {
   eyebrow: "OUR METRICS",
-  title: "Cape Coral Reviewed Stats",
-  sub: "Significant reach, user growth, and performance milestones attained through headless engineering and local SEO architecture.",
+  title: "Cape Coral Reviewed Performance & Analytics",
+  sub: "Verified Google Analytics 4 and Google Search Console performance tracked since the app's June launch through year-to-date growth.",
   stats: [
     {
-      prefix: "+",
-      value: 134,
-      suffix: "%",
-      barPercent: 92,
-      label: "Active user growth quarter over quarter",
+      value: 57,
+      suffix: "K",
+      barPercent: 95,
+      label: "Active users year-to-date (+591.1% lift)",
     },
     {
-      prefix: "+",
-      value: 147,
-      suffix: "%",
-      barPercent: 95,
-      label: "Increase in directory page views",
+      value: 115,
+      suffix: "K",
+      barPercent: 92,
+      label: "Directory page views post-June launch (+534%)",
+    },
+    {
+      value: 13.6,
+      decimals: 1,
+      suffix: "K+",
+      barPercent: 94,
+      label: "Engaged local Facebook group members",
     },
     {
       value: 100,
       suffix: "/100",
       barPercent: 100,
-      label: "Technical SEO & Core Web Vitals score",
-    },
-    {
-      value: 0.6,
-      decimals: 1,
-      suffix: "s",
-      barPercent: 96,
-      label: "Average time to interactive speed",
+      label: "Technical SEO score (89.6K Google impressions)",
     },
   ],
 };
@@ -82,18 +80,18 @@ export const narrativeData = {
   title: "Enhancing the Online Presence",
   image: {
     src: "/grm-graphic-samples/cape-coral-reviewed-facebook.webp",
-    alt: "Cape Coral Reviewed community presence and local business directory showcase",
+    alt: "Cape Coral Reviewed active Facebook community with over 13.6K local members",
     width: 1254,
     height: 1482,
   },
   blocks: [
     {
       kicker: "THE CHALLENGE",
-      text: "Building an authoritative community directory requires more than static listings—it demands instantaneous search speeds, responsive mobile browsing, and scalable infrastructure capable of indexing hundreds of businesses across diverse categories. Monolithic directory platforms frequently struggle with slow database response times, bloated code, and rigid design systems that frustrate mobile users and restrict local SEO rankings.",
+      text: "Prior to June 2026, Cape Coral Reviewed faced flat search visibility and limited audience reach, struggling against bloated legacy directory platforms that suffered from sluggish load times and poor mobile responsiveness. Google Search Console logged near-zero daily impressions and minimal clicks throughout late 2025 and early 2026. Without a high-speed digital hub or an active community flywheel, local businesses had no modern platform to showcase services, and residents lacked a reliable, real-time channel to discover trusted local recommendations.",
     },
     {
       kicker: "THE SOLUTION",
-      text: "Good Rep Media architected a high-performance headless web application combining Next.js with a scalable WordPress backend. Automated JSON-LD structured data and local schema were implemented across every category and vendor listing to dominate Google local search results. Coupled with an intuitive UI/UX, localized editorial content, and active community social integration, Cape Coral Reviewed now delivers a lightning-fast directory resource for Cape Coral residents and business owners alike.",
+      text: "Good Rep Media executed an end-to-end growth and engineering overhaul. In June, we launched a headless Next.js web application coupled with WordPress, achieving an unprecedented 100/100 technical SEO score. Almost immediately, Google Search Console impressions rocketed from flatlines to 89.6K total impressions with daily traffic peaks surpassing 1.2K impressions. Simultaneously, Good Rep Media catalyzed community adoption, scaling the Cape Coral Reviewed Facebook group to over 13.6K active local members who generate daily discussions, reviews, and vendor inquiries. This unified funnel fueled remarkable year-to-date Google Analytics milestones: 57K active users (+591.1%), 115K views (+534%), and 320K user engagement events—solidifying Cape Coral Reviewed as Southwest Florida's #1 local business authority.",
     },
   ],
 };
