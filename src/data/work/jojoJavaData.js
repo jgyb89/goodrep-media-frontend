@@ -81,10 +81,10 @@ export const statsData = {
 export const narrativeData = {
   title: "Enhancing the Online Presence",
   image: {
-    src: "/grm-graphic-samples/Jojo Java Coffee Website.webp",
-    alt: "Jojo Java Coffee Co. promotional bundle builder and mobile shopping experience",
-    width: 1280,
-    height: 649,
+    src: "/grm-graphic-samples/jojo-java-ecommerce-product-packages-sample.webp",
+    alt: "Jojo Java Coffee Co. flavored coffee product packages lineup",
+    width: 370,
+    height: 350,
   },
   blocks: [
     {
