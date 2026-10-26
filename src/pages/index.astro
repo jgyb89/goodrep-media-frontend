@@ -2635,6 +2635,12 @@ const sliderCards = [
       margin: 0 auto;
     }
 
+    @media (min-width: 960px) {
+      .work__gallery-wrap {
+        max-width: 560px;
+      }
+    }
+
     .work-gallery {
       --gallery-gap: 20px;
       position: relative;
@@ -2666,9 +2672,9 @@ const sliderCards = [
 
     .work-card {
       flex: 0 0 calc(50% - var(--gallery-gap));
-      aspect-ratio: 3 / 4;
+      height: clamp(360px, 60vw, 440px);
       position: relative;
-      border-radius: 18px;
+      border-radius: 20px;
       overflow: hidden;
       background: #0f172a;
       border: 1px solid rgba(255, 255, 255, 0.12);
@@ -2682,6 +2688,12 @@ const sliderCards = [
         border-color 0.45s ease;
       cursor: pointer;
       user-select: none;
+    }
+
+    @media (min-width: 960px) {
+      .work-card {
+        height: 520px;
+      }
     }
 
     .work-card:hover {
@@ -2740,16 +2752,16 @@ const sliderCards = [
     }
 
     .work-card__logo {
-      max-width: 78%;
-      max-height: 64px;
+      max-width: 82%;
+      max-height: 72px;
       object-fit: contain;
       filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.75));
       transition: transform 0.35s ease;
     }
 
     .work-card__logo--square {
-      max-width: 90px;
-      max-height: 90px;
+      max-width: 100px;
+      max-height: 100px;
     }
 
     .work-card.is-active:hover .work-card__logo {
@@ -2758,7 +2770,7 @@ const sliderCards = [
 
     .work-card__action {
       position: absolute;
-      bottom: 1.25rem;
+      bottom: 1.6rem;
       left: 0;
       right: 0;
       display: flex;
@@ -2768,9 +2780,9 @@ const sliderCards = [
     }
 
     .work-card__btn {
-      font-size: 0.8rem;
+      font-size: 0.85rem;
       font-weight: 700;
-      padding: 0.5rem 1.15rem;
+      padding: 0.55rem 1.25rem;
       border-radius: 999px;
       box-shadow: 0 8px 18px rgba(233, 79, 55, 0.45);
       white-space: nowrap;
@@ -2790,8 +2802,8 @@ const sliderCards = [
       position: absolute;
       top: 50%;
       transform: translateY(-50%);
-      width: 44px;
-      height: 44px;
+      width: 46px;
+      height: 46px;
       border-radius: 50%;
       background: rgba(15, 23, 42, 0.9);
       color: #ffffff;
@@ -2822,19 +2834,19 @@ const sliderCards = [
     }
 
     .work-gallery__arrow--prev {
-      left: -14px;
+      left: -18px;
     }
 
     .work-gallery__arrow--next {
-      right: -14px;
+      right: -18px;
     }
 
     @media (max-width: 640px) {
       .work-gallery__arrow--prev {
-        left: 2px;
+        left: 4px;
       }
       .work-gallery__arrow--next {
-        right: 2px;
+        right: 4px;
       }
     }
 
@@ -2843,7 +2855,7 @@ const sliderCards = [
       justify-content: center;
       align-items: center;
       gap: 8px;
-      margin-top: 0.75rem;
+      margin-top: 1rem;
     }
 
     .work-gallery__dot {

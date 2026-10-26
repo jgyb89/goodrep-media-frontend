@@ -8,6 +8,7 @@
   "scripts": {
     "dev": "astro dev",
     "build": "astro build",
+    "build:gh-pages": "GITHUB_PAGES=true astro build && node scripts/prepare-gh-pages.mjs",
     "preview": "astro preview",
     "astro": "astro"
   },
