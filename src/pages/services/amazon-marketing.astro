@@ -1,41 +1,6 @@
 ---
-import MainLayout from "../../layouts/MainLayout.astro";
-import ServiceHero from "../../components/ServiceHero.astro";
-import StartsSection from "../../components/StartsSection.astro";
-import StatsBand from "../../components/StatsBand.astro";
-import PillarsSection from "../../components/PillarsSection.astro";
-import ProcessSection from "../../components/ProcessSection.astro";
-import StartsSectionApproach from "../../components/StartsSection.astro";
-import DeliverablesGrid from "../../components/DeliverablesGrid.astro";
-import ReadyBand from "../../components/ReadyBand.astro";
-import ConsultSection from "../../components/ConsultSection.astro";
-
-import {
-  metaData,
-  heroData,
-  startsData,
-  statsData,
-  pillarsData,
-  processData,
-  approachData,
-  deliverablesData,
-  readyData,
-  consultData,
-} from "../../data/amazonMarketingData.js";
+// Alias for /services/amazon-marketing-services
+import Page from "./amazon-marketing-services.astro";
 ---
 
-<MainLayout title={metaData.title} description={metaData.description}>
-  <ServiceHero {...heroData} />
-  <StartsSection {...startsData} />
-  <StatsBand {...statsData} />
-  <PillarsSection {...pillarsData} />
-  <ProcessSection
-    {...processData}
-    accordionName="amazon-marketing-process"
-    stageLabelPrefix="Service"
-  />
-  <StartsSectionApproach {...approachData} />
-  <DeliverablesGrid {...deliverablesData} />
-  <ReadyBand {...readyData} />
-  <ConsultSection {...consultData} />
-</MainLayout>
+<Page />

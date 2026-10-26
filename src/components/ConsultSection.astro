@@ -1,6 +1,7 @@
 ---
 // src/components/ConsultSection.astro
 import LeadForm from "./LeadForm.jsx";
+import { DEFAULT_CONSULT_CONTACT, DEFAULT_CONSULT_ART } from "../config/site.js";
 
 interface ContactLink {
   icon: string;
@@ -30,7 +31,7 @@ interface Props {
   cardTitle: string;
   submitLabel: string;
   contact?: ContactLink[];
-  art: ConsultArt;
+  art?: ConsultArt;
 }
 
 const {
@@ -40,11 +41,8 @@ const {
   text,
   cardTitle,
   submitLabel,
-  contact = [
-    { icon: "call", label: "(616) 300-9868", href: "tel:+16163009868" },
-    { icon: "mail", label: "team@goodrep.media", href: "mailto:team@goodrep.media" },
-  ],
-  art,
+  contact = DEFAULT_CONSULT_CONTACT,
+  art = DEFAULT_CONSULT_ART,
 } = Astro.props;
 ---
 
@@ -168,7 +166,7 @@ const {
             opacity: 1,
             duration: 0.85,
             ease: "power3.out",
-            clearProps: "all",
+            clearProps: "transform,opacity",
             scrollTrigger: {
               trigger: el,
               start: "top 80%",

@@ -205,17 +205,18 @@ export async function getMediaById(id) {
   }
 }
 
-/**
- * Normalizes a WordPress REST API post item into a unified shape
- * compatible with the existing frontend templates.
- */
-export function normalizePost(p, categoryMap = DEFAULT_CATEGORY_MAP) {
-  if (!p) return null;
-  const rawTitle = decodeHtmlEntities(p.title?.rendered || p.title || "");
+const FALLBACK_CATEGORY = Object.freeze({
+  id: 143,
+  name: "Small Business Marketing & Strategy",
+  slug: "small-business-marketing-strategy",
+});
 
-  // Resolve featured media URL from multiple potential WP REST API shapes
+/**
+ * Resolves featured image URL and alt text from multiple WordPress REST shapes.
+ */
+function resolveFeaturedImage(p, fallbackTitle = "") {
   const featured = p._embedded?.["wp:featuredmedia"]?.[0];
-  const featuredUrl =
+  const sourceUrl =
     featured?.source_url ||
     featured?.media_details?.sizes?.large?.source_url ||
     featured?.media_details?.sizes?.full?.source_url ||
@@ -224,17 +225,29 @@ export function normalizePost(p, categoryMap = DEFAULT_CATEGORY_MAP) {
     p.featuredImage?.node?.sourceUrl ||
     null;
 
-  const featuredAlt = decodeHtmlEntities(
+  if (!sourceUrl) return null;
+
+  const altText = decodeHtmlEntities(
     featured?.alt_text ||
     featured?.title?.rendered ||
     p.featuredImage?.node?.altText ||
-    rawTitle
+    fallbackTitle
   );
 
-  // Resolve category objects from IDs or embedded terms
-  let resolvedCategories = [];
+  return {
+    node: {
+      sourceUrl,
+      altText,
+    },
+  };
+}
+
+/**
+ * Resolves category objects from term IDs or embedded category payloads.
+ */
+function resolveCategories(p, categoryMap = DEFAULT_CATEGORY_MAP) {
   if (Array.isArray(p.categories)) {
-    resolvedCategories = p.categories
+    return p.categories
       .map((catId) => {
         if (typeof catId === "object" && catId !== null) {
           return {
@@ -246,13 +259,41 @@ export function normalizePost(p, categoryMap = DEFAULT_CATEGORY_MAP) {
         return categoryMap.get(catId) || DEFAULT_CATEGORY_MAP.get(catId) || null;
       })
       .filter(Boolean);
-  } else if (Array.isArray(p.categories?.nodes)) {
-    resolvedCategories = p.categories.nodes.map((c) => ({
+  }
+
+  if (Array.isArray(p.categories?.nodes)) {
+    return p.categories.nodes.map((c) => ({
       id: c.databaseId || c.id,
       name: decodeHtmlEntities(c.name),
       slug: c.slug,
     }));
   }
+
+  return [];
+}
+
+/**
+ * Extracts SEO title and meta description, falling back to post title.
+ */
+function resolveSeo(p, fallbackTitle = "") {
+  return {
+    title: decodeHtmlEntities(
+      p.yoast_head_json?.title || p.seo?.title || fallbackTitle
+    ),
+    metaDesc: decodeHtmlEntities(
+      p.yoast_head_json?.description || p.seo?.metaDesc || ""
+    ),
+  };
+}
+
+/**
+ * Normalizes a WordPress REST API post item into a unified shape
+ * compatible with the frontend templates.
+ */
+export function normalizePost(p, categoryMap = DEFAULT_CATEGORY_MAP) {
+  if (!p) return null;
+  const rawTitle = decodeHtmlEntities(p.title?.rendered || p.title || "");
+  const resolvedCategories = resolveCategories(p, categoryMap);
 
   return {
     id: p.id,
@@ -262,28 +303,10 @@ export function normalizePost(p, categoryMap = DEFAULT_CATEGORY_MAP) {
     excerpt: p.excerpt?.rendered || p.excerpt || "",
     content: p.content?.rendered || p.content || "",
     categories: resolvedCategories,
-    primaryCategory: resolvedCategories[0] || {
-      id: 143,
-      name: "Small Business Marketing & Strategy",
-      slug: "small-business-marketing-strategy",
-    },
+    primaryCategory: resolvedCategories[0] || FALLBACK_CATEGORY,
     featuredMediaId: p.featured_media || null,
-    featuredImage: featuredUrl
-      ? {
-          node: {
-            sourceUrl: featuredUrl,
-            altText: featuredAlt,
-          },
-        }
-      : null,
-    seo: {
-      title: decodeHtmlEntities(
-        p.yoast_head_json?.title || p.seo?.title || rawTitle
-      ),
-      metaDesc: decodeHtmlEntities(
-        p.yoast_head_json?.description || p.seo?.metaDesc || ""
-      ),
-    },
+    featuredImage: resolveFeaturedImage(p, rawTitle),
+    seo: resolveSeo(p, rawTitle),
   };
 }
 
@@ -334,15 +357,25 @@ async function ensureFullPostsCache() {
         normalizePost(p, categoryMap)
       );
 
-      for (let currentPage = 2; currentPage <= totalPages; currentPage++) {
-        const pageRes = await fetch(
-          `${API_URL}/posts?_embed=wp:featuredmedia&per_page=100&page=${currentPage}`
-        );
-        if (!pageRes.ok) break;
-        const pagePosts = (await pageRes.json()).map((p) =>
-          normalizePost(p, categoryMap)
-        );
-        posts = posts.concat(pagePosts);
+      if (totalPages > 1) {
+        const pagePromises = [];
+        for (let currentPage = 2; currentPage <= totalPages; currentPage++) {
+          pagePromises.push(
+            fetch(
+              `${API_URL}/posts?_embed=wp:featuredmedia&per_page=100&page=${currentPage}`
+            )
+              .then((res) => (res.ok ? res.json() : []))
+              .then((pageJson) =>
+                Array.isArray(pageJson)
+                  ? pageJson.map((p) => normalizePost(p, categoryMap))
+                  : []
+              )
+          );
+        }
+        const remainingPages = await Promise.all(pagePromises);
+        for (const pagePosts of remainingPages) {
+          posts = posts.concat(pagePosts);
+        }
       }
 
       for (const post of posts) {
@@ -362,10 +395,11 @@ async function ensureFullPostsCache() {
 
 /**
  * Fetches all posts across all pages (for master feed or sitemaps).
+ * Returns all cached posts by default unless a specific limit is requested.
  */
-export async function getAllPosts({ maxPosts = 200 } = {}) {
+export async function getAllPosts({ maxPosts = Infinity } = {}) {
   const posts = await ensureFullPostsCache();
-  return posts.slice(0, maxPosts);
+  return Number.isFinite(maxPosts) ? posts.slice(0, maxPosts) : posts;
 }
 
 /**

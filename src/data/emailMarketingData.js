@@ -1,7 +1,7 @@
 // src/data/emailMarketingData.js
 
 export const metaData = {
-  title: "Email Marketing Services | Goodrep Media",
+  title: "Email Marketing Services | Good Rep Media",
   description:
     "High-converting email marketing services engineered for 4,300% average ROI, automated drip funnels, custom HTML templates, and full campaign management.",
 };

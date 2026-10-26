@@ -1,30 +1,23 @@
 ---
 import "material-symbols/outlined.css";
-import "../styles/global.css"; // Assuming your global variables are here
+import "../styles/global.css";
 import { Image } from "astro:assets";
 import LeadForm from "../components/LeadForm.jsx";
 import LightboxModal from "../components/LightboxModal.astro";
+import BaseHead from "../components/BaseHead.astro";
+import { SITE_NAME, DEFAULT_META_DESCRIPTION } from "../config/site.js";
+
 const {
-  title = "Goodrep Media",
-  description = "Grow your business with Goodrep Media.",
+  title = `${SITE_NAME} | Digital Marketing Agency`,
+  description = DEFAULT_META_DESCRIPTION,
 } = Astro.props;
 const year = new Date().getFullYear();
 ---
 
+<!doctype html>
 <html lang="en">
   <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>{title}</title>
-    <meta name="description" content={description} />
-    <link rel="icon" type="image/png" href="/grm-logos/GRM_Blue_Favicon.png" />
-    <!-- Brand fonts (declared in global.css) -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&family=Poppins:wght@500;600;700&display=swap"
-    />
+    <BaseHead title={title} description={description} />
   </head>
   <body id="top">
     <!-- Global Header -->
@@ -230,7 +223,7 @@ const year = new Date().getFullYear();
       </div>
 
       <div class="global-footer__bottom">
-        <p>&copy; {year} Goodrep Media. All rights reserved.</p>
+        <p>&copy; {year} {SITE_NAME} Inc. All rights reserved.</p>
       </div>
     </footer>
 

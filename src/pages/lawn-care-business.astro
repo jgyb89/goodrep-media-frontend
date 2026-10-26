@@ -1,0 +1,925 @@
+---
+// src/pages/lawn-care-business.astro
+// Replicated Landing Page: https://goodrep.media/lawn-care-business/
+import LandingLayout from "../layouts/LandingLayout.astro";
+import ConsultSection from "../components/ConsultSection.astro";
+import FaqSection from "../components/landing/FaqSection.astro";
+import {
+  heroData,
+  topPillars,
+  marqueeServices,
+  whyChooseData,
+  metricsData,
+  whatWeDeliverData,
+  trustUsData,
+  caseStudyChapters,
+  faqData,
+  consultData,
+} from "../data/lawnCareData.js";
+---
+
+<LandingLayout
+  title="Lawn Care Business Marketing | Good Rep Media"
+  description="Grow your lawn care business without getting your hands dirty. We build custom websites, local SEO, and paid ad campaigns that generate consistent calls and route leads."
+  ctaLabel="Contact Us"
+  ctaHref="#contact"
+>
+  <!-- ================= 1. HERO SECTION ================= -->
+  <section class="lawn-hero">
+    <div class="lawn-hero__bg-texture" aria-hidden="true"></div>
+    <div class="container lawn-hero__container">
+      <div class="lawn-hero__content">
+        <span class="eyebrow eyebrow--cyan">{heroData.eyebrow}</span>
+        <h1 class="lawn-hero__title">
+          Own a lawn care business? <span class="text-highlight">We can help you!</span>
+        </h1>
+        <div class="lawn-hero__lead">
+          {heroData.lead.map((para) => (
+            <p>{para}</p>
+          ))}
+        </div>
+        <div class="lawn-hero__actions">
+          <a href={heroData.ctaPrimary.href} class="btn btn--cyan">
+            {heroData.ctaPrimary.label}
+          </a>
+          <a href={heroData.ctaSecondary.href} class="btn btn--red">
+            {heroData.ctaSecondary.label}
+          </a>
+        </div>
+      </div>
+
+      <div class="lawn-hero__visual">
+        <div class="lawn-art-stage">
+          <img
+            class="lawn-art__blob"
+            src={heroData.art.blob}
+            alt=""
+            width="746"
+            height="780"
+            loading="eager"
+          />
+          <img
+            class="lawn-art__main"
+            src={heroData.art.main}
+            alt={heroData.art.mainAlt}
+            width="746"
+            height="780"
+            loading="eager"
+          />
+          <img
+            class="lawn-art__satellite lawn-art__satellite--star"
+            src={heroData.art.accent1.src}
+            alt=""
+            width="746"
+            height="780"
+            style={heroData.art.accent1.style}
+            data-float
+            loading="eager"
+          />
+          <img
+            class="lawn-art__satellite lawn-art__satellite--trend"
+            src={heroData.art.accent2.src}
+            alt=""
+            width="746"
+            height="780"
+            style={heroData.art.accent2.style}
+            data-float
+            loading="eager"
+          />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= 2. TOP 5 PILLARS ================= -->
+  <section class="section lawn-pillars">
+    <div class="container">
+      <div class="lawn-pillars__grid">
+        {topPillars.map((p) => (
+          <article class="lawn-pillar-card">
+            <div class="lawn-pillar-card__icon-wrap">
+              <img src={p.icon} alt="" width="48" height="48" loading="lazy" />
+            </div>
+            <h3 class="lawn-pillar-card__title">{p.title}</h3>
+            <p class="lawn-pillar-card__text">{p.description}</p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= 3. SERVICES MARQUEE ================= -->
+  <section class="lawn-marquee" aria-label="Our Digital Capabilities">
+    <div class="lawn-marquee__viewport">
+      <div class="lawn-marquee__track" aria-hidden="true">
+        {marqueeServices.concat(marqueeServices).map((s) => (
+          <div class="lawn-marquee__item">
+            <span class="material-symbols-outlined marquee-dot">yard</span>
+            <span>{s}</span>
+          </div>
+        ))}
+      </div>
+      <div class="lawn-marquee__track" aria-hidden="true">
+        {marqueeServices.concat(marqueeServices).map((s) => (
+          <div class="lawn-marquee__item">
+            <span class="material-symbols-outlined marquee-dot">yard</span>
+            <span>{s}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= 4. WE KNOW LAWN CARE ================= -->
+  <section class="section lawn-why-choose">
+    <div class="container">
+      <div class="section-head">
+        <span class="eyebrow eyebrow--cyan">{whyChooseData.eyebrow}</span>
+        <h2 class="section-title">{whyChooseData.title}</h2>
+        <p class="section-lead">{whyChooseData.lead}</p>
+      </div>
+
+      <div class="lawn-why-choose__grid">
+        {whyChooseData.cards.map((c) => (
+          <div class="lawn-edge-card">
+            <div class="lawn-edge-card__icon-wrap">
+              <img src={c.icon} alt="" width="52" height="52" loading="lazy" />
+            </div>
+            <h3 class="lawn-edge-card__title">{c.title}</h3>
+            <p class="lawn-edge-card__text">{c.text}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= 5. METRICS RIBBON ================= -->
+  <section class="lawn-metrics">
+    <div class="container">
+      <div class="lawn-metrics__head">
+        <span class="eyebrow eyebrow--cyan">{metricsData.eyebrow}</span>
+        <h2 class="lawn-metrics__title">{metricsData.title}</h2>
+      </div>
+      <div class="lawn-metrics__grid">
+        {metricsData.stats.map((s) => (
+          <div class="metric-box">
+            <div class="metric-box__val">{s.value}</div>
+            <div class="metric-box__label">{s.label}</div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= 6. WHAT WE DELIVER ================= -->
+  <section class="section lawn-deliver" id="our-work">
+    <div class="container lawn-deliver__layout">
+      <div class="lawn-deliver__media">
+        <div class="lawn-deliver__frame">
+          <img
+            src={whatWeDeliverData.media.src}
+            alt={whatWeDeliverData.media.alt}
+            width={whatWeDeliverData.media.width}
+            height={whatWeDeliverData.media.height}
+            loading="lazy"
+          />
+        </div>
+      </div>
+
+      <div class="lawn-deliver__content">
+        <span class="eyebrow eyebrow--cyan">{whatWeDeliverData.eyebrow}</span>
+        <h2 class="section-title">{whatWeDeliverData.title}</h2>
+        <p class="section-lead">{whatWeDeliverData.lead}</p>
+        <ul class="lawn-checklist">
+          {whatWeDeliverData.items.map((item) => (
+            <li>
+              <span class="material-symbols-outlined check-icon">check_circle</span>
+              <span>{item}</span>
+            </li>
+          ))}
+        </ul>
+        <div class="lawn-deliver__cta">
+          <a href="#contact" class="btn btn--cyan">
+            Book a Free Route Growth Strategy Call
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= 7. WHY TRUST US ================= -->
+  <section class="section lawn-trust">
+    <div class="container lawn-trust__layout">
+      <div class="lawn-trust__content">
+        <span class="eyebrow eyebrow--cyan">{trustUsData.eyebrow}</span>
+        <h2 class="section-title">{trustUsData.title}</h2>
+        <p class="section-lead">{trustUsData.description}</p>
+        <div class="lawn-trust__cta">
+          <a href="#contact" class="btn btn--cyan">
+            Partner With Good Rep Media
+          </a>
+        </div>
+      </div>
+
+      <div class="lawn-trust__media">
+        <div class="lawn-trust__frame">
+          <img
+            src={trustUsData.media.src}
+            alt={trustUsData.media.alt}
+            width={trustUsData.media.width}
+            height={trustUsData.media.height}
+            loading="lazy"
+          />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= 8. CASE STUDY CHAPTERS ================= -->
+  <section class="section lawn-case-study">
+    <div class="container lawn-case-study__container">
+      <div class="section-head">
+        <span class="eyebrow eyebrow--cyan">Featured Case Study</span>
+        <h2 class="section-title">Scaling Cape Coral Lawn Care to Route Dominance</h2>
+      </div>
+
+      <div class="lawn-chapters">
+        {caseStudyChapters.map((ch, idx) => (
+          <article
+            class:list={[
+              "lawn-chapter",
+              { "lawn-chapter--reverse": ch.reverse },
+            ]}
+          >
+            <div class="lawn-chapter__content">
+              <span class="chapter-badge">Chapter 0{idx + 1} &bull; {ch.kicker}</span>
+              <h3 class="lawn-chapter__title">{ch.title}</h3>
+              {ch.content.map((p) => (
+                <p class="lawn-chapter__text">{p}</p>
+              ))}
+
+              {ch.deliverables && (
+                <div class="lawn-chapter__box">
+                  <div class="lawn-chapter__box-title">{ch.deliverablesTitle}</div>
+                  <ul class="lawn-chapter__list">
+                    {ch.deliverables.map((d) => (
+                      <li>
+                        <span class="material-symbols-outlined check-bullet">done</span>
+                        <span>{d}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
+            </div>
+
+            <div class="lawn-chapter__media">
+              <div class="lawn-chapter__card">
+                <img
+                  src={ch.media.src}
+                  alt={ch.media.alt}
+                  width="560"
+                  height="380"
+                  loading="lazy"
+                />
+              </div>
+            </div>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= 9. FAQ ACCORDION ================= -->
+  <FaqSection {...faqData} />
+
+  <!-- ================= 10. CONSULTATION SECTION ================= -->
+  <ConsultSection
+    id={consultData.id}
+    kicker={consultData.kicker}
+    title={consultData.title}
+    text={consultData.text}
+    cardTitle={consultData.cardTitle}
+    submitLabel={consultData.submitLabel}
+    art={consultData.art}
+  />
+</LandingLayout>
+
+<style>
+  /* ---------- Hero Section ---------- */
+  .lawn-hero {
+    position: relative;
+    background: #0d1117;
+    color: #ffffff;
+    padding: clamp(3.5rem, 7vw, 6rem) 0 clamp(4rem, 8vw, 6.5rem);
+    overflow: hidden;
+  }
+
+  .lawn-hero__bg-texture {
+    position: absolute;
+    inset: 0;
+    background-image: radial-gradient(
+        circle at 80% 20%,
+        rgba(8, 193, 212, 0.15) 0%,
+        transparent 50%
+      ),
+      radial-gradient(
+        circle at 20% 80%,
+        rgba(233, 79, 55, 0.08) 0%,
+        transparent 45%
+      );
+    pointer-events: none;
+  }
+
+  .lawn-hero__container {
+    position: relative;
+    z-index: 2;
+    display: grid;
+    gap: 3.5rem;
+    align-items: center;
+  }
+
+  @media (min-width: 960px) {
+    .lawn-hero__container {
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 4rem;
+    }
+  }
+
+  .eyebrow--cyan {
+    color: var(--color-cyan);
+    font-weight: 700;
+  }
+
+  .lawn-hero__title {
+    font-size: clamp(2rem, 3.8vw, 3.25rem);
+    line-height: 1.18;
+    margin: 0.5rem 0 1.5rem;
+    color: #ffffff;
+    text-wrap: balance;
+  }
+
+  .text-highlight {
+    color: var(--color-cyan);
+    background: linear-gradient(135deg, #1bc4d9 0%, #38bdf8 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .lawn-hero__lead {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    font-size: 1.05rem;
+    line-height: 1.7;
+    color: #c9d1d9;
+    margin-bottom: 2rem;
+  }
+
+  .lawn-hero__lead p {
+    margin: 0;
+  }
+
+  .lawn-hero__actions {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+
+  .btn--cyan {
+    background: var(--color-cyan);
+    color: #0d1117;
+    font-weight: 700;
+    border-radius: 9999px;
+    padding: 0.85rem 1.8rem;
+    box-shadow: 0 4px 18px rgba(8, 193, 212, 0.35);
+  }
+
+  .btn--cyan:hover {
+    background: #1cd4e8;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 24px rgba(8, 193, 212, 0.45);
+  }
+
+  .btn--red {
+    background: #e31c23;
+    color: #ffffff;
+    font-weight: 700;
+    border-radius: 9999px;
+    padding: 0.85rem 1.8rem;
+    box-shadow: 0 4px 18px rgba(227, 28, 35, 0.35);
+  }
+
+  .btn--red:hover {
+    background: #f02830;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 24px rgba(227, 28, 35, 0.45);
+  }
+
+  /* Art Stage */
+  .lawn-hero__visual {
+    display: flex;
+    justify-content: center;
+  }
+
+  .lawn-art-stage {
+    position: relative;
+    width: 100%;
+    max-width: 520px;
+    aspect-ratio: 1 / 0.95;
+    margin: 0 auto;
+  }
+
+  .lawn-art__blob {
+    position: absolute;
+    inset: 0;
+    margin: auto;
+    width: 90%;
+    height: auto;
+    z-index: 0;
+  }
+
+  .lawn-art__main {
+    position: absolute;
+    inset: 0;
+    margin: auto;
+    width: 86%;
+    max-height: 86%;
+    z-index: 2;
+    object-fit: contain;
+    filter: drop-shadow(0 20px 30px rgba(0, 0, 0, 0.4));
+  }
+
+  .lawn-art__satellite {
+    position: absolute;
+    z-index: 3;
+    filter: drop-shadow(0 12px 18px rgba(0, 0, 0, 0.35));
+    animation: float 4s ease-in-out infinite alternate;
+  }
+
+  .lawn-art__satellite--star {
+    animation-delay: 0.5s;
+  }
+
+  .lawn-art__satellite--trend {
+    animation-delay: 1.5s;
+  }
+
+  @keyframes float {
+    0% {
+      transform: translateY(0);
+    }
+    100% {
+      transform: translateY(-12px);
+    }
+  }
+
+  /* ---------- Top 5 Pillars ---------- */
+  .lawn-pillars {
+    background: #ffffff;
+    padding: clamp(3rem, 6vw, 5rem) 0;
+  }
+
+  .lawn-pillars__grid {
+    display: grid;
+    gap: 1.5rem;
+    grid-template-columns: 1fr;
+  }
+
+  @media (min-width: 640px) {
+    .lawn-pillars__grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .lawn-pillars__grid {
+      grid-template-columns: repeat(5, 1fr);
+    }
+  }
+
+  .lawn-pillar-card {
+    background: #f8fafc;
+    border: 1px solid var(--color-border);
+    border-radius: 14px;
+    padding: 1.75rem 1.25rem;
+    text-align: center;
+    transition: transform 0.25s, border-color 0.25s, box-shadow 0.25s;
+  }
+
+  .lawn-pillar-card:hover {
+    transform: translateY(-4px);
+    border-color: var(--color-cyan);
+    box-shadow: 0 12px 24px rgba(15, 23, 42, 0.08);
+  }
+
+  .lawn-pillar-card__icon-wrap {
+    width: 60px;
+    height: 60px;
+    margin: 0 auto 1.25rem;
+    border-radius: 12px;
+    background: #eefbfc;
+    display: grid;
+    place-items: center;
+  }
+
+  .lawn-pillar-card__icon-wrap img {
+    width: 38px;
+    height: 38px;
+    object-fit: contain;
+  }
+
+  .lawn-pillar-card__title {
+    font-size: 1.1rem;
+    margin: 0 0 0.5rem;
+    color: var(--color-dark);
+  }
+
+  .lawn-pillar-card__text {
+    margin: 0;
+    color: var(--color-muted);
+    font-size: 0.9rem;
+    line-height: 1.6;
+  }
+
+  /* ---------- Marquee Ticker ---------- */
+  .lawn-marquee {
+    background: #090d12;
+    padding: 1.5rem 0;
+    overflow: hidden;
+    border-top: 1px solid rgba(255, 255, 255, 0.06);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  }
+
+  .lawn-marquee__viewport {
+    display: flex;
+    overflow: hidden;
+    user-select: none;
+    gap: 2.5rem;
+  }
+
+  .lawn-marquee__track {
+    display: flex;
+    align-items: center;
+    gap: 3.5rem;
+    animation: marquee 56s linear infinite;
+    flex-shrink: 0;
+    min-width: 100%;
+  }
+
+  .lawn-marquee__item {
+    display: flex;
+    align-items: center;
+    gap: 0.65rem;
+    font-family: var(--font-heading);
+    font-weight: 600;
+    font-size: 1.05rem;
+    color: #ffffff;
+    white-space: nowrap;
+    opacity: 0.9;
+  }
+
+  .marquee-dot {
+    color: var(--color-cyan);
+    font-size: 1.2rem;
+  }
+
+  @keyframes marquee {
+    from {
+      transform: translateX(0);
+    }
+    to {
+      transform: translateX(-100%);
+    }
+  }
+
+  /* ---------- Why Choose Grid ---------- */
+  .lawn-why-choose {
+    background: var(--color-bg);
+  }
+
+  .lawn-why-choose__grid {
+    display: grid;
+    gap: 2rem;
+    grid-template-columns: 1fr;
+  }
+
+  @media (min-width: 640px) {
+    .lawn-why-choose__grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .lawn-why-choose__grid {
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+
+  .lawn-edge-card {
+    background: #ffffff;
+    border: 1px solid var(--color-border);
+    border-radius: 16px;
+    padding: 2.25rem 1.75rem;
+    transition: transform 0.3s, border-color 0.3s, box-shadow 0.3s;
+    box-shadow: 0 4px 12px rgba(15, 23, 42, 0.04);
+  }
+
+  .lawn-edge-card:hover {
+    transform: translateY(-4px);
+    border-color: var(--color-cyan);
+    box-shadow: 0 16px 32px rgba(15, 23, 42, 0.08);
+  }
+
+  .lawn-edge-card__icon-wrap {
+    width: 64px;
+    height: 64px;
+    border-radius: 14px;
+    background: #eefbfc;
+    display: grid;
+    place-items: center;
+    margin-bottom: 1.5rem;
+  }
+
+  .lawn-edge-card__icon-wrap img {
+    width: 44px;
+    height: 44px;
+    object-fit: contain;
+  }
+
+  .lawn-edge-card__title {
+    font-size: 1.25rem;
+    margin: 0 0 0.75rem;
+    color: var(--color-dark);
+  }
+
+  .lawn-edge-card__text {
+    margin: 0;
+    color: var(--color-muted);
+    font-size: 0.98rem;
+    line-height: 1.65;
+  }
+
+  /* ---------- Metrics Ribbon ---------- */
+  .lawn-metrics {
+    background: #0d1117;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    padding: clamp(3.5rem, 6vw, 5rem) 0;
+    color: #ffffff;
+  }
+
+  .lawn-metrics__head {
+    text-align: center;
+    margin-bottom: 3rem;
+  }
+
+  .lawn-metrics__title {
+    font-size: clamp(2rem, 3.5vw, 2.75rem);
+    color: #ffffff;
+    margin: 0.5rem 0 0;
+  }
+
+  .lawn-metrics__grid {
+    display: grid;
+    gap: 2rem;
+    grid-template-columns: repeat(2, 1fr);
+    text-align: center;
+  }
+
+  @media (min-width: 960px) {
+    .lawn-metrics__grid {
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+
+  .metric-box {
+    padding: 1.75rem 1rem;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 14px;
+    background: rgba(255, 255, 255, 0.02);
+    transition: border-color 0.3s, transform 0.3s;
+  }
+
+  .metric-box:hover {
+    border-color: var(--color-cyan);
+    transform: translateY(-3px);
+  }
+
+  .metric-box__val {
+    font-family: var(--font-heading);
+    font-size: clamp(2.5rem, 4.5vw, 3.5rem);
+    font-weight: 700;
+    color: var(--color-cyan);
+    line-height: 1;
+    margin-bottom: 0.65rem;
+  }
+
+  .metric-box__label {
+    color: #e2e8f0;
+    font-size: 0.95rem;
+    line-height: 1.45;
+  }
+
+  /* ---------- What We Deliver ---------- */
+  .lawn-deliver {
+    background: #ffffff;
+  }
+
+  .lawn-deliver__layout {
+    display: grid;
+    gap: 3.5rem;
+    align-items: center;
+  }
+
+  @media (min-width: 960px) {
+    .lawn-deliver__layout {
+      grid-template-columns: 1fr 1fr;
+      gap: 5rem;
+    }
+  }
+
+  .lawn-deliver__frame {
+    background: #f8fafc;
+    border-radius: 20px;
+    padding: 1rem;
+    border: 1px solid var(--color-border);
+    box-shadow: 0 20px 40px rgba(15, 23, 42, 0.08);
+  }
+
+  .lawn-deliver__frame img {
+    border-radius: 14px;
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+
+  .lawn-checklist {
+    list-style: none;
+    padding: 0;
+    margin: 1.75rem 0 2.25rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.85rem;
+  }
+
+  .lawn-checklist li {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    font-size: 1.05rem;
+    color: var(--color-dark);
+  }
+
+  .check-icon {
+    color: var(--color-cyan);
+    font-size: 1.4rem;
+    flex-shrink: 0;
+  }
+
+  /* ---------- Trust Us Spotlight ---------- */
+  .lawn-trust {
+    background: var(--color-bg);
+  }
+
+  .lawn-trust__layout {
+    display: grid;
+    gap: 3.5rem;
+    align-items: center;
+  }
+
+  @media (min-width: 960px) {
+    .lawn-trust__layout {
+      grid-template-columns: 1fr 1fr;
+      gap: 5rem;
+    }
+  }
+
+  .lawn-trust__frame {
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 20px 40px rgba(15, 23, 42, 0.1);
+    border: 1px solid var(--color-border);
+  }
+
+  .lawn-trust__frame img {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+
+  .lawn-trust__cta {
+    margin-top: 2rem;
+  }
+
+  /* ---------- Case Study Chapters ---------- */
+  .lawn-case-study {
+    background: #ffffff;
+  }
+
+  .lawn-chapters {
+    display: flex;
+    flex-direction: column;
+    gap: clamp(4rem, 8vw, 6.5rem);
+    margin-top: 3.5rem;
+  }
+
+  .lawn-chapter {
+    display: grid;
+    gap: 3rem;
+    align-items: center;
+  }
+
+  @media (min-width: 960px) {
+    .lawn-chapter {
+      grid-template-columns: 1fr 1fr;
+      gap: 4.5rem;
+    }
+
+    .lawn-chapter--reverse .lawn-chapter__content {
+      order: 2;
+    }
+
+    .lawn-chapter--reverse .lawn-chapter__media {
+      order: 1;
+    }
+  }
+
+  .chapter-badge {
+    display: inline-block;
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: 0.85rem;
+    color: var(--color-cyan);
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    margin-bottom: 0.5rem;
+  }
+
+  .lawn-chapter__title {
+    font-size: clamp(1.6rem, 2.5vw, 2.2rem);
+    margin: 0 0 1.25rem;
+    line-height: 1.25;
+    color: var(--color-dark);
+  }
+
+  .lawn-chapter__text {
+    font-size: 1.05rem;
+    line-height: 1.7;
+    color: var(--color-muted);
+    margin: 0 0 1.25rem;
+  }
+
+  .lawn-chapter__box {
+    background: #f8fafc;
+    border-left: 4px solid var(--color-cyan);
+    border-radius: 0 12px 12px 0;
+    padding: 1.5rem;
+    margin: 1.5rem 0;
+  }
+
+  .lawn-chapter__box-title {
+    font-family: var(--font-heading);
+    font-weight: 700;
+    color: var(--color-dark);
+    margin-bottom: 0.75rem;
+  }
+
+  .lawn-chapter__list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .lawn-chapter__list li {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.95rem;
+    color: #475569;
+  }
+
+  .check-bullet {
+    color: var(--color-cyan);
+    font-size: 1.2rem;
+  }
+
+  .lawn-chapter__card {
+    border-radius: 18px;
+    overflow: hidden;
+    border: 1px solid var(--color-border);
+    box-shadow: 0 16px 36px rgba(15, 23, 42, 0.1);
+    background: #ffffff;
+  }
+
+  .lawn-chapter__card img {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+
+</style>

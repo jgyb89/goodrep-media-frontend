@@ -6,7 +6,7 @@ import '../../styles/gutenberg.css';
 
 export async function getStaticPaths() {
   try {
-    const posts = await getAllPosts({ maxPosts: 200 });
+    const posts = await getAllPosts();
     return posts.map((post: any) => ({
       params: { slug: post.slug },
       props: { post },

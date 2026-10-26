@@ -1,0 +1,151 @@
+---
+interface FaqItem {
+  question?: string;
+  q?: string;
+  answer?: string;
+  a?: string;
+}
+
+interface Props {
+  eyebrow?: string;
+  title: string;
+  items: FaqItem[];
+  id?: string;
+  theme?: "light" | "dark";
+  cardBg?: string;
+}
+
+const {
+  eyebrow = "FAQ",
+  title,
+  items = [],
+  id = "faq",
+  theme = "light",
+  cardBg,
+} = Astro.props;
+---
+
+<section class:list={["section landing-faq", `landing-faq--${theme}`]} id={id}>
+  <div class="container landing-faq__container">
+    <div class="section-head">
+      {eyebrow && <span class="eyebrow eyebrow--cyan">{eyebrow}</span>}
+      <h2 class="section-title">{title}</h2>
+    </div>
+    <div class="landing-faq__list">
+      {items.map((item) => (
+        <details
+          class="faq-item"
+          style={cardBg ? `background: ${cardBg};` : undefined}
+        >
+          <summary class="faq-item__question">
+            <span>{item.question || item.q}</span>
+            <span class="material-symbols-outlined faq-item__caret" aria-hidden="true">
+              expand_more
+            </span>
+          </summary>
+          <div class="faq-item__answer">
+            <p>{item.answer || item.a}</p>
+          </div>
+        </details>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .landing-faq {
+    position: relative;
+    padding: clamp(4rem, 8vw, 6.5rem) 0;
+  }
+
+  .landing-faq--light {
+    background: #ffffff;
+  }
+
+  .landing-faq--dark {
+    background: #070e1c;
+  }
+
+  .landing-faq__container {
+    max-width: 900px;
+    margin: 0 auto;
+  }
+
+  .landing-faq__list {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+    margin-top: clamp(2rem, 4vw, 3rem);
+  }
+
+  .faq-item {
+    background: #f8fafc;
+    border: 1px solid var(--color-border);
+    border-radius: 14px;
+    padding: 0;
+    overflow: hidden;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  .landing-faq--dark .faq-item {
+    background: #0d1e38;
+    border-color: rgba(27, 196, 217, 0.2);
+  }
+
+  .faq-item[open] {
+    border-color: var(--color-cyan);
+    box-shadow: 0 8px 24px rgba(15, 23, 42, 0.06);
+  }
+
+  .landing-faq--dark .faq-item[open] {
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+  }
+
+  .faq-item__question {
+    list-style: none;
+    padding: 1.5rem 1.75rem;
+    font-family: var(--font-heading);
+    font-weight: 600;
+    font-size: 1.15rem;
+    color: var(--color-dark);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    cursor: pointer;
+    user-select: none;
+  }
+
+  .landing-faq--dark .faq-item__question {
+    color: var(--color-text-light);
+  }
+
+  .faq-item__question::-webkit-details-marker {
+    display: none;
+  }
+
+  .faq-item__caret {
+    color: var(--color-cyan);
+    font-size: 1.6rem;
+    transition: transform 0.3s ease;
+  }
+
+  .faq-item[open] .faq-item__caret {
+    transform: rotate(180deg);
+  }
+
+  .faq-item__answer {
+    padding: 0 1.75rem 1.75rem;
+    color: #475569;
+    font-size: 1.02rem;
+    line-height: 1.75;
+  }
+
+  .landing-faq--dark .faq-item__answer {
+    color: #94a3b8;
+  }
+
+  .faq-item__answer p {
+    margin: 0;
+  }
+</style>

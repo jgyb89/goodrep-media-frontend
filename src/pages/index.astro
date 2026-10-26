@@ -2,296 +2,23 @@
 import DOMPurify from "isomorphic-dompurify";
 import MainLayout from "../layouts/MainLayout.astro";
 import LeadForm from "../components/LeadForm.jsx";
-import { fetchWP } from "../lib/api.js";
-
-// ---------- Content data (kept here so copy is easy to edit) ----------
-const services = [
-  {
-    title: "Website Design",
-    text: "Custom, mobile-first websites built to load fast, rank well, and turn visitors into customers.",
-    main: {
-      src: "/grm-main-graphics/website-design-graphic.svg",
-      w: 746,
-      h: 780,
-      style: "width: 68%; left: 16%; top: 8%;",
-    },
-    accents: [],
-  },
-  {
-    title: "Local SEO",
-    text: "Show up in the map pack and local searches when nearby customers are looking for you.",
-    main: {
-      src: "/grm-main-graphics/local-seo-marketing-graphic.svg",
-      w: 2642,
-      h: 2000,
-      style: "width: 72%; left: 14%; top: 10%;",
-    },
-    accents: [],
-  },
-  {
-    title: "Technical SEO",
-    text: "Speed, structure, and on-page fixes that help search engines understand and reward your site.",
-    main: {
-      src: "/grm-main-graphics/technical-seo-marketing-graphic.svg",
-      w: 2642,
-      h: 2000,
-      style: "width: 72%; left: 14%; top: 10%;",
-    },
-    accents: [],
-  },
-  {
-    title: "Paid Digital Ads",
-    text: "Google and social ad campaigns managed for real leads, not just clicks.",
-    main: {
-      src: "/grm-main-graphics/pay-per-click-marketing-graphic.svg",
-      w: 2642,
-      h: 2000,
-      style: "width: 72%; left: 14%; top: 10%;",
-    },
-    accents: [],
-  },
-  {
-    title: "Social Media Management",
-    text: "Consistent, on-brand content and community management on the platforms your customers use.",
-    main: {
-      src: "/grm-main-graphics/social-media-marketing-graphic.svg",
-      w: 2642,
-      h: 2000,
-      style: "width: 72%; left: 14%; top: 10%;",
-    },
-    accents: [],
-  },
-  {
-    title: "Digital Media Production",
-    text: "Photo, video, and graphics that make your business look as good online as it does in person.",
-    main: {
-      src: "/grm-main-graphics/digital-media-production-graphic.svg",
-      w: 2642,
-      h: 2000,
-      style: "width: 72%; left: 14%; top: 10%;",
-    },
-    accents: [],
-  },
-  {
-    title: "Branding",
-    text: "Logos, colors, and messaging that make your business memorable and instantly recognizable.",
-    main: {
-      src: "/grm-main-graphics/monitor-with-image-file.webp",
-      w: 746,
-      h: 780,
-      style: "width: 58%; left: 21%; top: 12%;",
-    },
-    accents: [
-      {
-        src: "/grm-web-assets/artist-brush-and-paint-graphic.svg",
-        w: 746,
-        h: 780,
-        style: "width: 22%; right: 8%; top: 8%;",
-        dx: 8,
-        dy: -8,
-        rot: 8,
-      },
-      {
-        src: "/grm-web-assets/3d-color-picker-graphic.svg",
-        w: 746,
-        h: 780,
-        style: "width: 22%; left: 8%; bottom: 8%;",
-        dx: -10,
-        dy: 8,
-        rot: -8,
-      },
-    ],
-  },
-  {
-    title: "Marketing Strategy",
-    text: "A clear, data-backed roadmap that ties every marketing dollar to your business goals.",
-    main: {
-      src: "/grm-main-graphics/lightbulb-with-gear-icon-graphic.svg",
-      w: 758,
-      h: 813,
-      style: "width: 56%; left: 22%; top: 10%;",
-    },
-    accents: [
-      {
-        src: "/grm-web-assets/chess-peice-graphic.svg",
-        w: 746,
-        h: 780,
-        style: "width: 22%; left: 8%; top: 8%;",
-        dx: -8,
-        dy: -8,
-        rot: -6,
-      },
-      {
-        src: "/grm-web-assets/3d-bar-graph-going-up-graphic.svg",
-        w: 746,
-        h: 780,
-        style: "width: 22%; right: 8%; bottom: 8%;",
-        dx: 9,
-        dy: -10,
-        rot: 6,
-      },
-    ],
-  },
-];
-
-const values = [
-  {
-    title: "Hands-On Partnership",
-    img: "/grm-main-graphics/handshake-hands.webp",
-    w: 446,
-    h: 162,
-    text: "Work directly with real people who learn your business and treat it like their own.",
-  },
-  {
-    title: "Built For Growth",
-    img: "/grm-web-assets/3d-rocket-graphic.svg",
-    w: 746,
-    h: 780,
-    text: "Every recommendation is tied to more calls, more leads, and more customers through your door.",
-  },
-  {
-    title: "Small Business Specialists",
-    img: "/grm-main-graphics/market-shop-graphic.svg",
-    w: 656,
-    h: 302,
-    text: "We focus on small and local businesses, so our strategies fit your budget and your market.",
-  },
-  {
-    title: "Transparent & Affordable",
-    img: "/grm-web-assets/sheild-graphic.svg",
-    w: 746,
-    h: 780,
-    text: "Clear pricing and honest reporting. You always know what we are doing and why it matters.",
-  },
-];
-
-const steps = [
-  {
-    title: "Free Consultations",
-    tag: "Discovery & Audit",
-    text: "We start with a free 1-on-1 call to learn about your business, your goals, and your current online presence. No pressure, no jargon.",
-    main: {
-      src: "/grm-main-graphics/customer-review-graphic.svg",
-      w: 746,
-      h: 780,
-      style: "width: 56%; left: 22%; top: 14%;",
-    },
-    floats: [
-      {
-        src: "/grm-web-assets/happy-face-speech-bubble-graphic.svg",
-        w: 137,
-        h: 162,
-        style: "width: 20%; right: 8%; top: 8%;",
-      },
-      {
-        src: "/grm-web-assets/calendar-graphic.svg",
-        w: 180,
-        h: 180,
-        style: "width: 22%; left: 8%; bottom: 14%;",
-      },
-    ],
-  },
-  {
-    title: "Setup & Strategy",
-    tag: "Custom Roadmap",
-    text: "After evaluating the existing online presence, we develop a tailored roadmap and strategy, detailing target demographics and customer acquisition models, ensuring your approval before proceeding.",
-    main: {
-      src: "/grm-main-graphics/laptop-checklist-screen-graphic.svg",
-      w: 746,
-      h: 780,
-      style: "width: 56%; left: 22%; top: 14%;",
-    },
-    floats: [
-      {
-        src: "/grm-web-assets/3d-file-folder-graphic.svg",
-        w: 746,
-        h: 780,
-        style: "width: 22%; left: 8%; top: 10%;",
-      },
-      {
-        src: "/grm-web-assets/compass-icon-graphic-02.svg",
-        w: 746,
-        h: 780,
-        style: "width: 22%; right: 8%; bottom: 14%;",
-      },
-    ],
-  },
-  {
-    title: "Launch & Manage",
-    tag: "Execution & Optimization",
-    text: "We build, launch, and actively manage your website, campaigns, and content, optimizing along the way so nothing runs on autopilot.",
-    main: {
-      src: "/grm-main-graphics/monitor-with-rocket-launching.webp",
-      w: 451,
-      h: 344,
-      style: "width: 58%; left: 21%; top: 14%;",
-    },
-    floats: [
-      {
-        src: "/grm-web-assets/gears-graphic.svg",
-        w: 181,
-        h: 180,
-        style: "width: 22%; left: 8%; top: 10%;",
-      },
-      {
-        src: "/grm-web-assets/3d-tools-graphic.svg",
-        w: 746,
-        h: 780,
-        style: "width: 22%; right: 8%; bottom: 14%;",
-      },
-    ],
-  },
-  {
-    title: "Results & Reporting",
-    tag: "Measurable ROI",
-    text: "Clear, regular reports show what is working, what we are improving, and how your investment is turning into customers.",
-    main: {
-      src: "/grm-main-graphics/laptop-with-pie-chart-graphic.svg",
-      w: 746,
-      h: 780,
-      style: "width: 58%; left: 21%; top: 14%;",
-    },
-    floats: [
-      {
-        src: "/grm-web-assets/77-percent-bubble-graphic.svg",
-        w: 148,
-        h: 178,
-        style: "width: 20%; left: 8%; top: 10%;",
-      },
-      {
-        src: "/grm-web-assets/upward-trend-graph-graphic.svg",
-        w: 746,
-        h: 780,
-        style: "width: 22%; right: 8%; bottom: 14%;",
-      },
-    ],
-  },
-];
+import { getPosts } from "../lib/api.js";
+import { SITE_NAME } from "../config/site.js";
+import {
+  services,
+  values,
+  steps,
+  heroSlides,
+  homepageProjects,
+  sliderCards,
+} from "../data/homeData.js";
 
 // ---------- Knowledge Center: latest posts from WordPress ----------
 let posts: any[] = [];
 try {
-  const data = await fetchWP(`
-    query GetLatestPosts {
-      posts(first: 4) {
-        nodes {
-          id
-          title
-          slug
-          excerpt
-          featuredImage {
-            node {
-              sourceUrl
-              altText
-            }
-          }
-        }
-      }
-    }
-  `);
-  posts = (data?.posts?.nodes || []).map((post: any) => ({
+  const latestPosts = await getPosts({ perPage: 4 });
+  posts = (latestPosts || []).map((post: any) => ({
     ...post,
-    // Strip all tags from the WP excerpt; keeps entities safely encoded
     excerpt: DOMPurify.sanitize(post.excerpt || "", { ALLOWED_TAGS: [] }),
   }));
 } catch (error: any) {
@@ -300,191 +27,9 @@ try {
     error?.message || error,
   );
 }
-const heroSlides = [
-  {
-    word: "SEO Strategy",
-    main: {
-      src: "/grm-main-graphics/seo-strategy-home-page.svg",
-      w: 2642,
-      h: 2000,
-      style: "width: 100%; left: 0%; top: 4%;",
-    },
-    floats: [
-      {
-        src: "/grm-web-assets/3-arrows-up-graphic.svg",
-        w: 291,
-        h: 419,
-        style: "width: 20%; right: 2%; top: -8%;",
-      },
-      {
-        src: "/grm-web-assets/3d-search-window-graphic.svg",
-        w: 746,
-        h: 780,
-        style: "width: 22%; left: -2%; bottom: -6%;",
-      },
-    ],
-  },
-  {
-    word: "More Engagement",
-    main: {
-      src: "/grm-main-graphics/more-engagement-home-page-graphic.svg",
-      w: 2642,
-      h: 2000,
-      style: "width: 100%; left: 0%; top: 4%;",
-    },
-    floats: [
-      {
-        src: "/grm-web-assets/thumbs-up-like-icon-graphic.svg",
-        w: 180,
-        h: 180,
-        style: "width: 20%; right: 2%; top: -8%;",
-      },
-      {
-        src: "/grm-web-assets/999-hearts-likes-graphic.svg",
-        w: 197,
-        h: 98,
-        style: "width: 22%; left: 0%; bottom: -4%;",
-      },
-    ],
-  },
-  {
-    word: "A Converting Website",
-    main: {
-      src: "/grm-main-graphics/converting-responsive-website-home-page.svg",
-      w: 2642,
-      h: 2000,
-      style: "width: 100%; left: 0%; top: 4%;",
-    },
-    floats: [
-      {
-        src: "/grm-web-assets/mouse-icon-graphic.svg",
-        w: 746,
-        h: 780,
-        style: "width: 18%; right: 4%; top: -6%;",
-      },
-      {
-        src: "/grm-web-assets/3d-mobile-graphic.svg",
-        w: 746,
-        h: 780,
-        style: "width: 20%; left: -2%; bottom: -4%;",
-      },
-    ],
-  },
-  {
-    word: "More Customers",
-    main: {
-      src: "/grm-main-graphics/more-customers-home-page.svg",
-      w: 2642,
-      h: 2000,
-      style: "width: 100%; left: 0%; top: 4%;",
-    },
-    floats: [
-      {
-        src: "/grm-web-assets/number-one-award-graphic.svg",
-        w: 746,
-        h: 780,
-        style: "width: 20%; right: 2%; top: -8%;",
-      },
-      {
-        src: "/grm-web-assets/star-app-icon-graphic.svg",
-        w: 746,
-        h: 780,
-        style: "width: 22%; left: -2%; bottom: -6%;",
-      },
-    ],
-  },
-  {
-    word: "Google Ad Management",
-    main: {
-      src: "/grm-main-graphics/google-ad-management-home-page-graphic.svg",
-      w: 2642,
-      h: 2000,
-      style: "width: 100%; left: 0%; top: 4%;",
-    },
-    floats: [
-      {
-        src: "/grm-web-assets/star-icon-graphic.svg",
-        w: 746,
-        h: 780,
-        style: "width: 20%; right: 2%; top: -8%;",
-      },
-      {
-        src: "/grm-web-assets/3d-pie-chart-graph.svg",
-        w: 746,
-        h: 780,
-        style: "width: 20%; left: -2%; bottom: -4%;",
-      },
-    ],
-  },
-];
-
-const homepageProjects = [
-  {
-    title: "Cape Coral Lawn Care",
-    href: "/our-work/cape-coral-lawn-care",
-    img: "/grm-graphic-samples/cape-coral-lawn-care-project-card.webp",
-    logo: "/grm-web-assets/cape-coral-lawn-care-logo-white.svg",
-    logoClass: "work-card__logo--square",
-  },
-  {
-    title: "Glowing Results Skin Spa",
-    href: "/our-work/glowing-results-skin-spa",
-    img: "/grm-graphic-samples/glowing-result-skin-spa-project.jpg",
-    logo: "/grm-graphic-samples/glowing-results-skin-spa-logo-white.webp",
-  },
-  {
-    title: "Be Balanced Bodyworks",
-    href: "/our-work/be-balanced-bodywork",
-    img: "/grm-graphic-samples/be-balanced-bodyworks-project-card.webp",
-    logo: "/grm-graphic-samples/be-balanced-bodyworks-logo-white.svg",
-  },
-  {
-    title: "Abode Home Services",
-    href: "/our-work/abode-services",
-    img: "/grm-graphic-samples/abode-home-services-project-card.webp",
-    logo: "/grm-main-graphics/abode-home-services-logo-white.svg",
-  },
-  {
-    title: "Home Owner Pro Experts",
-    href: "/our-work/home-owner-pro-experts",
-    img: "/grm-graphic-samples/home-owner-pro-experts-project-card.webp",
-    logo: "/grm-graphic-samples/home-owner-pro-experts-logo-white.svg",
-  },
-  {
-    title: "Home Owners Help Options",
-    href: "/our-work/home-owner-help-options",
-    img: "/grm-graphic-samples/home-owner-help-options-project-card.webp",
-    logo: "/grm-graphic-samples/home-owner-help-options-logo-white.svg",
-  },
-  {
-    title: "Cape Coral Reviewed",
-    href: "/our-work/cape-coral-reviewed",
-    img: "/grm-graphic-samples/cape-coral-reviewed-project-card.webp",
-    logo: "/grm-graphic-samples/cape-coral-reviewed-logo.svg",
-  },
-  {
-    title: "Florida Sunshine Lawn Care",
-    href: "/our-work/florida-sunshine-lawn-care",
-    img: "/grm-graphic-samples/florida-sunshine-lawn-care-project-card.webp",
-    logo: "/grm-graphic-samples/florida-sunshine-lawn-care-logo.svg",
-  },
-  {
-    title: "Jojo Java",
-    href: "/our-work/jojo-java",
-    img: "/grm-graphic-samples/jojo-java-project-card.webp",
-    logo: "/grm-graphic-samples/jojo-java-logo.svg",
-    logoClass: "work-card__logo--square",
-  },
-];
-
-const sliderCards = [
-  ...homepageProjects,
-  ...homepageProjects,
-  ...homepageProjects,
-];
 ---
 
-<MainLayout title="Goodrep Media | Small Business Marketing Agency">
+<MainLayout title={`${SITE_NAME} | Small Business Marketing Agency`}>
   <!-- HERO SECTION -->
   <section class="hero">
     <div class="container hero__container">
@@ -950,10 +495,7 @@ const sliderCards = [
                 <button
                   type="button"
                   role="tab"
-                  class:list={[
-                    "work-gallery__dot",
-                    { "is-active": idx === 0 },
-                  ]}
+                  class:list={["work-gallery__dot", { "is-active": idx === 0 }]}
                   data-dot-index={idx}
                   aria-label={`Go to ${p.title}`}
                   aria-selected={idx === 0 ? "true" : "false"}
@@ -1025,26 +567,6 @@ const sliderCards = [
             height="418"
             loading="lazy"
           />
-          <img
-            class="feature__satellite feature__satellite--storefront"
-            data-spotlight-parallax="-38"
-            data-float
-            src="/grm-web-assets/map-placer-icon-graphic.svg"
-            alt=""
-            width="746"
-            height="780"
-            loading="lazy"
-          />
-          <img
-            class="feature__satellite feature__satellite--review"
-            data-spotlight-parallax="-44"
-            data-float
-            src="/grm-web-assets/3d-map-indicator-icon-graphic.svg"
-            alt=""
-            width="746"
-            height="780"
-            loading="lazy"
-          />
         </div>
         <div class="feature__content">
           <span class="eyebrow">Local SEO</span>
@@ -1083,26 +605,6 @@ const sliderCards = [
             class="feature__main-img"
             src="/grm-main-graphics/megaphone-alert-notification-graphic.svg"
             alt="Digital advertising analytics and conversion performance dashboard"
-            width="746"
-            height="780"
-            loading="lazy"
-          />
-          <img
-            class="feature__badge"
-            data-spotlight-parallax="-45"
-            data-float
-            src="/grm-web-assets/magnet-graphic.svg"
-            alt=""
-            width="746"
-            height="780"
-            loading="lazy"
-          />
-          <img
-            class="feature__satellite feature__satellite--coins"
-            data-spotlight-parallax="-38"
-            data-float
-            src="/grm-web-assets/coin-stack-graphic.svg"
-            alt=""
             width="746"
             height="780"
             loading="lazy"
@@ -1635,8 +1137,7 @@ const sliderCards = [
           if (!card || !viewport || !track) return;
 
           const offset =
-            viewport.offsetWidth / 2 -
-            (card.offsetLeft + card.offsetWidth / 2);
+            viewport.offsetWidth / 2 - (card.offsetLeft + card.offsetWidth / 2);
           track.style.transition = animate
             ? "transform 0.45s cubic-bezier(0.2, 0.8, 0.2, 1)"
             : "none";
@@ -2251,13 +1752,21 @@ const sliderCards = [
     }
 
     .service-card__blob {
+      position: absolute;
+      inset: 0;
+      margin: auto;
       width: 78%;
-      left: 11%;
-      top: 8%;
+      max-height: 85%;
+      object-fit: contain;
       opacity: 0.55;
     }
 
     .service-card__main {
+      position: absolute;
+      inset: 0;
+      margin: auto;
+      max-height: 80%;
+      object-fit: contain;
       filter: drop-shadow(0 14px 18px rgba(15, 23, 42, 0.16));
       z-index: 1;
     }
@@ -2492,11 +2001,7 @@ const sliderCards = [
     .process__stage-progress-bar {
       width: 100%;
       height: 100%;
-      background: linear-gradient(
-        90deg,
-        var(--color-cyan),
-        #38bdf8
-      );
+      background: linear-gradient(90deg, var(--color-cyan), #38bdf8);
       transform-origin: 0 50%;
       transform: scaleX(0.25);
     }
@@ -2663,7 +2168,8 @@ const sliderCards = [
 
     .work-card {
       flex: 0 0 calc(50% - var(--gallery-gap));
-      height: clamp(360px, 60vw, 440px);
+      height: clamp(360px, 60vw, 640px);
+      min-width: 360px;
       position: relative;
       border-radius: 20px;
       overflow: hidden;
@@ -2957,9 +2463,11 @@ const sliderCards = [
     }
 
     .feature__blob {
-      width: 88%;
-      left: 6%;
-      top: 4%;
+      position: absolute;
+      inset: 0;
+      margin: auto;
+      width: 90%;
+      height: auto;
       z-index: 0;
     }
 
@@ -2973,10 +2481,11 @@ const sliderCards = [
     }
 
     .feature__main-img {
-      width: 66%;
-      max-height: 76%;
-      left: 17%;
-      top: 12%;
+      position: absolute;
+      inset: 0;
+      margin: auto;
+      width: 86%;
+      max-height: 86%;
       z-index: 2;
       filter: drop-shadow(0 22px 28px rgba(15, 23, 42, 0.2));
     }
@@ -3016,9 +2525,9 @@ const sliderCards = [
     }
 
     .feature__satellite--review {
-      width: 28%;
+      width: 26%;
       right: 4%;
-      bottom: 6%;
+      top: 6%;
     }
 
     .feature__satellite--ads-card {
@@ -3041,8 +2550,8 @@ const sliderCards = [
 
     .feature__satellite--coins {
       width: 22%;
-      left: 38%;
-      bottom: 3%;
+      left: 4%;
+      bottom: 4%;
     }
 
     .feature__content .section-lead {
@@ -3309,7 +2818,7 @@ const sliderCards = [
     }
     .consult__art-float--heart {
       width: 19%;
-      right: 5%;
+      left: 5%;
       bottom: 4%;
     }
 

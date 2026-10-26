@@ -103,7 +103,7 @@ const {
             opacity: 1,
             duration: 0.85,
             ease: "power3.out",
-            clearProps: "all",
+            clearProps: "transform,opacity",
             scrollTrigger: {
               trigger: headEl,
               start: "top 85%",
@@ -147,7 +147,7 @@ const {
               duration: 0.65,
               stagger: 0.1,
               ease: "power3.out",
-              clearProps: "all",
+              clearProps: "transform,opacity",
             },
           )
           .fromTo(
@@ -159,7 +159,7 @@ const {
               duration: 0.7,
               stagger: 0.1,
               ease: "back.out(1.8)",
-              clearProps: "all",
+              clearProps: "transform,opacity",
             },
             "<0.05",
           );
