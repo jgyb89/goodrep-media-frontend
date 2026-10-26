@@ -14,7 +14,7 @@ export const heroData = {
   ],
   kicker: "CASE STUDY // WEB DESIGN & LOCAL SEO",
   title: "FLORIDA SUNSHINE LAWN CARE",
-  bgImage: "/grm-graphic-samples/grm-black-map-bg.webp",
+  bgImage: "/grm-main-graphics/grm-black-map-bg.webp",
   story: {
     kicker: "THE STORY",
     text: "Florida Sunshine Lawn Care was founded on the promise of dependable, picture-perfect lawn care and prompt customer service across Florida communities. To expand into multiple service cities and replace phone tag with automated quote requests, they partnered with Good Rep Media. We designed a clean, mobile-optimized website featuring dedicated location hubs, high-converting estimate funnels, and aggressive local SEO that turned digital searches into recurring maintenance contracts.",

@@ -14,7 +14,7 @@ export const heroData = {
   ],
   kicker: "CASE STUDY // WEBSITE DESIGN & BRANDING",
   title: "CORAL BREEZE SERVICES",
-  bgImage: "/grm-graphic-samples/grm-black-map-bg.webp",
+  bgImage: "/grm-main-graphics/grm-black-map-bg.webp",
   story: {
     kicker: "THE STORY",
     text: "Coral Breeze Services, a dedicated platform for promoting Cape Coral’s local businesses, partnered with Good Rep Media to enhance their online presence. The collaboration aimed to create a user-friendly website that effectively connects residents with local businesses and deals, providing an intuitive hub for community commerce and service discovery.",

@@ -37,12 +37,12 @@ export const heroData = {
       depth: 12,
     },
     main: {
-      src: "/grm-web-assets/tablet-ads-targeting-graphic.svg",
+      src: "/grm-main-graphics/pay-per-click-marketing-graphic.svg",
       alt: "Pay-Per-Click (PPC) Marketing Campaigns and Ad Targeting",
-      width: 746,
-      height: 780,
+      width: 2642,
+      height: 2000,
       depth: -18,
-      style: "width: 64%; left: 18%; top: 12%;",
+      style: "width: 74%; left: 13%; top: 12%;",
     },
     floats: [],
   },
@@ -81,7 +81,7 @@ export const startsData = {
       height: 780,
     },
     main: {
-      src: "/grm-web-assets/stocks-going-up-graphic.svg",
+      src: "/grm-main-graphics/search-bar-graphic.svg",
       alt: "Why PPC Matters for Small Businesses - High ROI Ad Spend",
       width: 687,
       height: 663,
@@ -183,7 +183,7 @@ export const pillarsData = {
       height: 780,
     },
     main: {
-      src: "/grm-web-assets/spiral-notebook-with-target-graphic.svg",
+      src: "/grm-main-graphics/megaphone-alert-notification-graphic.svg",
       alt: "Our PPC Success Pillars - Data Driven Precision",
       width: 687,
       height: 663,
@@ -231,7 +231,7 @@ export const processData = {
       title: "Understanding Your Business & Market Intelligence",
       body: "We begin by understanding your brand, business model, goals, and audience. Whether you aim to generate leads, increase eCommerce sales, or raise brand awareness, we define what success means for you. We conduct rigorous keyword research to find high-intent search terms along with a competitive analysis of rival strategies to uncover opportunities and build a strong foundation.",
       main: {
-        src: "/grm-web-assets/document-profile-search-graphic.svg",
+        src: "/grm-main-graphics/magnify-glass-graphic.svg",
         w: 746,
         h: 780,
         style: "width: 62%; left: 19%; top: 12%;",
@@ -257,7 +257,7 @@ export const processData = {
       title: "Mapping Out a Custom Game Plan",
       body: "We create a PPC strategy customized to your goals and budget by analyzing market data. This involves granular audience targeting, geographic radii, keyword match types, negative keyword libraries, smart bidding algorithms, and ad placements across Google Ads, Bing Ads, and social platforms to reach buyers at the exact right moment.",
       main: {
-        src: "/grm-web-assets/laptop-web-design-layout-graphic.svg",
+        src: "/grm-main-graphics/laptop-web-design-layout-graphic.svg",
         w: 746,
         h: 780,
         style: "width: 62%; left: 19%; top: 12%;",
@@ -283,7 +283,7 @@ export const processData = {
       title: "Crafting Click-Worthy Campaigns",
       body: "Now it's time to bring your ads to life. Our team writes compelling ad copy designed to grab attention and drive clicks. We align messaging with searcher intent and engineer variations for rigorous A/B split testing. For display and social networks, we craft eye-catching visual creatives that highlight your value proposition and motivate action.",
       main: {
-        src: "/grm-web-assets/3d-clipboard-flow-chart-graphic.svg",
+        src: "/grm-main-graphics/laptop-checklist-screen-graphic.svg",
         w: 746,
         h: 780,
         style: "width: 62%; left: 19%; top: 12%;",
@@ -309,7 +309,7 @@ export const processData = {
       title: "Precision Execution & Continuous Lift",
       body: "We launch your campaigns across selected ad networks with verified server-side conversion tracking and baseline benchmarks. Then, our team actively monitors real-time performance, adjusting bids, pruning wasteful search terms, refining landing page elements, and running split tests to consistently increase conversions and lower your cost per acquisition.",
       main: {
-        src: "/grm-web-assets/mouse-icon-graphic.svg",
+        src: "/grm-main-graphics/mouse-cursor-graphic.svg",
         w: 746,
         h: 780,
         style: "width: 62%; left: 19%; top: 12%;",
@@ -356,7 +356,7 @@ export const approachData = {
       height: 780,
     },
     main: {
-      src: "/grm-web-assets/laptop-with-pie-chart-graphic.svg",
+      src: "/grm-main-graphics/laptop-with-pie-chart-graphic.svg",
       alt: "How PPC Works - Google Ads Auction and Relevance Mechanics",
       width: 687,
       height: 663,
@@ -474,7 +474,7 @@ export const readyData = {
       parallax: 22,
     },
     main: {
-      src: "/grm-web-assets/3d-stats-data-graphic.svg",
+      src: "/grm-main-graphics/monitor-with-rocket-launching.webp",
       alt: "Partner with Good Rep Media to maximize your ad budget",
       width: 746,
       height: 780,

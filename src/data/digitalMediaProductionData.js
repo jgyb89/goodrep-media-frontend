@@ -37,12 +37,12 @@ export const heroData = {
       depth: 12,
     },
     main: {
-      src: "/grm-web-assets/dlsr-camera-graphic.svg",
+      src: "/grm-main-graphics/digital-media-production-graphic.svg",
       alt: "Digital Media Production and Creative Brand Services",
-      width: 746,
-      height: 780,
+      width: 2642,
+      height: 2000,
       depth: -18,
-      style: "width: 66%; left: 17%; top: 12%;",
+      style: "width: 74%; left: 13%; top: 12%;",
     },
     floats: [],
   },
@@ -82,7 +82,7 @@ export const startsData = {
       height: 780,
     },
     main: {
-      src: "/grm-graphic-samples/monitor-with-image-file.webp",
+      src: "/grm-main-graphics/monitor-with-image-file.webp",
       alt: "Photos, videos, and graphics for small business",
       width: 746,
       height: 780,
@@ -196,7 +196,7 @@ export const pillarsData = {
       height: 780,
     },
     main: {
-      src: "/grm-web-assets/dlsr-camera-graphic.svg",
+      src: "/grm-main-graphics/image-placeholder-graphic.svg",
       alt: "Affordable digital media production and design",
       width: 746,
       height: 780,
@@ -242,7 +242,7 @@ export const processData = {
       title: "Discuss Your Needs",
       body: "Meet with our skilled illustrators, photographers, and designers to discuss your project’s vision and needs. We evaluate your goals and outline custom website designs, social media graphics, merchandise, brochures, business cards, logos, and commercial video concepts.",
       main: {
-        src: "/grm-web-assets/pencil-graphic.svg",
+        src: "/grm-main-graphics/laptop-checklist-screen-graphic.svg",
         w: 746,
         h: 780,
         style: "width: 64%; left: 18%; top: 10%;",
@@ -268,7 +268,7 @@ export const processData = {
       title: "Collaboration and Consultation",
       body: "Once we understand your design vision, we can provide expert guidance on executing the project to align perfectly with your business. Our strategies will leverage our knowledge of how colors and styles evoke emotions, alongside advanced competitive analysis tools.",
       main: {
-        src: "/grm-web-assets/laptop-web-design-layout-graphic.svg",
+        src: "/grm-main-graphics/laptop-web-design-layout-graphic.svg",
         w: 746,
         h: 780,
         style: "width: 62%; left: 19%; top: 12%;",
@@ -294,7 +294,7 @@ export const processData = {
       title: "Creating Your Design",
       body: "Our experts will turn your design into reality, collaborating with you for approval at each step. We’ll deliver a well-crafted design on time or earlier, capturing your vision perfectly and formatted for web, social, broadcast, and print.",
       main: {
-        src: "/grm-graphic-samples/video-player-graphic.svg",
+        src: "/grm-main-graphics/video-player-graphic.svg",
         w: 746,
         h: 780,
         style: "width: 66%; left: 17%; top: 12%;",
@@ -320,7 +320,7 @@ export const processData = {
       title: "Keep Looking Good",
       body: "As a small business, consistency in your brand’s appearance is crucial. At Good Rep Media, we aim to build a long-term partnership that helps your company stand out against competitors. We can also create formal documentation to serve as a master reference for your design projects.",
       main: {
-        src: "/grm-web-assets/star-icon-graphic.svg",
+        src: "/grm-main-graphics/customer-review-graphic.svg",
         w: 746,
         h: 780,
         style: "width: 64%; left: 18%; top: 12%;",
@@ -367,7 +367,7 @@ export const approachData = {
       height: 780,
     },
     main: {
-      src: "/grm-web-assets/lightbulb-idea-graphic.svg",
+      src: "/grm-main-graphics/lightbulb-with-gear-icon-graphic.svg",
       alt: "A long-term creative design partner",
       width: 746,
       height: 780,
@@ -486,7 +486,7 @@ export const readyData = {
       parallax: 22,
     },
     main: {
-      src: "/grm-web-assets/3d-rocket-graphic.svg",
+      src: "/grm-main-graphics/monitor-with-rocket-launching.webp",
       alt: "Partner with Good Rep Media for digital media production",
       width: 746,
       height: 780,

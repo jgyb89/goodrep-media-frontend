@@ -14,7 +14,7 @@ export const heroData = {
   ],
   kicker: "CASE STUDY // ECOMMERCE & DIRECT-TO-CONSUMER",
   title: "JOJO JAVA",
-  bgImage: "/grm-graphic-samples/grm-black-map-bg.webp",
+  bgImage: "/grm-main-graphics/grm-black-map-bg.webp",
   story: {
     kicker: "THE STORY",
     text: "Jojo Java Coffee Co. set out to disrupt the specialty coffee market by delivering bold, premium flavored blends without the luxury markup. To support high-volume nationwide sales and seasonal collection drops, they partnered with Good Rep Media. We engineered a vibrant, conversion-focused eCommerce store with frictionless mobile checkout, automated bundle builders, and subscription clubs that drove a 340% surge in online sales and scaled recurring customer lifetime value.",

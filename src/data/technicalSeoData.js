@@ -37,12 +37,12 @@ export const heroData = {
       depth: 12,
     },
     main: {
-      src: "/grm-web-assets/3d-window-with-gear-graphic.svg",
+      src: "/grm-main-graphics/technical-seo-marketing-graphic.svg",
       alt: "Technical SEO services and website performance optimization",
-      width: 746,
-      height: 780,
+      width: 2642,
+      height: 2000,
       depth: -18,
-      style: "width: 64%; left: 18%; top: 12%;",
+      style: "width: 74%; left: 13%; top: 12%;",
     },
     floats: [],
   },
@@ -81,7 +81,7 @@ export const startsData = {
       height: 780,
     },
     main: {
-      src: "/grm-web-assets/code-window-graphic.svg",
+      src: "/grm-main-graphics/laptop-checklist-screen-graphic.svg",
       alt: "What is Technical SEO and search performance optimization",
       width: 746,
       height: 780,
@@ -196,7 +196,7 @@ export const pillarsData = {
       height: 780,
     },
     main: {
-      src: "/grm-web-assets/3d-search-window-graphic.svg",
+      src: "/grm-main-graphics/browser-search-results-window-graphic.svg",
       alt: "How We Boost Technical SEO across websites and architectures",
       width: 746,
       height: 780,
@@ -243,7 +243,7 @@ export const processData = {
       title: "User Experience is King",
       body: "Search engines like Google change their algorithms constantly (and have been doing so more frequently than ever). But why? To improve their user’s experience. Great technical SEO always leads to a better user experience, and that looks great to users and search engines alike.",
       main: {
-        src: "/grm-web-assets/3d-laptop-www-website.svg",
+        src: "/grm-main-graphics/laptop-web-design-layout-graphic.svg",
         w: 746,
         h: 780,
         style: "width: 62%; left: 19%; top: 12%;",
@@ -269,7 +269,7 @@ export const processData = {
       title: "Look Great to Search Engines",
       body: "Having amazing technical SEO when Google (and other search engines) look at your site is like having all of your receipts if the IRS looks at your taxes. It shows a level of commitment and dedication to your users and content. Technical SEO is a key to showing you’re trustworthy.",
       main: {
-        src: "/grm-web-assets/document-profile-search-graphic.svg",
+        src: "/grm-main-graphics/magnify-glass-graphic.svg",
         w: 746,
         h: 780,
         style: "width: 62%; left: 19%; top: 12%;",
@@ -295,7 +295,7 @@ export const processData = {
       title: "Don’t Lose Potential Customers",
       body: "When you focus on your technical SEO, you’re going to see improvements in site speed overall. Did you know that even a single-second delay can lead to an 11% decrease in page views, a 16% dip in overall customer satisfaction– and a 20% drop in conversions?",
       main: {
-        src: "/grm-web-assets/3d-rocket-graphic.svg",
+        src: "/grm-main-graphics/search-bar-graphic.svg",
         w: 746,
         h: 780,
         style: "width: 62%; left: 19%; top: 14%;",
@@ -308,7 +308,7 @@ export const processData = {
           style: "width: 20%; left: 8%; bottom: 12%;",
         },
         {
-          src: "/grm-web-assets/laptop-checklist-screen-graphic.svg",
+          src: "/grm-web-assets/code-window-graphic.svg",
           w: 746,
           h: 780,
           style: "width: 22%; right: 8%; top: 8%;",
@@ -321,7 +321,7 @@ export const processData = {
       title: "Stay Ahead of the Competition",
       body: "It’s very likely that many websites in your industry overlook technical SEO. That means that it can be the single most effective way to gain market share. When you improve technical SEO, you’re staying ahead of your competition in terms of visibility online.",
       main: {
-        src: "/grm-web-assets/3d-stats-data-graphic.svg",
+        src: "/grm-main-graphics/laptop-with-pie-chart-graphic.svg",
         w: 746,
         h: 780,
         style: "width: 62%; left: 19%; top: 12%;",
@@ -375,7 +375,7 @@ export const scopeData = {
       height: 780,
     },
     main: {
-      src: "/grm-web-assets/3d-browser-window-graphic.svg",
+      src: "/grm-main-graphics/lightbulb-with-gear-icon-graphic.svg",
       alt: "Technical SEO ranking factors and web crawl optimization",
       width: 746,
       height: 780,
@@ -383,7 +383,7 @@ export const scopeData = {
     },
     satellites: [
       {
-        src: "/grm-web-assets/lightbulb-with-gear-icon-graphic.svg",
+        src: "/grm-web-assets/3d-browser-window-graphic.svg",
         alt: "",
         width: 687,
         height: 663,
@@ -430,7 +430,7 @@ export const readyData = {
       parallax: 22,
     },
     main: {
-      src: "/grm-graphic-samples/monitor-with-rocket-launching.webp",
+      src: "/grm-main-graphics/monitor-with-rocket-launching.webp",
       alt: "Strengthen and refine technical SEO for business rankings",
       width: 746,
       height: 780,
@@ -477,7 +477,7 @@ export const deliverablesData = {
     },
     {
       icon: "/grm-web-icons/more-stats-icon-blue.svg",
-      accent: "/grm-web-assets/magnify-glass-graphic.svg",
+      accent: "/grm-web-assets/document-profile-search-graphic.svg",
       accentW: 746,
       accentH: 780,
       metric: "Gap Analysis",
@@ -504,7 +504,7 @@ export const deliverablesData = {
     },
     {
       icon: "/grm-web-icons/seo-icon-blue.svg",
-      accent: "/grm-web-assets/search-bar-graphic.svg",
+      accent: "/grm-web-assets/3d-search-window-graphic.svg",
       accentW: 746,
       accentH: 780,
       metric: "100% Tag Validation",

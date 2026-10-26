@@ -37,12 +37,12 @@ export const heroData = {
       depth: 12,
     },
     main: {
-      src: "/grm-web-assets/3d-chain-links-graphic.svg",
+      src: "/grm-main-graphics/link-building-seo-marketing-graphic.svg",
       alt: "Link Building Services and Off-Page SEO Authority",
-      width: 746,
-      height: 780,
+      width: 2642,
+      height: 2000,
       depth: -18,
-      style: "width: 64%; left: 18%; top: 12%;",
+      style: "width: 74%; left: 13%; top: 12%;",
     },
     floats: [],
   },
@@ -81,7 +81,7 @@ export const startsData = {
       height: 780,
     },
     main: {
-      src: "/grm-web-assets/browser-search-results-window-graphic.svg",
+      src: "/grm-main-graphics/browser-search-results-window-graphic.svg",
       alt: "Why is Link Building Critical to SEO and Domain Authority",
       width: 746,
       height: 780,
@@ -194,7 +194,7 @@ export const pillarsData = {
       height: 780,
     },
     main: {
-      src: "/grm-web-assets/laptop-graphic.svg",
+      src: "/grm-main-graphics/laptop-graphic.svg",
       alt: "The Good Rep Way to High-Authority Link Building",
       width: 746,
       height: 780,
@@ -241,7 +241,7 @@ export const processData = {
       title: "Create Outstanding Content",
       body: "A backlink is a reference to your valuable content, providing a link for others to access it. The best way to earn backlinks is by creating outstanding content that naturally attracts links.",
       main: {
-        src: "/grm-web-assets/3d-doc-file-graphic.svg",
+        src: "/grm-main-graphics/link-graphic.svg",
         w: 746,
         h: 780,
         style: "width: 62%; left: 19%; top: 12%;",
@@ -267,7 +267,7 @@ export const processData = {
       title: "Strict White Hat Methods",
       body: "Some sites unknowingly use black hat link building methods by hiring the wrong companies. At Good Rep, we focus on reputable white hat link building to send strong trust signals to other sites and search engines.",
       main: {
-        src: "/grm-web-assets/3d-chat-bubbles-graphic.svg",
+        src: "/grm-main-graphics/customer-review-graphic.svg",
         w: 746,
         h: 780,
         style: "width: 62%; left: 19%; top: 12%;",
@@ -293,7 +293,7 @@ export const processData = {
       title: "High-Authority Relevance",
       body: "It's tempting to seek backlinks from any source, but it's usually not effective. Focus on acquiring backlinks from high-authority sites where your content is relevant and aligns with user intent.",
       main: {
-        src: "/grm-web-assets/3d-search-window-graphic.svg",
+        src: "/grm-main-graphics/search-bar-graphic.svg",
         w: 746,
         h: 780,
         style: "width: 62%; left: 19%; top: 12%;",
@@ -319,7 +319,7 @@ export const processData = {
       title: "Toxic Link Audits & Disavow",
       body: "You can run an audit to identify all the websites backlinking to you. The report will list potentially ‘toxic’ backlinks from untrusted sites. It’s important to get these removed to maintain clean SEO.",
       main: {
-        src: "/grm-web-assets/3d-bar-graph-going-up-graphic.svg",
+        src: "/grm-main-graphics/magnify-glass-graphic.svg",
         w: 746,
         h: 780,
         style: "width: 62%; left: 19%; top: 12%;",
@@ -370,7 +370,7 @@ export const scopeData = {
       height: 780,
     },
     main: {
-      src: "/grm-web-assets/document-profile-search-graphic.svg",
+      src: "/grm-main-graphics/laptop-checklist-screen-graphic.svg",
       alt: "Common Link Building Mistakes to Avoid",
       width: 746,
       height: 780,
@@ -414,7 +414,7 @@ export const strategiesGridData = {
   deliverables: [
     {
       icon: "/grm-web-icons/automation-and-optimization-icon-blue.svg",
-      accent: "/grm-web-assets/magnify-glass-graphic.svg",
+      accent: "/grm-web-assets/document-profile-search-graphic.svg",
       accentW: 746,
       accentH: 780,
       metric: "Audit & Cleanse",
@@ -423,7 +423,7 @@ export const strategiesGridData = {
     },
     {
       icon: "/grm-web-icons/custom-strategy-icon-blue.svg",
-      accent: "/grm-web-assets/search-bar-graphic.svg",
+      accent: "/grm-web-assets/3d-search-window-graphic.svg",
       accentW: 746,
       accentH: 780,
       metric: "Topical Anchors",
@@ -441,7 +441,7 @@ export const strategiesGridData = {
     },
     {
       icon: "/grm-web-icons/software-review-icon-blue.svg",
-      accent: "/grm-graphic-samples/users-networking-graphic.svg",
+      accent: "/grm-web-assets/3d-chat-bubbles-graphic.svg",
       accentW: 746,
       accentH: 780,
       metric: "Warm Relationships",
@@ -477,7 +477,7 @@ export const strategiesGridData = {
     },
     {
       icon: "/grm-web-icons/group-presentation-icon-blue.svg",
-      accent: "/grm-web-assets/megaphone-alert-notification-graphic.svg",
+      accent: "/grm-web-assets/3d-doc-file-graphic.svg",
       accentW: 746,
       accentH: 780,
       metric: "Digital PR News",
@@ -516,7 +516,7 @@ export const readyData = {
       parallax: 22,
     },
     main: {
-      src: "/grm-web-assets/3d-laptop-www-website.svg",
+      src: "/grm-main-graphics/users-networking-graphic.svg",
       alt: "A Backlink Strategy that Improves Your SEO Rankings",
       width: 746,
       height: 780,
@@ -555,7 +555,7 @@ export const workingGridData = {
   deliverables: [
     {
       icon: "/grm-web-icons/custom-strategy-icon-blue.svg",
-      accent: "/grm-web-assets/handshake-hands.webp",
+      accent: "/grm-web-assets/3d-chain-links-graphic.svg",
       accentW: 746,
       accentH: 780,
       metric: "Collaborative Brainstorm",

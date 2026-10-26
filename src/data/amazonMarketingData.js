@@ -37,12 +37,12 @@ export const heroData = {
       depth: 12,
     },
     main: {
-      src: "/grm-web-assets/mobile-shopping-graphic.svg",
+      src: "/grm-main-graphics/amazon-marketplace-graphic.svg",
       alt: "Amazon Marketing Services and Marketplace Advertising",
-      width: 746,
-      height: 780,
+      width: 2642,
+      height: 2000,
       depth: -18,
-      style: "width: 64%; left: 18%; top: 12%;",
+      style: "width: 74%; left: 13%; top: 12%;",
     },
     floats: [],
   },
@@ -81,15 +81,15 @@ export const startsData = {
       height: 780,
     },
     main: {
-      src: "/grm-web-assets/pc-screen-online-marketplace-graphic.svg",
+      src: "/grm-main-graphics/mobile-shopping-graphic.svg",
       alt: "Maximize Your Sales Potential with Amazon Marketing Services",
-      width: 687,
-      height: 663,
+      width: 746,
+      height: 780,
       style: "width: 62%; left: 19%; top: 12%;",
     },
     satellites: [
       {
-        src: "/grm-web-assets/shopping-cart-graphic.svg",
+        src: "/grm-web-assets/pc-screen-online-marketplace-graphic.svg",
         alt: "",
         width: 746,
         height: 780,
@@ -194,7 +194,7 @@ export const pillarsData = {
       height: 780,
     },
     main: {
-      src: "/grm-graphic-samples/mobile-marketplace-graphic.svg",
+      src: "/grm-main-graphics/shopping-cart-graphic.svg",
       alt: "How Do We Make It Happen on Amazon Marketplace",
       width: 746,
       height: 780,
@@ -241,7 +241,7 @@ export const processData = {
       title: "Sponsored Products",
       body: "Our Sponsored Products service ensures prominent visibility for your products on Amazon’s search and product detail pages, targeting high-intent buyer keywords resulting in immediate sales for your business.",
       main: {
-        src: "/grm-web-assets/3d-search-window-graphic.svg",
+        src: "/grm-main-graphics/search-bar-graphic.svg",
         w: 746,
         h: 780,
         style: "width: 62%; left: 19%; top: 12%;",
@@ -267,14 +267,14 @@ export const processData = {
       title: "Sponsored Brands",
       body: "With our Sponsored Brands service, you can build brand recognition by creating custom ads that feature your brand logo, a bespoke headline, and up to three of your products, driving traffic directly to your Amazon storefront.",
       main: {
-        src: "/grm-graphic-samples/website-graphic.svg",
+        src: "/grm-main-graphics/customer-review-graphic.svg",
         w: 746,
         h: 780,
         style: "width: 62%; left: 19%; top: 12%;",
       },
       floats: [
         {
-          src: "/grm-web-assets/customer-review-graphic.svg",
+          src: "/grm-web-assets/happy-face-speech-bubble-graphic.svg",
           w: 746,
           h: 780,
           style: "width: 24%; left: 8%; bottom: 12%;",
@@ -293,7 +293,7 @@ export const processData = {
       title: "Amazon Brand Stores",
       body: "Creating an Amazon Store presents your brand to consumers in a more immersive and personalized way. Our Store service has powerful features that enable you to communicate your brand story to a targeted audience and drive sales traffic through your entire product line.",
       main: {
-        src: "/grm-web-assets/market-shop-graphic.svg",
+        src: "/grm-main-graphics/market-shop-graphic.svg",
         w: 746,
         h: 780,
         style: "width: 62%; left: 19%; top: 12%;",
@@ -319,7 +319,7 @@ export const processData = {
       title: "Sponsored Display & DSP",
       body: "Reach relevant audiences both on and off Amazon with auto-generated product display ads, re-engaging shoppers who viewed your products or category competitors to capture sales and maximize customer lifetime value.",
       main: {
-        src: "/grm-web-assets/stocks-going-up-graphic.svg",
+        src: "/grm-main-graphics/megaphone-alert-notification-graphic.svg",
         w: 746,
         h: 780,
         style: "width: 62%; left: 19%; top: 12%;",
@@ -371,7 +371,7 @@ export const approachData = {
       height: 780,
     },
     main: {
-      src: "/grm-web-assets/laptop-with-pie-chart-graphic.svg",
+      src: "/grm-main-graphics/laptop-with-pie-chart-graphic.svg",
       alt: "Our Approach to Amazon Marketing and Growth",
       width: 746,
       height: 780,
@@ -415,7 +415,7 @@ export const deliverablesData = {
   deliverables: [
     {
       icon: "/grm-web-icons/automation-and-optimization-icon-blue.svg",
-      accent: "/grm-web-assets/search-bar-graphic.svg",
+      accent: "/grm-web-assets/3d-search-window-graphic.svg",
       accentW: 746,
       accentH: 780,
       metric: "Target High-Intent",
@@ -424,7 +424,7 @@ export const deliverablesData = {
     },
     {
       icon: "/grm-web-icons/custom-strategy-icon-blue.svg",
-      accent: "/grm-web-assets/laptop-checklist-screen-graphic.svg",
+      accent: "/grm-web-assets/3d-clipboard-flow-chart-graphic.svg",
       accentW: 746,
       accentH: 780,
       metric: "Buy Box Wins",
@@ -490,7 +490,7 @@ export const readyData = {
       parallax: 22,
     },
     main: {
-      src: "/grm-web-assets/3d-rocket-graphic.svg",
+      src: "/grm-main-graphics/monitor-with-rocket-launching.webp",
       alt: "Partner with Good Rep Media to scale your Amazon store",
       width: 746,
       height: 780,

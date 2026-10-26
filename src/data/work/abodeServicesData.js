@@ -14,7 +14,7 @@ export const heroData = {
   ],
   kicker: "CASE STUDY // HOME SERVICES & SEO",
   title: "ABODE SERVICES",
-  bgImage: "/grm-graphic-samples/grm-black-map-bg.webp",
+  bgImage: "/grm-main-graphics/grm-black-map-bg.webp",
   story: {
     kicker: "THE STORY",
     text: "Abode Services was built on delivering reliable, high-quality home services with a strong focus on customer experience. As the company grew, it became clear that their online presence needed to match the reputation they had earned. Good Rep Media partnered with Abode Services to strengthen their brand, enhance their digital visibility, and support continued growth, helping them connect with more customers while maintaining the quality and trust their clients expect.",

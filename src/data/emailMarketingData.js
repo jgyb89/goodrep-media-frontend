@@ -37,12 +37,12 @@ export const heroData = {
       depth: 12,
     },
     main: {
-      src: "/grm-web-assets/3d-email-icon-graphic.svg",
+      src: "/grm-main-graphics/email-newsletter-marketing-graphic.svg",
       alt: "Email Marketing Services Inbox and Audience Growth Map",
-      width: 746,
-      height: 780,
+      width: 2642,
+      height: 2000,
       depth: -18,
-      style: "width: 64%; left: 18%; top: 12%;",
+      style: "width: 74%; left: 13%; top: 12%;",
     },
     floats: [],
   },
@@ -80,7 +80,7 @@ export const startsData = {
       height: 780,
     },
     main: {
-      src: "/grm-web-assets/mobile-email-alerts-graphic.svg",
+      src: "/grm-main-graphics/mobile-email-alerts-graphic.svg",
       alt: "Email Marketing Envelope and Unread Notifications",
       width: 746,
       height: 780,
@@ -97,7 +97,7 @@ export const startsData = {
         style: "width: 20%; left: 6%; top: 8%;",
       },
       {
-        src: "/grm-web-assets/email-notification-graphic.svg",
+        src: "/grm-web-assets/3d-email-icon-graphic.svg",
         alt: "",
         width: 746,
         height: 780,
@@ -195,7 +195,7 @@ export const pillarsData = {
       height: 780,
     },
     main: {
-      src: "/grm-web-assets/laptop-checklist-screen-graphic.svg",
+      src: "/grm-main-graphics/laptop-checklist-screen-graphic.svg",
       alt: "Email Is Powerful If Done Correctly",
       width: 687,
       height: 663,
@@ -242,7 +242,7 @@ export const processData = {
       title: "Turn Customers Into Advocates",
       body: "Email marketing can be the backbone of your sales funnel, guiding customers from learning about your company to making a purchase. It also fosters long-term relationships, turning customers into active promoters of your business.",
       main: {
-        src: "/grm-web-assets/contact-book-graphic.svg",
+        src: "/grm-main-graphics/customer-review-graphic.svg",
         w: 746,
         h: 780,
         style: "width: 58%; left: 21%; top: 14%;",
@@ -268,7 +268,7 @@ export const processData = {
       title: "Meaningful Transactions",
       body: "Trigger automated transactional messaging and behavior-based checkout recovery sequences that convert interested shoppers into repeat, paying buyers at peak moments of intent.",
       main: {
-        src: "/grm-web-assets/shopping-cart-graphic.svg",
+        src: "/grm-main-graphics/shopping-cart-graphic.svg",
         w: 746,
         h: 780,
         style: "width: 56%; left: 22%; top: 14%;",
@@ -294,7 +294,7 @@ export const processData = {
       title: "Deeper Relationships",
       body: "Build trust and affinity over time through consistent, valuable communications, educational content, and personalized brand touchpoints tailored to individual subscriber preferences.",
       main: {
-        src: "/grm-web-assets/3d-chat-bubbles-graphic.svg",
+        src: "/grm-main-graphics/email-notification-graphic.svg",
         w: 746,
         h: 780,
         style: "width: 58%; left: 21%; top: 14%;",
@@ -320,9 +320,9 @@ export const processData = {
       title: "Powerful Promotions",
       body: "Deploy high-impact promotional blitzes, seasonal campaigns, and exclusive product drops directly into subscribers' inboxes to drive immediate revenue spikes.",
       main: {
-        src: "/grm-web-assets/upward-trend-graph-graphic.svg",
-        w: 687,
-        h: 663,
+        src: "/grm-main-graphics/megaphone-alert-notification-graphic.svg",
+        w: 746,
+        h: 780,
         style: "width: 58%; left: 21%; top: 14%;",
       },
       floats: [
@@ -333,7 +333,7 @@ export const processData = {
           style: "width: 20%; left: 6%; bottom: 12%;",
         },
         {
-          src: "/grm-web-assets/megaphone-alert-notification-graphic.svg",
+          src: "/grm-web-assets/upward-trend-graph-graphic.svg",
           w: 746,
           h: 780,
           style: "width: 20%; right: 6%; top: 8%;",
@@ -426,7 +426,7 @@ export const readyData = {
       parallax: 22,
     },
     main: {
-      src: "/grm-web-assets/3d-rocket-graphic.svg",
+      src: "/grm-main-graphics/users-networking-graphic.svg",
       alt: "Connected local business storefronts and business owners",
       width: 746,
       height: 780,
@@ -474,7 +474,7 @@ export const whyEmailData = {
     },
     {
       icon: "/grm-web-icons/customer-loyalty-icon-blue.svg",
-      accent: "/grm-web-assets/smiley-face-cluster-graphic.svg",
+      accent: "/grm-web-assets/happy-face-speech-bubble-graphic.svg",
       accentW: 152,
       accentH: 162,
       metric: "Repeat Buyers",

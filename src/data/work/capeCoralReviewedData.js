@@ -14,7 +14,7 @@ export const heroData = {
   ],
   kicker: "CASE STUDY // FULL-FUNNEL GROWTH & HEADLESS WEB APP",
   title: "CAPE CORAL REVIEWED",
-  bgImage: "/grm-graphic-samples/grm-black-map-bg.webp",
+  bgImage: "/grm-main-graphics/grm-black-map-bg.webp",
   story: {
     kicker: "THE STORY",
     text: "Cape Coral Reviewed partnered with Good Rep Media to turn local directory discovery into an active community growth engine. When the headless web app launched in June with a flawless 100/100 technical SEO score, organic performance surged—driving 57K active users, 115K page views, and 89.6K search impressions year-to-date. Combined with a Facebook group scaled to over 13.6K local members, Cape Coral Reviewed quickly became Southwest Florida's go-to digital hub.",

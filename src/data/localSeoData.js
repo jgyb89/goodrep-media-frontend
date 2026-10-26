@@ -37,12 +37,12 @@ export const heroData = {
       depth: 12,
     },
     main: {
-      src: "/grm-web-assets/3d-map-destination-route-graphic.svg",
+      src: "/grm-main-graphics/local-seo-marketing-graphic.svg",
       alt: "Local SEO Google Business Profile and Map Pack Visibility",
-      width: 746,
-      height: 780,
+      width: 2642,
+      height: 2000,
       depth: -18,
-      style: "width: 64%; left: 18%; top: 12%;",
+      style: "width: 74%; left: 13%; top: 12%;",
     },
     floats: [],
   },
@@ -78,7 +78,7 @@ export const startsData = {
       height: 780,
     },
     main: {
-      src: "/grm-graphic-samples/market-store-on-map.webp",
+      src: "/grm-main-graphics/market-store-on-map.webp",
       alt: "Local Search Visibility and Google Business Profile Discovery",
       width: 746,
       height: 780,
@@ -95,7 +95,7 @@ export const startsData = {
         style: "width: 20%; left: 6%; top: 8%;",
       },
       {
-        src: "/grm-web-assets/customer-review-graphic.svg",
+        src: "/grm-web-assets/3d-map-destination-route-graphic.svg",
         alt: "",
         width: 746,
         height: 780,
@@ -193,7 +193,7 @@ export const pillarsData = {
       height: 780,
     },
     main: {
-      src: "/grm-web-assets/3d-search-window-graphic.svg",
+      src: "/grm-main-graphics/browser-search-results-window-graphic.svg",
       alt: "How We Boost Local SEO Across Google Business Profile and 50+ Directories",
       width: 746,
       height: 780,
@@ -241,14 +241,14 @@ export const processData = {
       title: "Capture Active Buyers",
       body: "People searching for local businesses on Google are researching to buy, and usually looking to buy within the next 2-3 days. By using local SEO, you’re connecting with people when they’re making their buying decisions.",
       main: {
-        src: "/grm-web-assets/document-profile-search-graphic.svg",
+        src: "/grm-main-graphics/magnify-glass-graphic.svg",
         w: 746,
         h: 780,
         style: "width: 58%; left: 21%; top: 14%;",
       },
       floats: [
         {
-          src: "/grm-web-assets/3d-magnify-glass.svg",
+          src: "/grm-web-assets/document-profile-search-graphic.svg",
           w: 746,
           h: 780,
           style: "width: 22%; left: 6%; bottom: 12%;",
@@ -267,7 +267,7 @@ export const processData = {
       title: "Stop Being Invisible",
       body: "Customers looking for what you do will find you quickly and easily instead of your competitors. Did you know that if you’re not showing up in the top three spots on Google Maps you’re typically not even in the running in the mind of the customer?",
       main: {
-        src: "/grm-web-assets/map-corner-icon.svg",
+        src: "/grm-main-graphics/map-corner-icon.svg",
         w: 746,
         h: 780,
         style: "width: 56%; left: 22%; top: 12%;",
@@ -293,7 +293,7 @@ export const processData = {
       title: "Build Better Relationships",
       body: "Local SEO involves creating valuable, local content. This content will actually help solve customers’ common problems, positioning you as a local industry expert and leader. This is often the start of long-term customer relationships (when before people couldn’t even find you).",
       main: {
-        src: "/grm-web-assets/3d-star-graphic.svg",
+        src: "/grm-main-graphics/customer-review-graphic.svg",
         w: 746,
         h: 780,
         style: "width: 58%; left: 21%; top: 14%;",
@@ -319,7 +319,7 @@ export const processData = {
       title: "Affordable and Powerful",
       body: "When it comes to getting a return on your investment, local SEO is at the top of the list. Local SEO is a fraction of the cost of traditional SEO, and gets you tangible results from people in your area. Building a local reputation means building the future of your business.",
       main: {
-        src: "/grm-web-assets/upward-trend-graph-graphic.svg",
+        src: "/grm-main-graphics/laptop-with-pie-chart-graphic.svg",
         w: 746,
         h: 780,
         style: "width: 58%; left: 21%; top: 14%;",
@@ -386,7 +386,7 @@ export const processGridData = {
     },
     {
       icon: "/grm-web-icons/seo-icon-blue.svg",
-      accent: "/grm-web-assets/red-phone-graphic.svg",
+      accent: "/grm-web-assets/3d-globe-in-speech-bubble-graphic.svg",
       accentW: 261,
       accentH: 246,
       metric: "50+ Aggregators",
@@ -395,7 +395,7 @@ export const processGridData = {
     },
     {
       icon: "/grm-web-icons/software-review-icon-blue.svg",
-      accent: "/grm-web-assets/mobile-shopping-graphic.svg",
+      accent: "/grm-web-assets/3d-search-window-graphic.svg",
       accentW: 188,
       accentH: 342,
       metric: "Regular Checks",
@@ -452,7 +452,7 @@ export const readyData = {
       parallax: 22,
     },
     main: {
-      src: "/grm-web-assets/market-shop-graphic.svg",
+      src: "/grm-main-graphics/market-shop-graphic.svg",
       alt: "Connected local business storefronts and business owners",
       width: 746,
       height: 780,
