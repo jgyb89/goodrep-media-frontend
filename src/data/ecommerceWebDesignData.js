@@ -1,7 +1,7 @@
 // src/data/ecommerceWebDesignData.js
 
 export const metaData = {
-  title: "eCommerce Web Design & Development | Goodrep Media",
+  title: "eCommerce Web Design & Development | Good Rep Media",
   description:
     "Custom, high-converting eCommerce web design and development built to expand your market share, accelerate sales, and elevate your brand credibility.",
 };

@@ -1,7 +1,7 @@
 ---
 import DOMPurify from "isomorphic-dompurify";
 import {
-  fetchWP,
+  getAllPosts,
   getCategories,
   DEFAULT_CATEGORIES,
   decodeHtmlEntities,
@@ -15,26 +15,8 @@ let wpCategories = DEFAULT_CATEGORIES;
 
 try {
   wpCategories = await getCategories();
-  const data = await fetchWP(`
-    query GetBlogFeed {
-      posts(first: 200) {
-        nodes {
-          id
-          title
-          slug
-          excerpt
-          date
-          featuredImage {
-            node {
-              sourceUrl
-              altText
-            }
-          }
-        }
-      }
-    }
-  `);
-  posts = (data?.posts?.nodes || []).map((post: any) => ({
+  const fetchedPosts = await getAllPosts();
+  posts = (fetchedPosts || []).map((post: any) => ({
     ...post,
     excerpt: decodeHtmlEntities(
       DOMPurify.sanitize(post.excerpt || "", { ALLOWED_TAGS: [] }),
@@ -72,7 +54,7 @@ const categories = [
 ---
 
 <MainLayout
-  title="Knowledge Center & Blog | Goodrep Media - Marketing Insights"
+  title="Knowledge Center & Blog | Good Rep Media - Marketing Insights"
   description="Practical digital marketing strategies, SEO tactics, and growth tips written specifically for small and local business owners."
 >
   <!-- BLOG HERO -->
@@ -743,7 +725,7 @@ const categories = [
             duration: 0.35,
             stagger: { amount: 0.2, from: "start" },
             ease: "power2.out",
-            clearProps: "all",
+            clearProps: "transform,opacity",
           },
         );
       }
@@ -790,7 +772,7 @@ const categories = [
             duration: 0.35,
             stagger: 0.08,
             ease: "power2.out",
-            clearProps: "all",
+            clearProps: "transform,opacity",
           },
         );
       }
@@ -964,7 +946,7 @@ const categories = [
               duration: 0.7,
               stagger: { amount: 0.4 },
               ease: "power3.out",
-              clearProps: "all",
+              clearProps: "transform,opacity",
               scrollTrigger: {
                 trigger: group,
                 start: "top 85%",

@@ -1,0 +1,292 @@
+---
+import "material-symbols/outlined.css";
+import "../styles/global.css";
+import { Image } from "astro:assets";
+import LightboxModal from "../components/LightboxModal.astro";
+import BaseHead from "../components/BaseHead.astro";
+import { SITE_NAME, DEFAULT_META_DESCRIPTION, LEGAL_LINKS, COPYRIGHT_TEXT } from "../config/site.js";
+
+interface Props {
+  title?: string;
+  description?: string;
+  ctaLabel?: string;
+  ctaHref?: string;
+}
+
+const {
+  title = `${SITE_NAME} | Digital Marketing`,
+  description = DEFAULT_META_DESCRIPTION,
+  ctaLabel = "Get Free Audit",
+  ctaHref = "#get-free-audit",
+} = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <BaseHead title={title} description={description} />
+  </head>
+  <body id="top" class="landing-body">
+    <!-- Landing Header: Logo and Action Button Only (No Nav Links) -->
+    <header class="landing-header" id="landing-header">
+      <div class="landing-header__inner">
+        <a href="/" class="brand brand--landing" aria-label="Good Rep Media home">
+          <span class="brand__mark">
+            <Image
+              src="/grm-logos/GRM-icon-logo-white.webp"
+              alt=""
+              width={150}
+              height={150}
+              loading="eager"
+              decoding="async"
+            />
+          </span>
+          <span class="brand__text">
+            <span class="brand__name">GOOD REP</span>
+            <span class="brand__sub">MEDIA</span>
+          </span>
+        </a>
+
+        <a href={ctaHref} class="btn btn--primary landing-header__cta">
+          {ctaLabel}
+        </a>
+      </div>
+    </header>
+
+    <!-- Main Landing Page Content -->
+    <main id="main-content">
+      <slot />
+    </main>
+
+    <!-- Landing Footer: Copyright & Legal Terms (No Social Media Icons) -->
+    <footer class="landing-footer">
+      <div class="landing-footer__inner">
+        <div class="landing-footer__copy">
+          <p>{COPYRIGHT_TEXT}</p>
+        </div>
+        <nav class="landing-footer__legal" aria-label="Legal Links">
+          {LEGAL_LINKS.map((link, idx) => (
+            <>
+              {idx > 0 && <span class="landing-footer__sep" aria-hidden="true">&bull;</span>}
+              <a href={link.href} target="_blank" rel="noopener">{link.label}</a>
+            </>
+          ))}
+        </nav>
+      </div>
+    </footer>
+
+    <!-- Back to top button -->
+    <a href="#top" class="back-to-top" aria-label="Back to top">
+      <span class="material-symbols-outlined" aria-hidden="true">arrow_upward</span>
+    </a>
+
+    <LightboxModal />
+
+    <script>
+      // Smooth scroll for internal links
+      document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+        anchor.addEventListener('click', (e) => {
+          const href = anchor.getAttribute('href');
+          if (href && href !== '#' && href.startsWith('#')) {
+            const target = document.querySelector(href);
+            if (target) {
+              e.preventDefault();
+              target.scrollIntoView({ behavior: 'smooth' });
+            }
+          }
+        });
+      });
+    </script>
+  </body>
+</html>
+
+<style>
+  .landing-body {
+    margin: 0;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background-color: var(--color-bg);
+    color: var(--color-dark);
+    font-family: var(--font-body);
+  }
+
+  main {
+    flex: 1;
+  }
+
+  /* ---------- Header ---------- */
+  .landing-header {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background: rgba(13, 17, 23, 0.94);
+    backdrop-filter: saturate(1.4) blur(12px);
+    -webkit-backdrop-filter: saturate(1.4) blur(12px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  }
+
+  .landing-header__inner {
+    max-width: var(--container);
+    height: var(--header-h);
+    margin: 0 auto;
+    padding: 0 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.5rem;
+    box-sizing: border-box;
+  }
+
+  .brand--landing {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    text-decoration: none;
+    color: #ffffff;
+  }
+
+  .brand__mark {
+    display: grid;
+    place-items: center;
+    width: 42px;
+    height: 42px;
+    border-radius: 10px;
+    background: #161b22;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  .brand__mark img {
+    width: 40px;
+    height: 30px;
+  }
+
+  .brand__text {
+    display: flex;
+    flex-direction: column;
+    line-height: 1;
+    font-family: var(--font-heading);
+  }
+
+  .brand__name {
+    font-weight: 700;
+    font-size: 1.2rem;
+    letter-spacing: 0.02em;
+    color: #ffffff;
+  }
+
+  .brand__sub {
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.35em;
+    color: var(--color-cyan);
+    margin-top: 3px;
+  }
+
+  .landing-header__cta {
+    font-family: var(--font-heading);
+    font-weight: 600;
+    font-size: 0.95rem;
+    padding: 0.65rem 1.4rem;
+    border-radius: 9999px;
+    background: var(--color-cyan);
+    color: #0b0f17;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+    box-shadow: 0 4px 14px rgba(8, 193, 212, 0.35);
+  }
+
+  .landing-header__cta:hover {
+    background: #1cd4e8;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(8, 193, 212, 0.45);
+  }
+
+  /* ---------- Footer ---------- */
+  .landing-footer {
+    background: #080a0e;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    padding: 2.25rem 0;
+    color: #8b949e;
+    font-size: 0.9rem;
+  }
+
+  .landing-footer__inner {
+    max-width: var(--container);
+    margin: 0 auto;
+    padding: 0 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.25rem;
+    text-align: center;
+    box-sizing: border-box;
+  }
+
+  @media (min-width: 768px) {
+    .landing-footer__inner {
+      flex-direction: row;
+      text-align: left;
+    }
+  }
+
+  .landing-footer__copy p {
+    margin: 0;
+    color: #8b949e;
+    font-size: 0.9rem;
+  }
+
+  .landing-footer__legal {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.85rem;
+    flex-wrap: wrap;
+  }
+
+  .landing-footer__legal a {
+    color: #a0aec0;
+    text-decoration: none;
+    font-size: 0.9rem;
+    transition: color 0.2s ease;
+  }
+
+  .landing-footer__legal a:hover {
+    color: var(--color-cyan);
+    text-decoration: underline;
+  }
+
+  .landing-footer__sep {
+    color: #4a5568;
+    user-select: none;
+  }
+
+  /* ---------- Back to top ---------- */
+  .back-to-top {
+    position: fixed;
+    right: 1.5rem;
+    bottom: 1.5rem;
+    z-index: 40;
+    width: 46px;
+    height: 46px;
+    display: grid;
+    place-items: center;
+    border-radius: 50%;
+    background: #161b22;
+    color: var(--color-cyan);
+    border: 1.5px solid var(--color-cyan);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+    text-decoration: none;
+    transition: transform 0.2s ease, background-color 0.2s ease, color 0.2s ease;
+  }
+
+  .back-to-top:hover {
+    background: var(--color-cyan);
+    color: #0d1117;
+    transform: translateY(-3px);
+  }
+</style>

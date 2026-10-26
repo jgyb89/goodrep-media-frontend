@@ -1,7 +1,7 @@
 // src/data/localSeoData.js
 
 export const metaData = {
-  title: "Local SEO Services | Goodrep Media",
+  title: "Local SEO Services | Good Rep Media",
   description:
     "Specialized Local SEO services optimizing your Google Business Profile, 50+ local directories, and website presence to attract nearby customers and boost leads and sales.",
 };

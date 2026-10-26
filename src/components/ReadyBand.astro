@@ -131,7 +131,7 @@ const paragraphs = text.includes("\n\n") ? text.split("\n\n") : [text];
             opacity: 1,
             duration: 0.85,
             ease: "power3.out",
-            clearProps: "all",
+            clearProps: "transform,opacity",
             scrollTrigger: {
               trigger: el,
               start: "top 85%",

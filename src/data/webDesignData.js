@@ -1,7 +1,7 @@
 // src/data/webDesignData.js
 
 export const metaData = {
-  title: "Website Design & Development | Goodrep Media",
+  title: "Website Design & Development | Good Rep Media",
   description:
     "Custom, mobile-first website design and development built to convert visitors into customers, boost search rankings, and elevate your brand credibility.",
 };

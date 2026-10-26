@@ -1,0 +1,25 @@
+---
+import MainLayout from "../../layouts/MainLayout.astro";
+import CaseStudyHero from "../../components/CaseStudyHero.astro";
+import CaseStudyStats from "../../components/CaseStudyStats.astro";
+import CaseStudyNarrative from "../../components/CaseStudyNarrative.astro";
+import ConsultSection from "../../components/ConsultSection.astro";
+import { CASE_STUDIES } from "../../data/work/caseStudiesRegistry.js";
+
+export function getStaticPaths() {
+  return Object.entries(CASE_STUDIES).map(([slug, data]) => ({
+    params: { slug },
+    props: { data },
+  }));
+}
+
+const { data } = Astro.props;
+const { metaData, heroData, statsData, narrativeData, consultData } = data;
+---
+
+<MainLayout title={metaData.title} description={metaData.description}>
+  <CaseStudyHero {...heroData} />
+  <CaseStudyStats {...statsData} />
+  <CaseStudyNarrative {...narrativeData} />
+  <ConsultSection {...consultData} />
+</MainLayout>

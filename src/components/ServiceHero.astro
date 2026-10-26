@@ -211,6 +211,7 @@ const {
 <script>
   import { gsap } from "gsap";
   import { ScrollTrigger } from "gsap/ScrollTrigger";
+  import { attachPointerParallax } from "../scripts/motion.js";
 
   gsap.registerPlugin(ScrollTrigger);
 
@@ -293,7 +294,7 @@ const {
           stagger: 0.12,
           ease: "power3.out",
           delay: 0.15,
-          clearProps: "all",
+          clearProps: "transform,opacity",
         },
       );
 
@@ -353,32 +354,7 @@ const {
         root,
       );
       if (heroDepthLayers.length) {
-        root.addEventListener("pointermove", (e) => {
-          const rect = root.getBoundingClientRect();
-          const nx = (e.clientX - rect.left) / rect.width - 0.5;
-          const ny = (e.clientY - rect.top) / rect.height - 0.5;
-          heroDepthLayers.forEach((layer) => {
-            const depth = Number(layer.dataset.heroDepth || 20);
-            gsap.to(layer, {
-              x: nx * depth,
-              y: ny * depth,
-              duration: 0.6,
-              ease: "power2.out",
-              overwrite: "auto",
-            });
-          });
-        });
-        root.addEventListener("pointerleave", () => {
-          heroDepthLayers.forEach((layer) => {
-            gsap.to(layer, {
-              x: 0,
-              y: 0,
-              duration: 0.8,
-              ease: "power3.out",
-              overwrite: "auto",
-            });
-          });
-        });
+        attachPointerParallax(root);
       }
 
       // Continuous float animation
@@ -409,7 +385,7 @@ const {
             stagger: 0.1,
             ease: "power2.out",
             delay: 0.65,
-            clearProps: "all",
+            clearProps: "transform,opacity",
           },
         );
       }

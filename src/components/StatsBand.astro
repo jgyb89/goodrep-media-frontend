@@ -6,21 +6,21 @@ interface StatItem {
   value: number;
   decimals?: number;
   suffix?: string;
-  barPercent: number;
+  barPercent?: number;
   label: string;
 }
 
 interface Props {
   eyebrow?: string;
   title: string;
-  sub: string;
+  sub?: string;
   stats: StatItem[];
 }
 
 const {
   eyebrow = "THE STATS",
   title,
-  sub,
+  sub = "",
   stats = [],
 } = Astro.props;
 ---
@@ -32,7 +32,7 @@ const {
       <h2 id="stats-heading" class="section-title stats-band__title">
         {title}
       </h2>
-      <p class="stats-band__sub">{sub}</p>
+      {sub && <p class="stats-band__sub">{sub}</p>}
     </header>
 
     <div class="stats-band__grid">
@@ -89,7 +89,7 @@ const {
             opacity: 1,
             duration: 0.85,
             ease: "power3.out",
-            clearProps: "all",
+            clearProps: "transform,opacity",
             scrollTrigger: {
               trigger: headEl,
               start: "top 85%",
@@ -111,7 +111,7 @@ const {
             duration: 0.7,
             stagger: 0.12,
             ease: "power3.out",
-            clearProps: "all",
+            clearProps: "transform,opacity",
             scrollTrigger: {
               trigger: grid,
               start: "top 85%",
