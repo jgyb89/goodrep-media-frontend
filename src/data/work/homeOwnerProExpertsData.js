@@ -14,7 +14,7 @@ export const heroData = {
   ],
   kicker: "CASE STUDY // FINANCIAL SERVICES & LEAD GEN",
   title: "HOME OWNER PRO EXPERTS",
-  bgImage: "/grm-web-assets/grm-black-map-bg.webp",
+  bgImage: "/grm-graphic-samples/grm-black-map-bg.webp",
   story: {
     kicker: "THE STORY",
     text: "Homeowner Pro Experts helps homeowners with mortgage solutions, refinancing, foreclosure prevention, and home repair support. They partnered with Good Rep Media to refresh their brand and create a professional, user-friendly website. The goal was to clearly communicate services, reach more homeowners, and establish trust. With a modern website and strategic digital marketing, Homeowner Pro Experts can now connect more effectively with clients and guide them through important homeownership decisions.",

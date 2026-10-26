@@ -14,7 +14,7 @@ export const heroData = {
   ],
   kicker: "CASE STUDY // HOMEOWNER ADVOCACY & WEB DESIGN",
   title: "HOME OWNER HELP OPTIONS",
-  bgImage: "/grm-web-assets/grm-black-map-bg.webp",
+  bgImage: "/grm-graphic-samples/grm-black-map-bg.webp",
   story: {
     kicker: "THE STORY",
     text: "For homeowners looking for advice on mortgage aid, refinancing, avoiding foreclosure, and home repair solutions, Home Owner Help Options is a reliable source. Through Good Rep Media’s collaboration, their brand can create a clear, user-friendly online presence. With professional branding, web design, and a clear digital strategy, Home Owner Help Options now provides an easy-to-use platform that helps homeowners protect and maintain their homes.",

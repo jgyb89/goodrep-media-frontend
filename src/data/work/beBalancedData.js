@@ -14,7 +14,7 @@ export const heroData = {
   ],
   kicker: "CASE STUDY // BRANDING & WEB REFRESH",
   title: "BE BALANCED BODYWORK",
-  bgImage: "/grm-web-assets/grm-black-map-bg.webp",
+  bgImage: "/grm-graphic-samples/grm-black-map-bg.webp",
   story: {
     kicker: "THE STORY",
     text: "Be Balanced Bodywork needed a website that reflected the quality of their massage and bodywork services and clearly communicated their value. While they help clients relax, restore balance, and improve well-being, their branding and online presence didn’t match that experience. Good Rep Media refined their identity, clarified their messaging, and built a modern, high-performing website that attracts and converts the right audience, helping them better connect with people seeking massage therapy and holistic wellness services.",
@@ -30,10 +30,10 @@ export const heroData = {
     ],
   },
   mockup: {
-    src: "/grm-graphic-samples/be-balanced-website.webp",
-    alt: "Be Balanced Bodywork website displayed across laptop and mobile devices",
-    width: 2800,
-    height: 1420,
+    src: "/grm-graphic-samples/be-balanced-bodyworks-portfolio.png",
+    alt: "Be Balanced Bodywork portfolio website showcase",
+    width: 960,
+    height: 487,
   },
   cta: {
     label: "Visit Site",

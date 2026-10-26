@@ -14,7 +14,7 @@ export const heroData = {
   ],
   kicker: "CASE STUDY // LOCAL SEO & REPUTATION",
   title: "GLOWING RESULTS SKIN SPA",
-  bgImage: "/grm-web-assets/grm-black-map-bg.webp",
+  bgImage: "/grm-graphic-samples/grm-black-map-bg.webp",
   story: {
     kicker: "THE STORY",
     text: "Glowing Results Skin Spa was founded by the seasoned aesthetician Jen and was poised for growth, but faced challenges in attracting new customers and building a strong online presence. Enter Good Rep Media, which expertly stepped in to deliver a comprehensive range of marketing services. They crafted a stunning, professional website and executed strategic branding and digital marketing initiatives that propelled GRSS into a new phase of success.",

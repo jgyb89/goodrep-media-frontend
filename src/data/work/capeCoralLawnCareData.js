@@ -14,7 +14,7 @@ export const heroData = {
   ],
   kicker: "CASE STUDY // WEB DESIGN & LOCAL SEO",
   title: "CAPE CORAL LAWN CARE",
-  bgImage: "/grm-web-assets/grm-black-map-bg.webp",
+  bgImage: "/grm-graphic-samples/grm-black-map-bg.webp",
   story: {
     kicker: "THE STORY",
     text: "Cape Coral Lawn Care approached Good Rep Media with an outdated website that was difficult to edit and manage. With their previous web developer no longer available, they faced challenges in making updates and optimizing their online presence. They needed a fresh start with a fully functional website, enhanced branding, and digital marketing strategies to generate more leads and grow their business.",

@@ -37,12 +37,12 @@ export const heroData = {
       depth: 12,
     },
     main: {
-      src: "/grm-web-assets/email-newsletter-marketing-image.webp",
+      src: "/grm-web-assets/3d-email-icon-graphic.svg",
       alt: "Email Marketing Services Inbox and Audience Growth Map",
-      width: 2642,
-      height: 2000,
+      width: 746,
+      height: 780,
       depth: -18,
-      style: "width: 90%; left: 5%; top: 12%;",
+      style: "width: 64%; left: 18%; top: 12%;",
     },
     floats: [],
   },
@@ -195,7 +195,7 @@ export const pillarsData = {
       height: 780,
     },
     main: {
-      src: "/grm-web-assets/3d-email-icon-graphic.svg",
+      src: "/grm-web-assets/laptop-checklist-screen-graphic.svg",
       alt: "Email Is Powerful If Done Correctly",
       width: 687,
       height: 663,
@@ -203,7 +203,7 @@ export const pillarsData = {
     },
     satellites: [
       {
-        src: "/grm-web-assets/paper-plane-graphic.svg",
+        src: "/grm-web-assets/at-character-symbol-graphic.svg",
         alt: "",
         width: 746,
         height: 780,
@@ -242,14 +242,14 @@ export const processData = {
       title: "Turn Customers Into Advocates",
       body: "Email marketing can be the backbone of your sales funnel, guiding customers from learning about your company to making a purchase. It also fosters long-term relationships, turning customers into active promoters of your business.",
       main: {
-        src: "/grm-web-assets/3d-email-icon-graphic.svg",
+        src: "/grm-web-assets/contact-book-graphic.svg",
         w: 746,
         h: 780,
         style: "width: 58%; left: 21%; top: 14%;",
       },
       floats: [
         {
-          src: "/grm-web-assets/paper-plane-graphic.svg",
+          src: "/grm-web-assets/two-users-icon-graphic.svg",
           w: 746,
           h: 780,
           style: "width: 22%; left: 6%; bottom: 12%;",
@@ -275,7 +275,7 @@ export const processData = {
       },
       floats: [
         {
-          src: "/grm-web-assets/email-notification-graphic.svg",
+          src: "/grm-web-assets/star-app-icon-graphic.svg",
           w: 687,
           h: 663,
           style: "width: 20%; left: 6%; bottom: 12%;",
@@ -307,7 +307,7 @@ export const processData = {
           style: "width: 18%; left: 6%; bottom: 12%;",
         },
         {
-          src: "/grm-web-assets/3-arrows-up-graphic.svg",
+          src: "/grm-web-assets/date-and-time-icon-graphic.svg",
           w: 746,
           h: 780,
           style: "width: 20%; right: 6%; top: 6%;",
@@ -351,7 +351,7 @@ export const strategiesData = {
   deliverables: [
     {
       icon: "/grm-web-icons/custom-strategy-icon-blue.svg",
-      accent: "/grm-web-assets/3-arrows-up-graphic.svg",
+      accent: "/grm-web-assets/3d-pie-chart-graph.svg",
       accentW: 291,
       accentH: 419,
       metric: "Tailored Roadmap",
@@ -369,7 +369,7 @@ export const strategiesData = {
     },
     {
       icon: "/grm-web-icons/full-campaign-management-icon-blue.svg",
-      accent: "/grm-web-assets/arrow-in-target-graphic.svg",
+      accent: "/grm-web-assets/3d-bar-graph-going-up-graphic.svg",
       accentW: 261,
       accentH: 246,
       metric: "Turnkey Execution",
@@ -378,7 +378,7 @@ export const strategiesData = {
     },
     {
       icon: "/grm-web-icons/automation-and-optimization-icon-blue.svg",
-      accent: "/grm-web-assets/mobile-email-alerts-graphic.svg",
+      accent: "/grm-web-assets/refresh-symbol-icon-graphic.svg",
       accentW: 188,
       accentH: 342,
       metric: "24/7 Drip Flows",
@@ -387,7 +387,7 @@ export const strategiesData = {
     },
     {
       icon: "/grm-web-icons/custom-template-icon-blue.svg",
-      accent: "/grm-web-assets/999-hearts-likes-graphic.svg",
+      accent: "/grm-web-assets/data-flow-arrows-graphic.svg",
       accentW: 197,
       accentH: 98,
       metric: "100% ESP Compatible",
@@ -396,7 +396,7 @@ export const strategiesData = {
     },
     {
       icon: "/grm-web-icons/enewsletter-icon-blue.svg",
-      accent: "/grm-web-assets/angled-heart-icon.svg",
+      accent: "/grm-web-assets/timer-watch-graphic.svg",
       accentW: 152,
       accentH: 162,
       metric: "Brand Authority",
@@ -426,7 +426,7 @@ export const readyData = {
       parallax: 22,
     },
     main: {
-      src: "/grm-web-assets/3d-email-icon-graphic.svg",
+      src: "/grm-web-assets/3d-rocket-graphic.svg",
       alt: "Connected local business storefronts and business owners",
       width: 746,
       height: 780,
@@ -435,7 +435,7 @@ export const readyData = {
     },
     badges: [
       {
-        src: "/grm-web-assets/paper-plane-graphic.svg",
+        src: "/grm-web-assets/magnet-graphic.svg",
         alt: "",
         width: 746,
         height: 780,
@@ -444,7 +444,7 @@ export const readyData = {
         style: "width: 20%; left: 6%; bottom: 8%;",
       },
       {
-        src: "/grm-web-assets/upward-trend-graph-graphic.svg",
+        src: "/grm-web-assets/number-one-award-graphic.svg",
         alt: "",
         width: 746,
         height: 780,
@@ -465,7 +465,7 @@ export const whyEmailData = {
   deliverables: [
     {
       icon: "/grm-web-icons/more-money-icon-blue.svg",
-      accent: "/grm-web-assets/3-arrows-up-graphic.svg",
+      accent: "/grm-web-assets/award-badge-graphic-02.svg",
       accentW: 291,
       accentH: 419,
       metric: "83% Spend More",
@@ -474,7 +474,7 @@ export const whyEmailData = {
     },
     {
       icon: "/grm-web-icons/customer-loyalty-icon-blue.svg",
-      accent: "/grm-web-assets/angled-heart-icon.svg",
+      accent: "/grm-web-assets/smiley-face-cluster-graphic.svg",
       accentW: 152,
       accentH: 162,
       metric: "Repeat Buyers",
@@ -483,7 +483,7 @@ export const whyEmailData = {
     },
     {
       icon: "/grm-web-icons/marketing-icon-blue.svg",
-      accent: "/grm-web-assets/999-hearts-likes-graphic.svg",
+      accent: "/grm-web-assets/star-icon-graphic.svg",
       accentW: 197,
       accentH: 98,
       metric: "92% Inbox Reach",
@@ -492,7 +492,7 @@ export const whyEmailData = {
     },
     {
       icon: "/grm-web-icons/target-customers-icon-blue.svg",
-      accent: "/grm-web-assets/arrow-in-target-graphic.svg",
+      accent: "/grm-web-assets/compass-icon-graphic-02.svg",
       accentW: 261,
       accentH: 246,
       metric: "1-to-1 Precision",
@@ -501,7 +501,7 @@ export const whyEmailData = {
     },
     {
       icon: "/grm-web-icons/strong-roi-icon-blue.svg",
-      accent: "/grm-web-assets/mobile-email-alerts-graphic.svg",
+      accent: "/grm-web-assets/3d-line-graph-icon.svg",
       accentW: 188,
       accentH: 342,
       metric: "$44+ Per $1 Spent",
@@ -510,7 +510,7 @@ export const whyEmailData = {
     },
     {
       icon: "/grm-web-icons/spreading-word-icon-blue.svg",
-      accent: "/grm-web-assets/gears-graphic.svg",
+      accent: "/grm-web-assets/lightbulb-idea-graphic.svg",
       accentW: 181,
       accentH: 180,
       metric: "Instant Broadcast",
@@ -543,7 +543,7 @@ export const consultData = {
         style: "width: 22%; right: 6%; top: 6%;",
       },
       {
-        src: "/grm-web-assets/angled-heart-icon.svg",
+        src: "/grm-web-assets/thumbs-up-like-icon-graphic.svg",
         alt: "",
         width: 152,
         height: 162,

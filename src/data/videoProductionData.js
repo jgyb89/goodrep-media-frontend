@@ -37,7 +37,7 @@ export const heroData = {
       depth: 12,
     },
     main: {
-      src: "/grm-web-assets/video-player-graphic.svg",
+      src: "/grm-graphic-samples/video-player-graphic.svg",
       alt: "Video Production Services and Commercial Cinematography",
       width: 746,
       height: 780,
@@ -81,7 +81,7 @@ export const startsData = {
       height: 780,
     },
     main: {
-      src: "/grm-web-assets/video-player-graphic.svg",
+      src: "/grm-web-assets/dlsr-camera-graphic.svg",
       alt: "Great Videos Don't Happen By Accident - Professional Video Production",
       width: 746,
       height: 780,
@@ -241,7 +241,7 @@ export const processData = {
       title: "Detailed Planning",
       body: "The key to an amazing video is meticulous planning. We meet with you to discuss project goals and vision, allowing us to map out the best creative approach while considering locations, call sheets, timeframes, and budgets.",
       main: {
-        src: "/grm-web-assets/video-player-graphic.svg",
+        src: "/grm-web-assets/spiral-notebook-with-target-graphic.svg",
         w: 746,
         h: 780,
         style: "width: 62%; left: 19%; top: 12%;",
@@ -267,20 +267,20 @@ export const processData = {
       title: "Expert Production",
       body: "Once we have the perfect plan, we start filming. Whether shooting on location or building animated assets in studio, our directors, cinematographers, and crew expertly guide you through the shoot with professional lighting and cinema cameras.",
       main: {
-        src: "/grm-web-assets/photo-img-graphic.svg",
+        src: "/grm-graphic-samples/monitor-with-image-file.webp",
         w: 746,
         h: 780,
         style: "width: 62%; left: 19%; top: 12%;",
       },
       floats: [
         {
-          src: "/grm-web-assets/happy-face-speech-bubble-graphic.svg",
+          src: "/grm-web-assets/megaphone-alert-notification-graphic.svg",
           w: 746,
           h: 780,
           style: "width: 22%; left: 6%; bottom: 12%;",
         },
         {
-          src: "/grm-web-assets/3-arrows-up-graphic.svg",
+          src: "/grm-web-assets/artist-brush-and-paint-graphic.svg",
           w: 746,
           h: 780,
           style: "width: 20%; right: 6%; top: 8%;",
@@ -293,20 +293,20 @@ export const processData = {
       title: "Editing & Post-Production",
       body: "After filming, your project enters post-production, where our editors assemble the footage to create a compelling story. Our media specialists enhance the video with cinematic color grading, sound design, and custom motion graphics.",
       main: {
-        src: "/grm-web-assets/3d-art-computer-program-graphic.svg",
+        src: "/grm-web-assets/3d-color-picker-graphic.svg",
         w: 746,
         h: 780,
         style: "width: 62%; left: 19%; top: 12%;",
       },
       floats: [
         {
-          src: "/grm-web-assets/star-app-icon-graphic.svg",
+          src: "/grm-web-assets/thumbs-up-like-icon-graphic.svg",
           w: 746,
           h: 780,
           style: "width: 22%; left: 6%; bottom: 12%;",
         },
         {
-          src: "/grm-web-assets/3-arrows-up-graphic.svg",
+          src: "/grm-web-assets/timer-watch-graphic.svg",
           w: 746,
           h: 780,
           style: "width: 20%; right: 6%; top: 8%;",
@@ -319,20 +319,20 @@ export const processData = {
       title: "Revisions & Final Approval",
       body: "We deliver your cut for review with seamless feedback rounds. Your project is complete only when you are 100% satisfied. We provide master 4K exports along with tailored aspect ratios (16:9, 9:16, 1:1) optimized for web and social.",
       main: {
-        src: "/grm-web-assets/online-support-graphic.svg",
+        src: "/grm-web-assets/cloud-upload-download-graphic.svg",
         w: 746,
         h: 780,
         style: "width: 62%; left: 19%; top: 12%;",
       },
       floats: [
         {
-          src: "/grm-web-assets/angled-heart-icon.svg",
+          src: "/grm-web-assets/award-badge-graphic-02.svg",
           w: 746,
           h: 780,
           style: "width: 22%; left: 6%; bottom: 12%;",
         },
         {
-          src: "/grm-web-assets/3-arrows-up-graphic.svg",
+          src: "/grm-web-assets/star-icon-graphic.svg",
           w: 746,
           h: 780,
           style: "width: 20%; right: 6%; top: 8%;",
@@ -366,7 +366,7 @@ export const approachData = {
       height: 780,
     },
     main: {
-      src: "/grm-web-assets/video-player-graphic.svg",
+      src: "/grm-web-assets/phone-with-mobile-apps-icons-graphic.svg",
       alt: "Multi-Format Video Exports for YouTube, Meta and TikTok",
       width: 746,
       height: 780,
@@ -374,7 +374,7 @@ export const approachData = {
     },
     satellites: [
       {
-        src: "/grm-web-assets/user-speech-bubble-graphic.svg",
+        src: "/grm-web-assets/999-hearts-likes-graphic.svg",
         alt: "",
         width: 746,
         height: 780,
@@ -383,7 +383,7 @@ export const approachData = {
         style: "width: 24%; left: 6%; top: 8%;",
       },
       {
-        src: "/grm-web-assets/star-app-icon-graphic.svg",
+        src: "/grm-web-assets/award-trophy-graphic.svg",
         alt: "",
         width: 746,
         height: 780,
@@ -409,7 +409,7 @@ export const deliverablesData = {
   deliverables: [
     {
       icon: "/grm-web-icons/drone-icon-blue.svg",
-      accent: "/grm-web-assets/3-arrows-up-graphic.svg",
+      accent: "/grm-web-assets/share-icon-graphic.svg",
       accentW: 746,
       accentH: 780,
       metric: "Licensed Pilots",
@@ -436,7 +436,7 @@ export const deliverablesData = {
     },
     {
       icon: "/grm-web-icons/group-presentation-icon-blue.svg",
-      accent: "/grm-web-assets/user-speech-bubble-graphic.svg",
+      accent: "/grm-web-assets/lightbulb-idea-graphic.svg",
       accentW: 746,
       accentH: 780,
       metric: "Highlight Reels",
@@ -445,7 +445,7 @@ export const deliverablesData = {
     },
     {
       icon: "/grm-web-icons/award-icon-blue.svg",
-      accent: "/grm-web-assets/star-app-icon-graphic.svg",
+      accent: "/grm-web-assets/3d-bar-graph-going-up-graphic.svg",
       accentW: 746,
       accentH: 780,
       metric: "Brand Legacy",
@@ -454,7 +454,7 @@ export const deliverablesData = {
     },
     {
       icon: "/grm-web-icons/digital-media-icon-blue.svg",
-      accent: "/grm-web-assets/3-arrows-up-graphic.svg",
+      accent: "/grm-web-assets/3d-line-graph-icon.svg",
       accentW: 746,
       accentH: 780,
       metric: "Custom Scope",
@@ -485,7 +485,7 @@ export const readyData = {
       parallax: 22,
     },
     main: {
-      src: "/grm-web-assets/video-player-graphic.svg",
+      src: "/grm-web-assets/3d-rocket-graphic.svg",
       alt: "Partner with Good Rep Media for professional video production",
       width: 746,
       height: 780,
@@ -494,7 +494,7 @@ export const readyData = {
     },
     badges: [
       {
-        src: "/grm-web-assets/shopping-cart-graphic.svg",
+        src: "/grm-web-assets/coin-stack-graphic.svg",
         alt: "",
         width: 746,
         height: 780,
@@ -503,7 +503,7 @@ export const readyData = {
         style: "width: 24%; left: 6%; bottom: 12%;",
       },
       {
-        src: "/grm-web-assets/3-arrows-up-graphic.svg",
+        src: "/grm-web-assets/upward-trend-graph-graphic.svg",
         alt: "",
         width: 746,
         height: 780,

@@ -141,9 +141,14 @@
       ) {
         return false;
       }
-      // Exclude decorative background blobs, textures, and tiny SVG decorations
+      // Exclude decorative background blobs, textures, hero graphics, and tiny SVG decorations
       if (
         img.classList.contains('work-hero__blob') ||
+        img.classList.contains('work-hero__main') ||
+        img.classList.contains('work-hero__float') ||
+        img.closest('.work-hero__graphic') ||
+        img.closest('.work-hero') ||
+        img.closest('.service-block__frame') ||
         img.classList.contains('hero-stage__blob') ||
         img.classList.contains('process__blob') ||
         img.classList.contains('consult__art-float') ||

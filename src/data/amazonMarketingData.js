@@ -37,12 +37,12 @@ export const heroData = {
       depth: 12,
     },
     main: {
-      src: "/grm-web-assets/online-shopping-amazon-marketing-graphic.webp",
+      src: "/grm-web-assets/mobile-shopping-graphic.svg",
       alt: "Amazon Marketing Services and Marketplace Advertising",
-      width: 2642,
-      height: 2000,
+      width: 746,
+      height: 780,
       depth: -18,
-      style: "width: 90%; left: 5%; top: 12%;",
+      style: "width: 64%; left: 18%; top: 12%;",
     },
     floats: [],
   },
@@ -194,7 +194,7 @@ export const pillarsData = {
       height: 780,
     },
     main: {
-      src: "/grm-web-assets/pc-screen-online-marketplace-graphic.svg",
+      src: "/grm-graphic-samples/mobile-marketplace-graphic.svg",
       alt: "How Do We Make It Happen on Amazon Marketplace",
       width: 746,
       height: 780,
@@ -202,7 +202,7 @@ export const pillarsData = {
     },
     satellites: [
       {
-        src: "/grm-web-assets/mobile-marketplace-graphic.svg",
+        src: "/grm-web-assets/3d-star-graphic.svg",
         alt: "",
         width: 746,
         height: 780,
@@ -241,14 +241,14 @@ export const processData = {
       title: "Sponsored Products",
       body: "Our Sponsored Products service ensures prominent visibility for your products on Amazon’s search and product detail pages, targeting high-intent buyer keywords resulting in immediate sales for your business.",
       main: {
-        src: "/grm-web-assets/mobile-marketplace-graphic.svg",
+        src: "/grm-web-assets/3d-search-window-graphic.svg",
         w: 746,
         h: 780,
         style: "width: 62%; left: 19%; top: 12%;",
       },
       floats: [
         {
-          src: "/grm-web-assets/shopping-cart-graphic.svg",
+          src: "/grm-web-assets/3d-bar-graph-going-up-graphic.svg",
           w: 746,
           h: 780,
           style: "width: 24%; left: 8%; bottom: 12%;",
@@ -267,7 +267,7 @@ export const processData = {
       title: "Sponsored Brands",
       body: "With our Sponsored Brands service, you can build brand recognition by creating custom ads that feature your brand logo, a bespoke headline, and up to three of your products, driving traffic directly to your Amazon storefront.",
       main: {
-        src: "/grm-web-assets/website-graphic.svg",
+        src: "/grm-graphic-samples/website-graphic.svg",
         w: 746,
         h: 780,
         style: "width: 62%; left: 19%; top: 12%;",
@@ -300,7 +300,7 @@ export const processData = {
       },
       floats: [
         {
-          src: "/grm-web-assets/shopping-cart-graphic.svg",
+          src: "/grm-web-assets/star-icon-graphic.svg",
           w: 746,
           h: 780,
           style: "width: 24%; left: 8%; bottom: 12%;",
@@ -326,13 +326,13 @@ export const processData = {
       },
       floats: [
         {
-          src: "/grm-web-assets/mobile-marketplace-graphic.svg",
+          src: "/grm-web-assets/tablet-ads-targeting-graphic.svg",
           w: 746,
           h: 780,
           style: "width: 24%; left: 8%; bottom: 12%;",
         },
         {
-          src: "/grm-web-assets/coin-stack-graphic.svg",
+          src: "/grm-web-assets/award-badge-graphic-02.svg",
           w: 746,
           h: 780,
           style: "width: 22%; right: 8%; top: 8%;",
@@ -371,7 +371,7 @@ export const approachData = {
       height: 780,
     },
     main: {
-      src: "/grm-web-assets/pc-screen-online-marketplace-graphic.svg",
+      src: "/grm-web-assets/laptop-with-pie-chart-graphic.svg",
       alt: "Our Approach to Amazon Marketing and Growth",
       width: 746,
       height: 780,
@@ -379,7 +379,7 @@ export const approachData = {
     },
     satellites: [
       {
-        src: "/grm-web-assets/customer-review-graphic.svg",
+        src: "/grm-web-assets/3d-magnify-glass.svg",
         alt: "",
         width: 746,
         height: 780,
@@ -387,7 +387,7 @@ export const approachData = {
         style: "width: 24%; left: 6%; top: 8%; z-index: 3;",
       },
       {
-        src: "/grm-web-assets/coin-stack-graphic.svg",
+        src: "/grm-web-assets/chess-peice-graphic.svg",
         alt: "",
         width: 687,
         height: 663,
@@ -424,7 +424,7 @@ export const deliverablesData = {
     },
     {
       icon: "/grm-web-icons/custom-strategy-icon-blue.svg",
-      accent: "/grm-web-assets/mobile-marketplace-graphic.svg",
+      accent: "/grm-web-assets/laptop-checklist-screen-graphic.svg",
       accentW: 746,
       accentH: 780,
       metric: "Buy Box Wins",
@@ -433,7 +433,7 @@ export const deliverablesData = {
     },
     {
       icon: "/grm-web-icons/graphic-design-icon-blue.svg",
-      accent: "/grm-web-assets/image-placeholder-graphic.svg",
+      accent: "/grm-web-assets/photo-img-graphic.svg",
       accentW: 746,
       accentH: 780,
       metric: "+15% Conversion Rate",
@@ -442,7 +442,7 @@ export const deliverablesData = {
     },
     {
       icon: "/grm-web-icons/amazon-services-icon.svg",
-      accent: "/grm-web-assets/market-shop-graphic.svg",
+      accent: "/grm-web-assets/3d-browser-window-graphic.svg",
       accentW: 746,
       accentH: 780,
       metric: "Immersive Showcase",
@@ -451,7 +451,7 @@ export const deliverablesData = {
     },
     {
       icon: "/grm-web-icons/more-stats-icon-blue.svg",
-      accent: "/grm-web-assets/arrow-in-target-graphic.svg",
+      accent: "/grm-web-assets/magnet-graphic.svg",
       accentW: 746,
       accentH: 780,
       metric: "Market Conquest",
@@ -460,7 +460,7 @@ export const deliverablesData = {
     },
     {
       icon: "/grm-web-icons/software-review-icon-blue.svg",
-      accent: "/grm-web-assets/3-arrows-up-graphic.svg",
+      accent: "/grm-web-assets/document-star-stamp-graphic.svg",
       accentW: 746,
       accentH: 780,
       metric: "100% Transparency",
@@ -490,7 +490,7 @@ export const readyData = {
       parallax: 22,
     },
     main: {
-      src: "/grm-web-assets/mobile-marketplace-graphic.svg",
+      src: "/grm-web-assets/3d-rocket-graphic.svg",
       alt: "Partner with Good Rep Media to scale your Amazon store",
       width: 746,
       height: 780,
@@ -499,7 +499,7 @@ export const readyData = {
     },
     badges: [
       {
-        src: "/grm-web-assets/shopping-cart-graphic.svg",
+        src: "/grm-web-assets/3d-pie-chart-graph.svg",
         alt: "",
         width: 746,
         height: 780,
@@ -508,7 +508,7 @@ export const readyData = {
         style: "width: 24%; left: 6%; bottom: 12%;",
       },
       {
-        src: "/grm-web-assets/3-arrows-up-graphic.svg",
+        src: "/grm-web-assets/upward-trend-graph-graphic.svg",
         alt: "",
         width: 746,
         height: 780,

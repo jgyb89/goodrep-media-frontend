@@ -37,7 +37,7 @@ export const heroData = {
       depth: 12,
     },
     main: {
-      src: "/grm-web-assets/3d-art-computer-program-graphic.svg",
+      src: "/grm-web-assets/dlsr-camera-graphic.svg",
       alt: "Digital Media Production and Creative Brand Services",
       width: 746,
       height: 780,
@@ -60,7 +60,8 @@ export const heroData = {
 export const startsData = {
   eyebrow: "VISUAL ASSETS THAT CONVERT",
   title: "Photos, Videos, and Graphics for Your Small Business",
-  question: "Is your business looking as professional and credible as it deserves?",
+  question:
+    "Is your business looking as professional and credible as it deserves?",
   body: [
     "Many small businesses don’t have professional media online, and we can fix that. In an era where customers judge your credibility within milliseconds of seeing your website or social feeds, high-quality visual production is non-negotiable.",
     "Our talented team of graphic designers, photographers, and videographers crafts custom visuals that showcase the true caliber of your work, elevating your business above cut-rate competitors.",
@@ -81,23 +82,15 @@ export const startsData = {
       height: 780,
     },
     main: {
-      src: "/grm-web-assets/mac-computer-monitor-cyan-screen-background-graphic.svg",
+      src: "/grm-graphic-samples/monitor-with-image-file.webp",
       alt: "Photos, videos, and graphics for small business",
-      width: 687,
-      height: 663,
+      width: 746,
+      height: 780,
       style: "width: 64%; left: 18%; top: 12%;",
     },
     satellites: [
       {
         src: "/grm-web-assets/photo-img-graphic.svg",
-        alt: "",
-        width: 687,
-        height: 663,
-        parallax: -44,
-        style: "width: 28%; left: 36%; top: 22%; z-index: 2;",
-      },
-      {
-        src: "/grm-web-assets/pencil-graphic.svg",
         alt: "",
         width: 746,
         height: 780,
@@ -170,7 +163,8 @@ export const statsData = {
 export const pillarsData = {
   eyebrow: "THE PILLARS",
   title: "Why Partner with Good Rep Media for Production?",
-  question: "Affordable pricing, creative guidance, and long-term brand consistency",
+  question:
+    "Affordable pricing, creative guidance, and long-term brand consistency",
   body: "We blend world-class creative talent with strategic marketing acumen to deliver digital assets that actively grow your revenue.",
   pillars: [
     {
@@ -202,7 +196,7 @@ export const pillarsData = {
       height: 780,
     },
     main: {
-      src: "/grm-web-assets/3d-art-computer-program-graphic.svg",
+      src: "/grm-web-assets/dlsr-camera-graphic.svg",
       alt: "Affordable digital media production and design",
       width: 746,
       height: 780,
@@ -210,7 +204,7 @@ export const pillarsData = {
     },
     satellites: [
       {
-        src: "/grm-web-assets/photo-img-graphic.svg",
+        src: "/grm-web-assets/3d-star-graphic.svg",
         alt: "",
         width: 746,
         height: 780,
@@ -255,13 +249,13 @@ export const processData = {
       },
       floats: [
         {
-          src: "/grm-web-assets/3d-color-picker-graphic.svg",
+          src: "/grm-web-assets/spiral-notebook-with-target-graphic.svg",
           w: 746,
           h: 780,
           style: "width: 24%; left: 6%; bottom: 12%;",
         },
         {
-          src: "/grm-web-assets/photo-img-graphic.svg",
+          src: "/grm-web-assets/artist-brush-and-paint-graphic.svg",
           w: 746,
           h: 780,
           style: "width: 24%; right: 8%; top: 8%;",
@@ -274,20 +268,14 @@ export const processData = {
       title: "Collaboration and Consultation",
       body: "Once we understand your design vision, we can provide expert guidance on executing the project to align perfectly with your business. Our strategies will leverage our knowledge of how colors and styles evoke emotions, alongside advanced competitive analysis tools.",
       main: {
-        src: "/grm-web-assets/mac-computer-monitor-cyan-screen-background-graphic.svg",
-        w: 687,
-        h: 663,
-        style: "width: 64%; left: 18%; top: 12%;",
+        src: "/grm-web-assets/laptop-web-design-layout-graphic.svg",
+        w: 746,
+        h: 780,
+        style: "width: 62%; left: 19%; top: 12%;",
       },
       floats: [
         {
-          src: "/grm-web-assets/3d-art-computer-program-graphic.svg",
-          w: 687,
-          h: 663,
-          style: "width: 28%; left: 36%; top: 22%; z-index: 2;",
-        },
-        {
-          src: "/grm-web-assets/angled-heart-icon.svg",
+          src: "/grm-web-assets/happy-face-speech-bubble-graphic.svg",
           w: 746,
           h: 780,
           style: "width: 20%; left: 8%; bottom: 12%;",
@@ -306,20 +294,20 @@ export const processData = {
       title: "Creating Your Design",
       body: "Our experts will turn your design into reality, collaborating with you for approval at each step. We’ll deliver a well-crafted design on time or earlier, capturing your vision perfectly and formatted for web, social, broadcast, and print.",
       main: {
-        src: "/grm-web-assets/video-player-graphic.svg",
+        src: "/grm-graphic-samples/video-player-graphic.svg",
         w: 746,
         h: 780,
         style: "width: 66%; left: 17%; top: 12%;",
       },
       floats: [
         {
-          src: "/grm-web-assets/photo-img-graphic.svg",
+          src: "/grm-web-assets/3d-ruler-graphic.svg",
           w: 746,
           h: 780,
           style: "width: 24%; left: 6%; bottom: 12%;",
         },
         {
-          src: "/grm-web-assets/social-media-likes-comments-stats-graphic.svg",
+          src: "/grm-web-assets/marquee-box-graphic.webp",
           w: 746,
           h: 780,
           style: "width: 26%; right: 8%; top: 8%;",
@@ -332,7 +320,7 @@ export const processData = {
       title: "Keep Looking Good",
       body: "As a small business, consistency in your brand’s appearance is crucial. At Good Rep Media, we aim to build a long-term partnership that helps your company stand out against competitors. We can also create formal documentation to serve as a master reference for your design projects.",
       main: {
-        src: "/grm-web-assets/3d-file-folder-graphic.svg",
+        src: "/grm-web-assets/star-icon-graphic.svg",
         w: 746,
         h: 780,
         style: "width: 64%; left: 18%; top: 12%;",
@@ -379,7 +367,7 @@ export const approachData = {
       height: 780,
     },
     main: {
-      src: "/grm-web-assets/3d-file-folder-graphic.svg",
+      src: "/grm-web-assets/lightbulb-idea-graphic.svg",
       alt: "A long-term creative design partner",
       width: 746,
       height: 780,
@@ -387,7 +375,7 @@ export const approachData = {
     },
     satellites: [
       {
-        src: "/grm-web-assets/photo-img-graphic.svg",
+        src: "/grm-web-assets/award-badge-graphic-02.svg",
         alt: "",
         width: 687,
         height: 663,
@@ -395,7 +383,7 @@ export const approachData = {
         style: "width: 22%; left: 6%; top: 8%; z-index: 3;",
       },
       {
-        src: "/grm-web-assets/video-player-graphic.svg",
+        src: "/grm-web-assets/3d-file-document-graphic.svg",
         alt: "",
         width: 746,
         height: 780,
@@ -422,7 +410,7 @@ export const deliverablesData = {
   deliverables: [
     {
       icon: "/grm-web-icons/graphic-design-icon-blue.svg",
-      accent: "/grm-web-assets/image-placeholder-graphic.svg",
+      accent: "/grm-web-assets/3d-browser-window-graphic.svg",
       accentW: 746,
       accentH: 780,
       metric: "Custom Graphics",
@@ -440,7 +428,7 @@ export const deliverablesData = {
     },
     {
       icon: "/grm-web-icons/phone-video-icon-blue.svg",
-      accent: "/grm-web-assets/video-player-graphic.svg",
+      accent: "/grm-web-assets/phone-with-mobile-apps-icons-graphic.svg",
       accentW: 746,
       accentH: 780,
       metric: "4K Video Masters",
@@ -449,7 +437,7 @@ export const deliverablesData = {
     },
     {
       icon: "/grm-web-icons/award-icon-blue.svg",
-      accent: "/grm-web-assets/angled-heart-icon.svg",
+      accent: "/grm-web-assets/thumbs-up-like-icon-graphic.svg",
       accentW: 746,
       accentH: 780,
       metric: "Vector Systems",
@@ -467,7 +455,7 @@ export const deliverablesData = {
     },
     {
       icon: "/grm-web-icons/strong-roi-icon-blue.svg",
-      accent: "/grm-web-assets/3-arrows-up-graphic.svg",
+      accent: "/grm-web-assets/upload-to-cloud-graphic.svg",
       accentW: 746,
       accentH: 780,
       metric: "Master Style Guides",
@@ -498,7 +486,7 @@ export const readyData = {
       parallax: 22,
     },
     main: {
-      src: "/grm-web-assets/3d-art-computer-program-graphic.svg",
+      src: "/grm-web-assets/3d-rocket-graphic.svg",
       alt: "Partner with Good Rep Media for digital media production",
       width: 746,
       height: 780,
@@ -507,7 +495,7 @@ export const readyData = {
     },
     badges: [
       {
-        src: "/grm-web-assets/photo-img-graphic.svg",
+        src: "/grm-web-assets/award-trophy-graphic.svg",
         alt: "",
         width: 746,
         height: 780,
@@ -516,7 +504,7 @@ export const readyData = {
         style: "width: 24%; left: 6%; bottom: 12%;",
       },
       {
-        src: "/grm-web-assets/3-arrows-up-graphic.svg",
+        src: "/grm-web-assets/upward-trend-graph-graphic.svg",
         alt: "",
         width: 746,
         height: 780,

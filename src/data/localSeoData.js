@@ -37,12 +37,12 @@ export const heroData = {
       depth: 12,
     },
     main: {
-      src: "/grm-web-assets/local-business-seo-image.webp",
+      src: "/grm-web-assets/3d-map-destination-route-graphic.svg",
       alt: "Local SEO Google Business Profile and Map Pack Visibility",
-      width: 2642,
-      height: 2000,
+      width: 746,
+      height: 780,
       depth: -18,
-      style: "width: 90%; left: 5%; top: 12%;",
+      style: "width: 64%; left: 18%; top: 12%;",
     },
     floats: [],
   },
@@ -78,11 +78,11 @@ export const startsData = {
       height: 780,
     },
     main: {
-      src: "/grm-web-assets/market-shop-graphic.svg",
+      src: "/grm-graphic-samples/market-store-on-map.webp",
       alt: "Local Search Visibility and Google Business Profile Discovery",
       width: 746,
       height: 780,
-      style: "width: 62%; left: 19%; top: 14%;",
+      style: "width: 64%; left: 18%; top: 14%;",
     },
     satellites: [
       {
@@ -201,7 +201,7 @@ export const pillarsData = {
     },
     satellites: [
       {
-        src: "/grm-web-assets/3d-map-destination-route-graphic.svg",
+        src: "/grm-web-assets/map-placer-icon-graphic.svg",
         alt: "",
         width: 746,
         height: 780,
@@ -241,14 +241,14 @@ export const processData = {
       title: "Capture Active Buyers",
       body: "People searching for local businesses on Google are researching to buy, and usually looking to buy within the next 2-3 days. By using local SEO, you’re connecting with people when they’re making their buying decisions.",
       main: {
-        src: "/grm-web-assets/3d-map-destination-route-graphic.svg",
+        src: "/grm-web-assets/document-profile-search-graphic.svg",
         w: 746,
         h: 780,
         style: "width: 58%; left: 21%; top: 14%;",
       },
       floats: [
         {
-          src: "/grm-web-assets/3d-map-indicator-icon-graphic.svg",
+          src: "/grm-web-assets/3d-magnify-glass.svg",
           w: 746,
           h: 780,
           style: "width: 22%; left: 6%; bottom: 12%;",
@@ -267,14 +267,14 @@ export const processData = {
       title: "Stop Being Invisible",
       body: "Customers looking for what you do will find you quickly and easily instead of your competitors. Did you know that if you’re not showing up in the top three spots on Google Maps you’re typically not even in the running in the mind of the customer?",
       main: {
-        src: "/grm-web-assets/number-one-award-graphic.svg",
+        src: "/grm-web-assets/map-corner-icon.svg",
         w: 746,
         h: 780,
         style: "width: 56%; left: 22%; top: 12%;",
       },
       floats: [
         {
-          src: "/grm-web-assets/3d-map-indicator-icon-graphic.svg",
+          src: "/grm-web-assets/compass-icon-graphic-02.svg",
           w: 687,
           h: 663,
           style: "width: 20%; left: 8%; bottom: 12%;",
@@ -293,14 +293,14 @@ export const processData = {
       title: "Build Better Relationships",
       body: "Local SEO involves creating valuable, local content. This content will actually help solve customers’ common problems, positioning you as a local industry expert and leader. This is often the start of long-term customer relationships (when before people couldn’t even find you).",
       main: {
-        src: "/grm-web-assets/customer-review-graphic.svg",
+        src: "/grm-web-assets/3d-star-graphic.svg",
         w: 746,
         h: 780,
         style: "width: 58%; left: 21%; top: 14%;",
       },
       floats: [
         {
-          src: "/grm-web-assets/3d-star-graphic.svg",
+          src: "/grm-web-assets/star-app-icon-graphic.svg",
           w: 746,
           h: 780,
           style: "width: 22%; left: 6%; bottom: 12%;",
@@ -326,7 +326,7 @@ export const processData = {
       },
       floats: [
         {
-          src: "/grm-web-assets/3d-map-destination-route-graphic.svg",
+          src: "/grm-web-assets/coin-stack-graphic.svg",
           w: 746,
           h: 780,
           style: "width: 22%; left: 8%; bottom: 12%;",
@@ -350,7 +350,7 @@ export const processGridData = {
   deliverables: [
     {
       icon: "/grm-web-icons/customer-loyalty-icon-blue.svg",
-      accent: "/grm-web-assets/angled-heart-icon.svg",
+      accent: "/grm-web-assets/star-icon-graphic.svg",
       accentW: 152,
       accentH: 162,
       metric: "Active Signals",
@@ -359,7 +359,7 @@ export const processGridData = {
     },
     {
       icon: "/grm-web-icons/automation-and-optimization-icon-blue.svg",
-      accent: "/grm-web-assets/3-arrows-up-graphic.svg",
+      accent: "/grm-web-assets/award-badge-graphic-02.svg",
       accentW: 291,
       accentH: 419,
       metric: "Living Profile",
@@ -368,7 +368,7 @@ export const processGridData = {
     },
     {
       icon: "/grm-web-icons/social-media-icon-blue.svg",
-      accent: "/grm-web-assets/999-hearts-likes-graphic.svg",
+      accent: "/grm-web-assets/3d-bar-graph-going-up-graphic.svg",
       accentW: 197,
       accentH: 98,
       metric: "Cross-Channel",
@@ -386,7 +386,7 @@ export const processGridData = {
     },
     {
       icon: "/grm-web-icons/seo-icon-blue.svg",
-      accent: "/grm-web-assets/arrow-in-target-graphic.svg",
+      accent: "/grm-web-assets/red-phone-graphic.svg",
       accentW: 261,
       accentH: 246,
       metric: "50+ Aggregators",
@@ -422,7 +422,7 @@ export const processGridData = {
     },
     {
       icon: "/grm-web-icons/link-building-icon.svg",
-      accent: "/grm-web-assets/3-arrows-up-graphic.svg",
+      accent: "/grm-web-assets/chess-peice-graphic.svg",
       accentW: 291,
       accentH: 419,
       metric: "Trusted Links",
@@ -452,7 +452,7 @@ export const readyData = {
       parallax: 22,
     },
     main: {
-      src: "/grm-web-assets/3d-map-destination-route-graphic.svg",
+      src: "/grm-web-assets/market-shop-graphic.svg",
       alt: "Connected local business storefronts and business owners",
       width: 746,
       height: 780,
@@ -461,7 +461,7 @@ export const readyData = {
     },
     badges: [
       {
-        src: "/grm-web-assets/3d-map-indicator-icon-graphic.svg",
+        src: "/grm-web-assets/3d-rocket-graphic.svg",
         alt: "",
         width: 746,
         height: 780,
@@ -470,7 +470,7 @@ export const readyData = {
         style: "width: 20%; left: 6%; bottom: 8%;",
       },
       {
-        src: "/grm-web-assets/number-one-award-graphic.svg",
+        src: "/grm-web-assets/award-trophy-graphic.svg",
         alt: "",
         width: 746,
         height: 780,
@@ -491,7 +491,7 @@ export const factsGridData = {
   deliverables: [
     {
       icon: "/grm-web-icons/award-icon-blue.svg",
-      accent: "/grm-web-assets/arrow-in-target-graphic.svg",
+      accent: "/grm-web-assets/document-star-stamp-graphic.svg",
       accentW: 261,
       accentH: 246,
       metric: "Map Pack Top 3",
@@ -500,7 +500,7 @@ export const factsGridData = {
     },
     {
       icon: "/grm-web-icons/more-stats-icon-blue.svg",
-      accent: "/grm-web-assets/3-arrows-up-graphic.svg",
+      accent: "/grm-web-assets/3d-line-graph-icon.svg",
       accentW: 291,
       accentH: 419,
       metric: "+200% Surge",
@@ -509,7 +509,7 @@ export const factsGridData = {
     },
     {
       icon: "/grm-web-icons/target-customers-icon-blue.svg",
-      accent: "/grm-web-assets/mobile-shopping-graphic.svg",
+      accent: "/grm-web-assets/3d-mobile-graphic.svg",
       accentW: 188,
       accentH: 342,
       metric: "93% Local Searchers",
@@ -518,7 +518,7 @@ export const factsGridData = {
     },
     {
       icon: "/grm-web-icons/google-business-icon.svg",
-      accent: "/grm-web-assets/gears-graphic.svg",
+      accent: "/grm-web-assets/3d-tools-graphic.svg",
       accentW: 181,
       accentH: 180,
       metric: "44% Unclaimed",
@@ -527,7 +527,7 @@ export const factsGridData = {
     },
     {
       icon: "/grm-web-icons/software-review-icon-blue.svg",
-      accent: "/grm-web-assets/77-percent-bubble-graphic.svg",
+      accent: "/grm-web-assets/3d-pie-chart-graph.svg",
       accentW: 148,
       accentH: 178,
       metric: "58% Unoptimized",
@@ -536,7 +536,7 @@ export const factsGridData = {
     },
     {
       icon: "/grm-web-icons/time-icon.svg",
-      accent: "/grm-web-assets/999-hearts-likes-graphic.svg",
+      accent: "/grm-web-assets/timer-watch-graphic.svg",
       accentW: 197,
       accentH: 98,
       metric: "76% Visit in 24h",
@@ -545,7 +545,7 @@ export const factsGridData = {
     },
     {
       icon: "/grm-web-icons/direct-email-icon-blue.svg",
-      accent: "/grm-web-assets/two-users-icon-graphic.svg",
+      accent: "/grm-web-assets/contact-book-graphic.svg",
       accentW: 438,
       accentH: 152,
       metric: "64% Direct Calls",
@@ -554,7 +554,7 @@ export const factsGridData = {
     },
     {
       icon: "/grm-web-icons/customer-loyalty-icon-blue.svg",
-      accent: "/grm-web-assets/angled-heart-icon.svg",
+      accent: "/grm-web-assets/happy-face-speech-bubble-graphic.svg",
       accentW: 152,
       accentH: 162,
       metric: "90% Read Reviews",
@@ -563,7 +563,7 @@ export const factsGridData = {
     },
     {
       icon: "/grm-web-icons/photography-icon-blue.svg",
-      accent: "/grm-web-assets/3-arrows-up-graphic.svg",
+      accent: "/grm-web-assets/photo-img-graphic.svg",
       accentW: 291,
       accentH: 419,
       metric: "2x Customer Trust",
@@ -596,7 +596,7 @@ export const consultData = {
         style: "width: 22%; right: 6%; top: 6%;",
       },
       {
-        src: "/grm-web-assets/angled-heart-icon.svg",
+        src: "/grm-web-assets/thumbs-up-like-icon-graphic.svg",
         alt: "",
         width: 152,
         height: 162,

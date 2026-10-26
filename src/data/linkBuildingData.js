@@ -37,12 +37,12 @@ export const heroData = {
       depth: 12,
     },
     main: {
-      src: "/grm-web-assets/back-link-seo-building-image.webp",
+      src: "/grm-web-assets/3d-chain-links-graphic.svg",
       alt: "Link Building Services and Off-Page SEO Authority",
-      width: 2642,
-      height: 2000,
+      width: 746,
+      height: 780,
       depth: -18,
-      style: "width: 90%; left: 5%; top: 12%;",
+      style: "width: 64%; left: 18%; top: 12%;",
     },
     floats: [],
   },
@@ -97,7 +97,7 @@ export const startsData = {
         style: "width: 22%; left: 6%; bottom: 12%; z-index: 3;",
       },
       {
-        src: "/grm-web-assets/3d-chain-links-graphic.svg",
+        src: "/grm-web-assets/number-one-award-graphic.svg",
         alt: "",
         width: 746,
         height: 780,
@@ -210,7 +210,7 @@ export const pillarsData = {
         style: "width: 22%; left: 6%; top: 8%; z-index: 3;",
       },
       {
-        src: "/grm-web-assets/3d-chain-links-graphic.svg",
+        src: "/grm-web-assets/award-trophy-graphic.svg",
         alt: "",
         width: 746,
         height: 780,
@@ -248,13 +248,13 @@ export const processData = {
       },
       floats: [
         {
-          src: "/grm-web-assets/3d-chain-links-graphic.svg",
+          src: "/grm-web-assets/pencil-graphic.svg",
           w: 746,
           h: 780,
-          style: "width: 24%; left: 8%; bottom: 12%;",
+          style: "width: 22%; left: 8%; bottom: 12%;",
         },
         {
-          src: "/grm-web-assets/upward-trend-graph-graphic.svg",
+          src: "/grm-web-assets/data-flow-arrows-graphic.svg",
           w: 746,
           h: 780,
           style: "width: 22%; right: 8%; top: 8%;",
@@ -267,7 +267,7 @@ export const processData = {
       title: "Strict White Hat Methods",
       body: "Some sites unknowingly use black hat link building methods by hiring the wrong companies. At Good Rep, we focus on reputable white hat link building to send strong trust signals to other sites and search engines.",
       main: {
-        src: "/grm-web-assets/3d-globe-in-speech-bubble-graphic.svg",
+        src: "/grm-web-assets/3d-chat-bubbles-graphic.svg",
         w: 746,
         h: 780,
         style: "width: 62%; left: 19%; top: 12%;",
@@ -293,18 +293,12 @@ export const processData = {
       title: "High-Authority Relevance",
       body: "It's tempting to seek backlinks from any source, but it's usually not effective. Focus on acquiring backlinks from high-authority sites where your content is relevant and aligns with user intent.",
       main: {
-        src: "/grm-web-assets/mac-computer-monitor-cyan-screen-background-graphic.svg",
-        w: 687,
-        h: 663,
-        style: "width: 64%; left: 18%; top: 12%;",
+        src: "/grm-web-assets/3d-search-window-graphic.svg",
+        w: 746,
+        h: 780,
+        style: "width: 62%; left: 19%; top: 12%;",
       },
       floats: [
-        {
-          src: "/grm-web-assets/3d-chain-links-graphic.svg",
-          w: 746,
-          h: 780,
-          style: "width: 28%; left: 36%; top: 22%; z-index: 2;",
-        },
         {
           src: "/grm-web-assets/gears-graphic.svg",
           w: 746,
@@ -325,7 +319,7 @@ export const processData = {
       title: "Toxic Link Audits & Disavow",
       body: "You can run an audit to identify all the websites backlinking to you. The report will list potentially ‘toxic’ backlinks from untrusted sites. It’s important to get these removed to maintain clean SEO.",
       main: {
-        src: "/grm-web-assets/browser-search-results-window-graphic.svg",
+        src: "/grm-web-assets/3d-bar-graph-going-up-graphic.svg",
         w: 746,
         h: 780,
         style: "width: 62%; left: 19%; top: 12%;",
@@ -376,7 +370,7 @@ export const scopeData = {
       height: 780,
     },
     main: {
-      src: "/grm-web-assets/3d-chain-links-graphic.svg",
+      src: "/grm-web-assets/document-profile-search-graphic.svg",
       alt: "Common Link Building Mistakes to Avoid",
       width: 746,
       height: 780,
@@ -384,7 +378,7 @@ export const scopeData = {
     },
     satellites: [
       {
-        src: "/grm-web-assets/3d-magnify-glass.svg",
+        src: "/grm-web-assets/compass-icon-graphic-02.svg",
         alt: "",
         width: 746,
         height: 780,
@@ -392,7 +386,7 @@ export const scopeData = {
         style: "width: 22%; left: 6%; bottom: 12%; z-index: 3;",
       },
       {
-        src: "/grm-web-assets/upward-trend-graph-graphic.svg",
+        src: "/grm-web-assets/document-star-stamp-graphic.svg",
         alt: "",
         width: 746,
         height: 780,
@@ -438,7 +432,7 @@ export const strategiesGridData = {
     },
     {
       icon: "/grm-web-icons/more-stats-icon-blue.svg",
-      accent: "/grm-web-assets/arrow-in-target-graphic.svg",
+      accent: "/grm-web-assets/award-badge-graphic-02.svg",
       accentW: 746,
       accentH: 780,
       metric: "Market Share Intel",
@@ -447,7 +441,7 @@ export const strategiesGridData = {
     },
     {
       icon: "/grm-web-icons/software-review-icon-blue.svg",
-      accent: "/grm-web-assets/users-networking-graphic.svg",
+      accent: "/grm-graphic-samples/users-networking-graphic.svg",
       accentW: 746,
       accentH: 780,
       metric: "Warm Relationships",
@@ -456,7 +450,7 @@ export const strategiesGridData = {
     },
     {
       icon: "/grm-web-icons/link-building-icon.svg",
-      accent: "/grm-web-assets/link-graphic.svg",
+      accent: "/grm-web-assets/share-icon-graphic.svg",
       accentW: 746,
       accentH: 780,
       metric: "Reclaim Lost 404s",
@@ -522,24 +516,16 @@ export const readyData = {
       parallax: 22,
     },
     main: {
-      src: "/grm-web-assets/mac-computer-monitor-cyan-screen-background-graphic.svg",
+      src: "/grm-web-assets/3d-laptop-www-website.svg",
       alt: "A Backlink Strategy that Improves Your SEO Rankings",
-      width: 687,
-      height: 663,
+      width: 746,
+      height: 780,
       parallax: -28,
-      style: "width: 64%; left: 18%; top: 12%;",
+      style: "width: 62%; left: 19%; top: 12%;",
     },
     badges: [
       {
-        src: "/grm-web-assets/3d-chain-links-graphic.svg",
-        alt: "",
-        width: 746,
-        height: 780,
-        parallax: -48,
-        style: "width: 28%; left: 36%; top: 22%; z-index: 2;",
-      },
-      {
-        src: "/grm-web-assets/upward-trend-graph-graphic.svg",
+        src: "/grm-web-assets/chess-peice-graphic.svg",
         alt: "",
         width: 746,
         height: 780,
@@ -548,7 +534,7 @@ export const readyData = {
         style: "width: 20%; left: 6%; top: 8%;",
       },
       {
-        src: "/grm-web-assets/3-arrows-up-graphic.svg",
+        src: "/grm-web-assets/3d-line-graph-icon.svg",
         alt: "",
         width: 746,
         height: 780,
@@ -569,7 +555,7 @@ export const workingGridData = {
   deliverables: [
     {
       icon: "/grm-web-icons/custom-strategy-icon-blue.svg",
-      accent: "/grm-web-assets/3-arrows-up-graphic.svg",
+      accent: "/grm-web-assets/handshake-hands.webp",
       accentW: 746,
       accentH: 780,
       metric: "Collaborative Brainstorm",
@@ -578,7 +564,7 @@ export const workingGridData = {
     },
     {
       icon: "/grm-web-icons/automation-and-optimization-icon-blue.svg",
-      accent: "/grm-web-assets/browser-search-results-window-graphic.svg",
+      accent: "/grm-web-assets/sheild-graphic.svg",
       accentW: 746,
       accentH: 780,
       metric: "Benchmark & Gaps",
@@ -587,7 +573,7 @@ export const workingGridData = {
     },
     {
       icon: "/grm-web-icons/more-stats-icon-blue.svg",
-      accent: "/grm-web-assets/arrow-in-target-graphic.svg",
+      accent: "/grm-web-assets/3d-pie-chart-graph.svg",
       accentW: 746,
       accentH: 780,
       metric: "Financial ROI",
@@ -596,7 +582,7 @@ export const workingGridData = {
     },
     {
       icon: "/grm-web-icons/link-building-icon.svg",
-      accent: "/grm-web-assets/link-graphic.svg",
+      accent: "/grm-web-assets/3d-clipboard-flow-chart-graphic.svg",
       accentW: 746,
       accentH: 780,
       metric: "Zero Penalty Risk",
@@ -605,7 +591,7 @@ export const workingGridData = {
     },
     {
       icon: "/grm-web-icons/group-presentation-icon-blue.svg",
-      accent: "/grm-web-assets/users-networking-graphic.svg",
+      accent: "/grm-web-assets/two-users-icon-graphic.svg",
       accentW: 746,
       accentH: 780,
       metric: "Audience Expansion",
@@ -614,7 +600,7 @@ export const workingGridData = {
     },
     {
       icon: "/grm-web-icons/software-review-icon-blue.svg",
-      accent: "/grm-web-assets/angled-heart-icon.svg",
+      accent: "/grm-web-assets/star-icon-graphic.svg",
       accentW: 746,
       accentH: 780,
       metric: "Decades of Experience",

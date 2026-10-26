@@ -37,12 +37,12 @@ export const heroData = {
       depth: 12,
     },
     main: {
-      src: "/grm-web-assets/ecommerce-website-experience.webp",
+      src: "/grm-web-assets/pc-screen-online-marketplace-graphic.svg",
       alt: "eCommerce Storefront Map Setup with Global Customers",
-      width: 2642,
-      height: 2000,
+      width: 746,
+      height: 780,
       depth: -18,
-      style: "width: 90%; left: 5%; top: 12%;",
+      style: "width: 66%; left: 17%; top: 12%;",
     },
     floats: [],
   },
@@ -78,7 +78,7 @@ export const startsData = {
       height: 780,
     },
     main: {
-      src: "/grm-web-assets/pc-screen-online-marketplace-graphic.svg",
+      src: "/grm-web-assets/3d-clipboard-flow-chart-graphic.svg",
       alt: "Is Setting Up An eCommerce Store Easy?",
       width: 746,
       height: 780,
@@ -86,7 +86,7 @@ export const startsData = {
     },
     satellites: [
       {
-        src: "/grm-web-assets/mobile-password-secure-graphic.svg",
+        src: "/grm-web-assets/3d-tools-graphic.svg",
         alt: "",
         width: 746,
         height: 780,
@@ -195,7 +195,7 @@ export const scopeData = {
       height: 780,
     },
     main: {
-      src: "/grm-web-assets/mobile-marketplace-graphic.svg",
+      src: "/grm-graphic-samples/mobile-marketplace-graphic.svg",
       alt: "Why Proper eCommerce Setup Is So Critical",
       width: 687,
       height: 663,
@@ -203,7 +203,7 @@ export const scopeData = {
     },
     satellites: [
       {
-        src: "/grm-web-assets/shopping-cart-graphic.svg",
+        src: "/grm-web-assets/sheild-graphic.svg",
         alt: "",
         width: 746,
         height: 780,
@@ -242,7 +242,7 @@ export const processData = {
       title: "Research and Onboarding",
       body: "We’ll leave no stone unturned as we learn every aspect of your products, business model, and goals. By doing the proper research upfront, we’ll help pair your company with the perfect eCommerce technology and build a launch strategy that will exceed your expectations.",
       main: {
-        src: "/grm-web-assets/pc-screen-online-marketplace-graphic.svg",
+        src: "/grm-web-assets/market-shop-graphic.svg",
         w: 746,
         h: 780,
         style: "width: 56%; left: 22%; top: 12%;",
@@ -275,7 +275,7 @@ export const processData = {
       },
       floats: [
         {
-          src: "/grm-web-assets/shopping-cart-graphic.svg",
+          src: "/grm-web-assets/3d-bar-graph-going-up-graphic.svg",
           w: 687,
           h: 663,
           style: "width: 20%; left: 6%; bottom: 12%;",
@@ -301,7 +301,7 @@ export const processData = {
       },
       floats: [
         {
-          src: "/grm-web-assets/shopping-cart-graphic.svg",
+          src: "/grm-web-assets/star-icon-graphic.svg",
           w: 746,
           h: 780,
           style: "width: 22%; left: 6%; bottom: 12%;",
@@ -327,16 +327,16 @@ export const processData = {
       },
       floats: [
         {
-          src: "/grm-web-assets/gears-graphic.svg",
+          src: "/grm-web-assets/upward-trend-graph-graphic.svg",
           w: 746,
           h: 780,
           style: "width: 20%; left: 6%; bottom: 12%;",
         },
         {
-          src: "/grm-web-assets/angled-heart-icon.svg",
+          src: "/grm-web-assets/number-one-award-graphic.svg",
           w: 746,
           h: 780,
-          style: "width: 18%; right: 6%; top: 8%;",
+          style: "width: 20%; right: 6%; top: 8%;",
         },
       ],
     },
@@ -363,7 +363,7 @@ export const readyData = {
       parallax: 22,
     },
     main: {
-      src: "/grm-web-assets/users-networking-graphic.svg",
+      src: "/grm-graphic-samples/users-networking-graphic.svg",
       alt: "Connected local eCommerce storefronts and business owners",
       width: 746,
       height: 780,
@@ -372,7 +372,7 @@ export const readyData = {
     },
     badges: [
       {
-        src: "/grm-web-assets/angled-heart-icon.svg",
+        src: "/grm-web-assets/data-flow-arrows-graphic.svg",
         alt: "",
         width: 746,
         height: 780,
@@ -381,7 +381,7 @@ export const readyData = {
         style: "width: 18%; left: 6%; bottom: 8%;",
       },
       {
-        src: "/grm-web-assets/3-arrows-up-graphic.svg",
+        src: "/grm-web-assets/refresh-symbol-icon-graphic.svg",
         alt: "",
         width: 746,
         height: 780,
@@ -401,7 +401,7 @@ export const deliverablesData = {
   deliverables: [
     {
       icon: "/grm-web-icons/ecommerce-icon-blue.svg",
-      accent: "/grm-web-assets/3-arrows-up-graphic.svg",
+      accent: "/grm-web-assets/magnet-graphic.svg",
       accentW: 291,
       accentH: 419,
       metric: "99.9% Store Uptime",
@@ -410,7 +410,7 @@ export const deliverablesData = {
     },
     {
       icon: "/grm-web-icons/roi-icon-blue.svg",
-      accent: "/grm-web-assets/arrow-in-target-graphic.svg",
+      accent: "/grm-web-assets/award-badge-graphic-02.svg",
       accentW: 261,
       accentH: 246,
       metric: "+35% Higher AOV",
@@ -437,7 +437,7 @@ export const deliverablesData = {
     },
     {
       icon: "/grm-web-icons/custom-strategy-icon-blue.svg",
-      accent: "/grm-web-assets/999-hearts-likes-graphic.svg",
+      accent: "/grm-web-assets/mobile-checklist-icon-graphic.svg",
       accentW: 197,
       accentH: 98,
       metric: "Global Gateways",
