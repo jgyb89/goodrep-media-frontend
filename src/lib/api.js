@@ -318,6 +318,12 @@ export async function getPosts({
   page = 1,
   includeContent = false,
 } = {}) {
+  if (isGraphQL) {
+    const all = await ensureFullPostsCache();
+    const startIndex = (page - 1) * perPage;
+    return all.slice(startIndex, startIndex + perPage);
+  }
+
   const fields = includeContent
     ? "_embed"
     : "_fields=id,slug,title,excerpt,date,categories,_links,_embedded&_embed=wp:featuredmedia";
@@ -341,6 +347,55 @@ async function ensureFullPostsCache() {
     cachedFullPostsPromise = (async () => {
       const categories = await getCategories();
       const categoryMap = new Map(categories.map((c) => [c.id, c]));
+
+      if (isGraphQL) {
+        try {
+          const data = await fetchWP(`
+            query GetAllPostsForStaticBuild {
+              posts(first: 500, where: { status: PUBLISH }) {
+                nodes {
+                  id
+                  databaseId
+                  title
+                  slug
+                  date
+                  excerpt
+                  content
+                  featuredImage {
+                    node {
+                      sourceUrl
+                      altText
+                    }
+                  }
+                  categories {
+                    nodes {
+                      databaseId
+                      name
+                      slug
+                    }
+                  }
+                  seo {
+                    title
+                    metaDesc
+                  }
+                }
+              }
+            }
+          `);
+          const nodes = data?.posts?.nodes || [];
+          if (nodes.length > 0) {
+            const posts = nodes.map((p) => normalizePost(p, categoryMap));
+            for (const post of posts) {
+              if (post?.slug) {
+                cachedPostBySlug.set(post.slug, post);
+              }
+            }
+            return posts;
+          }
+        } catch (err) {
+          console.warn("WPGraphQL GetAllPosts failed, falling back to REST:", err?.message || err);
+        }
+      }
 
       const firstRes = await fetch(
         `${API_URL}/posts?_embed=wp:featuredmedia&per_page=100&page=1`
@@ -425,6 +480,52 @@ export async function getPostBySlug(slug) {
     }
   } catch {
     // Fallback to direct single-slug request below
+  }
+
+  if (isGraphQL) {
+    try {
+      const data = await fetchWP(
+        `
+        query GetPostBySlug($slug: ID!) {
+          post(id: $slug, idType: SLUG) {
+            id
+            databaseId
+            title
+            slug
+            date
+            excerpt
+            content
+            featuredImage {
+              node {
+                sourceUrl
+                altText
+              }
+            }
+            categories {
+              nodes {
+                databaseId
+                name
+                slug
+              }
+            }
+            seo {
+              title
+              metaDesc
+            }
+          }
+        }
+      `,
+        { slug }
+      );
+      if (!data?.post) return null;
+      const normalized = normalizePost(data.post);
+      if (normalized?.slug) {
+        cachedPostBySlug.set(normalized.slug, normalized);
+      }
+      return normalized;
+    } catch {
+      return null;
+    }
   }
 
   const res = await fetch(

@@ -1,5 +1,40 @@
 import { useId, useState } from 'react';
+import DOMPurify from 'isomorphic-dompurify';
 import './LeadForm.css';
+
+export const GF_FIELD_IDS = Object.freeze({
+  COMPANY: 4,
+  EMAIL: 5,
+  PHONE: 6,
+  SERVICES_NEEDED: 7,
+  MESSAGE: 9,
+  FIRST_NAME: 12,
+  LAST_NAME: 13,
+});
+
+const INITIAL_FORM_STATE = Object.freeze({
+  firstName: '',
+  lastName: '',
+  email: '',
+  phone: '',
+  company: '',
+  multipleChoice: [],
+  message: '',
+});
+
+const getGraphQLEndpoint = () => {
+  if (typeof import.meta !== 'undefined') {
+    if (import.meta.env?.PUBLIC_WORDPRESS_GRAPHQL_URL) {
+      return import.meta.env.PUBLIC_WORDPRESS_GRAPHQL_URL;
+    }
+    if (import.meta.env?.PUBLIC_WORDPRESS_API_URL) {
+      const url = import.meta.env.PUBLIC_WORDPRESS_API_URL;
+      if (url.endsWith('/graphql')) return url;
+      return `${url.replace(/\/wp-json\/.*$/, '')}/graphql`;
+    }
+  }
+  return 'https://wp.goodrep.media/graphql';
+};
 
 const SUBMIT_GF_FORM_MUTATION = `
   mutation SubmitLeadForm($input: SubmitGfFormInput!) {
@@ -87,15 +122,7 @@ export default function LeadForm({ formId = 15, submitLabel = "Let's Talk" }) {
   const uid = useId();
 
   // Form state
-  const [formData, setFormData] = useState({
-    firstName: '',
-    lastName: '',
-    email: '',
-    phone: '',
-    company: '',
-    multipleChoice: [],
-    message: '',
-  });
+  const [formData, setFormData] = useState(INITIAL_FORM_STATE);
 
   // Validation errors & touched state
   const [errors, setErrors] = useState({});
@@ -129,26 +156,24 @@ export default function LeadForm({ formId = 15, submitLabel = "Let's Talk" }) {
   };
 
   const handleCheckboxToggle = (option) => {
-    setFormData((prev) => {
-      const current = Array.isArray(prev.multipleChoice) ? prev.multipleChoice : [];
-      const updated = current.includes(option)
-        ? current.filter((item) => item !== option)
-        : [...current, option];
+    const current = Array.isArray(formData.multipleChoice) ? formData.multipleChoice : [];
+    const updated = current.includes(option)
+      ? current.filter((item) => item !== option)
+      : [...current, option];
 
-      // Re-validate if touched
-      if (touched.multipleChoice || errors.multipleChoice) {
-        const fieldError = validateField('multipleChoice', updated);
-        setErrors((prevErr) => ({
-          ...prevErr,
-          multipleChoice: fieldError,
-        }));
-      }
+    setFormData((prev) => ({
+      ...prev,
+      multipleChoice: updated,
+    }));
 
-      return {
-        ...prev,
-        multipleChoice: updated,
-      };
-    });
+    // Re-validate if touched (pure callback, no side effect in state updater)
+    if (touched.multipleChoice || errors.multipleChoice) {
+      const fieldError = validateField('multipleChoice', updated);
+      setErrors((prevErr) => ({
+        ...prevErr,
+        multipleChoice: fieldError,
+      }));
+    }
   };
 
   const handleChoiceBlur = () => {
@@ -219,16 +244,16 @@ export default function LeadForm({ formId = 15, submitLabel = "Let's Talk" }) {
       : (formData.multipleChoice || '');
 
     const fieldValues = [
-      { id: 12, value: formData.firstName || '' },
-      { id: 13, value: formData.lastName || '' },
+      { id: GF_FIELD_IDS.FIRST_NAME, value: formData.firstName || '' },
+      { id: GF_FIELD_IDS.LAST_NAME, value: formData.lastName || '' },
       {
-        id: 5,
+        id: GF_FIELD_IDS.EMAIL,
         emailValues: { value: formData.email || '' }, // Strict email schema wrapper
       },
-      { id: 6, value: formData.phone || '' },
-      { id: 4, value: formData.company || '' },
-      { id: 7, value: multipleChoiceValue },
-      { id: 9, value: formData.message || '' },
+      { id: GF_FIELD_IDS.PHONE, value: formData.phone || '' },
+      { id: GF_FIELD_IDS.COMPANY, value: formData.company || '' },
+      { id: GF_FIELD_IDS.SERVICES_NEEDED, value: multipleChoiceValue },
+      { id: GF_FIELD_IDS.MESSAGE, value: formData.message || '' },
     ];
 
     const input = {
@@ -237,7 +262,8 @@ export default function LeadForm({ formId = 15, submitLabel = "Let's Talk" }) {
     };
 
     try {
-      const res = await fetch(import.meta.env.PUBLIC_WORDPRESS_API_URL, {
+      const endpoint = getGraphQLEndpoint();
+      const res = await fetch(endpoint, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -264,15 +290,7 @@ export default function LeadForm({ formId = 15, submitLabel = "Let's Talk" }) {
         confirmationHtml || 'Thank you! Your submission has been received.'
       );
       setStatus('success');
-      setFormData({
-        firstName: '',
-        lastName: '',
-        email: '',
-        phone: '',
-        company: '',
-        multipleChoice: [],
-        message: '',
-      });
+      setFormData(INITIAL_FORM_STATE);
       setErrors({});
       setTouched({});
     } catch (err) {
@@ -285,7 +303,7 @@ export default function LeadForm({ formId = 15, submitLabel = "Let's Talk" }) {
   if (status === 'success') {
     return (
       <div className="lead-form-confirmation">
-        <div dangerouslySetInnerHTML={{ __html: confirmationMessage }} />
+        <div dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(confirmationMessage) }} />
         <button
           type="button"
           onClick={() => setStatus('idle')}
