@@ -37,12 +37,12 @@ export const heroData = {
       depth: 12,
     },
     main: {
-      src: "/grm-web-assets/woman-engaged-social-media-image.webp",
+      src: "/grm-main-graphics/social-media-marketing-graphic.svg",
       alt: "Social Media Marketing Services and Audience Growth",
       width: 2642,
       height: 2000,
       depth: -18,
-      style: "width: 90%; left: 5%; top: 12%;",
+      style: "width: 74%; left: 13%; top: 12%;",
     },
     floats: [],
   },
@@ -81,7 +81,7 @@ export const startsData = {
       height: 780,
     },
     main: {
-      src: "/grm-web-assets/3d-globe-in-speech-bubble-graphic.svg",
+      src: "/grm-main-graphics/smiley-face-cluster-graphic.svg",
       alt: "Don't Sleep on Social Media Marketing - Audience Engagement",
       width: 687,
       height: 663,
@@ -194,7 +194,7 @@ export const pillarsData = {
       height: 780,
     },
     main: {
-      src: "/grm-web-assets/phone-with-mobile-apps-icons-graphic.svg",
+      src: "/grm-main-graphics/customer-review-graphic.svg",
       alt: "The Good Rep Way to Social Media Marketing",
       width: 746,
       height: 780,
@@ -202,7 +202,7 @@ export const pillarsData = {
     },
     satellites: [
       {
-        src: "/grm-web-assets/3d-chat-bubbles-graphic.svg",
+        src: "/grm-web-assets/thumbs-up-like-icon-graphic.svg",
         alt: "",
         width: 746,
         height: 780,
@@ -241,7 +241,7 @@ export const processData = {
       title: "Discovery",
       body: "Our first step is consulting you on your business goals. Are you looking to define your target audience? Gain more likes? Generate more leads? We analyze your current feeds, competitor landscape, and audience persona to establish clear KPIs.",
       main: {
-        src: "/grm-web-assets/3d-search-window-graphic.svg",
+        src: "/grm-main-graphics/browser-search-results-window-graphic.svg",
         w: 746,
         h: 780,
         style: "width: 62%; left: 19%; top: 12%;",
@@ -254,7 +254,7 @@ export const processData = {
           style: "width: 22%; left: 6%; bottom: 12%;",
         },
         {
-          src: "/grm-web-assets/3-arrows-up-graphic.svg",
+          src: "/grm-web-assets/share-icon-graphic.svg",
           w: 746,
           h: 780,
           style: "width: 20%; right: 6%; top: 8%;",
@@ -267,7 +267,7 @@ export const processData = {
       title: "Strategy",
       body: "Based on your needs, our holistic approach covers full consistency – from platforms to campaigns to content to brand imagery and posting schedules. We build an editorial calendar engineered around peak engagement windows.",
       main: {
-        src: "/grm-web-assets/spiral-notebook-with-target-graphic.svg",
+        src: "/grm-main-graphics/laptop-checklist-screen-graphic.svg",
         w: 746,
         h: 780,
         style: "width: 62%; left: 19%; top: 12%;",
@@ -280,7 +280,7 @@ export const processData = {
           style: "width: 22%; left: 6%; bottom: 12%;",
         },
         {
-          src: "/grm-web-assets/3-arrows-up-graphic.svg",
+          src: "/grm-web-assets/spiral-notebook-with-target-graphic.svg",
           w: 746,
           h: 780,
           style: "width: 20%; right: 6%; top: 8%;",
@@ -293,7 +293,7 @@ export const processData = {
       title: "Content Creation",
       body: "At Good Rep, this involves much more than just words on a screen. We produce everything from professionally designed custom graphics, photography, and high-energy video reels to punchy captions and hashtag architectures.",
       main: {
-        src: "/grm-web-assets/video-player-graphic.svg",
+        src: "/grm-main-graphics/video-player-graphic.svg",
         w: 746,
         h: 780,
         style: "width: 62%; left: 19%; top: 12%;",
@@ -306,7 +306,7 @@ export const processData = {
           style: "width: 22%; left: 6%; bottom: 12%;",
         },
         {
-          src: "/grm-web-assets/999-hearts-likes-graphic.svg",
+          src: "/grm-web-assets/3d-bar-graph-going-up-graphic.svg",
           w: 746,
           h: 780,
           style: "width: 20%; right: 6%; top: 8%;",
@@ -319,20 +319,20 @@ export const processData = {
       title: "Launch & Management",
       body: "We don’t stop after building your presence. We actively manage it, monitoring comments, responding to community questions, and tracking paid and organic performance to ensure real, compounding business results.",
       main: {
-        src: "/grm-web-assets/3d-chat-bubbles-graphic.svg",
+        src: "/grm-main-graphics/megaphone-alert-notification-graphic.svg",
         w: 746,
         h: 780,
         style: "width: 62%; left: 19%; top: 12%;",
       },
       floats: [
         {
-          src: "/grm-web-assets/angled-heart-icon.svg",
+          src: "/grm-web-assets/3d-star-graphic.svg",
           w: 746,
           h: 780,
           style: "width: 22%; left: 6%; bottom: 12%;",
         },
         {
-          src: "/grm-web-assets/3-arrows-up-graphic.svg",
+          src: "/grm-web-assets/3d-pie-chart-graph.svg",
           w: 746,
           h: 780,
           style: "width: 20%; right: 6%; top: 8%;",
@@ -366,15 +366,15 @@ export const approachData = {
       height: 780,
     },
     main: {
-      src: "/grm-web-assets/social-media-likes-comments-stats-graphic.svg",
+      src: "/grm-main-graphics/users-networking-graphic.svg",
       alt: "Social Media Platform Consulting and Audience Targeting",
-      width: 687,
-      height: 663,
+      width: 746,
+      height: 780,
       style: "width: 62%; left: 19%; top: 12%;",
     },
     satellites: [
       {
-        src: "/grm-web-assets/3d-globe-in-speech-bubble-graphic.svg",
+        src: "/grm-web-assets/award-badge-graphic-02.svg",
         alt: "",
         width: 746,
         height: 780,
@@ -409,7 +409,7 @@ export const deliverablesData = {
   deliverables: [
     {
       icon: "/grm-web-icons/social-media-icon-blue.svg",
-      accent: "/grm-web-assets/3-arrows-up-graphic.svg",
+      accent: "/grm-web-assets/two-users-icon-graphic.svg",
       accentW: 746,
       accentH: 780,
       metric: "1B+ Daily Users",
@@ -418,7 +418,7 @@ export const deliverablesData = {
     },
     {
       icon: "/grm-web-icons/photography-icon-blue.svg",
-      accent: "/grm-web-assets/999-hearts-likes-graphic.svg",
+      accent: "/grm-web-assets/date-and-time-icon-graphic.svg",
       accentW: 746,
       accentH: 780,
       metric: "Visual Storytelling",
@@ -436,7 +436,7 @@ export const deliverablesData = {
     },
     {
       icon: "/grm-web-icons/group-presentation-icon-blue.svg",
-      accent: "/grm-web-assets/user-speech-bubble-graphic.svg",
+      accent: "/grm-web-assets/3d-sms-icon-graphic.svg",
       accentW: 746,
       accentH: 780,
       metric: "B2B Decision Makers",
@@ -454,7 +454,7 @@ export const deliverablesData = {
     },
     {
       icon: "/grm-web-icons/more-stats-icon-blue.svg",
-      accent: "/grm-web-assets/3-arrows-up-graphic.svg",
+      accent: "/grm-web-assets/3d-line-graph-icon.svg",
       accentW: 746,
       accentH: 780,
       metric: "Niche Communities",
@@ -485,7 +485,7 @@ export const readyData = {
       parallax: 22,
     },
     main: {
-      src: "/grm-web-assets/social-media-likes-comments-stats-graphic.svg",
+      src: "/grm-main-graphics/mobile-shopping-graphic.svg",
       alt: "Take Your Social Media Marketing to the Next Level with Good Rep Media",
       width: 746,
       height: 780,
@@ -494,7 +494,7 @@ export const readyData = {
     },
     badges: [
       {
-        src: "/grm-web-assets/shopping-cart-graphic.svg",
+        src: "/grm-web-assets/phone-with-mobile-apps-icons-graphic.svg",
         alt: "",
         width: 746,
         height: 780,
@@ -503,7 +503,7 @@ export const readyData = {
         style: "width: 24%; left: 6%; bottom: 12%;",
       },
       {
-        src: "/grm-web-assets/3-arrows-up-graphic.svg",
+        src: "/grm-web-assets/upward-trend-graph-graphic.svg",
         alt: "",
         width: 746,
         height: 780,

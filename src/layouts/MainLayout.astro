@@ -1,11 +1,16 @@
 ---
-import 'material-symbols/outlined.css';
-import '../styles/global.css'; // Assuming your global variables are here
-import { Image } from 'astro:assets';
-import LeadForm from '../components/LeadForm.jsx';
-const { title = 'Goodrep Media', description = 'Grow your business with Goodrep Media.' } = Astro.props;
+import "material-symbols/outlined.css";
+import "../styles/global.css"; // Assuming your global variables are here
+import { Image } from "astro:assets";
+import LeadForm from "../components/LeadForm.jsx";
+import LightboxModal from "../components/LightboxModal.astro";
+const {
+  title = "Goodrep Media",
+  description = "Grow your business with Goodrep Media.",
+} = Astro.props;
 const year = new Date().getFullYear();
 ---
+
 <html lang="en">
   <head>
     <meta charset="utf-8" />
@@ -50,7 +55,10 @@ const year = new Date().getFullYear();
               aria-expanded="false"
             >
               <span>Services</span>
-              <span class="material-symbols-outlined nav-item__caret" aria-hidden="true">expand_more</span>
+              <span
+                class="material-symbols-outlined nav-item__caret"
+                aria-hidden="true">expand_more</span
+              >
             </a>
 
             <div class="mega-menu" role="region" aria-label="Services submenu">
@@ -59,8 +67,16 @@ const year = new Date().getFullYear();
                   <h3 class="mega-menu__heading">Web Design and Build</h3>
                   <ul class="mega-menu__list">
                     <li><a href="/services/web-design">Website Design</a></li>
-                    <li><a href="/services/ecommerce-web-design">eCommerce Web Design</a></li>
-                    <li><a href="/services/email-marketing">Email Marketing Services</a></li>
+                    <li>
+                      <a href="/services/ecommerce-web-design"
+                        >eCommerce Web Design</a
+                      >
+                    </li>
+                    <li>
+                      <a href="/services/email-marketing"
+                        >Email Marketing Services</a
+                      >
+                    </li>
                   </ul>
                 </div>
 
@@ -69,26 +85,47 @@ const year = new Date().getFullYear();
                   <ul class="mega-menu__list">
                     <li><a href="/services/local-seo">Local SEO</a></li>
                     <li><a href="/services/technical-seo">Technical SEO</a></li>
-                    <li><a href="/services/link-building">Link Building Services</a></li>
-                    <li><a href="/services/amazon-marketing">Amazon Marketing Services</a></li>
+                    <li>
+                      <a href="/services/link-building"
+                        >Link Building Services</a
+                      >
+                    </li>
+                    <li>
+                      <a href="/services/amazon-marketing"
+                        >Amazon Marketing Services</a
+                      >
+                    </li>
                   </ul>
                 </div>
 
                 <div class="mega-menu__col">
                   <h3 class="mega-menu__heading">Digital Media</h3>
                   <ul class="mega-menu__list">
-                    <li><a href="/services/digital-media-production">Digital Media Production</a></li>
-                    <li><a href="/services/email-marketing">Email Marketing</a></li>
+                    <li>
+                      <a href="/services/digital-media-production"
+                        >Digital Media Production</a
+                      >
+                    </li>
+                    <li>
+                      <a href="/services/email-marketing">Email Marketing</a>
+                    </li>
                     <li><a href="/services/sms-marketing">SMS Marketing</a></li>
-                    <li><a href="/services/video-production">Video Production</a></li>
-                    <li><a href="/services/social-media">Social Media Marketing</a></li>
+                    <li>
+                      <a href="/services/video-production">Video Production</a>
+                    </li>
+                    <li>
+                      <a href="/services/social-media">Social Media Marketing</a
+                      >
+                    </li>
                   </ul>
                 </div>
 
                 <div class="mega-menu__col">
                   <h3 class="mega-menu__heading">Paid Media</h3>
                   <ul class="mega-menu__list">
-                    <li><a href="/services/paid-ads">Pay-per-click Marketing</a></li>
+                    <li>
+                      <a href="/services/paid-ads">Pay-per-click Marketing</a>
+                    </li>
                   </ul>
                 </div>
               </div>
@@ -98,7 +135,9 @@ const year = new Date().getFullYear();
           <a href="/about" class="nav-link">About</a>
           <a href="/blog" class="nav-link">Insights</a>
         </div>
-        <a href="/#consultation" class="btn btn--primary global-nav__cta">Book a Call</a>
+        <a href="/#consultation" class="btn btn--primary global-nav__cta"
+          >Book a Call</a
+        >
       </nav>
     </header>
 
@@ -109,7 +148,11 @@ const year = new Date().getFullYear();
     <footer class="global-footer">
       <div class="global-footer__grid">
         <div class="global-footer__brand">
-          <a href="/" class="brand brand--footer" aria-label="Good Rep Media home">
+          <a
+            href="/"
+            class="brand brand--footer"
+            aria-label="Good Rep Media home"
+          >
             <Image
               class="brand__logo"
               src="/grm-logos/GRM-icon-logo-white.webp"
@@ -124,13 +167,19 @@ const year = new Date().getFullYear();
               <span class="brand__sub">MEDIA</span>
             </span>
           </a>
-          <p>Good Rep Media is a digital marketing agency for small and local businesses located in Grand Rapids, MI.</p>
+          <p>
+            Good Rep Media is a digital marketing agency for small and local
+            businesses located in Grand Rapids, MI.
+          </p>
           <p class="global-footer__sms">
-            <span class="material-symbols-outlined" aria-hidden="true">smartphone</span>
+            <span class="material-symbols-outlined" aria-hidden="true"
+              >smartphone</span
+            >
             Text JOIN to 49872 for Exclusive Offers &amp; Updates. Msg freq varies.
           </p>
           <p class="global-footer__fine">
-            Recurring Msgs. Reply HELP for Help. Reply STOP to opt out. Msg &amp; Data rates may apply.
+            Recurring Msgs. Reply HELP for Help. Reply STOP to opt out. Msg
+            &amp; Data rates may apply.
           </p>
         </div>
 
@@ -159,15 +208,21 @@ const year = new Date().getFullYear();
           <h2 class="global-footer__heading">Help</h2>
           <ul class="global-footer__contact">
             <li>
-              <span class="material-symbols-outlined" aria-hidden="true">call</span>
+              <span class="material-symbols-outlined" aria-hidden="true"
+                >call</span
+              >
               <a href="tel:+16163009868">(616) 300-9868</a>
             </li>
             <li>
-              <span class="material-symbols-outlined" aria-hidden="true">mail</span>
+              <span class="material-symbols-outlined" aria-hidden="true"
+                >mail</span
+              >
               <a href="mailto:team@goodrep.media">team@goodrep.media</a>
             </li>
             <li>
-              <span class="material-symbols-outlined" aria-hidden="true">location_on</span>
+              <span class="material-symbols-outlined" aria-hidden="true"
+                >location_on</span
+              >
               <span>O-745 Lake Michigan Dr. NW, Grand Rapids, MI 49534</span>
             </li>
           </ul>
@@ -192,7 +247,9 @@ const year = new Date().getFullYear();
     </button>
 
     <a href="#top" class="back-to-top" aria-label="Back to top">
-      <span class="material-symbols-outlined" aria-hidden="true">keyboard_arrow_up</span>
+      <span class="material-symbols-outlined" aria-hidden="true"
+        >keyboard_arrow_up</span
+      >
     </a>
 
     <!-- Global Contact Form Modal -->
@@ -204,39 +261,46 @@ const year = new Date().getFullYear();
           id="close-contact-modal"
           aria-label="Close modal"
         >
-          <span class="material-symbols-outlined" aria-hidden="true">close</span>
+          <span class="material-symbols-outlined" aria-hidden="true">close</span
+          >
         </button>
         <h3 class="contact-modal__title">Send Us A Message</h3>
-        <p class="contact-modal__sub">Tell us about your project and we'll get back to you within 24 hours.</p>
+        <p class="contact-modal__sub">
+          Tell us about your project and we'll get back to you within 24 hours.
+        </p>
         <LeadForm client:idle submitLabel="Send Message" />
       </div>
     </dialog>
 
+    <!-- Global Image Lightbox Modal -->
+    <LightboxModal />
+
     <script>
       function setupContactModal() {
-        const modal = document.querySelector<HTMLDialogElement>('#contact-modal');
+        const modal =
+          document.querySelector<HTMLDialogElement>("#contact-modal");
         if (!modal) return;
 
-        const closeBtn = document.querySelector('#close-contact-modal');
+        const closeBtn = document.querySelector("#close-contact-modal");
         const openBtns = document.querySelectorAll(
-          '#fixed-form-btn, #trigger-contact-modal, [data-open-modal]'
+          "#fixed-form-btn, #trigger-contact-modal, [data-open-modal]",
         );
 
         openBtns.forEach((btn) => {
-          btn.addEventListener('click', (e) => {
+          btn.addEventListener("click", (e) => {
             e.preventDefault();
-            if (typeof modal.showModal === 'function') {
+            if (typeof modal.showModal === "function") {
               modal.showModal();
             }
           });
         });
 
-        closeBtn?.addEventListener('click', () => {
+        closeBtn?.addEventListener("click", () => {
           modal.close();
         });
 
         // Close modal when clicking outside the dialog content
-        modal.addEventListener('click', (e) => {
+        modal.addEventListener("click", (e) => {
           const rect = modal.getBoundingClientRect();
           const isInDialog =
             rect.top <= e.clientY &&
@@ -250,30 +314,31 @@ const year = new Date().getFullYear();
       }
 
       function setupMegaMenu() {
-        const megaItem = document.querySelector<HTMLElement>('.nav-item--mega');
-        const trigger = megaItem?.querySelector<HTMLAnchorElement>('.nav-item__trigger');
+        const megaItem = document.querySelector<HTMLElement>(".nav-item--mega");
+        const trigger =
+          megaItem?.querySelector<HTMLAnchorElement>(".nav-item__trigger");
         if (!megaItem || !trigger) return;
 
         const setExpanded = (expanded: boolean) => {
-          trigger.setAttribute('aria-expanded', String(expanded));
+          trigger.setAttribute("aria-expanded", String(expanded));
           if (expanded) {
-            megaItem.classList.remove('is-closed');
+            megaItem.classList.remove("is-closed");
           }
         };
 
-        megaItem.addEventListener('pointerenter', () => setExpanded(true));
-        megaItem.addEventListener('pointerleave', () => setExpanded(false));
-        megaItem.addEventListener('focusin', () => setExpanded(true));
-        megaItem.addEventListener('focusout', (e) => {
+        megaItem.addEventListener("pointerenter", () => setExpanded(true));
+        megaItem.addEventListener("pointerleave", () => setExpanded(false));
+        megaItem.addEventListener("focusin", () => setExpanded(true));
+        megaItem.addEventListener("focusout", (e) => {
           if (!megaItem.contains(e.relatedTarget as Node)) {
             setExpanded(false);
           }
         });
 
-        megaItem.addEventListener('keydown', (e) => {
-          if (e.key === 'Escape') {
-            megaItem.classList.add('is-closed');
-            trigger.setAttribute('aria-expanded', 'false');
+        megaItem.addEventListener("keydown", (e) => {
+          if (e.key === "Escape") {
+            megaItem.classList.add("is-closed");
+            trigger.setAttribute("aria-expanded", "false");
             trigger.focus();
           }
         });
@@ -284,12 +349,12 @@ const year = new Date().getFullYear();
         setupMegaMenu();
       }
 
-      if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', initLayout);
+      if (document.readyState === "loading") {
+        document.addEventListener("DOMContentLoaded", initLayout);
       } else {
         initLayout();
       }
-      document.addEventListener('astro:page-load', initLayout);
+      document.addEventListener("astro:page-load", initLayout);
     </script>
   </body>
 </html>
@@ -343,7 +408,7 @@ const year = new Date().getFullYear();
   }
 
   .brand__mark img {
-    width: 30px;
+    width: 40px;
     height: 30px;
   }
 
@@ -391,7 +456,7 @@ const year = new Date().getFullYear();
 
   .nav-link::after,
   .nav-item__trigger::after {
-    content: '';
+    content: "";
     position: absolute;
     left: 0;
     bottom: -2px;
@@ -400,7 +465,9 @@ const year = new Date().getFullYear();
     background: var(--color-cyan);
     transform: scaleX(0);
     transform-origin: left;
-    transition: transform 0.25s ease, background-color 0.25s ease;
+    transition:
+      transform 0.25s ease,
+      background-color 0.25s ease;
   }
 
   .nav-link:hover {
@@ -421,7 +488,9 @@ const year = new Date().getFullYear();
   .nav-item__caret {
     font-size: 1.15rem;
     line-height: 1;
-    transition: transform 0.25s ease, color 0.2s ease;
+    transition:
+      transform 0.25s ease,
+      color 0.2s ease;
   }
 
   .nav-item--mega:hover:not(.is-closed) .nav-item__trigger,
@@ -529,7 +598,9 @@ const year = new Date().getFullYear();
   }
 
   @media (min-width: 860px) {
-    .global-nav__links { display: flex; }
+    .global-nav__links {
+      display: flex;
+    }
   }
 
   /* ---------- Footer ---------- */
@@ -550,11 +621,15 @@ const year = new Date().getFullYear();
   }
 
   @media (min-width: 640px) {
-    .global-footer__grid { grid-template-columns: 1fr 1fr; }
+    .global-footer__grid {
+      grid-template-columns: 1fr 1fr;
+    }
   }
 
   @media (min-width: 1024px) {
-    .global-footer__grid { grid-template-columns: 1.6fr 1fr 1fr 1.3fr; }
+    .global-footer__grid {
+      grid-template-columns: 1.6fr 1fr 1fr 1.3fr;
+    }
   }
 
   .global-footer p {
@@ -568,7 +643,7 @@ const year = new Date().getFullYear();
   }
 
   .brand__logo {
-    width: 44px;
+    width: 54px;
     height: 44px;
   }
 
@@ -653,7 +728,10 @@ const year = new Date().getFullYear();
     border: 2px solid var(--color-cyan);
     box-shadow: var(--shadow-card);
     text-decoration: none;
-    transition: transform 0.2s ease, background-color 0.2s ease, color 0.2s ease;
+    transition:
+      transform 0.2s ease,
+      background-color 0.2s ease,
+      color 0.2s ease;
   }
 
   .back-to-top:hover {
@@ -678,7 +756,10 @@ const year = new Date().getFullYear();
     border: none;
     box-shadow: 0 10px 20px -6px rgba(233, 79, 55, 0.55);
     cursor: pointer;
-    transition: transform 0.2s ease, background-color 0.2s ease, box-shadow 0.2s ease;
+    transition:
+      transform 0.2s ease,
+      background-color 0.2s ease,
+      box-shadow 0.2s ease;
   }
 
   .fixed-form-btn:hover {
@@ -714,7 +795,9 @@ const year = new Date().getFullYear();
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.25);
     pointer-events: none;
     opacity: 0;
-    transition: opacity 0.2s ease, transform 0.2s ease;
+    transition:
+      opacity 0.2s ease,
+      transform 0.2s ease;
   }
 
   .fixed-form-btn__tooltip::after {
@@ -794,7 +877,9 @@ const year = new Date().getFullYear();
     border-radius: 50%;
     cursor: pointer;
     color: #64748b;
-    transition: color 0.2s ease, background-color 0.2s ease;
+    transition:
+      color 0.2s ease,
+      background-color 0.2s ease;
   }
 
   .contact-modal__close:hover {

@@ -37,12 +37,12 @@ export const heroData = {
       depth: 12,
     },
     main: {
-      src: "/grm-web-assets/ecommerce-website-experience.webp",
+      src: "/grm-main-graphics/ecommerce-marketplace-marketing-graphic.svg",
       alt: "eCommerce Storefront Map Setup with Global Customers",
       width: 2642,
       height: 2000,
       depth: -18,
-      style: "width: 90%; left: 5%; top: 12%;",
+      style: "width: 74%; left: 13%; top: 12%;",
     },
     floats: [],
   },
@@ -78,32 +78,13 @@ export const startsData = {
       height: 780,
     },
     main: {
-      src: "/grm-web-assets/pc-screen-online-marketplace-graphic.svg",
+      src: "/grm-main-graphics/ecommerce-website-design-marketplace-graphic.svg",
       alt: "Is Setting Up An eCommerce Store Easy?",
-      width: 746,
-      height: 780,
-      style: "width: 58%; left: 21%; top: 12%;",
+      width: 687,
+      height: 663,
+      style: "width: 66%; left: 17%; top: 12%;",
     },
-    satellites: [
-      {
-        src: "/grm-web-assets/mobile-password-secure-graphic.svg",
-        alt: "",
-        width: 746,
-        height: 780,
-        parallax: -44,
-        className: "starts-feature__sat--target",
-        style: "width: 22%; left: 6%; top: 8%;",
-      },
-      {
-        src: "/grm-web-assets/shopping-cart-graphic.svg",
-        alt: "",
-        width: 746,
-        height: 780,
-        parallax: -36,
-        className: "starts-feature__sat--likes",
-        style: "width: 20%; right: 6%; bottom: 10%;",
-      },
-    ],
+    satellites: [],
     pill: {
       icon: "shopping_bag",
       title: "77% Complex Nuances",
@@ -195,15 +176,15 @@ export const scopeData = {
       height: 780,
     },
     main: {
-      src: "/grm-web-assets/mobile-marketplace-graphic.svg",
+      src: "/grm-main-graphics/mobile-shopping-graphic.svg",
       alt: "Why Proper eCommerce Setup Is So Critical",
-      width: 687,
-      height: 663,
+      width: 746,
+      height: 780,
       style: "width: 60%; left: 20%; top: 12%;",
     },
     satellites: [
       {
-        src: "/grm-web-assets/shopping-cart-graphic.svg",
+        src: "/grm-web-assets/sheild-graphic.svg",
         alt: "",
         width: 746,
         height: 780,
@@ -242,7 +223,7 @@ export const processData = {
       title: "Research and Onboarding",
       body: "We’ll leave no stone unturned as we learn every aspect of your products, business model, and goals. By doing the proper research upfront, we’ll help pair your company with the perfect eCommerce technology and build a launch strategy that will exceed your expectations.",
       main: {
-        src: "/grm-web-assets/pc-screen-online-marketplace-graphic.svg",
+        src: "/grm-main-graphics/market-shop-graphic.svg",
         w: 746,
         h: 780,
         style: "width: 56%; left: 22%; top: 12%;",
@@ -268,14 +249,14 @@ export const processData = {
       title: "Expert Site Construction",
       body: "Now it’s time to take all of the data we’ve gathered and hand it over to our team of expert developers. Our team will pore over thousands of settings and fine-tune your eCommerce build to deliver the perfect storefront that will achieve– and exceed– your sales goals.",
       main: {
-        src: "/grm-web-assets/laptop-web-design-layout-graphic.svg",
+        src: "/grm-main-graphics/laptop-web-design-layout-graphic.svg",
         w: 746,
         h: 780,
         style: "width: 58%; left: 21%; top: 14%;",
       },
       floats: [
         {
-          src: "/grm-web-assets/shopping-cart-graphic.svg",
+          src: "/grm-web-assets/3d-bar-graph-going-up-graphic.svg",
           w: 687,
           h: 663,
           style: "width: 20%; left: 6%; bottom: 12%;",
@@ -294,14 +275,14 @@ export const processData = {
       title: "Testing and Optimization",
       body: "Once our eCommerce development team finishes your store’s build, we’ll test every last part of it to ensure that everything is working the way you want it. Not only that, but we’ll also have our conversion rate optimization team go through and test your website’s user journey with a critical eye. This will ensure that every part of your site’s purchasing process is fine-tuned to generate seamless sales.",
       main: {
-        src: "/grm-web-assets/mobile-password-secure-graphic.svg",
+        src: "/grm-main-graphics/shopping-cart-graphic.svg",
         w: 746,
         h: 780,
         style: "width: 58%; left: 21%; top: 14%;",
       },
       floats: [
         {
-          src: "/grm-web-assets/shopping-cart-graphic.svg",
+          src: "/grm-web-assets/star-icon-graphic.svg",
           w: 746,
           h: 780,
           style: "width: 22%; left: 6%; bottom: 12%;",
@@ -320,23 +301,23 @@ export const processData = {
       title: "Seamless Launch",
       body: "When it’s time to launch your site, we’ll handle every part of it, ensuring that you go live easily and smoothly. This means that if you have an existing website, the switch will happen without any interruptions to your existing customers. Our team will also be standing by to answer any questions and help with absolutely anything relating to your eCommerce build.",
       main: {
-        src: "/grm-web-assets/3d-rocket-graphic.svg",
+        src: "/grm-main-graphics/monitor-with-rocket-launching.webp",
         w: 687,
         h: 663,
         style: "width: 58%; left: 21%; top: 14%;",
       },
       floats: [
         {
-          src: "/grm-web-assets/gears-graphic.svg",
+          src: "/grm-web-assets/upward-trend-graph-graphic.svg",
           w: 746,
           h: 780,
           style: "width: 20%; left: 6%; bottom: 12%;",
         },
         {
-          src: "/grm-web-assets/angled-heart-icon.svg",
+          src: "/grm-web-assets/number-one-award-graphic.svg",
           w: 746,
           h: 780,
-          style: "width: 18%; right: 6%; top: 8%;",
+          style: "width: 20%; right: 6%; top: 8%;",
         },
       ],
     },
@@ -363,7 +344,7 @@ export const readyData = {
       parallax: 22,
     },
     main: {
-      src: "/grm-web-assets/users-networking-graphic.svg",
+      src: "/grm-main-graphics/users-networking-graphic.svg",
       alt: "Connected local eCommerce storefronts and business owners",
       width: 746,
       height: 780,
@@ -372,7 +353,7 @@ export const readyData = {
     },
     badges: [
       {
-        src: "/grm-web-assets/angled-heart-icon.svg",
+        src: "/grm-web-assets/data-flow-arrows-graphic.svg",
         alt: "",
         width: 746,
         height: 780,
@@ -381,7 +362,7 @@ export const readyData = {
         style: "width: 18%; left: 6%; bottom: 8%;",
       },
       {
-        src: "/grm-web-assets/3-arrows-up-graphic.svg",
+        src: "/grm-web-assets/refresh-symbol-icon-graphic.svg",
         alt: "",
         width: 746,
         height: 780,
@@ -401,7 +382,7 @@ export const deliverablesData = {
   deliverables: [
     {
       icon: "/grm-web-icons/ecommerce-icon-blue.svg",
-      accent: "/grm-web-assets/3-arrows-up-graphic.svg",
+      accent: "/grm-web-assets/magnet-graphic.svg",
       accentW: 291,
       accentH: 419,
       metric: "99.9% Store Uptime",
@@ -410,7 +391,7 @@ export const deliverablesData = {
     },
     {
       icon: "/grm-web-icons/roi-icon-blue.svg",
-      accent: "/grm-web-assets/arrow-in-target-graphic.svg",
+      accent: "/grm-web-assets/award-badge-graphic-02.svg",
       accentW: 261,
       accentH: 246,
       metric: "+35% Higher AOV",
@@ -419,7 +400,7 @@ export const deliverablesData = {
     },
     {
       icon: "/grm-web-icons/automation-and-optimization-icon-blue.svg",
-      accent: "/grm-web-assets/mobile-shopping-graphic.svg",
+      accent: "/grm-web-assets/pc-screen-online-marketplace-graphic.svg",
       accentW: 188,
       accentH: 342,
       metric: "Automated Lifecycles",
@@ -437,7 +418,7 @@ export const deliverablesData = {
     },
     {
       icon: "/grm-web-icons/custom-strategy-icon-blue.svg",
-      accent: "/grm-web-assets/999-hearts-likes-graphic.svg",
+      accent: "/grm-web-assets/mobile-checklist-icon-graphic.svg",
       accentW: 197,
       accentH: 98,
       metric: "Global Gateways",

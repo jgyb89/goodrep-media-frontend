@@ -110,7 +110,7 @@ const {
 
       <p class="service-hero__lead" set:html={lead} />
 
-      <div class="service-hero__checklist-card">
+      <div class="service-hero__checklist-card hero__checklist-card">
         <ul class="checklist service-hero__checklist" data-checklist>
           {highlights.map((item) => <li>{item}</li>)}
         </ul>
@@ -394,25 +394,22 @@ const {
         });
       });
 
-      // Checklist Stagger
-      const checklistCard = root.querySelector(".service-hero__checklist-card");
-      const checklistItems = root.querySelectorAll("[data-checklist] li");
-      if (checklistCard && checklistItems.length) {
+      // Checklist Items Fade in One After Another on Load
+      const checklistItems = root.querySelectorAll(
+        ".service-hero__checklist-card li, .hero__checklist-card li, [data-checklist] li",
+      );
+      if (checklistItems.length) {
         gsap.fromTo(
           checklistItems,
-          { x: -20, opacity: 0 },
+          { y: 16, opacity: 0 },
           {
-            x: 0,
+            y: 0,
             opacity: 1,
-            duration: 0.55,
-            stagger: 0.09,
-            ease: "back.out(1.4)",
+            duration: 0.5,
+            stagger: 0.1,
+            ease: "power2.out",
+            delay: 0.65,
             clearProps: "all",
-            scrollTrigger: {
-              trigger: checklistCard,
-              start: "top 88%",
-              once: true,
-            },
           },
         );
       }

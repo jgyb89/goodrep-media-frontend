@@ -1,0 +1,387 @@
+---
+// src/components/LightboxModal.astro
+---
+
+<dialog
+  id="lightbox-modal"
+  class="lightbox-modal"
+  aria-label="Image preview"
+  aria-modal="true"
+>
+  <div class="lightbox-modal__backdrop" aria-hidden="true"></div>
+
+  <div class="lightbox-modal__wrapper">
+    <!-- X close button -->
+    <button
+      type="button"
+      class="lightbox-modal__close"
+      id="lightbox-close-btn"
+      aria-label="Close image preview (Escape)"
+    >
+      <span class="material-symbols-outlined" aria-hidden="true">close</span>
+    </button>
+
+    <!-- Main image container -->
+    <div class="lightbox-modal__content" id="lightbox-content">
+      <img
+        id="lightbox-img"
+        class="lightbox-modal__img"
+        src=""
+        alt=""
+      />
+      <p id="lightbox-caption" class="lightbox-modal__caption" style="display: none;"></p>
+    </div>
+  </div>
+</dialog>
+
+<script>
+  function initLightbox() {
+    const modal = document.querySelector<HTMLDialogElement>('#lightbox-modal');
+    const imgEl = document.querySelector<HTMLImageElement>('#lightbox-img');
+    const captionEl = document.querySelector<HTMLElement>('#lightbox-caption');
+    const closeBtn = document.querySelector<HTMLButtonElement>('#lightbox-close-btn');
+
+    if (!modal || !imgEl) return;
+
+    let activeTrigger: HTMLElement | null = null;
+
+    function openLightbox(img: HTMLImageElement) {
+      activeTrigger = img;
+      const src = img.currentSrc || img.getAttribute('src') || '';
+      const alt = img.getAttribute('alt') || '';
+
+      if (!src) return;
+
+      imgEl.src = src;
+      imgEl.alt = alt;
+
+      if (captionEl) {
+        if (alt && alt.trim().length > 0 && !alt.startsWith('Good Rep Media') && alt !== '""') {
+          captionEl.textContent = alt;
+          captionEl.style.display = 'block';
+        } else {
+          captionEl.textContent = '';
+          captionEl.style.display = 'none';
+        }
+      }
+
+      if (typeof modal.showModal === 'function') {
+        if (!modal.open) {
+          modal.showModal();
+        }
+      } else {
+        modal.setAttribute('open', '');
+      }
+
+      document.body.style.overflow = 'hidden';
+      closeBtn?.focus();
+    }
+
+    function closeLightbox() {
+      if (typeof modal.close === 'function') {
+        if (modal.open) {
+          modal.close();
+        }
+      } else {
+        modal.removeAttribute('open');
+      }
+
+      document.body.style.overflow = '';
+      if (imgEl) {
+        imgEl.src = '';
+      }
+
+      if (activeTrigger && typeof activeTrigger.focus === 'function') {
+        activeTrigger.focus();
+      }
+      activeTrigger = null;
+    }
+
+    // 1. Close button click
+    closeBtn?.addEventListener('click', (e) => {
+      e.stopPropagation();
+      closeLightbox();
+    });
+
+    // 2. Click or tap overlay to close
+    modal.addEventListener('click', (e) => {
+      // If the click is directly on the image, don't close
+      if (e.target === imgEl) return;
+      closeLightbox();
+    });
+
+    // 3. Pressing the ESC key to close
+    window.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && (modal.open || modal.hasAttribute('open'))) {
+        e.preventDefault();
+        closeLightbox();
+      }
+    });
+
+    modal.addEventListener('cancel', (e) => {
+      e.preventDefault();
+      closeLightbox();
+    });
+
+    // Determine if an image is eligible for lightbox
+    function isEligibleImage(img: HTMLImageElement): boolean {
+      if (!img || !img.src) return false;
+      // Exclude images that have an existing anchor link
+      if (img.closest('a')) return false;
+      // Exclude interactive buttons
+      if (img.closest('button')) return false;
+      // Exclude lightbox's own elements
+      if (img.closest('#lightbox-modal') || img.closest('.lightbox-modal')) return false;
+      // Exclude explicit opt-outs and project cards/modals on /work
+      if (
+        img.hasAttribute('data-no-lightbox') ||
+        img.closest('[data-no-lightbox]') ||
+        img.closest('[data-project-card]') ||
+        img.closest('.project-modal')
+      ) {
+        return false;
+      }
+      // Exclude decorative background blobs, textures, hero graphics, and tiny SVG decorations
+      if (
+        img.classList.contains('work-hero__blob') ||
+        img.classList.contains('work-hero__main') ||
+        img.classList.contains('work-hero__float') ||
+        img.closest('.work-hero__graphic') ||
+        img.closest('.work-hero') ||
+        img.closest('.service-block__frame') ||
+        img.classList.contains('hero-stage__blob') ||
+        img.classList.contains('process__blob') ||
+        img.classList.contains('consult__art-float') ||
+        img.classList.contains('consult__wave') ||
+        img.classList.contains('brand__mark') ||
+        img.src.includes('blue-circular-background') ||
+        img.src.includes('black-map-bg')
+      ) {
+        return false;
+      }
+      // If width & height are very small (e.g. tiny 16px/24px icons), skip
+      const rect = img.getBoundingClientRect();
+      if (rect.width > 0 && rect.width < 40 && rect.height > 0 && rect.height < 40) {
+        return false;
+      }
+      return true;
+    }
+
+    // Global click listener for all non-linked images
+    document.addEventListener('click', (e) => {
+      const target = (e.target as HTMLElement)?.closest('img');
+      if (!target || !(target instanceof HTMLImageElement)) return;
+
+      if (isEligibleImage(target)) {
+        e.preventDefault();
+        openLightbox(target);
+      }
+    });
+
+    // Mark eligible images with zoom-in cursor
+    function markEligibleImages() {
+      document.querySelectorAll<HTMLImageElement>('img').forEach((img) => {
+        if (isEligibleImage(img)) {
+          img.classList.add('lightbox-zoomable');
+        } else {
+          img.classList.remove('lightbox-zoomable');
+        }
+      });
+    }
+
+    markEligibleImages();
+    // Re-check after images load or resize
+    window.addEventListener('load', markEligibleImages, { once: true });
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initLightbox);
+  } else {
+    initLightbox();
+  }
+  document.addEventListener('astro:page-load', initLightbox);
+</script>
+
+<style is:global>
+  /* Zoom-in cursor for non-linked images */
+  img.lightbox-zoomable,
+  .case-hero__mockup-img,
+  .case-narrative__img,
+  .window-graphic:not(:has(a)) .window-graphic__img {
+    cursor: zoom-in;
+    transition: filter 0.2s ease, transform 0.2s ease;
+  }
+
+  img.lightbox-zoomable:hover {
+    filter: brightness(1.03);
+  }
+</style>
+
+<style>
+  .lightbox-modal {
+    position: fixed;
+    inset: 0;
+    width: 100vw;
+    height: 100vh;
+    max-width: 100vw;
+    max-height: 100vh;
+    margin: 0;
+    padding: 0;
+    border: none;
+    background: transparent;
+    overflow: hidden;
+    z-index: 100000;
+  }
+
+  .lightbox-modal:not([open]) {
+    display: none;
+  }
+
+  .lightbox-modal[open] {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .lightbox-modal::backdrop {
+    background: rgba(5, 10, 20, 0.92);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+  }
+
+  .lightbox-modal__backdrop {
+    position: absolute;
+    inset: 0;
+    background: rgba(5, 10, 20, 0.92);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    z-index: 1;
+    cursor: pointer;
+  }
+
+  .lightbox-modal__wrapper {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: clamp(1rem, 3vw, 2.5rem);
+    pointer-events: none;
+  }
+
+  /* X Close Button */
+  .lightbox-modal__close {
+    pointer-events: auto;
+    position: absolute;
+    top: clamp(1rem, 2.5vw, 2.25rem);
+    right: clamp(1rem, 2.5vw, 2.25rem);
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.12);
+    border: 1px solid rgba(255, 255, 255, 0.22);
+    color: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition:
+      background-color 0.2s ease,
+      transform 0.2s ease,
+      border-color 0.2s ease;
+    z-index: 10;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.35);
+  }
+
+  .lightbox-modal__close:hover,
+  .lightbox-modal__close:focus-visible {
+    background: var(--color-cyan, #1bc4d9);
+    border-color: var(--color-cyan, #1bc4d9);
+    color: #ffffff;
+    transform: scale(1.08);
+    outline: none;
+  }
+
+  .lightbox-modal__close span {
+    font-size: 28px;
+    line-height: 1;
+  }
+
+  /* Image Content */
+  .lightbox-modal__content {
+    pointer-events: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    max-width: min(94vw, 1400px);
+    max-height: min(90vh, 920px);
+    cursor: default;
+  }
+
+  .lightbox-modal__img {
+    max-width: 100%;
+    max-height: calc(88vh - 44px);
+    width: auto;
+    height: auto;
+    object-fit: contain;
+    border-radius: 12px;
+    box-shadow:
+      0 25px 65px -15px rgba(0, 0, 0, 0.85),
+      0 0 0 1px rgba(255, 255, 255, 0.14);
+    animation: lightboxPop 0.26s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  }
+
+  .lightbox-modal__caption {
+    color: #e2e8f0;
+    font-size: clamp(0.85rem, 1.8vw, 0.95rem);
+    font-weight: 500;
+    margin: 0.85rem 0 0;
+    padding: 0.4rem 1.25rem;
+    background: rgba(15, 23, 42, 0.75);
+    backdrop-filter: blur(8px);
+    border-radius: 999px;
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    text-align: center;
+    max-width: 90vw;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+    animation: lightboxFadeIn 0.3s ease forwards;
+  }
+
+  @keyframes lightboxPop {
+    from {
+      opacity: 0;
+      transform: scale(0.92);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+
+  @keyframes lightboxFadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(6px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @media (max-width: 640px) {
+    .lightbox-modal__close {
+      top: 0.75rem;
+      right: 0.75rem;
+      width: 42px;
+      height: 42px;
+    }
+    .lightbox-modal__close span {
+      font-size: 24px;
+    }
+  }
+</style>

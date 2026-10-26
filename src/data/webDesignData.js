@@ -37,12 +37,12 @@ export const heroData = {
       depth: 12,
     },
     main: {
-      src: "/grm-web-assets/web-design-development-image.webp",
+      src: "/grm-main-graphics/website-design-graphic.svg",
       alt: "Custom Website Design Monitor and Wireframe",
-      width: 2642,
-      height: 2000,
+      width: 746,
+      height: 780,
       depth: -18,
-      style: "width: 90%; left: 5%; top: 12%;",
+      style: "width: 70%; left: 15%; top: 10%;",
     },
     floats: [],
   },
@@ -77,11 +77,11 @@ export const startsData = {
       height: 780,
     },
     main: {
-      src: "/grm-web-assets/3d-laptop-www-website.svg",
+      src: "/grm-main-graphics/laptop-web-design-layout-graphic.svg",
       alt: "Responsive laptop and mobile website experience",
       width: 746,
       height: 780,
-      style: "width: 62%; left: 19%; top: 14%;",
+      style: "width: 58%; left: 21%; top: 12%;",
     },
     satellites: [
       {
@@ -167,7 +167,7 @@ export const processData = {
       title: "Attention-Grabbing Design",
       body: "The phrase 'don't judge a book by its cover' seems to contradict reality, as 94% of first impressions of a website are based on visuals and design. This means that nearly all visitors form opinions about your company almost instantly, based solely on its appearance.",
       main: {
-        src: "/grm-web-assets/3d-art-computer-program-graphic.svg",
+        src: "/grm-main-graphics/monitor-with-image-file.webp",
         w: 746,
         h: 780,
         style: "width: 56%; left: 22%; top: 12%;",
@@ -180,10 +180,10 @@ export const processData = {
           style: "width: 22%; left: 6%; bottom: 12%;",
         },
         {
-          src: "/grm-web-assets/999-hearts-likes-graphic.svg",
+          src: "/grm-web-assets/pencil-graphic.svg",
           w: 746,
           h: 780,
-          style: "width: 24%; right: 6%; top: 8%;",
+          style: "width: 22%; right: 6%; top: 8%;",
         },
       ],
     },
@@ -193,14 +193,14 @@ export const processData = {
       title: "Peak Technology for Conversions",
       body: "A pretty website that doesn't convert is just digital wallpaper. We engineer every page around intuitive user flows, sub-second page loads, mobile-first responsiveness, and frictionless calls-to-action that turn visitors into qualified leads.",
       main: {
-        src: "/grm-web-assets/3d-laptop-www-website.svg",
+        src: "/grm-main-graphics/mouse-cursor-graphic.svg",
         w: 746,
         h: 780,
         style: "width: 58%; left: 21%; top: 14%;",
       },
       floats: [
         {
-          src: "/grm-web-assets/3d-ruler-graphic.svg",
+          src: "/grm-web-assets/3d-mobile-graphic.svg",
           w: 687,
           h: 663,
           style: "width: 20%; left: 6%; bottom: 12%;",
@@ -219,14 +219,14 @@ export const processData = {
       title: "SEO-Optimized Framework",
       body: "Every website we build is structured from the ground up for search engines. Clean semantic HTML, schema markup, Core Web Vitals optimization, and logical site architecture ensure Google crawlers can index and reward your pages with higher visibility.",
       main: {
-        src: "/grm-web-assets/code-window-graphic.svg",
+        src: "/grm-main-graphics/browser-search-results-window-graphic.svg",
         w: 746,
         h: 780,
         style: "width: 58%; left: 21%; top: 14%;",
       },
       floats: [
         {
-          src: "/grm-web-assets/3d-search-window-graphic.svg",
+          src: "/grm-web-assets/code-window-graphic.svg",
           w: 746,
           h: 780,
           style: "width: 22%; left: 6%; bottom: 12%;",
@@ -245,7 +245,7 @@ export const processData = {
       title: "Top-Tier Security, Hosting & Support",
       body: "Your website is a living asset that requires protection and care. We provide hardened SSL security, ultra-reliable hosting infrastructure, automated backups, and hands-on ongoing support so your site stays fast, secure, and up to date 24/7.",
       main: {
-        src: "/grm-web-assets/3d-window-with-gear-graphic.svg",
+        src: "/grm-main-graphics/laptop-checklist-screen-graphic.svg",
         w: 687,
         h: 663,
         style: "width: 58%; left: 21%; top: 14%;",
@@ -258,7 +258,7 @@ export const processData = {
           style: "width: 20%; left: 6%; bottom: 12%;",
         },
         {
-          src: "/grm-web-assets/angled-heart-icon.svg",
+          src: "/grm-web-assets/sheild-graphic.svg",
           w: 746,
           h: 780,
           style: "width: 18%; right: 6%; top: 8%;",
@@ -288,7 +288,7 @@ export const readyData = {
       parallax: 22,
     },
     main: {
-      src: "/grm-web-assets/laptop-web-design-layout-graphic.svg",
+      src: "/grm-main-graphics/monitor-with-rocket-launching.webp",
       alt: "Connected local business storefronts and business owners",
       width: 746,
       height: 780,
@@ -297,7 +297,7 @@ export const readyData = {
     },
     badges: [
       {
-        src: "/grm-web-assets/angled-heart-icon.svg",
+        src: "/grm-web-assets/3d-bar-graph-going-up-graphic.svg",
         alt: "",
         width: 746,
         height: 780,
@@ -306,7 +306,7 @@ export const readyData = {
         style: "width: 18%; left: 6%; bottom: 8%;",
       },
       {
-        src: "/grm-web-assets/3-arrows-up-graphic.svg",
+        src: "/grm-web-assets/keyboard-icon-graphic.svg",
         alt: "",
         width: 746,
         height: 780,
@@ -326,7 +326,7 @@ export const deliverablesData = {
   deliverables: [
     {
       icon: "/grm-web-icons/automation-and-optimization-icon-blue.svg",
-      accent: "/grm-web-assets/3-arrows-up-graphic.svg",
+      accent: "/grm-web-assets/mouse-icon-graphic.svg",
       accentW: 291,
       accentH: 419,
       metric: "Core Web Vitals Ready",
@@ -335,7 +335,7 @@ export const deliverablesData = {
     },
     {
       icon: "/grm-web-icons/more-stats-icon-blue.svg",
-      accent: "/grm-web-assets/mobile-shopping-graphic.svg",
+      accent: "/grm-web-assets/phone-with-mobile-apps-icons-graphic.svg",
       accentW: 188,
       accentH: 342,
       metric: "70% Mobile Researchers",
@@ -344,7 +344,7 @@ export const deliverablesData = {
     },
     {
       icon: "/grm-web-icons/roi-icon-blue.svg",
-      accent: "/grm-web-assets/arrow-in-target-graphic.svg",
+      accent: "/grm-web-assets/3d-clipboard-flow-chart-graphic.svg",
       accentW: 261,
       accentH: 246,
       metric: "Full-Funnel UX",
@@ -353,7 +353,7 @@ export const deliverablesData = {
     },
     {
       icon: "/grm-web-icons/group-presentation-icon-blue.svg",
-      accent: "/grm-web-assets/999-hearts-likes-graphic.svg",
+      accent: "/grm-web-assets/star-icon-graphic.svg",
       accentW: 197,
       accentH: 98,
       metric: "94% Visual Impact",
@@ -362,7 +362,7 @@ export const deliverablesData = {
     },
     {
       icon: "/grm-web-icons/customer-loyalty-icon-blue.svg",
-      accent: "/grm-web-assets/angled-heart-icon.svg",
+      accent: "/grm-web-assets/award-badge-graphic-02.svg",
       accentW: 152,
       accentH: 162,
       metric: "75% Trust Signal",
@@ -412,7 +412,7 @@ export const consultData = {
         style: "width: 22%; right: 6%; top: 6%;",
       },
       {
-        src: "/grm-web-assets/angled-heart-icon.svg",
+        src: "/grm-web-assets/timer-watch-graphic.svg",
         alt: "",
         width: 152,
         height: 162,

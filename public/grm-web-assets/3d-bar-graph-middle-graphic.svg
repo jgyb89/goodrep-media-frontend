@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="_ÎÓÈ_1" data-name="—ÎÓÈ 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 23.25 23.53">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #e0b324;
+      }
+
+      .cls-1, .cls-2, .cls-3, .cls-4, .cls-5, .cls-6, .cls-7, .cls-8, .cls-9, .cls-10, .cls-11, .cls-12 {
+        fill-rule: evenodd;
+      }
+
+      .cls-2 {
+        fill: #22303d;
+      }
+
+      .cls-3 {
+        fill: #d63d26;
+      }
+
+      .cls-4 {
+        fill: #0fa3b6;
+      }
+
+      .cls-5 {
+        fill: #45505b;
+      }
+
+      .cls-6 {
+        fill: #d6a825;
+      }
+
+      .cls-7 {
+        fill: #e94f37;
+      }
+
+      .cls-8 {
+        fill: #ffc845;
+      }
+
+      .cls-9 {
+        fill: #1bc4d9;
+      }
+
+      .cls-10 {
+        fill: #943b3b;
+      }
+
+      .cls-11 {
+        fill: #64748b;
+      }
+
+      .cls-12 {
+        fill: #515e6d;
+      }
+    </style>
+  </defs>
+  <g>
+    <polygon class="cls-11" points="7.66 21.23 2.16 18.06 15.6 10.3 21.09 13.47 7.66 21.23"/>
+    <polygon class="cls-5" points="7.66 22.98 2.16 19.81 2.16 18.06 7.66 21.23 7.66 22.98"/>
+  </g>
+  <polygon class="cls-12" points="7.66 21.23 21.09 13.47 21.09 15.22 7.66 22.98 7.66 21.23"/>
+  <polygon class="cls-10" points="11.41 17.7 8.39 15.96 8.39 2.61 11.41 4.35 11.41 17.7"/>
+  <polygon class="cls-3" points="11.41 4.35 8.39 2.61 11.96 .55 14.98 2.29 11.41 4.35"/>
+  <polygon class="cls-6" points="11.41 11.71 8.39 9.96 4.83 12.02 7.84 13.77 11.41 11.71"/>
+  <polygon class="cls-1" points="7.84 13.77 4.83 12.02 4.83 18.02 7.84 19.76 7.84 13.77"/>
+  <polygon class="cls-2" points="14.98 15.64 11.96 13.9 11.96 5.2 14.98 6.94 14.98 15.64"/>
+  <polygon class="cls-4" points="14.98 6.94 11.96 5.2 15.53 3.14 18.54 4.88 14.98 6.94"/>
+  <polygon class="cls-9" points="14.98 15.64 14.98 6.94 18.54 4.88 18.54 13.58 14.98 15.64"/>
+  <polygon class="cls-8" points="11.41 17.7 11.41 11.71 7.84 13.77 7.84 19.76 11.41 17.7"/>
+  <polygon class="cls-7" points="11.41 17.7 11.41 4.35 14.98 2.29 14.98 15.64 11.41 17.7"/>
+</svg>
