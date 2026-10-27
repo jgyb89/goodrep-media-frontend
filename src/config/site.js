@@ -61,7 +61,7 @@ export const LEGAL_LINKS = Object.freeze([
   },
   {
     label: "Privacy Policy",
-    href: "https://goodrep.media/privacy-policy",
+    href: "https://goodrep.media/privacy-policy/",
   },
   {
     label: "Mobile Terms",

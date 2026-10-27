@@ -122,12 +122,11 @@ import { stats, projects } from "../data/work/directoryData.js";
       <!-- Project Cards Grid -->
       <div class="work-grid" data-reveal>
         {projects.map((project, idx) => (
-          <div
+          <a
+            href={project.href || "#consultation"}
             class="project-card"
             data-project-card
             data-project-index={idx}
-            tabindex="0"
-            role="button"
             aria-haspopup="dialog"
             aria-label={`View ${project.title} case study details`}
           >
@@ -169,7 +168,7 @@ import { stats, projects } from "../data/work/directoryData.js";
                 </div>
               </div>
             </div>
-          </div>
+          </a>
         ))}
       </div>
     </div>
@@ -344,7 +343,7 @@ import { stats, projects } from "../data/work/directoryData.js";
         </p>
         <div class="work-ethos__actions">
           <a href="#consultation" class="btn btn--primary">Book Free 30-Min Strategy Call</a>
-          <a href="/services" class="btn btn--outline-light">Explore Our Services</a>
+          <a href="/services/" class="btn btn--outline-light">Explore Our Services</a>
         </div>
       </div>
     </div>

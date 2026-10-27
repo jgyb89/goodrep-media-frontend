@@ -13,7 +13,7 @@ export const stats = [
 export const projects = [
   {
     title: "Cape Coral Lawn Care",
-    href: "/our-work/cape-coral-lawn-care",
+    href: "/work/cape-coral-lawn-care/",
     category: "Web Design & Local SEO",
     tag: "Landscaping & Outdoor Services",
     summary:
@@ -32,7 +32,7 @@ export const projects = [
   },
   {
     title: "Coral Breeze Services",
-    href: "/our-work/coral-breeze-services",
+    href: "/work/coral-breeze-services/",
     category: "Website Design & Branding",
     tag: "Home Services & Cleaning",
     summary:
@@ -49,7 +49,7 @@ export const projects = [
   },
   {
     title: "Glowing Results Skin Spa",
-    href: "/our-work/glowing-results-skin-spa",
+    href: "/work/glowing-results-skin-spa/",
     category: "Local SEO & Reputation",
     tag: "Health & Beauty Spa",
     summary:
@@ -67,7 +67,7 @@ export const projects = [
   },
   {
     title: "Be Balanced Bodyworks",
-    href: "/our-work/be-balanced-bodywork",
+    href: "/work/be-balanced-bodyworks/",
     category: "Branding & Web Refresh",
     tag: "Wellness & Massage Therapy",
     summary:
@@ -85,7 +85,7 @@ export const projects = [
   },
   {
     title: "Abode Home Services",
-    href: "/our-work/abode-services",
+    href: "/work/abode-home-services/",
     category: "Web Design & Local SEO",
     tag: "Home Repair & Property Services",
     summary:
@@ -103,7 +103,7 @@ export const projects = [
   },
   {
     title: "Home Owner Pro Experts",
-    href: "/our-work/home-owner-pro-experts",
+    href: "/work/home-owner-pro-experts/",
     category: "Branding & Lead Generation",
     tag: "Mortgage & Financial Solutions",
     summary:
@@ -121,7 +121,7 @@ export const projects = [
   },
   {
     title: "Home Owners Help Options",
-    href: "/our-work/home-owner-help-options",
+    href: "/work/home-owners-help-options/",
     category: "Web Design & Digital Strategy",
     tag: "Homeowner Advocacy & Assistance",
     summary:
@@ -139,7 +139,7 @@ export const projects = [
   },
   {
     title: "Cape Coral Reviewed",
-    href: "/our-work/cape-coral-reviewed",
+    href: "/work/cape-coral-reviewed/",
     category: "Headless Web App & Growth",
     tag: "Community Marketing & Local SEO",
     summary:
@@ -162,7 +162,7 @@ export const projects = [
   },
   {
     title: "Florida Sunshine Lawn Care",
-    href: "/our-work/florida-sunshine-lawn-care",
+    href: "/work/florida-sunshine-lawn-care/",
     category: "Web Design & Local SEO",
     tag: "Lawn Care & Landscaping",
     summary:
@@ -185,7 +185,7 @@ export const projects = [
   },
   {
     title: "Jojo Java",
-    href: "/our-work/jojo-java",
+    href: "/work/jojo-java/",
     category: "eCommerce & Subscription Funnel",
     tag: "Specialty Coffee & DTC",
     summary:
