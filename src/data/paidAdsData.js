@@ -42,7 +42,6 @@ export const heroData = {
       width: 2642,
       height: 2000,
       depth: -18,
-      style: "width: 74%; left: 13%; top: 12%;",
     },
     floats: [],
   },
@@ -85,7 +84,6 @@ export const startsData = {
       alt: "Why PPC Matters for Small Businesses - High ROI Ad Spend",
       width: 687,
       height: 663,
-      style: "width: 62%; left: 19%; top: 12%;",
     },
     satellites: [
       {
@@ -94,8 +92,7 @@ export const startsData = {
         width: 746,
         height: 780,
         parallax: -44,
-        className: "starts-feature__sat--target",
-        style: "width: 24%; left: 6%; top: 8%;",
+                placement: "top-left",
       },
       {
         src: "/grm-web-assets/3d-star-graphic.svg",
@@ -104,7 +101,7 @@ export const startsData = {
         height: 780,
         parallax: -32,
         className: "starts-feature__sat--award",
-        style: "width: 22%; right: 6%; bottom: 10%; z-index: 3;",
+        placement: "bottom-right",
       },
     ],
     pill: {
@@ -187,7 +184,6 @@ export const pillarsData = {
       alt: "Our PPC Success Pillars - Data Driven Precision",
       width: 687,
       height: 663,
-      style: "width: 62%; left: 19%; top: 12%;",
     },
     satellites: [
       {
@@ -196,8 +192,7 @@ export const pillarsData = {
         width: 746,
         height: 780,
         parallax: -36,
-        className: "starts-feature__sat--likes",
-        style: "width: 24%; left: 6%; bottom: 12%;",
+                placement: "bottom-left",
       },
       {
         src: "/grm-web-assets/3-arrows-up-graphic.svg",
@@ -205,8 +200,7 @@ export const pillarsData = {
         width: 746,
         height: 780,
         parallax: -44,
-        className: "starts-feature__sat--target",
-        style: "width: 22%; right: 6%; top: 8%;",
+                placement: "top-right",
       },
     ],
     pill: {
@@ -234,20 +228,19 @@ export const processData = {
         src: "/grm-main-graphics/magnify-glass-graphic.svg",
         w: 746,
         h: 780,
-        style: "width: 62%; left: 19%; top: 12%;",
       },
       floats: [
         {
           src: "/grm-web-assets/3d-magnify-glass.svg",
           w: 746,
           h: 780,
-          style: "width: 22%; left: 6%; bottom: 12%;",
+          placement: "bottom-left",
         },
         {
           src: "/grm-web-assets/compass-icon-graphic-02.svg",
           w: 746,
           h: 780,
-          style: "width: 20%; right: 6%; top: 8%;",
+          placement: "top-right",
         },
       ],
     },
@@ -260,20 +253,19 @@ export const processData = {
         src: "/grm-main-graphics/laptop-web-design-layout-graphic.svg",
         w: 746,
         h: 780,
-        style: "width: 62%; left: 19%; top: 12%;",
       },
       floats: [
         {
           src: "/grm-web-assets/3d-search-window-graphic.svg",
           w: 746,
           h: 780,
-          style: "width: 24%; left: 6%; top: 8%;",
+          placement: "top-left",
         },
         {
           src: "/grm-web-assets/coin-stack-graphic.svg",
           w: 746,
           h: 780,
-          style: "width: 22%; right: 6%; bottom: 10%;",
+          placement: "bottom-right",
         },
       ],
     },
@@ -286,20 +278,19 @@ export const processData = {
         src: "/grm-main-graphics/laptop-checklist-screen-graphic.svg",
         w: 746,
         h: 780,
-        style: "width: 62%; left: 19%; top: 12%;",
       },
       floats: [
         {
           src: "/grm-web-assets/3d-bar-graph-going-up-graphic.svg",
           w: 746,
           h: 780,
-          style: "width: 22%; left: 6%; bottom: 12%;",
+          placement: "bottom-left",
         },
         {
           src: "/grm-web-assets/3d-pie-chart-graph.svg",
           w: 746,
           h: 780,
-          style: "width: 20%; right: 6%; top: 8%;",
+          placement: "top-right",
         },
       ],
     },
@@ -312,20 +303,19 @@ export const processData = {
         src: "/grm-main-graphics/mouse-cursor-graphic.svg",
         w: 746,
         h: 780,
-        style: "width: 62%; left: 19%; top: 12%;",
       },
       floats: [
         {
           src: "/grm-web-assets/chess-peice-graphic.svg",
           w: 746,
           h: 780,
-          style: "width: 24%; left: 6%; top: 8%;",
+          placement: "top-left",
         },
         {
           src: "/grm-web-assets/number-one-award-graphic.svg",
           w: 746,
           h: 780,
-          style: "width: 22%; right: 6%; bottom: 10%;",
+          placement: "bottom-right",
         },
       ],
     },
@@ -360,7 +350,6 @@ export const approachData = {
       alt: "How PPC Works - Google Ads Auction and Relevance Mechanics",
       width: 687,
       height: 663,
-      style: "width: 62%; left: 19%; top: 12%;",
     },
     satellites: [
       {
@@ -369,8 +358,7 @@ export const approachData = {
         width: 746,
         height: 780,
         parallax: -44,
-        className: "starts-feature__sat--target",
-        style: "width: 24%; left: 6%; top: 8%;",
+                placement: "top-left",
       },
       {
         src: "/grm-web-assets/data-flow-arrows-graphic.svg",
@@ -378,7 +366,7 @@ export const approachData = {
         width: 746,
         height: 780,
         parallax: -38,
-        style: "width: 22%; right: 6%; bottom: 10%; z-index: 3;",
+        placement: "bottom-right",
       },
     ],
     pill: {
@@ -479,7 +467,6 @@ export const readyData = {
       width: 746,
       height: 780,
       parallax: -28,
-      style: "width: 58%; left: 21%; top: 12%;",
     },
     badges: [
       {
@@ -489,7 +476,7 @@ export const readyData = {
         height: 780,
         parallax: -48,
         className: "ready-band__badge--handshake",
-        style: "width: 24%; left: 6%; bottom: 12%;",
+        placement: "bottom-left",
       },
       {
         src: "/grm-web-assets/thumbs-up-like-icon-graphic.svg",
@@ -497,8 +484,7 @@ export const readyData = {
         width: 746,
         height: 780,
         parallax: -58,
-        className: "ready-band__badge--growth",
-        style: "width: 22%; right: 6%; top: 8%;",
+                placement: "top-right",
       },
     ],
   },

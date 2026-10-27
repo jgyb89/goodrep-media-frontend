@@ -42,7 +42,6 @@ export const heroData = {
       width: 2642,
       height: 2000,
       depth: -18,
-      style: "width: 74%; left: 13%; top: 12%;",
     },
     floats: [],
   },
@@ -85,7 +84,6 @@ export const startsData = {
       alt: "Maximize Your Sales Potential with Amazon Marketing Services",
       width: 746,
       height: 780,
-      style: "width: 62%; left: 19%; top: 12%;",
     },
     satellites: [
       {
@@ -94,8 +92,7 @@ export const startsData = {
         width: 746,
         height: 780,
         parallax: -44,
-        className: "starts-feature__sat--target",
-        style: "width: 24%; left: 6%; top: 8%;",
+                placement: "top-left",
       },
       {
         src: "/grm-web-assets/number-one-award-graphic.svg",
@@ -103,7 +100,7 @@ export const startsData = {
         width: 746,
         height: 780,
         parallax: -38,
-        style: "width: 22%; right: 6%; bottom: 10%; z-index: 3;",
+        placement: "bottom-right",
       },
     ],
     pill: {
@@ -198,7 +195,6 @@ export const pillarsData = {
       alt: "How Do We Make It Happen on Amazon Marketplace",
       width: 746,
       height: 780,
-      style: "width: 62%; left: 19%; top: 14%;",
     },
     satellites: [
       {
@@ -207,7 +203,7 @@ export const pillarsData = {
         width: 746,
         height: 780,
         parallax: -34,
-        style: "width: 24%; left: 6%; bottom: 12%; z-index: 3;",
+        placement: "bottom-left",
       },
       {
         src: "/grm-web-assets/coin-stack-graphic.svg",
@@ -215,8 +211,7 @@ export const pillarsData = {
         width: 746,
         height: 780,
         parallax: -46,
-        className: "starts-feature__sat--target",
-        style: "width: 22%; right: 6%; top: 8%;",
+                placement: "top-right",
       },
     ],
     pill: {
@@ -244,20 +239,19 @@ export const processData = {
         src: "/grm-main-graphics/search-bar-graphic.svg",
         w: 746,
         h: 780,
-        style: "width: 62%; left: 19%; top: 12%;",
       },
       floats: [
         {
           src: "/grm-web-assets/3d-bar-graph-going-up-graphic.svg",
           w: 746,
           h: 780,
-          style: "width: 24%; left: 8%; bottom: 12%;",
+          placement: "bottom-left",
         },
         {
           src: "/grm-web-assets/star-app-icon-graphic.svg",
           w: 746,
           h: 780,
-          style: "width: 22%; right: 8%; top: 8%;",
+          placement: "top-right",
         },
       ],
     },
@@ -270,20 +264,19 @@ export const processData = {
         src: "/grm-main-graphics/customer-review-graphic.svg",
         w: 746,
         h: 780,
-        style: "width: 62%; left: 19%; top: 12%;",
       },
       floats: [
         {
           src: "/grm-web-assets/happy-face-speech-bubble-graphic.svg",
           w: 746,
           h: 780,
-          style: "width: 24%; left: 8%; bottom: 12%;",
+          placement: "bottom-left",
         },
         {
           src: "/grm-web-assets/arrow-in-target-graphic.svg",
           w: 746,
           h: 780,
-          style: "width: 22%; right: 8%; top: 8%;",
+          placement: "top-right",
         },
       ],
     },
@@ -296,20 +289,19 @@ export const processData = {
         src: "/grm-main-graphics/market-shop-graphic.svg",
         w: 746,
         h: 780,
-        style: "width: 62%; left: 19%; top: 12%;",
       },
       floats: [
         {
           src: "/grm-web-assets/star-icon-graphic.svg",
           w: 746,
           h: 780,
-          style: "width: 24%; left: 8%; bottom: 12%;",
+          placement: "bottom-left",
         },
         {
           src: "/grm-web-assets/3-arrows-up-graphic.svg",
           w: 746,
           h: 780,
-          style: "width: 22%; right: 8%; top: 8%;",
+          placement: "top-right",
         },
       ],
     },
@@ -322,20 +314,19 @@ export const processData = {
         src: "/grm-main-graphics/megaphone-alert-notification-graphic.svg",
         w: 746,
         h: 780,
-        style: "width: 62%; left: 19%; top: 12%;",
       },
       floats: [
         {
           src: "/grm-web-assets/tablet-ads-targeting-graphic.svg",
           w: 746,
           h: 780,
-          style: "width: 24%; left: 8%; bottom: 12%;",
+          placement: "bottom-left",
         },
         {
           src: "/grm-web-assets/award-badge-graphic-02.svg",
           w: 746,
           h: 780,
-          style: "width: 22%; right: 8%; top: 8%;",
+          placement: "top-right",
         },
       ],
     },
@@ -375,7 +366,6 @@ export const approachData = {
       alt: "Our Approach to Amazon Marketing and Growth",
       width: 746,
       height: 780,
-      style: "width: 62%; left: 19%; top: 12%;",
     },
     satellites: [
       {
@@ -384,7 +374,7 @@ export const approachData = {
         width: 746,
         height: 780,
         parallax: -34,
-        style: "width: 24%; left: 6%; top: 8%; z-index: 3;",
+        placement: "top-left",
       },
       {
         src: "/grm-web-assets/chess-peice-graphic.svg",
@@ -392,8 +382,7 @@ export const approachData = {
         width: 687,
         height: 663,
         parallax: -40,
-        className: "starts-feature__sat--target",
-        style: "width: 22%; right: 6%; bottom: 10%;",
+                placement: "bottom-right",
       },
     ],
     pill: {
@@ -495,7 +484,6 @@ export const readyData = {
       width: 746,
       height: 780,
       parallax: -28,
-      style: "width: 62%; left: 19%; top: 12%;",
     },
     badges: [
       {
@@ -505,7 +493,7 @@ export const readyData = {
         height: 780,
         parallax: -48,
         className: "ready-band__badge--handshake",
-        style: "width: 24%; left: 6%; bottom: 12%;",
+        placement: "bottom-left",
       },
       {
         src: "/grm-web-assets/upward-trend-graph-graphic.svg",
@@ -513,8 +501,7 @@ export const readyData = {
         width: 746,
         height: 780,
         parallax: -58,
-        className: "ready-band__badge--growth",
-        style: "width: 22%; right: 6%; top: 8%;",
+                placement: "top-right",
       },
     ],
   },

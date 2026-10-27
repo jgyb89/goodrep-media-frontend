@@ -22,12 +22,10 @@ export const heroData = {
     mainAlt: "Google Ads campaign management dashboard for medical spas and aesthetics",
     accent1: {
       src: "/grm-web-assets/coin-stack-graphic.svg",
-      style: "width: 22%; left: 4%; bottom: 6%;",
       parallax: "-38",
     },
     accent2: {
       src: "/grm-web-assets/arrow-in-target-graphic.svg",
-      style: "width: 20%; right: 4%; top: 6%;",
       parallax: "-45",
     },
   },
@@ -243,18 +241,14 @@ export const auditConsultData = {
       {
         src: "/grm-web-assets/user-speech-bubble-graphic.svg",
         alt: "",
-        width: 746,
-        height: 780,
         className: "consult__art-float--chat",
-        style: "width: 22%; right: 4%; top: 4%;",
+        placement: "top-right",
       },
       {
         src: "/grm-web-assets/angled-heart-icon.svg",
         alt: "",
-        width: 746,
-        height: 780,
         className: "consult__art-float--heart",
-        style: "width: 18%; left: 4%; bottom: 6%;",
+        placement: "bottom-left",
       },
     ],
   },

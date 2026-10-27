@@ -41,7 +41,7 @@ export const DEFAULT_CONSULT_ART = Object.freeze({
       width: 186,
       height: 108,
       className: "consult__art-float--chat",
-      style: "width: 22%; right: 6%; top: 6%;",
+      placement: "top-right",
     },
     {
       src: "/grm-web-assets/angled-heart-icon.svg",
@@ -49,7 +49,7 @@ export const DEFAULT_CONSULT_ART = Object.freeze({
       width: 154,
       height: 154,
       className: "consult__art-float--heart",
-      style: "width: 19%; left: 5%; bottom: 4%;",
+      placement: "bottom-left",
     },
   ],
 });
