@@ -3,6 +3,18 @@
  * Extracted from src/pages/work.astro for clean separation of data and view (SLAP & DRY).
  */
 
+import capeCoralLawnCareImg from "../../assets/case-studies/cape-coral-lawn-care-project-card.webp";
+import coralBreezeImg from "../../assets/case-studies/coral-breeze-project-card.jpg";
+import glowingResultsImg from "../../assets/case-studies/glowing-result-skin-spa-project.jpg";
+import beBalancedImg from "../../assets/case-studies/be-balanced-bodyworks-project-card.webp";
+import abodeHomeImg from "../../assets/case-studies/abode-home-services-project-card.webp";
+import homeOwnerProImg from "../../assets/case-studies/home-owner-pro-experts-project-card.webp";
+import homeOwnerHelpImg from "../../assets/case-studies/home-owner-help-options-project-card.webp";
+import capeCoralReviewedImg from "../../assets/case-studies/cape-coral-reviewed-project-card.webp";
+import floridaSunshineImg from "../../assets/case-studies/florida-sunshine-lawn-care-project-card.webp";
+import jojoJavaImg from "../../assets/case-studies/jojo-java-project-card.webp";
+import pinkSlushyImg from "../../assets/case-studies/pink-slushy-project-card.jpg";
+
 export const stats = [
   { prefix: "+", value: 240, suffix: "%", barPercent: 90, label: "Average Call & Lead Increase" },
   { value: 50, suffix: "+", barPercent: 85, label: "Custom Websites Built & Launched" },
@@ -25,7 +37,7 @@ export const projects = [
     ],
     logo: "/grm-web-assets/cape-coral-lawn-care-logo-white.svg",
     logoClass: "window-graphic__brand--cclc",
-    img: "/grm-graphic-samples/cape-coral-lawn-care-project-card.webp",
+    img: capeCoralLawnCareImg,
     w: 800,
     h: 1050,
     deliverables: ["Custom WordPress Theme", "Local Map Pack SEO", "Review Automation", "Call Tracking"],
@@ -42,7 +54,7 @@ export const projects = [
       { num: "-62%", desc: "Mobile bounce rate", icon: "trending_down" },
       { num: "100%", desc: "Accessibility & Best Practices", icon: "verified" },
     ],
-    img: "/grm-graphic-samples/coral-breeze-project-card.jpg",
+    img: coralBreezeImg,
     w: 800,
     h: 1050,
     deliverables: ["UI/UX Mobile Design", "Lead Capture Funnel", "Service Pricing Calculator", "Speed Optimization"],
@@ -60,7 +72,7 @@ export const projects = [
       { num: "Top 3", desc: "Rankings for core search terms", icon: "search" },
     ],
     logo: "/grm-graphic-samples/glowing-results-skin-spa-logo-white.webp",
-    img: "/grm-graphic-samples/glowing-result-skin-spa-project.jpg",
+    img: glowingResultsImg,
     w: 800,
     h: 1050,
     deliverables: ["Google Business Profile Strategy", "Reputation Management", "Local Citation Building", "Booking Integration"],
@@ -78,7 +90,7 @@ export const projects = [
       { num: "99%", desc: "Core Web Vitals health", icon: "speed" },
     ],
     logo: "/grm-graphic-samples/be-balanced-bodyworks-logo-white.svg",
-    img: "/grm-graphic-samples/be-balanced-bodyworks-project-card.webp",
+    img: beBalancedImg,
     w: 800,
     h: 1050,
     deliverables: ["Brand Identity Refresh", "Technical SEO Cleanup", "Automated Intake Forms", "Content Strategy"],
@@ -96,7 +108,7 @@ export const projects = [
       { num: "98%", desc: "Mobile speed score", icon: "speed" },
     ],
     logo: "/grm-main-graphics/abode-home-services-logo-white.svg",
-    img: "/grm-graphic-samples/abode-home-services-project-card.webp",
+    img: abodeHomeImg,
     w: 800,
     h: 1050,
     deliverables: ["Web Design + Build", "SEO Optimization", "UX Improvements", "Content Writing"],
@@ -114,7 +126,7 @@ export const projects = [
       { num: "#1", desc: "Local search placement", icon: "location_on" },
     ],
     logo: "/grm-graphic-samples/home-owner-pro-experts-logo-white.svg",
-    img: "/grm-graphic-samples/home-owner-pro-experts-project-card.webp",
+    img: homeOwnerProImg,
     w: 800,
     h: 1050,
     deliverables: ["Custom Web Design", "Brand Refresh", "Digital Strategy", "Lead Funnel Optimization"],
@@ -132,7 +144,7 @@ export const projects = [
       { num: "0.7s", desc: "Time to interactive", icon: "speed" },
     ],
     logo: "/grm-graphic-samples/home-owner-help-options-logo-white.svg",
-    img: "/grm-graphic-samples/home-owner-help-options-project-card.webp",
+    img: homeOwnerHelpImg,
     w: 800,
     h: 1050,
     deliverables: ["Web Design & Development", "Brand Identity", "Content Writing", "SEO Optimization"],
@@ -150,7 +162,7 @@ export const projects = [
       { num: "100/100", desc: "Technical SEO score", icon: "code" },
     ],
     logo: "/grm-graphic-samples/cape-coral-reviewed-logo.svg",
-    img: "/grm-graphic-samples/cape-coral-reviewed-project-card.webp",
+    img: capeCoralReviewedImg,
     w: 800,
     h: 1050,
     deliverables: [
@@ -173,7 +185,7 @@ export const projects = [
       { num: "0.8s", desc: "Mobile page load time", icon: "speed" },
     ],
     logo: "/grm-graphic-samples/florida-sunshine-lawn-care-logo.svg",
-    img: "/grm-graphic-samples/florida-sunshine-lawn-care-project-card.webp",
+    img: floridaSunshineImg,
     w: 800,
     h: 1050,
     deliverables: [
@@ -197,7 +209,7 @@ export const projects = [
     ],
     logo: "/grm-graphic-samples/jojo-java-logo.svg",
     logoClass: "window-graphic__brand--cclc",
-    img: "/grm-graphic-samples/jojo-java-project-card.webp",
+    img: jojoJavaImg,
     w: 800,
     h: 1050,
     deliverables: [
@@ -218,7 +230,7 @@ export const projects = [
       { num: "5.1x", desc: "Landing page conversion rate", icon: "ads_click" },
       { num: "100%", desc: "Mobile performance score", icon: "bolt" },
     ],
-    img: "/grm-graphic-samples/pink-slushy-project-card.jpg",
+    img: pinkSlushyImg,
     w: 800,
     h: 1050,
     deliverables: ["Custom Web Design", "Strategy Call Funnel", "Interactive UI Graphics", "Technical SEO"],
