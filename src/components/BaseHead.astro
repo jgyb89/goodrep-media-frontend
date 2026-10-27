@@ -1,24 +1,58 @@
 ---
-import { SITE_NAME, DEFAULT_PAGE_TITLE, DEFAULT_META_DESCRIPTION } from "../config/site.js";
-
-interface Props {
-  title?: string;
-  description?: string;
-  favicon?: string;
-}
+import { DEFAULT_PAGE_TITLE, DEFAULT_META_DESCRIPTION } from "../config/site.js";
 
 const {
   title = DEFAULT_PAGE_TITLE,
   description = DEFAULT_META_DESCRIPTION,
-  favicon = "/grm-logos/GRM_Blue_Favicon.png",
+  image = '/grm-logos/og-default.jpg',
+  noindex = false,
+  schemaGraph = null
 } = Astro.props;
+
+// Hard-code the production origin to prevent GitHub Pages override
+const siteOrigin = "https://goodrep.media";
+
+// Build the canonical URL and ensure trailing slash matches config
+let pathname = Astro.url.pathname;
+if (!pathname.endsWith('/')) {
+  pathname += '/';
+}
+const canonical = new URL(pathname, siteOrigin).href;
+
+// Resolve the OG image URL
+const ogImage = new URL(image, siteOrigin).href;
+
+// Environment check for staging branches
+const isGitHubPages = import.meta.env.GITHUB_PAGES === 'true' || process.env.GITHUB_PAGES === 'true';
+const shouldNoIndex = noindex || isGitHubPages;
 ---
 
 <meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+<link rel="icon" type="image/png" href="/grm-logos/GRM_Blue_Favicon.png" />
+<meta name="theme-color" content="#ffffff" />
+
 <title>{title}</title>
 <meta name="description" content={description} />
-<link rel="icon" type="image/png" href={favicon} />
+<link rel="canonical" href={canonical} />
+
+{/* Staging / Private Route Protection */}
+{shouldNoIndex && <meta name="robots" content="noindex,follow" />}
+
+{/* Open Graph */}
+<meta property="og:type" content="website" />
+<meta property="og:title" content={title} />
+<meta property="og:description" content={description} />
+<meta property="og:url" content={canonical} />
+<meta property="og:image" content={ogImage} />
+
+{/* Twitter */}
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content={title} />
+<meta name="twitter:description" content={description} />
+<meta name="twitter:image" content={ogImage} />
 
 <!-- Google Fonts preconnect and stylesheets -->
 <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -27,3 +61,8 @@ const {
   rel="stylesheet"
   href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600;700&family=Poppins:wght@500;600;700;800&display=swap"
 />
+
+{/* JSON-LD Structured Data */}
+{schemaGraph && (
+  <script type="application/ld+json" set:html={JSON.stringify(schemaGraph)} />
+)}

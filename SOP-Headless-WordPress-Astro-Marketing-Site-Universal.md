@@ -682,14 +682,15 @@ export default function LeadForm({ formId = 15, onSubmitted }) {
    - `SITE_URL` = `https://<domain.com>`
 5. Click **Deploy**. Vercel will build the entire static site and provision an edge preview URL.
 
-### 9.2 DNS Production Cutover Matrix
-When launching production traffic, configure the domain's authoritative DNS zone:
+### 9.2 DNS Staging & Production Cutover Matrix
+When configuring your domain's authoritative DNS zone (e.g., WHM/cPanel Zone Editor, Cloudflare, Route53), copy the **exact project-specific target** displayed in **Vercel -> Settings -> Domains -> DNS Records** (Vercel assigns dynamic targets like `<hash>.vercel-dns-017.com.` from its expanded range, while legacy `cname.vercel-dns.com` and `76.76.21.21` remain supported):
 
 | Record Type | Host / Name | Target / Destination | TTL | Purpose |
 | :--- | :--- | :--- | :--- | :--- |
+| **CNAME** | `staging` *(or `staging2`)* | `<hash>.vercel-dns-xxx.com.` | `300` | Points staging subdomain to Vercel without affecting live site |
 | **A** | `wp` | `<wp-server-ip>` | `300` | Points `wp.<domain.com>` to Headless WordPress host |
-| **A** | `@` | `76.76.21.21` | `300` | Points apex `<domain.com>` to Vercel Global Edge Network |
-| **CNAME** | `www` | `cname.vercel-dns.com` | `300` | Directs `www.<domain.com>` to Vercel with auto-SSL |
+| **A** | `@` | `<vercel-assigned-ip>` *(or `76.76.21.21`)* | `300` | Points apex `<domain.com>` to Vercel Global Edge Network |
+| **CNAME** | `www` | `<hash>.vercel-dns-xxx.com.` | `300` | Directs `www.<domain.com>` to Vercel with auto-SSL |
 
 ### 9.3 Configuring Vercel Automated Deploy Hooks
 1. In Vercel, open **Project Settings -> Git -> Deploy Hooks**.

@@ -13,18 +13,19 @@ import { Image } from "astro:assets";
 let posts: any[] = [];
 let wpCategories = DEFAULT_CATEGORIES;
 
-try {
-  wpCategories = await getCategories();
-  const fetchedPosts = await getAllPosts();
-  posts = (fetchedPosts || []).map((post: any) => ({
-    ...post,
-    excerpt: decodeHtmlEntities(
-      DOMPurify.sanitize(post.excerpt || "", { ALLOWED_TAGS: [] }),
-    ).trim(),
-  }));
-} catch (error: any) {
-  console.warn("Could not fetch posts for blog feed:", error?.message || error);
+wpCategories = await getCategories();
+const fetchedPosts = await getAllPosts();
+if (!Array.isArray(fetchedPosts) || fetchedPosts.length === 0) {
+  throw new Error(
+    "[Build Guard] getAllPosts() returned 0 posts for /blog/. Failing build to prevent silent blog wipeout.",
+  );
 }
+posts = fetchedPosts.map((post: any) => ({
+  ...post,
+  excerpt: decodeHtmlEntities(
+    DOMPurify.sanitize(post.excerpt || "", { ALLOWED_TAGS: [] }),
+  ).trim(),
+}));
 
 // Compute live counts per category from fetched posts, falling back to WP count
 const categoryCounts = new Map<string, number>();

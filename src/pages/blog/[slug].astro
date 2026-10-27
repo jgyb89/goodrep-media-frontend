@@ -5,16 +5,16 @@ import MainLayout from '../../layouts/MainLayout.astro';
 import '../../styles/gutenberg.css';
 
 export async function getStaticPaths() {
-  try {
-    const posts = await getAllPosts();
-    return posts.map((post: any) => ({
-      params: { slug: post.slug },
-      props: { post },
-    }));
-  } catch (error: any) {
-    console.warn('Could not fetch posts during getStaticPaths():', error?.message || error);
-    return [];
+  const posts = await getAllPosts();
+  if (!Array.isArray(posts) || posts.length === 0) {
+    throw new Error(
+      '[Build Guard] getAllPosts() returned 0 posts during getStaticPaths(). Failing build to prevent silent blog wipeout.'
+    );
   }
+  return posts.map((post: any) => ({
+    params: { slug: post.slug },
+    props: { post },
+  }));
 }
 
 const { slug } = Astro.params;
