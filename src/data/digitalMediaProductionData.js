@@ -42,7 +42,6 @@ export const heroData = {
       width: 2642,
       height: 2000,
       depth: -18,
-      style: "width: 74%; left: 13%; top: 12%;",
     },
     floats: [],
   },
@@ -86,7 +85,6 @@ export const startsData = {
       alt: "Photos, videos, and graphics for small business",
       width: 746,
       height: 780,
-      style: "width: 64%; left: 18%; top: 12%;",
     },
     satellites: [
       {
@@ -95,8 +93,7 @@ export const startsData = {
         width: 746,
         height: 780,
         parallax: -50,
-        className: "starts-feature__sat--likes",
-        style: "width: 22%; left: 6%; top: 8%;",
+                placement: "top-left",
       },
       {
         src: "/grm-web-assets/3d-file-folder-graphic.svg",
@@ -104,7 +101,7 @@ export const startsData = {
         width: 746,
         height: 780,
         parallax: -38,
-        style: "width: 22%; right: 6%; bottom: 10%; z-index: 3;",
+        placement: "bottom-right",
       },
     ],
     pill: {
@@ -200,7 +197,6 @@ export const pillarsData = {
       alt: "Affordable digital media production and design",
       width: 746,
       height: 780,
-      style: "width: 62%; left: 19%; top: 14%;",
     },
     satellites: [
       {
@@ -209,8 +205,7 @@ export const pillarsData = {
         width: 746,
         height: 780,
         parallax: -44,
-        className: "starts-feature__sat--target",
-        style: "width: 22%; left: 6%; bottom: 12%;",
+                placement: "bottom-left",
       },
       {
         src: "/grm-web-assets/3d-color-picker-graphic.svg",
@@ -218,7 +213,7 @@ export const pillarsData = {
         width: 746,
         height: 780,
         parallax: -34,
-        style: "width: 22%; right: 6%; top: 8%; z-index: 3;",
+        placement: "top-right",
       },
     ],
     pill: {
@@ -245,20 +240,19 @@ export const processData = {
         src: "/grm-main-graphics/laptop-checklist-screen-graphic.svg",
         w: 746,
         h: 780,
-        style: "width: 64%; left: 18%; top: 10%;",
       },
       floats: [
         {
           src: "/grm-web-assets/spiral-notebook-with-target-graphic.svg",
           w: 746,
           h: 780,
-          style: "width: 24%; left: 6%; bottom: 12%;",
+          placement: "bottom-left",
         },
         {
           src: "/grm-web-assets/artist-brush-and-paint-graphic.svg",
           w: 746,
           h: 780,
-          style: "width: 24%; right: 8%; top: 8%;",
+          placement: "top-right",
         },
       ],
     },
@@ -271,20 +265,19 @@ export const processData = {
         src: "/grm-main-graphics/laptop-web-design-layout-graphic.svg",
         w: 746,
         h: 780,
-        style: "width: 62%; left: 19%; top: 12%;",
       },
       floats: [
         {
           src: "/grm-web-assets/happy-face-speech-bubble-graphic.svg",
           w: 746,
           h: 780,
-          style: "width: 20%; left: 8%; bottom: 12%;",
+          placement: "bottom-left",
         },
         {
           src: "/grm-web-assets/999-hearts-likes-graphic.svg",
           w: 746,
           h: 780,
-          style: "width: 22%; right: 8%; top: 8%;",
+          placement: "top-right",
         },
       ],
     },
@@ -297,20 +290,19 @@ export const processData = {
         src: "/grm-main-graphics/video-player-graphic.svg",
         w: 746,
         h: 780,
-        style: "width: 66%; left: 17%; top: 12%;",
       },
       floats: [
         {
           src: "/grm-web-assets/3d-ruler-graphic.svg",
           w: 746,
           h: 780,
-          style: "width: 24%; left: 6%; bottom: 12%;",
+          placement: "bottom-left",
         },
         {
           src: "/grm-web-assets/marquee-box-graphic.webp",
           w: 746,
           h: 780,
-          style: "width: 26%; right: 8%; top: 8%;",
+          placement: "top-right",
         },
       ],
     },
@@ -323,20 +315,19 @@ export const processData = {
         src: "/grm-main-graphics/customer-review-graphic.svg",
         w: 746,
         h: 780,
-        style: "width: 64%; left: 18%; top: 12%;",
       },
       floats: [
         {
           src: "/grm-web-assets/cloud-upload-download-graphic.svg",
           w: 746,
           h: 780,
-          style: "width: 22%; left: 6%; bottom: 12%;",
+          placement: "bottom-left",
         },
         {
           src: "/grm-web-assets/3-arrows-up-graphic.svg",
           w: 746,
           h: 780,
-          style: "width: 22%; right: 8%; top: 8%;",
+          placement: "top-right",
         },
       ],
     },
@@ -371,7 +362,6 @@ export const approachData = {
       alt: "A long-term creative design partner",
       width: 746,
       height: 780,
-      style: "width: 62%; left: 19%; top: 12%;",
     },
     satellites: [
       {
@@ -380,7 +370,7 @@ export const approachData = {
         width: 687,
         height: 663,
         parallax: -36,
-        style: "width: 22%; left: 6%; top: 8%; z-index: 3;",
+        placement: "top-left",
       },
       {
         src: "/grm-web-assets/3d-file-document-graphic.svg",
@@ -388,8 +378,7 @@ export const approachData = {
         width: 746,
         height: 780,
         parallax: -44,
-        className: "starts-feature__sat--target",
-        style: "width: 24%; right: 6%; bottom: 10%;",
+                placement: "bottom-right",
       },
     ],
     pill: {
@@ -491,7 +480,6 @@ export const readyData = {
       width: 746,
       height: 780,
       parallax: -28,
-      style: "width: 62%; left: 19%; top: 12%;",
     },
     badges: [
       {
@@ -501,7 +489,7 @@ export const readyData = {
         height: 780,
         parallax: -48,
         className: "ready-band__badge--handshake",
-        style: "width: 24%; left: 6%; bottom: 12%;",
+        placement: "bottom-left",
       },
       {
         src: "/grm-web-assets/upward-trend-graph-graphic.svg",
@@ -509,8 +497,7 @@ export const readyData = {
         width: 746,
         height: 780,
         parallax: -58,
-        className: "ready-band__badge--growth",
-        style: "width: 22%; right: 6%; top: 8%;",
+                placement: "top-right",
       },
     ],
   },

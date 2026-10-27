@@ -124,7 +124,7 @@ export const consultData = {
         width: 186,
         height: 108,
         className: "consult__art-float--chat",
-        style: "width: 22%; right: 6%; top: 6%;",
+        placement: "top-right",
       },
       {
         src: "/grm-web-assets/angled-heart-icon.svg",
@@ -132,7 +132,7 @@ export const consultData = {
         width: 152,
         height: 162,
         className: "consult__art-float--heart",
-        style: "width: 18%; left: 6%; bottom: 8%;",
+        placement: "bottom-left",
       },
     ],
   },

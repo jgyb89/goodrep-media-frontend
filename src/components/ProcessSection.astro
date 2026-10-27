@@ -3,9 +3,11 @@
 
 interface VisualAsset {
   src: string;
-  w: number;
-  h: number;
-  style: string;
+  w?: number;
+  h?: number;
+  style?: string;
+  placement?: "top-left" | "top-right" | "bottom-left" | "bottom-right";
+  className?: string;
 }
 
 interface ProcessStep {
@@ -105,19 +107,23 @@ const {
                 class="process__visual-main"
                 src={step.main.src}
                 alt=""
-                width={step.main.w}
-                height={step.main.h}
+                width={step.main.w ?? 746}
+                height={step.main.h ?? 780}
                 style={step.main.style}
                 loading="lazy"
               />
               {step.floats.map((f) => (
                 <img
-                  class="process__visual-float"
+                  class:list={[
+                    "process__visual-float",
+                    f.placement && `process__visual-float--${f.placement}`,
+                    f.className,
+                  ]}
                   data-float
                   src={f.src}
                   alt=""
-                  width={f.w}
-                  height={f.h}
+                  width={f.w ?? 746}
+                  height={f.h ?? 780}
                   style={f.style}
                   loading="lazy"
                 />
@@ -502,6 +508,9 @@ const {
   }
 
   .process__visual-main {
+    width: 62%;
+    left: 19%;
+    top: 12%;
     filter: drop-shadow(0 24px 30px rgba(0, 0, 0, 0.5));
     z-index: 1;
   }
@@ -510,6 +519,30 @@ const {
     max-width: 28% !important;
     filter: drop-shadow(0 14px 20px rgba(0, 0, 0, 0.42));
     z-index: 2;
+  }
+
+  .process__visual-float--top-left {
+    top: 8%;
+    left: 6%;
+    width: 22%;
+  }
+
+  .process__visual-float--top-right {
+    top: 8%;
+    right: 6%;
+    width: 22%;
+  }
+
+  .process__visual-float--bottom-left {
+    bottom: 12%;
+    left: 6%;
+    width: 22%;
+  }
+
+  .process__visual-float--bottom-right {
+    bottom: 10%;
+    right: 6%;
+    width: 22%;
   }
 
   .process__stage-footer {

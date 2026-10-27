@@ -1,6 +1,54 @@
 ---
 import MainLayout from "../layouts/MainLayout.astro";
-import LeadForm from "../components/LeadForm.jsx";
+import ReadyBand from "../components/ReadyBand.astro";
+import ConsultSection from "../components/ConsultSection.astro";
+
+const readyData = {
+  eyebrow: "ARE YOU READY TO...",
+  title: "Transform Your Business With Full-Funnel Digital Marketing?",
+  text: "From high-performing custom websites to top Google search rankings and high-ROI advertising, Good Rep Media gives your business the modern strategy and dedicated execution it needs to thrive. We combine transparent communication, measurable analytics, and reliable support so you can scale with total confidence. Are you ready to see what our team can build for your business?",
+  primaryCta: {
+    label: "Book Free Strategy Session",
+    href: "#consultation",
+  },
+  secondaryCta: {
+    label: "Explore Our Work",
+    href: "/work",
+  },
+  art: {
+    blob: {
+      src: "/grm-web-assets/blue-circular-background-graphic.svg",
+      width: 746,
+      height: 780,
+      parallax: 22,
+    },
+    main: {
+      src: "/grm-main-graphics/monitor-with-rocket-launching.webp",
+      alt: "Scale your business with Good Rep Media full-service marketing",
+      width: 746,
+      height: 780,
+      parallax: -28,
+    },
+    badges: [
+      {
+        src: "/grm-web-assets/3d-bar-graph-going-up-graphic.svg",
+        alt: "",
+        width: 746,
+        height: 780,
+        parallax: -36,
+        className: "ready-band__badge--growth",
+      },
+      {
+        src: "/grm-web-assets/award-trophy-graphic.svg",
+        alt: "",
+        width: 746,
+        height: 780,
+        parallax: -48,
+        className: "ready-band__badge--handshake",
+      },
+    ],
+  },
+};
 
 const servicesList = [
   {
@@ -15,11 +63,11 @@ const servicesList = [
     accents: [
       {
         src: "/grm-web-assets/3d-browser-window-graphic.svg",
-        style: "width: 22%; right: 6%; top: 8%;",
+        placement: "top-right",
       },
       {
         src: "/grm-web-assets/3d-color-picker-graphic.svg",
-        style: "width: 24%; left: 6%; bottom: 8%;",
+        placement: "bottom-left",
       },
     ],
     features: [
@@ -41,11 +89,11 @@ const servicesList = [
     accents: [
       {
         src: "/grm-web-assets/3d-map-indicator-icon-graphic.svg",
-        style: "width: 22%; left: 6%; top: 8%;",
+        placement: "top-left",
       },
       {
         src: "/grm-web-assets/number-one-award-graphic.svg",
-        style: "width: 22%; right: 6%; bottom: 10%;",
+        placement: "bottom-right",
       },
     ],
     features: [
@@ -67,11 +115,11 @@ const servicesList = [
     accents: [
       {
         src: "/grm-web-assets/3d-magnify-glass.svg",
-        style: "width: 22%; right: 6%; top: 8%;",
+        placement: "top-right",
       },
       {
         src: "/grm-web-assets/3d-tools-graphic.svg",
-        style: "width: 22%; left: 6%; bottom: 8%;",
+        placement: "bottom-left",
       },
     ],
     features: [
@@ -93,11 +141,11 @@ const servicesList = [
     accents: [
       {
         src: "/grm-web-assets/coin-stack-graphic.svg",
-        style: "width: 24%; left: 6%; top: 8%;",
+        placement: "top-left",
       },
       {
         src: "/grm-web-assets/arrow-in-target-graphic.svg",
-        style: "width: 24%; right: 6%; bottom: 10%;",
+        placement: "bottom-right",
       },
     ],
     features: [
@@ -119,11 +167,11 @@ const servicesList = [
     accents: [
       {
         src: "/grm-web-assets/999-hearts-likes-graphic.svg",
-        style: "width: 24%; right: 6%; top: 8%;",
+        placement: "top-right",
       },
       {
         src: "/grm-web-assets/3d-chat-bubbles-graphic.svg",
-        style: "width: 22%; left: 6%; bottom: 8%;",
+        placement: "bottom-left",
       },
     ],
     features: [
@@ -145,11 +193,11 @@ const servicesList = [
     accents: [
       {
         src: "/grm-web-assets/photo-img-graphic.svg",
-        style: "width: 24%; left: 6%; top: 8%;",
+        placement: "top-left",
       },
       {
         src: "/grm-web-assets/dlsr-camera-graphic.svg",
-        style: "width: 24%; right: 6%; bottom: 10%;",
+        placement: "bottom-right",
       },
     ],
     features: [
@@ -171,11 +219,11 @@ const servicesList = [
     accents: [
       {
         src: "/grm-web-assets/pc-screen-online-marketplace-graphic.svg",
-        style: "width: 22%; right: 6%; top: 8%;",
+        placement: "top-right",
       },
       {
         src: "/grm-web-assets/3d-mobile-graphic.svg",
-        style: "width: 24%; left: 6%; bottom: 8%;",
+        placement: "bottom-left",
       },
     ],
     features: [
@@ -197,11 +245,11 @@ const servicesList = [
     accents: [
       {
         src: "/grm-web-assets/upward-trend-graph-graphic.svg",
-        style: "width: 22%; left: 6%; top: 8%;",
+        placement: "top-left",
       },
       {
         src: "/grm-web-assets/document-star-stamp-graphic.svg",
-        style: "width: 22%; right: 6%; bottom: 10%;",
+        placement: "bottom-right",
       },
     ],
     features: [
@@ -223,11 +271,11 @@ const servicesList = [
     accents: [
       {
         src: "/grm-web-assets/paper-plane-graphic.svg",
-        style: "width: 24%; right: 6%; top: 8%;",
+        placement: "top-right",
       },
       {
         src: "/grm-web-assets/3d-sms-icon-graphic.svg",
-        style: "width: 24%; left: 6%; bottom: 8%;",
+        placement: "bottom-left",
       },
     ],
     features: [
@@ -355,11 +403,13 @@ const servicesList = [
                   </div>
                   {service.accents.map((acc) => (
                     <img
-                      class="service-block__accent"
+                      class:list={[
+                        "service-block__accent",
+                        acc.placement && `service-block__accent--${acc.placement}`,
+                      ]}
                       data-float
                       src={acc.src}
                       alt=""
-                      style={acc.style}
                       width="240"
                       height="240"
                       data-no-lightbox
@@ -396,39 +446,18 @@ const servicesList = [
     </div>
   </section>
 
-  <!-- CONSULTATION BANNER -->
-  <section class="consult" id="consultation">
-    <div class="container consult__layout">
-      <div class="consult__intro" data-reveal>
-        <p class="consult__kicker">Ready to grow?</p>
-        <h2 class="consult__title">Let's Build Your Custom Marketing Plan</h2>
-        <p class="consult__text">
-          Schedule a free 30-minute consultation. We'll evaluate your current
-          presence, audit competitor traffic, and share a step-by-step roadmap
-          tailored to your budget.
-        </p>
-        <ul class="consult__contact">
-          <li>
-            <span class="material-symbols-outlined" aria-hidden="true"
-              >call</span
-            >
-            <a href="tel:+16163009868">(616) 300-9868</a>
-          </li>
-          <li>
-            <span class="material-symbols-outlined" aria-hidden="true"
-              >mail</span
-            >
-            <a href="mailto:team@goodrep.media">team@goodrep.media</a>
-          </li>
-        </ul>
-      </div>
+  <!-- READY BAND -->
+  <ReadyBand {...readyData} />
 
-      <div class="consult__card" data-reveal>
-        <h3 class="consult__card-title">Book Your Free Consultation</h3>
-        <LeadForm client:visible submitLabel="Get My Custom Plan" />
-      </div>
-    </div>
-  </section>
+  <!-- CONSULTATION BANNER -->
+  <ConsultSection
+    id="consultation"
+    kicker="Ready to grow?"
+    title="Let's Build Your Custom Marketing Plan"
+    text="Schedule a free 30-minute consultation. We'll evaluate your current presence, audit competitor traffic, and share a step-by-step roadmap tailored to your budget."
+    cardTitle="Book Your Free Consultation"
+    submitLabel="Get My Custom Plan"
+  />
 
   <!-- GSAP ANIMATIONS -->
   <script>
@@ -803,6 +832,30 @@ const servicesList = [
       filter: drop-shadow(0 12px 18px rgba(15, 23, 42, 0.22));
     }
 
+    .service-block__accent--top-right {
+      top: 8%;
+      right: 6%;
+      width: 22%;
+    }
+
+    .service-block__accent--bottom-left {
+      bottom: 8%;
+      left: 6%;
+      width: 24%;
+    }
+
+    .service-block__accent--top-left {
+      top: 8%;
+      left: 6%;
+      width: 22%;
+    }
+
+    .service-block__accent--bottom-right {
+      bottom: 10%;
+      right: 6%;
+      width: 22%;
+    }
+
     .service-block__title {
       font-size: clamp(1.8rem, 3vw, 2.3rem);
       margin: 0.25rem 0 1rem;
@@ -829,80 +882,5 @@ const servicesList = [
       margin-top: 2rem;
     }
 
-    /* ---------- Consultation ---------- */
-    .consult {
-      background: var(--color-cyan);
-      color: var(--color-light);
-      padding: clamp(4rem, 8vw, 6rem) 0;
-    }
-
-    .consult__layout {
-      display: grid;
-      gap: 3rem;
-      align-items: center;
-    }
-
-    @media (min-width: 960px) {
-      .consult__layout {
-        grid-template-columns: 5fr 6fr;
-        gap: 4rem;
-      }
-    }
-
-    .consult__kicker {
-      font-size: 1.05rem;
-      margin: 0 0 0.5rem;
-    }
-
-    .consult__title {
-      font-size: clamp(2rem, 3.5vw, 2.6rem);
-      margin: 0 0 1rem;
-      color: var(--color-light);
-    }
-
-    .consult__text {
-      font-size: 1.05rem;
-      line-height: 1.7;
-      margin: 0 0 1.5rem;
-    }
-
-    .consult__contact {
-      list-style: none;
-      padding: 0;
-      margin: 0;
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.75rem 1.5rem;
-    }
-
-    .consult__contact li {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.5rem;
-      font-weight: 600;
-    }
-
-    .consult__contact a {
-      color: var(--color-light);
-      text-decoration: none;
-    }
-
-    .consult__contact a:hover {
-      text-decoration: underline;
-    }
-
-    .consult__card {
-      background: var(--color-light);
-      color: var(--color-dark);
-      border-radius: 16px;
-      padding: clamp(1.5rem, 3vw, 2.5rem);
-      box-shadow: 0 30px 60px -20px rgba(0, 0, 0, 0.35);
-    }
-
-    .consult__card-title {
-      color: var(--color-cyan);
-      font-size: 1.6rem;
-      margin: 0 0 1.5rem;
-    }
   </style>
 </MainLayout>

@@ -42,7 +42,6 @@ export const heroData = {
       width: 2642,
       height: 2000,
       depth: -18,
-      style: "width: 74%; left: 13%; top: 12%;",
     },
     floats: [],
   },
@@ -85,7 +84,6 @@ export const startsData = {
       alt: "Overlooking SMS Marketing and Direct Mobile Engagement",
       width: 746,
       height: 780,
-      style: "width: 58%; left: 21%; top: 12%;",
     },
     satellites: [
       {
@@ -94,8 +92,7 @@ export const startsData = {
         width: 746,
         height: 780,
         parallax: -44,
-        className: "starts-feature__sat--target",
-        style: "width: 24%; left: 6%; top: 8%;",
+                placement: "top-left",
       },
       {
         src: "/grm-web-assets/happy-face-speech-bubble-graphic.svg",
@@ -103,7 +100,7 @@ export const startsData = {
         width: 746,
         height: 780,
         parallax: -38,
-        style: "width: 22%; right: 6%; bottom: 10%; z-index: 3;",
+        placement: "bottom-right",
       },
     ],
     pill: {
@@ -198,7 +195,6 @@ export const pillarsData = {
       alt: "The True Key to SMS Success with Strategic Campaign Targeting",
       width: 687,
       height: 663,
-      style: "width: 62%; left: 19%; top: 12%;",
     },
     satellites: [
       {
@@ -208,7 +204,7 @@ export const pillarsData = {
         height: 780,
         parallax: -44,
         className: "pillars__sat--growth",
-        style: "width: 24%; left: 6%; bottom: 12%;",
+        placement: "bottom-left",
       },
       {
         src: "/grm-web-assets/3-arrows-up-graphic.svg",
@@ -217,7 +213,7 @@ export const pillarsData = {
         height: 780,
         parallax: -38,
         className: "pillars__sat--cursor",
-        style: "width: 22%; right: 6%; top: 8%;",
+        placement: "top-right",
       },
     ],
     pill: {
@@ -244,20 +240,19 @@ export const processData = {
         src: "/grm-main-graphics/customer-review-graphic.svg",
         w: 746,
         h: 780,
-        style: "width: 58%; left: 21%; top: 12%;",
       },
       floats: [
         {
           src: "/grm-web-assets/magnet-graphic.svg",
           w: 746,
           h: 780,
-          style: "width: 22%; left: 6%; bottom: 12%;",
+          placement: "bottom-left",
         },
         {
           src: "/grm-web-assets/sms-texting-icon-graphic.svg",
           w: 746,
           h: 780,
-          style: "width: 20%; right: 6%; top: 8%;",
+          placement: "top-right",
         },
       ],
     },
@@ -270,20 +265,19 @@ export const processData = {
         src: "/grm-main-graphics/smiley-face-cluster-graphic.svg",
         w: 746,
         h: 780,
-        style: "width: 58%; left: 21%; top: 12%;",
       },
       floats: [
         {
           src: "/grm-web-assets/star-icon-graphic.svg",
           w: 746,
           h: 780,
-          style: "width: 22%; left: 6%; bottom: 12%;",
+          placement: "bottom-left",
         },
         {
           src: "/grm-web-assets/mobile-data-signal-bars-graphic.svg",
           w: 746,
           h: 780,
-          style: "width: 20%; right: 6%; top: 8%;",
+          placement: "top-right",
         },
       ],
     },
@@ -296,20 +290,19 @@ export const processData = {
         src: "/grm-main-graphics/laptop-checklist-screen-graphic.svg",
         w: 746,
         h: 780,
-        style: "width: 62%; left: 19%; top: 12%;",
       },
       floats: [
         {
           src: "/grm-web-assets/star-app-icon-graphic.svg",
           w: 746,
           h: 780,
-          style: "width: 22%; left: 6%; bottom: 12%;",
+          placement: "bottom-left",
         },
         {
           src: "/grm-web-assets/date-and-time-icon-graphic.svg",
           w: 746,
           h: 780,
-          style: "width: 20%; right: 6%; top: 8%;",
+          placement: "top-right",
         },
       ],
     },
@@ -322,20 +315,19 @@ export const processData = {
         src: "/grm-main-graphics/users-networking-graphic.svg",
         w: 746,
         h: 780,
-        style: "width: 62%; left: 19%; top: 12%;",
       },
       floats: [
         {
           src: "/grm-web-assets/coin-stack-graphic.svg",
           w: 746,
           h: 780,
-          style: "width: 22%; left: 6%; bottom: 12%;",
+          placement: "bottom-left",
         },
         {
           src: "/grm-web-assets/number-one-award-graphic.svg",
           w: 746,
           h: 780,
-          style: "width: 20%; right: 6%; top: 8%;",
+          placement: "top-right",
         },
       ],
     },
@@ -370,7 +362,6 @@ export const approachData = {
       alt: "TCPA and 10DLC Compliant SMS Marketing Infrastructure",
       width: 687,
       height: 663,
-      style: "width: 62%; left: 19%; top: 12%;",
     },
     satellites: [
       {
@@ -379,8 +370,7 @@ export const approachData = {
         width: 746,
         height: 780,
         parallax: -44,
-        className: "starts-feature__sat--target",
-        style: "width: 24%; left: 6%; top: 8%;",
+                placement: "top-left",
       },
       {
         src: "/grm-web-assets/timer-watch-graphic.svg",
@@ -388,7 +378,7 @@ export const approachData = {
         width: 746,
         height: 780,
         parallax: -38,
-        style: "width: 22%; right: 6%; bottom: 10%; z-index: 3;",
+        placement: "bottom-right",
       },
     ],
     pill: {
@@ -490,7 +480,6 @@ export const readyData = {
       width: 746,
       height: 780,
       parallax: -28,
-      style: "width: 58%; left: 21%; top: 12%;",
     },
     badges: [
       {
@@ -500,7 +489,7 @@ export const readyData = {
         height: 780,
         parallax: -48,
         className: "ready-band__badge--handshake",
-        style: "width: 24%; left: 6%; bottom: 12%;",
+        placement: "bottom-left",
       },
       {
         src: "/grm-web-assets/upward-trend-graph-graphic.svg",
@@ -508,8 +497,7 @@ export const readyData = {
         width: 746,
         height: 780,
         parallax: -58,
-        className: "ready-band__badge--growth",
-        style: "width: 22%; right: 6%; top: 8%;",
+                placement: "top-right",
       },
     ],
   },

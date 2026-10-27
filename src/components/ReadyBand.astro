@@ -5,17 +5,31 @@ import { Image } from "astro:assets";
 interface BadgeAsset {
   src: string;
   alt?: string;
-  width: number;
-  height: number;
+  width?: number;
+  height?: number;
   parallax?: number;
   className?: string;
+  placement?: "top-left" | "top-right" | "bottom-left" | "bottom-right";
   style?: string;
   noFloat?: boolean;
 }
 
 interface ReadyArt {
-  blob: { src: string; width: number; height: number; parallax?: number; style?: string };
-  main: { src: string; alt: string; width: number; height: number; parallax?: number; style?: string };
+  blob: {
+    src: string;
+    width: number;
+    height: number;
+    parallax?: number;
+    style?: string;
+  };
+  main: {
+    src: string;
+    alt: string;
+    width: number;
+    height: number;
+    parallax?: number;
+    style?: string;
+  };
   badges: BadgeAsset[];
 }
 
@@ -48,59 +62,69 @@ const paragraphs = text.includes("\n\n") ? text.split("\n\n") : [text];
       <div class="ready-band__content" data-reveal>
         <span class="eyebrow ready-band__eyebrow">{eyebrow}</span>
         <h2 class="section-title ready-band__title">{title}</h2>
-        {paragraphs.map((p) => (
-          <p class="ready-band__text" set:html={p} />
-        ))}
+        {paragraphs.map((p) => <p class="ready-band__text" set:html={p} />)}
         <div class="ready-band__actions">
-          {primaryCta && (
-            <a href={primaryCta.href} class="btn btn--primary">
-              {primaryCta.label}
-            </a>
-          )}
-          {secondaryCta && (
-            <a href={secondaryCta.href} class="btn btn--ghost-light">
-              {secondaryCta.label}
-            </a>
-          )}
+          {
+            primaryCta && (
+              <a href={primaryCta.href} class="btn btn--primary">
+                {primaryCta.label}
+              </a>
+            )
+          }
+          {
+            secondaryCta && (
+              <a href={secondaryCta.href} class="btn btn--ghost-light">
+                {secondaryCta.label}
+              </a>
+            )
+          }
         </div>
       </div>
 
       <div class="ready-band__art" aria-hidden="true" data-reveal>
-        {art.blob && (
-          <img
-            class="ready-band__blob"
-            data-ready-parallax={art.blob.parallax ?? 22}
-            src={art.blob.src}
-            alt=""
-            width={art.blob.width}
-            height={art.blob.height}
-            style={art.blob.style}
-            loading="lazy"
-          />
-        )}
-        {art.main && (
-          <img
-            class="ready-band__main"
-            data-ready-parallax={art.main.parallax ?? -28}
-            src={art.main.src}
-            alt={art.main.alt}
-            width={art.main.width}
-            height={art.main.height}
-            style={art.main.style}
-            loading="lazy"
-            decoding="async"
-          />
-        )}
+        {
+          art.blob && (
+            <img
+              class="ready-band__blob"
+              data-ready-parallax={art.blob.parallax ?? 22}
+              src={art.blob.src}
+              alt=""
+              width={art.blob.width ?? 746}
+              height={art.blob.height ?? 780}
+              style={art.blob.style}
+              loading="lazy"
+            />
+          )
+        }
+        {
+          art.main && (
+            <img
+              class="ready-band__main"
+              data-ready-parallax={art.main.parallax ?? -28}
+              src={art.main.src}
+              alt={art.main.alt}
+              width={art.main.width ?? 746}
+              height={art.main.height ?? 780}
+              style={art.main.style}
+              loading="lazy"
+              decoding="async"
+            />
+          )
+        }
         {
           art.badges?.map((badge) => (
             <img
-              class:list={["ready-band__badge", badge.className]}
+              class:list={[
+                "ready-band__badge",
+                badge.placement && `ready-band__badge--${badge.placement}`,
+                badge.className,
+              ]}
               data-ready-parallax={badge.parallax ?? -48}
               data-float={badge.noFloat ? undefined : ""}
               src={badge.src}
               alt={badge.alt ?? ""}
-              width={badge.width}
-              height={badge.height}
+              width={badge.width ?? 746}
+              height={badge.height ?? 780}
               style={badge.style}
               loading="lazy"
             />
@@ -181,8 +205,9 @@ const paragraphs = text.includes("\n\n") ? text.split("\n\n") : [text];
 <style>
   /* ---------- Ready Breakout Band ---------- */
   .ready-band {
-    padding-top: clamp(2rem, 5vw, 4rem);
-    background: var(--color-light);
+    background: var(--color-bg);
+    position: relative;
+    z-index: 1;
   }
 
   .ready-band__surface {
@@ -191,6 +216,10 @@ const paragraphs = text.includes("\n\n") ? text.split("\n\n") : [text];
       linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
       url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cg fill='none' stroke='%23ffffff' stroke-opacity='0.045' stroke-width='22' stroke-linecap='round'%3E%3Cpath d='M30 130 L80 30'/%3E%3Cpath d='M110 170 L150 90'/%3E%3C/g%3E%3C/svg%3E"),
       var(--color-dark);
+    padding-top: clamp(2rem, 5vw, 4rem);
+    /* Extend surface height into the consult section behind the cyan waves */
+    padding-bottom: clamp(55px, 8.5vw, 115px);
+    margin-bottom: calc(-1 * clamp(55px, 8.5vw, 115px));
   }
 
   .ready-band__layout {
@@ -198,7 +227,7 @@ const paragraphs = text.includes("\n\n") ? text.split("\n\n") : [text];
     gap: 3rem;
     align-items: center;
     padding-top: 4rem;
-    padding-bottom: 4.5rem;
+    padding-bottom: clamp(2.5rem, 4vw, 3.5rem);
   }
 
   @media (min-width: 960px) {
@@ -298,5 +327,29 @@ const paragraphs = text.includes("\n\n") ? text.split("\n\n") : [text];
     width: 18%;
     right: 6%;
     bottom: 6%;
+  }
+
+  .ready-band__badge--top-left {
+    top: 6%;
+    left: 6%;
+    width: 22%;
+  }
+
+  .ready-band__badge--top-right {
+    top: 6%;
+    right: 6%;
+    width: 22%;
+  }
+
+  .ready-band__badge--bottom-left {
+    bottom: 8%;
+    left: 6%;
+    width: 20%;
+  }
+
+  .ready-band__badge--bottom-right {
+    bottom: 8%;
+    right: 6%;
+    width: 20%;
   }
 </style>

@@ -12,6 +12,17 @@ export const GF_FIELD_IDS = Object.freeze({
   LAST_NAME: 13,
 });
 
+export const SPA_ESTHETICIAN_FORM_ID = 17;
+export const SPA_ESTHETICIAN_FIELD_IDS = Object.freeze({
+  COMPANY: 4,
+  EMAIL: 5,
+  PHONE: 6,
+  SERVICES_NEEDED: 7,
+  MESSAGE: 9,
+  FIRST_NAME: 12,
+  LAST_NAME: 13,
+});
+
 const INITIAL_FORM_STATE = Object.freeze({
   firstName: '',
   lastName: '',
@@ -117,7 +128,11 @@ const CHOICES_COL_2 = [
   'Branding',
 ];
 
-export default function LeadForm({ formId = 15, submitLabel = "Let's Talk" }) {
+export default function LeadForm({
+  formId = 15,
+  submitLabel = "Let's Talk",
+  fieldIds = GF_FIELD_IDS,
+}) {
   // Unique per-instance prefix so ids don't collide when the form renders more than once per page
   const uid = useId();
 
@@ -243,21 +258,26 @@ export default function LeadForm({ formId = 15, submitLabel = "Let's Talk" }) {
       ? formData.multipleChoice.join(', ')
       : (formData.multipleChoice || '');
 
+    const activeFieldIds = {
+      ...GF_FIELD_IDS,
+      ...fieldIds,
+    };
+
     const fieldValues = [
-      { id: GF_FIELD_IDS.FIRST_NAME, value: formData.firstName || '' },
-      { id: GF_FIELD_IDS.LAST_NAME, value: formData.lastName || '' },
+      { id: activeFieldIds.FIRST_NAME, value: formData.firstName || '' },
+      { id: activeFieldIds.LAST_NAME, value: formData.lastName || '' },
       {
-        id: GF_FIELD_IDS.EMAIL,
+        id: activeFieldIds.EMAIL,
         emailValues: { value: formData.email || '' }, // Strict email schema wrapper
       },
-      { id: GF_FIELD_IDS.PHONE, value: formData.phone || '' },
-      { id: GF_FIELD_IDS.COMPANY, value: formData.company || '' },
-      { id: GF_FIELD_IDS.SERVICES_NEEDED, value: multipleChoiceValue },
-      { id: GF_FIELD_IDS.MESSAGE, value: formData.message || '' },
+      { id: activeFieldIds.PHONE, value: formData.phone || '' },
+      { id: activeFieldIds.COMPANY, value: formData.company || '' },
+      { id: activeFieldIds.SERVICES_NEEDED, value: multipleChoiceValue },
+      { id: activeFieldIds.MESSAGE, value: formData.message || '' },
     ];
 
     const input = {
-      id: formId, // Consultation Form ID (15)
+      id: formId, // Gravity Forms Form ID (e.g. 15 for standard consultation, 17 for Spa & Esthetician)
       fieldValues,
     };
 

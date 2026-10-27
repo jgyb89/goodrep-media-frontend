@@ -10,17 +10,32 @@ interface BreadcrumbItem {
 interface FloatAsset {
   src: string;
   alt?: string;
-  width: number;
-  height: number;
+  width?: number;
+  height?: number;
   depth?: number;
   className?: string;
+  placement?: "top-left" | "top-right" | "bottom-left" | "bottom-right";
   style?: string;
   noFloat?: boolean;
 }
 
 interface HeroStage {
-  blob: { src: string; width: number; height: number; depth?: number; style?: string };
-  main: { src: string; alt: string; width: number; height: number; depth?: number; style?: string };
+  blob: {
+    src: string;
+    width?: number;
+    height?: number;
+    depth?: number;
+    style?: string;
+  };
+  main: {
+    src: string;
+    alt: string;
+    width?: number;
+    height?: number;
+    depth?: number;
+    className?: string;
+    style?: string;
+  };
   floats: FloatAsset[];
 }
 
@@ -73,7 +88,9 @@ const {
                 )}
                 <li
                   class="breadcrumb__item"
-                  aria-current={idx === breadcrumb.length - 1 ? "page" : undefined}
+                  aria-current={
+                    idx === breadcrumb.length - 1 ? "page" : undefined
+                  }
                 >
                   {item.href ? (
                     <a href={item.href} class="breadcrumb__link">
@@ -117,57 +134,69 @@ const {
       </div>
 
       <div class="service-hero__actions">
-        {primaryCta && (
-          <a href={primaryCta.href} class="btn btn--primary">
-            {primaryCta.label}
-          </a>
-        )}
-        {secondaryCta && (
-          <button type="button" class="btn btn--outline" data-open-modal>
-            {secondaryCta.label}
-          </button>
-        )}
+        {
+          primaryCta && (
+            <a href={primaryCta.href} class="btn btn--primary">
+              {primaryCta.label}
+            </a>
+          )
+        }
+        {
+          secondaryCta && (
+            <button type="button" class="btn btn--outline" data-open-modal>
+              {secondaryCta.label}
+            </button>
+          )
+        }
       </div>
     </div>
 
     <!-- Multi-layered isometric hero composition -->
     <div class="service-hero__graphic" aria-hidden="true">
       <div class="hero-stage" id="hero-parallax-stage">
-        {stage.blob && (
-          <img
-            class="hero-stage__blob"
-            data-hero-depth={stage.blob.depth ?? 12}
-            src={stage.blob.src}
-            alt=""
-            width={stage.blob.width}
-            height={stage.blob.height}
-            style={stage.blob.style}
-            decoding="async"
-          />
-        )}
-        {stage.main && (
-          <img
-            class="hero-stage__main"
-            data-hero-depth={stage.main.depth ?? -18}
-            src={stage.main.src}
-            alt={stage.main.alt}
-            width={stage.main.width}
-            height={stage.main.height}
-            style={stage.main.style}
-            fetchpriority="high"
-            decoding="async"
-          />
-        )}
+        {
+          stage.blob && (
+            <img
+              class="hero-stage__blob"
+              data-hero-depth={stage.blob.depth ?? 12}
+              src={stage.blob.src}
+              alt=""
+              width={stage.blob.width ?? 746}
+              height={stage.blob.height ?? 780}
+              style={stage.blob.style}
+              decoding="async"
+            />
+          )
+        }
+        {
+          stage.main && (
+            <img
+              class:list={["hero-stage__main", stage.main.className]}
+              data-hero-depth={stage.main.depth ?? -18}
+              src={stage.main.src}
+              alt={stage.main.alt}
+              width={stage.main.width ?? 746}
+              height={stage.main.height ?? 780}
+              style={stage.main.style}
+              fetchpriority="high"
+              decoding="async"
+            />
+          )
+        }
         {
           stage.floats?.map((f) => (
             <img
-              class:list={["hero-stage__float", f.className]}
+              class:list={[
+                "hero-stage__float",
+                f.placement && `hero-stage__float--${f.placement}`,
+                f.className,
+              ]}
               data-float={f.noFloat ? undefined : ""}
               data-hero-depth={f.depth ?? -30}
               src={f.src}
               alt={f.alt ?? ""}
-              width={f.width}
-              height={f.height}
+              width={f.width ?? 746}
+              height={f.height ?? 780}
               style={f.style}
               decoding="async"
             />
@@ -610,11 +639,17 @@ const {
   }
 
   .hero-stage__main {
-    width: 64%;
-    left: 18%;
+    width: 100%;
+    left: 0%;
     top: 12%;
     filter: drop-shadow(0 20px 28px rgba(15, 23, 42, 0.18));
     z-index: 2;
+  }
+
+  .hero-stage__main--full {
+    width: 80%;
+    left: 10%;
+    top: 10%;
   }
 
   .hero-stage__float {
@@ -632,6 +667,30 @@ const {
   .hero-stage__float--sub {
     z-index: 2;
     filter: drop-shadow(0 16px 24px rgba(15, 23, 42, 0.18));
+  }
+
+  .hero-stage__float--top-left {
+    top: 6%;
+    left: 4%;
+    width: 22%;
+  }
+
+  .hero-stage__float--top-right {
+    top: 4%;
+    right: 4%;
+    width: 22%;
+  }
+
+  .hero-stage__float--bottom-left {
+    bottom: 8%;
+    left: 4%;
+    width: 22%;
+  }
+
+  .hero-stage__float--bottom-right {
+    bottom: 6%;
+    right: 4%;
+    width: 22%;
   }
 
   .hero-stage__float--growth {

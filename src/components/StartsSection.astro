@@ -100,8 +100,8 @@ if (callout && typeof callout.percent === "number") {
                 data-spotlight-parallax="24"
                 src={media.blob.src}
                 alt=""
-                width={media.blob.width}
-                height={media.blob.height}
+                width={media.blob.width ?? 746}
+                height={media.blob.height ?? 780}
                 style={media.blob.style}
                 loading="lazy"
               />
@@ -110,22 +110,26 @@ if (callout && typeof callout.percent === "number") {
               class="starts-feature__main"
               data-spotlight-parallax="-18"
               src={media.main.src}
-              alt={media.main.alt}
-              width={media.main.width}
-              height={media.main.height}
+              alt={media.main.alt ?? ""}
+              width={media.main.width ?? 746}
+              height={media.main.height ?? 780}
               style={media.main.style}
               loading="lazy"
               decoding="async"
             />
             {media.satellites?.map((sat) => (
               <img
-                class:list={["starts-feature__sat", sat.className]}
+                class:list={[
+                  "starts-feature__sat",
+                  sat.placement && `starts-feature__sat--${sat.placement}`,
+                  sat.className,
+                ]}
                 data-spotlight-parallax={sat.parallax ?? -36}
                 data-float={sat.noFloat ? undefined : ""}
                 src={sat.src}
                 alt={sat.alt ?? ""}
-                width={sat.width}
-                height={sat.height}
+                width={sat.width ?? 746}
+                height={sat.height ?? 780}
                 style={sat.style}
                 loading="lazy"
               />
@@ -233,8 +237,8 @@ if (callout && typeof callout.percent === "number") {
                 data-spotlight-parallax="24"
                 src={media.blob.src}
                 alt=""
-                width={media.blob.width}
-                height={media.blob.height}
+                width={media.blob.width ?? 746}
+                height={media.blob.height ?? 780}
                 style={media.blob.style}
                 loading="lazy"
               />
@@ -243,22 +247,26 @@ if (callout && typeof callout.percent === "number") {
               class="starts-feature__main"
               data-spotlight-parallax="-18"
               src={media.main.src}
-              alt={media.main.alt}
-              width={media.main.width}
-              height={media.main.height}
+              alt={media.main.alt ?? ""}
+              width={media.main.width ?? 746}
+              height={media.main.height ?? 780}
               style={media.main.style}
               loading="lazy"
               decoding="async"
             />
             {media.satellites?.map((sat) => (
               <img
-                class:list={["starts-feature__sat", sat.className]}
+                class:list={[
+                  "starts-feature__sat",
+                  sat.placement && `starts-feature__sat--${sat.placement}`,
+                  sat.className,
+                ]}
                 data-spotlight-parallax={sat.parallax ?? -36}
                 data-float={sat.noFloat ? undefined : ""}
                 src={sat.src}
                 alt={sat.alt ?? ""}
-                width={sat.width}
-                height={sat.height}
+                width={sat.width ?? 746}
+                height={sat.height ?? 780}
                 style={sat.style}
                 loading="lazy"
               />
@@ -468,6 +476,30 @@ if (callout && typeof callout.percent === "number") {
     width: 24%;
     right: 4%;
     bottom: 12%;
+  }
+
+  .starts-feature__sat--top-left {
+    top: 8%;
+    left: 6%;
+    width: 22%;
+  }
+
+  .starts-feature__sat--top-right {
+    top: 8%;
+    right: 6%;
+    width: 22%;
+  }
+
+  .starts-feature__sat--bottom-left {
+    bottom: 12%;
+    left: 6%;
+    width: 22%;
+  }
+
+  .starts-feature__sat--bottom-right {
+    bottom: 10%;
+    right: 6%;
+    width: 22%;
   }
 
   .starts-feature__pill {

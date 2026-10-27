@@ -21,11 +21,9 @@ export const heroData = {
     mainAlt: "Esthetician treatment and spa client consultation",
     accent1: {
       src: "/grm-web-assets/3d-star-graphic.svg",
-      style: "width: 22%; right: 4%; top: 6%;",
     },
     accent2: {
       src: "/grm-web-assets/upward-trend-graph-graphic.svg",
-      style: "width: 24%; left: 4%; bottom: 6%;",
     },
   },
 };
@@ -273,6 +271,16 @@ export const consultData = {
   text: "Get actionable advice for how to grow your spa, clinic, or esthetician business from our digital marketing experts!",
   cardTitle: "Book Your Free Consultation",
   submitLabel: "Book Your Free Call",
+  formId: 17,
+  fieldIds: {
+    FIRST_NAME: 12,
+    LAST_NAME: 13,
+    EMAIL: 5,
+    PHONE: 6,
+    COMPANY: 4,
+    SERVICES_NEEDED: 7,
+    MESSAGE: 9,
+  },
   art: {
     main: {
       src: "/grm-web-assets/online-support-graphic.svg",
@@ -283,18 +291,14 @@ export const consultData = {
       {
         src: "/grm-web-assets/user-speech-bubble-graphic.svg",
         alt: "",
-        width: 746,
-        height: 780,
         className: "consult__art-float--chat",
-        style: "width: 22%; right: 4%; top: 4%;",
+        placement: "top-right",
       },
       {
         src: "/grm-web-assets/angled-heart-icon.svg",
         alt: "",
-        width: 746,
-        height: 780,
         className: "consult__art-float--heart",
-        style: "width: 18%; left: 4%; bottom: 6%;",
+        placement: "bottom-left",
       },
     ],
   },

@@ -23,11 +23,9 @@ export const heroData = {
     mainAlt: "Commercial lawn mower equipment and landscaping marketing",
     accent1: {
       src: "/grm-web-assets/3d-star-graphic.svg",
-      style: "width: 22%; right: 4%; top: 6%;",
     },
     accent2: {
       src: "/grm-web-assets/upward-trend-graph-graphic.svg",
-      style: "width: 24%; left: 4%; bottom: 6%;",
     },
   },
 };
@@ -252,18 +250,14 @@ export const consultData = {
       {
         src: "/grm-web-assets/user-speech-bubble-graphic.svg",
         alt: "",
-        width: 746,
-        height: 780,
         className: "consult__art-float--chat",
-        style: "width: 22%; right: 4%; top: 4%;",
+        placement: "top-right",
       },
       {
         src: "/grm-web-assets/angled-heart-icon.svg",
         alt: "",
-        width: 746,
-        height: 780,
         className: "consult__art-float--heart",
-        style: "width: 18%; left: 4%; bottom: 6%;",
+        placement: "bottom-left",
       },
     ],
   },

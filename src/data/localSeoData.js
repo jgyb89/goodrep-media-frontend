@@ -42,7 +42,6 @@ export const heroData = {
       width: 2642,
       height: 2000,
       depth: -18,
-      style: "width: 74%; left: 13%; top: 12%;",
     },
     floats: [],
   },
@@ -82,7 +81,6 @@ export const startsData = {
       alt: "Local Search Visibility and Google Business Profile Discovery",
       width: 746,
       height: 780,
-      style: "width: 64%; left: 18%; top: 14%;",
     },
     satellites: [
       {
@@ -91,8 +89,7 @@ export const startsData = {
         width: 687,
         height: 663,
         parallax: -34,
-        className: "starts-feature__sat--smiley",
-        style: "width: 20%; left: 6%; top: 8%;",
+                placement: "top-left",
       },
       {
         src: "/grm-web-assets/3d-map-destination-route-graphic.svg",
@@ -101,7 +98,7 @@ export const startsData = {
         height: 780,
         parallax: -26,
         className: "starts-feature__sat--sub",
-        style: "width: 22%; right: 6%; bottom: 10%;",
+        placement: "bottom-right",
       },
     ],
     pill: {
@@ -197,7 +194,6 @@ export const pillarsData = {
       alt: "How We Boost Local SEO Across Google Business Profile and 50+ Directories",
       width: 746,
       height: 780,
-      style: "width: 62%; left: 19%; top: 14%;",
     },
     satellites: [
       {
@@ -206,8 +202,7 @@ export const pillarsData = {
         width: 746,
         height: 780,
         parallax: -34,
-        className: "starts-feature__sat--smiley",
-        style: "width: 22%; left: 6%; bottom: 10%;",
+                placement: "bottom-left",
       },
       {
         src: "/grm-web-assets/number-one-award-graphic.svg",
@@ -215,8 +210,7 @@ export const pillarsData = {
         width: 746,
         height: 780,
         parallax: -46,
-        className: "starts-feature__sat--target",
-        style: "width: 20%; right: 6%; top: 6%;",
+                placement: "top-right",
       },
     ],
     pill: {
@@ -244,20 +238,19 @@ export const processData = {
         src: "/grm-main-graphics/magnify-glass-graphic.svg",
         w: 746,
         h: 780,
-        style: "width: 58%; left: 21%; top: 14%;",
       },
       floats: [
         {
           src: "/grm-web-assets/document-profile-search-graphic.svg",
           w: 746,
           h: 780,
-          style: "width: 22%; left: 6%; bottom: 12%;",
+          placement: "bottom-left",
         },
         {
           src: "/grm-web-assets/999-hearts-likes-graphic.svg",
           w: 746,
           h: 780,
-          style: "width: 24%; right: 6%; top: 8%;",
+          placement: "top-right",
         },
       ],
     },
@@ -270,20 +263,19 @@ export const processData = {
         src: "/grm-main-graphics/map-corner-icon.svg",
         w: 746,
         h: 780,
-        style: "width: 56%; left: 22%; top: 12%;",
       },
       floats: [
         {
           src: "/grm-web-assets/compass-icon-graphic-02.svg",
           w: 687,
           h: 663,
-          style: "width: 20%; left: 8%; bottom: 12%;",
+          placement: "bottom-left",
         },
         {
           src: "/grm-web-assets/arrow-in-target-graphic.svg",
           w: 746,
           h: 780,
-          style: "width: 22%; right: 6%; top: 8%;",
+          placement: "top-right",
         },
       ],
     },
@@ -296,20 +288,19 @@ export const processData = {
         src: "/grm-main-graphics/customer-review-graphic.svg",
         w: 746,
         h: 780,
-        style: "width: 58%; left: 21%; top: 14%;",
       },
       floats: [
         {
           src: "/grm-web-assets/star-app-icon-graphic.svg",
           w: 746,
           h: 780,
-          style: "width: 22%; left: 6%; bottom: 12%;",
+          placement: "bottom-left",
         },
         {
           src: "/grm-web-assets/3-arrows-up-graphic.svg",
           w: 746,
           h: 780,
-          style: "width: 20%; right: 7%; top: 6%;",
+          placement: "top-right",
         },
       ],
     },
@@ -322,20 +313,19 @@ export const processData = {
         src: "/grm-main-graphics/laptop-with-pie-chart-graphic.svg",
         w: 746,
         h: 780,
-        style: "width: 58%; left: 21%; top: 14%;",
       },
       floats: [
         {
           src: "/grm-web-assets/coin-stack-graphic.svg",
           w: 746,
           h: 780,
-          style: "width: 22%; left: 8%; bottom: 12%;",
+          placement: "bottom-left",
         },
         {
           src: "/grm-web-assets/angled-heart-icon.svg",
           w: 746,
           h: 780,
-          style: "width: 18%; right: 8%; top: 8%;",
+          placement: "top-right",
         },
       ],
     },
@@ -457,7 +447,6 @@ export const readyData = {
       width: 746,
       height: 780,
       parallax: -28,
-      style: "width: 64%; left: 18%; top: 14%;",
     },
     badges: [
       {
@@ -466,8 +455,7 @@ export const readyData = {
         width: 746,
         height: 780,
         parallax: -36,
-        className: "ready-band__badge--heart",
-        style: "width: 20%; left: 6%; bottom: 8%;",
+                placement: "bottom-left",
       },
       {
         src: "/grm-web-assets/award-trophy-graphic.svg",
@@ -475,8 +463,7 @@ export const readyData = {
         width: 746,
         height: 780,
         parallax: -58,
-        className: "ready-band__badge--growth",
-        style: "width: 22%; right: 6%; top: 6%;",
+                placement: "top-right",
       },
     ],
   },
@@ -593,7 +580,7 @@ export const consultData = {
         width: 186,
         height: 108,
         className: "consult__art-float--chat",
-        style: "width: 22%; right: 6%; top: 6%;",
+        placement: "top-right",
       },
       {
         src: "/grm-web-assets/thumbs-up-like-icon-graphic.svg",
@@ -601,7 +588,7 @@ export const consultData = {
         width: 152,
         height: 162,
         className: "consult__art-float--heart",
-        style: "width: 18%; left: 6%; bottom: 8%;",
+        placement: "bottom-left",
       },
     ],
   },

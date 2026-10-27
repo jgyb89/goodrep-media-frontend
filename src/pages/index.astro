@@ -103,18 +103,19 @@ try {
                   alt=""
                   width={slide.main.w}
                   height={slide.main.h}
-                  style={slide.main.style}
                   fetchpriority={index === 0 ? "high" : "low"}
                 />
                 {slide.floats.map((f) => (
                   <img
-                    class="hero-art__float"
+                    class:list={[
+                      "hero-art__float",
+                      f.placement && `hero-art__float--${f.placement}`,
+                    ]}
                     data-float
                     src={f.src}
                     alt=""
                     width={f.w}
                     height={f.h}
-                    style={f.style}
                     fetchpriority={index === 0 ? undefined : "low"}
                   />
                 ))}
@@ -230,12 +231,14 @@ try {
                   alt=""
                   width={s.main.w}
                   height={s.main.h}
-                  style={s.main.style}
                   loading="lazy"
                 />
                 {s.accents.map((acc) => (
                   <img
-                    class="service-card__accent"
+                    class:list={[
+                      "service-card__accent",
+                      acc.placement && `service-card__accent--${acc.placement}`,
+                    ]}
                     data-card-accent
                     data-dx={acc.dx}
                     data-dy={acc.dy}
@@ -244,7 +247,6 @@ try {
                     alt=""
                     width={acc.w}
                     height={acc.h}
-                    style={acc.style}
                     loading="lazy"
                   />
                 ))}
@@ -360,18 +362,19 @@ try {
                   alt=""
                   width={step.main.w}
                   height={step.main.h}
-                  style={step.main.style}
                   loading="lazy"
                 />
                 {step.floats.map((f) => (
                   <img
-                    class="process__visual-float"
+                    class:list={[
+                      "process__visual-float",
+                      f.placement && `process__visual-float--${f.placement}`,
+                    ]}
                     data-float
                     src={f.src}
                     alt=""
                     width={f.w}
                     height={f.h}
-                    style={f.style}
                     loading="lazy"
                   />
                 ))}
@@ -1655,6 +1658,9 @@ try {
     }
 
     .hero-art__main {
+      width: 100%;
+      left: 0;
+      top: 4%;
       filter: drop-shadow(0 24px 30px rgba(15, 23, 42, 0.2));
       z-index: 2;
     }
@@ -1662,6 +1668,18 @@ try {
     .hero-art__float {
       filter: drop-shadow(0 10px 14px rgba(15, 23, 42, 0.15));
       z-index: 3;
+    }
+
+    .hero-art__float--top-right {
+      top: -6%;
+      right: 3%;
+      width: 20%;
+    }
+
+    .hero-art__float--bottom-left {
+      bottom: -4%;
+      left: -2%;
+      width: 21%;
     }
 
     /* BEM: Marquee Element */
@@ -1765,6 +1783,7 @@ try {
       position: absolute;
       inset: 0;
       margin: auto;
+      width: 60%;
       max-height: 80%;
       object-fit: contain;
       filter: drop-shadow(0 14px 18px rgba(15, 23, 42, 0.16));
@@ -1774,6 +1793,30 @@ try {
     .service-card__accent {
       filter: drop-shadow(0 8px 12px rgba(15, 23, 42, 0.18));
       z-index: 2;
+    }
+
+    .service-card__accent--top-right {
+      top: 8%;
+      right: 8%;
+      width: 22%;
+    }
+
+    .service-card__accent--bottom-left {
+      bottom: 8%;
+      left: 8%;
+      width: 22%;
+    }
+
+    .service-card__accent--top-left {
+      top: 8%;
+      left: 8%;
+      width: 22%;
+    }
+
+    .service-card__accent--bottom-right {
+      bottom: 8%;
+      right: 8%;
+      width: 22%;
     }
 
     .service-card__title {
@@ -2039,6 +2082,9 @@ try {
     }
 
     .process__visual-main {
+      width: 58%;
+      left: 21%;
+      top: 14%;
       filter: drop-shadow(0 24px 30px rgba(0, 0, 0, 0.5));
       z-index: 1;
     }
@@ -2046,6 +2092,30 @@ try {
     .process__visual-float {
       filter: drop-shadow(0 14px 20px rgba(0, 0, 0, 0.42));
       z-index: 2;
+    }
+
+    .process__visual-float--top-right {
+      top: 8%;
+      right: 8%;
+      width: 20%;
+    }
+
+    .process__visual-float--bottom-left {
+      bottom: 14%;
+      left: 8%;
+      width: 22%;
+    }
+
+    .process__visual-float--top-left {
+      top: 10%;
+      left: 8%;
+      width: 22%;
+    }
+
+    .process__visual-float--bottom-right {
+      bottom: 14%;
+      right: 8%;
+      width: 22%;
     }
 
     .process__stage-footer {
