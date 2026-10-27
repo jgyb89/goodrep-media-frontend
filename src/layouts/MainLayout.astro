@@ -5,6 +5,7 @@ import { Image } from "astro:assets";
 import LeadForm from "../components/LeadForm.jsx";
 import LightboxModal from "../components/LightboxModal.astro";
 import BaseHead from "../components/BaseHead.astro";
+import TrackingHead from "../components/TrackingHead.astro";
 import { SITE_NAME, DEFAULT_META_DESCRIPTION, LEGAL_LINKS } from "../config/site.js";
 
 interface Props {
@@ -72,6 +73,7 @@ if (pageSchema) {
       noindex={noindex}
       schemaGraph={globalSchema}
     />
+    <TrackingHead />
   </head>
   <body id="top">
     <!-- Global Header -->
