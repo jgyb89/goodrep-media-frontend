@@ -21,9 +21,23 @@ import {
   whyEmailData,
   consultData,
 } from "../../data/emailMarketingData.js";
+
+const serviceSchema = {
+  "@type": "Service",
+  "name": "Email Marketing Services",
+  "provider": {
+    "@id": "https://goodrep.media/#organization"
+  },
+  "areaServed": "Grand Rapids, MI",
+  "description": metaData.description || "Automated customer retention flows, newsletter design, and email campaigns."
+};
 ---
 
-<MainLayout title={metaData.title} description={metaData.description}>
+<MainLayout
+  title={metaData.title}
+  description={metaData.description}
+  pageSchema={serviceSchema}
+>
   <ServiceHero {...heroData} />
   <StartsSection {...startsData} />
   <StatsBand {...statsData} />

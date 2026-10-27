@@ -22,9 +22,23 @@ import {
   readyData,
   consultData,
 } from "../../data/smsMarketingData.js";
+
+const serviceSchema = {
+  "@type": "Service",
+  "name": "SMS Marketing Services",
+  "provider": {
+    "@id": "https://goodrep.media/#organization"
+  },
+  "areaServed": "Grand Rapids, MI",
+  "description": metaData.description || "Compliant SMS marketing campaigns and customer engagement automation."
+};
 ---
 
-<MainLayout title={metaData.title} description={metaData.description}>
+<MainLayout
+  title={metaData.title}
+  description={metaData.description}
+  pageSchema={serviceSchema}
+>
   <ServiceHero {...heroData} />
   <StartsSection {...startsData} />
   <StatsBand {...statsData} />

@@ -7,17 +7,71 @@ import LightboxModal from "../components/LightboxModal.astro";
 import BaseHead from "../components/BaseHead.astro";
 import { SITE_NAME, DEFAULT_META_DESCRIPTION, LEGAL_LINKS } from "../config/site.js";
 
+interface Props {
+  title?: string;
+  description?: string;
+  image?: string;
+  noindex?: boolean;
+  pageSchema?: Record<string, any> | null;
+}
+
 const {
   title = `${SITE_NAME} | Digital Marketing Agency`,
   description = DEFAULT_META_DESCRIPTION,
+  image,
+  noindex = false,
+  pageSchema = null,
 } = Astro.props;
 const year = new Date().getFullYear();
+
+const globalSchema = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": "https://goodrep.media/#organization",
+      "name": "Good Rep Media",
+      "url": "https://goodrep.media/",
+      "logo": "https://goodrep.media/grm-logos/GRM_Blue_Favicon.png",
+      "sameAs": [
+        "https://www.facebook.com/GoodRepMedia",
+        "https://www.linkedin.com/company/good-rep-media"
+      ]
+    },
+    {
+      "@type": "LocalBusiness",
+      "@id": "https://goodrep.media/#localbusiness",
+      "name": "Good Rep Media",
+      "url": "https://goodrep.media/",
+      "telephone": "+1-616-300-9868",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "O-745 Lake Michigan Dr. NW",
+        "addressLocality": "Grand Rapids",
+        "addressRegion": "MI",
+        "postalCode": "49534",
+        "addressCountry": "US"
+      }
+    }
+  ]
+};
+
+// Merge page-specific schema with global schema if provided
+if (pageSchema) {
+  globalSchema["@graph"].push(pageSchema);
+}
 ---
 
 <!doctype html>
 <html lang="en">
   <head>
-    <BaseHead title={title} description={description} />
+    <BaseHead
+      title={title}
+      description={description}
+      image={image}
+      noindex={noindex}
+      schemaGraph={globalSchema}
+    />
   </head>
   <body id="top">
     <!-- Global Header -->
@@ -130,7 +184,9 @@ const year = new Date().getFullYear();
     </header>
 
     <!-- Page Content Injected Here -->
-    <slot />
+    <main id="main-content">
+      <slot />
+    </main>
 
     <!-- Global Footer -->
     <footer class="global-footer">
@@ -172,7 +228,7 @@ const year = new Date().getFullYear();
         </div>
 
         <div class="global-footer__col">
-          <h2 class="global-footer__heading">Resources</h2>
+          <p class="global-footer__heading footer-heading">Resources</p>
           <ul>
             <li><a href="/work/">Our Work</a></li>
             <li><a href="/about/">About Us</a></li>
@@ -183,7 +239,7 @@ const year = new Date().getFullYear();
         </div>
 
         <div class="global-footer__col">
-          <h2 class="global-footer__heading">Services</h2>
+          <p class="global-footer__heading footer-heading">Services</p>
           <ul>
             <li><a href="/services/web-design/">Website Design</a></li>
             <li><a href="/services/local-seo/">Local SEO</a></li>
@@ -193,7 +249,7 @@ const year = new Date().getFullYear();
         </div>
 
         <div class="global-footer__col">
-          <h2 class="global-footer__heading">Help</h2>
+          <p class="global-footer__heading footer-heading">Help</p>
           <ul class="global-footer__contact">
             <li>
               <span class="material-symbols-outlined" aria-hidden="true"
@@ -658,9 +714,11 @@ const year = new Date().getFullYear();
     color: #a3a3a3;
   }
 
-  .global-footer__heading {
+  .global-footer__heading,
+  .footer-heading {
     color: var(--color-light);
     font-size: 0.85rem;
+    font-weight: 700;
     letter-spacing: 0.15em;
     text-transform: uppercase;
     margin: 0.5rem 0 1.25rem;

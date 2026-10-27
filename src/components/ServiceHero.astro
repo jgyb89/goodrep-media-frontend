@@ -108,22 +108,23 @@ const {
 
       <span class="service-hero__kicker">{kicker}</span>
 
-      <h1 class="service-hero__title">
+      <h1 class="service-hero__title hero-title">
         <span class="service-hero__title-top">{titleTop}</span>
-        <span class="service-hero__rotator" id={rotatorId}>
-          {
-            rotatorWords.map((word, idx) => (
-              <span
-                class="service-hero__word"
-                data-hero-word
-                aria-hidden={idx === 0 ? "false" : "true"}
-              >
-                {word}
-              </span>
-            ))
-          }
-        </span>
       </h1>
+      <!-- Move the rotating phrases outside the H1 and hide them from crawlers -->
+      <div class="service-hero__rotator hero-rotator" id={rotatorId} aria-hidden="true">
+        {
+          rotatorWords.map((word, idx) => (
+            <span
+              class="service-hero__word rotating-text"
+              data-hero-word
+              aria-hidden={idx === 0 ? "false" : "true"}
+            >
+              {word}
+            </span>
+          ))
+        }
+      </div>
 
       <p class="service-hero__lead" set:html={lead} />
 
@@ -313,7 +314,7 @@ const {
       // 3. Hero Entrance Stagger
       gsap.fromTo(
         root.querySelectorAll(
-          ".breadcrumb, .service-hero__kicker, .service-hero__title, .service-hero__lead, .service-hero__checklist-card, .service-hero__actions",
+          ".breadcrumb, .service-hero__kicker, .service-hero__title, .service-hero__rotator, .service-hero__lead, .service-hero__checklist-card, .service-hero__actions",
         ),
         { y: 28, opacity: 0 },
         {
@@ -516,7 +517,8 @@ const {
     margin-bottom: 0.65rem;
   }
 
-  .service-hero__title {
+  .service-hero__title,
+  .hero-title {
     display: flex;
     flex-direction: column;
     gap: 0.1em;
@@ -524,7 +526,7 @@ const {
     font-weight: 700;
     line-height: 1.12;
     letter-spacing: -0.015em;
-    margin: 0 0 1rem;
+    margin: 0 0 0.2rem;
   }
 
   .service-hero__title-top {
@@ -539,15 +541,22 @@ const {
     }
   }
 
-  .service-hero__rotator {
+  .service-hero__rotator,
+  .hero-rotator {
     display: grid;
     grid-template-areas: "word";
     justify-items: start;
     align-items: center;
     min-height: 1.15em;
+    font-size: clamp(1.65rem, 2.7vw, 2.35rem);
+    font-weight: 700;
+    line-height: 1.12;
+    letter-spacing: -0.015em;
+    margin-bottom: 1rem;
   }
 
-  .service-hero__word {
+  .service-hero__word,
+  .rotating-text {
     grid-area: word;
     display: block;
     color: var(--color-primary);

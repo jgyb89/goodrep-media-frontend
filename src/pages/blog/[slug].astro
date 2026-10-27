@@ -43,6 +43,32 @@ if (post?.date) {
   }
 }
 
+// Utility to strip HTML tags and decode entities for the meta description
+function stripHtml(html: string) {
+  if (!html) return '';
+  return html.replace(/<[^>]*>?/gm, '').replace(/&#8217;/g, "'").replace(/&amp;/g, "&").trim();
+}
+
+const cleanDescription = stripHtml(post?.seo?.metaDesc || post?.excerpt?.rendered || post?.excerpt || "Expert digital marketing, web design, and SEO strategies from Good Rep Media.");
+const authorName = post?._embedded?.author?.[0]?.name || "Good Rep Media Team";
+const modifiedDate = post?.modified || post?.date;
+const postTitle = post?.title?.rendered || post?.title || "Blog Post | Good Rep Media";
+
+const blogSchema = {
+  "@type": "BlogPosting",
+  "headline": postTitle,
+  "description": cleanDescription,
+  "datePublished": post?.date,
+  "dateModified": modifiedDate,
+  "author": {
+    "@type": "Person",
+    "name": authorName
+  },
+  "publisher": {
+    "@id": "https://goodrep.media/#organization"
+  }
+};
+
 // Estimate reading time from word count
 const wordCount = post?.content
   ? post.content.replace(/<[^>]+>/g, " ").trim().split(/\s+/).length
@@ -71,8 +97,9 @@ const sanitizedContent = post?.content
 ---
 
 <MainLayout
-  title={post?.seo?.title || post?.title || "Blog Post | Good Rep Media"}
-  description={post?.seo?.metaDesc || post?.excerpt || "Expert digital marketing, web design, and SEO strategies from Good Rep Media."}
+  title={post?.seo?.title || postTitle}
+  description={cleanDescription}
+  pageSchema={blogSchema}
 >
   <div class="post-page">
     <div class="container post-page__container">
@@ -101,7 +128,7 @@ const sanitizedContent = post?.content
             >
               {primaryCategory.name}
             </a>
-            <h1 class="post-header__title">{post?.title}</h1>
+            <h1 class="post-header__title">{postTitle}</h1>
 
             <div class="post-header__meta">
               {formattedDate && (
@@ -114,10 +141,10 @@ const sanitizedContent = post?.content
                 <span class="material-symbols-outlined" aria-hidden="true">schedule</span>
                 <span>{readingTime} min read</span>
               </span>
-              <span class="post-header__meta-item">
+              <p class="author-meta post-header__meta-item">
                 <span class="material-symbols-outlined" aria-hidden="true">verified</span>
-                <span>Good Rep Media Team</span>
-              </span>
+                <span>By {authorName}</span>
+              </p>
             </div>
           </header>
 
@@ -325,6 +352,10 @@ const sanitizedContent = post?.content
     display: inline-flex;
     align-items: center;
     gap: 0.4rem;
+  }
+
+  .author-meta {
+    margin: 0;
   }
 
   .post-header__meta-item .material-symbols-outlined {

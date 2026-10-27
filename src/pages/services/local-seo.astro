@@ -21,9 +21,23 @@ import {
   factsGridData,
   consultData,
 } from "../../data/localSeoData.js";
+
+const serviceSchema = {
+  "@type": "Service",
+  "name": "Local SEO Services",
+  "provider": {
+    "@id": "https://goodrep.media/#organization"
+  },
+  "areaServed": "Grand Rapids, MI",
+  "description": metaData.description || "Local search engine optimization and Google Map Pack ranking services."
+};
 ---
 
-<MainLayout title={metaData.title} description={metaData.description}>
+<MainLayout
+  title={metaData.title}
+  description={metaData.description}
+  pageSchema={serviceSchema}
+>
   <ServiceHero {...heroData} />
   <StartsSection {...startsData} />
   <StatsBand {...statsData} />

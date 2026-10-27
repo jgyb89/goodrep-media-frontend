@@ -286,11 +286,22 @@ const servicesList = [
     ],
   },
 ];
+
+const serviceHubSchema = {
+  "@type": "Service",
+  "name": "Full-Service Digital Marketing Services",
+  "provider": {
+    "@id": "https://goodrep.media/#organization"
+  },
+  "areaServed": "Grand Rapids, MI",
+  "description": "Comprehensive digital marketing services for small businesses including Web Design, Local SEO, PPC Advertising, Social Media, and Video Production."
+};
 ---
 
 <MainLayout
   title="Our Services | Good Rep Media - Small Business Digital Marketing"
   description="Explore Good Rep Media's full suite of digital marketing services: Website Design, Local SEO, Paid Ads, Social Media, Video Production, and E-Commerce."
+  pageSchema={serviceHubSchema}
 >
   <!-- SERVICES HERO -->
   <section class="services-hero">
