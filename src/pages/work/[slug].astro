@@ -5,19 +5,41 @@ import CaseStudyStats from "../../components/CaseStudyStats.astro";
 import CaseStudyNarrative from "../../components/CaseStudyNarrative.astro";
 import ConsultSection from "../../components/ConsultSection.astro";
 import { CASE_STUDIES } from "../../data/work/caseStudiesRegistry.js";
+import { projects } from "../../data/work/directoryData.js";
 
 export function getStaticPaths() {
   return Object.entries(CASE_STUDIES).map(([slug, data]) => ({
     params: { slug },
-    props: { data },
+    props: { data, slug },
   }));
 }
 
-const { data } = Astro.props;
+const { data, slug } = Astro.props;
 const { metaData, heroData, statsData, narrativeData, consultData } = data;
+
+// Match project from directoryData.js for rich category and summary
+const matchedProject = projects.find((p) => {
+  if (!p.href) return false;
+  const hrefSlug = p.href.replace(/^\/work\//, "").replace(/\/$/, "");
+  return (
+    hrefSlug === slug ||
+    slug.startsWith(hrefSlug) ||
+    hrefSlug.startsWith(slug) ||
+    slug.replace(/-/g, "").includes(hrefSlug.replace(/-/g, "")) ||
+    hrefSlug.replace(/-/g, "").includes(slug.replace(/-/g, ""))
+  );
+});
+
+const project = {
+  title: matchedProject?.title || heroData?.breadcrumb?.[1]?.label || heroData?.title || "Client",
+  category: matchedProject?.category || heroData?.kicker?.replace(/^CASE STUDY\s*\/\/\s*/i, "").trim() || "Digital Marketing",
+  summary: matchedProject?.summary || metaData?.description || "",
+};
+
+const seoTitle = `${project.title} Case Study: ${project.category} Results | Good Rep Media`;
 ---
 
-<MainLayout title={metaData.title} description={metaData.description}>
+<MainLayout title={seoTitle} description={project.summary}>
   <CaseStudyHero {...heroData} />
   <CaseStudyStats {...statsData} />
   <CaseStudyNarrative {...narrativeData} />
