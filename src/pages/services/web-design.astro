@@ -18,9 +18,23 @@ import {
   deliverablesData,
   consultData,
 } from "../../data/webDesignData.js";
+
+const serviceSchema = {
+  "@type": "Service",
+  "name": "Web Design Services",
+  "provider": {
+    "@id": "https://goodrep.media/#organization"
+  },
+  "areaServed": "Grand Rapids, MI",
+  "description": "Professional web design and development services for small businesses."
+};
 ---
 
-<MainLayout title={metaData.title} description={metaData.description}>
+<MainLayout
+  title={metaData.title}
+  description={metaData.description}
+  pageSchema={serviceSchema}
+>
   <ServiceHero {...heroData} />
   <StartsSection {...startsData} />
   <StatsBand {...statsData} />

@@ -1,0 +1,129 @@
+---
+import MainLayout from '../../../../layouts/MainLayout.astro';
+import { getPosts } from '../../../../lib/api.js';
+
+export async function getStaticPaths({ paginate }: any) {
+  const posts = await getPosts();
+
+  // Failsafe in case API is down during build
+  if (!posts || posts.length === 0) {
+    throw new Error("No posts returned from API during category archive build.");
+  }
+
+  // 1. Extract all unique categories from the posts
+  const categoryMap = new Map();
+
+  posts.forEach((post: any) => {
+    const categories = Array.isArray(post.categories) && post.categories.length > 0
+      ? post.categories
+      : (post._embedded?.['wp:term']?.[0] || []);
+
+    categories.forEach((cat: any) => {
+      if (cat && cat.slug && cat.slug !== "all") {
+        if (!categoryMap.has(cat.slug)) {
+          categoryMap.set(cat.slug, { name: cat.name, posts: [] });
+        }
+        categoryMap.get(cat.slug).posts.push(post);
+      }
+    });
+  });
+
+  // 2. Map over the categories and generate paginated paths for each
+  return Array.from(categoryMap.entries()).flatMap(([slug, data]: [string, any]) => {
+    return paginate(data.posts, {
+      params: { slug },
+      props: { categoryName: data.name },
+      pageSize: 12,
+    });
+  });
+}
+
+const { page, categoryName } = Astro.props;
+const { slug } = Astro.params;
+---
+
+<MainLayout 
+  title={`${categoryName} Archives${page.currentPage > 1 ? ` - Page ${page.currentPage}` : ''} | Good Rep Media`}
+  description={`Browse all our articles, case studies, and insights related to ${categoryName}.`}
+>
+  <section class="section">
+    <div class="container">
+      <!-- Breadcrumb navigation -->
+      <nav aria-label="Breadcrumb" style="margin-bottom: 2rem;">
+        <a href="/blog/" class="btn btn--outline btn--sm" style="display: inline-flex; align-items: center; gap: 0.5rem; text-decoration: none;">
+          &larr; Back to All Articles
+        </a>
+      </nav>
+
+      <div style="text-align: center; margin-bottom: 3rem;">
+        <span class="eyebrow">Category Archive</span>
+        <h1 class="section-title">{categoryName}{page.currentPage > 1 ? ` (Page ${page.currentPage})` : ''}</h1>
+        <p style="color: var(--color-muted, #64748b); font-size: 1.05rem; margin-top: 0.75rem;">
+          Showing {page.data.length} {page.data.length === 1 ? 'article' : 'articles'} in this category
+        </p>
+      </div>
+      
+      <div class="blog-grid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 2rem;">
+        {page.data.map((post: any) => {
+          const postTitle = post.title?.rendered || (typeof post.title === "string" ? post.title : "");
+          const rawExcerpt = post.excerpt?.rendered || (typeof post.excerpt === "string" ? post.excerpt : "");
+          const cleanExcerpt = rawExcerpt.replace(/<[^>]*>?/gm, "").substring(0, 140) + "...";
+
+          return (
+            <article class="blog-card" style="border: 1px solid var(--color-border, #e2e8f0); border-radius: 14px; overflow: hidden; background: var(--color-white, #ffffff); display: flex; flex-direction: column;">
+              {post.featuredImage?.node?.sourceUrl && (
+                <a href={`/blog/${post.slug}/`} style="display: block; aspect-ratio: 16/9; overflow: hidden; background: #f1f5f9;" tabindex="-1" aria-hidden="true">
+                  <img
+                    src={post.featuredImage.node.sourceUrl}
+                    alt={post.featuredImage.node.altText || postTitle}
+                    style="width: 100%; height: 100%; object-fit: cover;"
+                    loading="lazy"
+                    width="600"
+                    height="375"
+                  />
+                </a>
+              )}
+              <div style="padding: 1.5rem; display: flex; flex-direction: column; flex: 1;">
+                <span style="display: inline-block; font-size: 0.75rem; font-weight: 700; color: var(--color-cyan, #0ea5e9); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0.5rem;">
+                  {categoryName}
+                </span>
+                <h2 style="font-size: 1.25rem; line-height: 1.35; margin: 0 0 1rem; color: var(--color-dark, #0f172a);">
+                  <a href={`/blog/${post.slug}/`} style="color: inherit; text-decoration: none;">
+                    {postTitle}
+                  </a>
+                </h2>
+                <p style="color: var(--color-muted, #64748b); font-size: 0.95rem; line-height: 1.6; margin-bottom: 1.5rem; flex: 1;">
+                  {cleanExcerpt}
+                </p>
+                <a href={`/blog/${post.slug}/`} style="color: var(--color-cyan, #0ea5e9); font-weight: 600; font-size: 0.9rem; text-decoration: none; display: inline-flex; align-items: center; gap: 0.25rem;">
+                  Read Article &rarr;
+                </a>
+              </div>
+            </article>
+          );
+        })}
+      </div>
+
+      <!-- Category Pagination Controls -->
+      {page.lastPage > 1 && (
+        <nav aria-label="Category Pagination" style="display: flex; justify-content: center; align-items: center; gap: 1rem; margin-top: 4rem;">
+          {page.url.prev ? (
+            <a href={page.url.prev} class="btn btn--outline">&larr; Previous</a>
+          ) : (
+            <span class="btn btn--outline" style="opacity: 0.5; pointer-events: none;">&larr; Previous</span>
+          )}
+          
+          <span style="display: flex; align-items: center; font-weight: 600;">
+            Page {page.currentPage} of {page.lastPage}
+          </span>
+
+          {page.url.next ? (
+            <a href={page.url.next} class="btn btn--outline">Next &rarr;</a>
+          ) : (
+            <span class="btn btn--outline" style="opacity: 0.5; pointer-events: none;">Next &rarr;</span>
+          )}
+        </nav>
+      )}
+    </div>
+  </section>
+</MainLayout>

@@ -593,3 +593,30 @@ export const consultData = {
     ],
   },
 };
+
+export const faqData = {
+  eyebrow: "Frequently Asked Questions",
+  title: "Local SEO Questions & Pricing",
+  items: [
+    {
+      question: "How much do Local SEO services cost in Grand Rapids?",
+      answer:
+        "Local SEO services in Grand Rapids typically start at $750 to $1,500 per month for small businesses targeting local service areas. Comprehensive multi-location campaigns and competitive regional markets start at $2,000 to $3,500+ per month. We provide transparent monthly retainers with detailed reporting and zero long-term lock-in contracts.",
+    },
+    {
+      question: "How long does it take to see results from Local SEO?",
+      answer:
+        "Most local businesses begin seeing ranking improvements in Google Business Profile and Map Pack visibility within 60 to 90 days. Solidifying Top 3 Map Pack rankings and driving a consistent surge of inbound calls typically takes 3 to 6 months of ongoing citation building, review generation, and localized content optimization.",
+    },
+    {
+      question: "What is included in Good Rep Media's Local SEO services?",
+      answer:
+        "Our Local SEO services include full Google Business Profile setup and weekly optimization, local citation audit and cleanup across 50+ major directories, hyper-localized on-page content creation, local schema markup injection, automated 5-star review generation, and transparent call tracking dashboards.",
+    },
+    {
+      question: "Why is the Google Map Pack important for my business?",
+      answer:
+        "Over 70% of high-intent mobile searchers click on the Google 3-Pack (the top 3 local listings shown on Google Maps). Ranking in the Map Pack generates direct phone calls, website clicks, and foot traffic from ready-to-buy customers in your immediate service area.",
+    },
+  ],
+};

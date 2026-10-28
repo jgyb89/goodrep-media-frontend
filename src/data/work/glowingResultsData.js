@@ -49,28 +49,24 @@ export const statsData = {
   sub: "Real performance gains tracked after modern redesign and full digital launch.",
   stats: [
     {
-      value: 1400,
+      prefix: "+",
+      value: 180,
+      suffix: "%",
+      barPercent: 95,
+      label: "Monthly online appointments",
+    },
+    {
+      value: 125,
       suffix: "+",
       barPercent: 92,
-      label: "new users since its launch",
+      label: "New 5-star Google reviews",
     },
     {
-      value: 10,
-      suffix: "k",
-      barPercent: 88,
-      label: "events tracked on the site",
-    },
-    {
-      value: 1000,
-      suffix: "+",
-      barPercent: 82,
-      label: "more users vs previous year",
-    },
-    {
-      value: 20,
-      suffix: "%",
-      barPercent: 70,
-      label: "increased call clicks",
+      prefix: "Top ",
+      value: 3,
+      suffix: "",
+      barPercent: 98,
+      label: "Rankings for core search terms",
     },
   ],
 };

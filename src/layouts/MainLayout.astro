@@ -1,23 +1,92 @@
 ---
-import "material-symbols/outlined.css";
+import '@fontsource/open-sans/400.css';
+import '@fontsource/open-sans/500.css';
+import '@fontsource/open-sans/600.css';
+import '@fontsource/open-sans/700.css';
+import '@fontsource/poppins/500.css';
+import '@fontsource/poppins/600.css';
+import '@fontsource/poppins/700.css';
+import '@fontsource/poppins/800.css';
+import "../styles/material-symbols.css";
 import "../styles/global.css";
 import { Image } from "astro:assets";
 import LeadForm from "../components/LeadForm.jsx";
 import LightboxModal from "../components/LightboxModal.astro";
 import BaseHead from "../components/BaseHead.astro";
+import TrackingHead from "../components/TrackingHead.astro";
+import MobileFlyoutMenu from "../components/MobileFlyoutMenu.astro";
 import { SITE_NAME, DEFAULT_META_DESCRIPTION, LEGAL_LINKS } from "../config/site.js";
+
+interface Props {
+  title?: string;
+  description?: string;
+  image?: string;
+  noindex?: boolean;
+  pageSchema?: Record<string, any> | null;
+}
 
 const {
   title = `${SITE_NAME} | Digital Marketing Agency`,
   description = DEFAULT_META_DESCRIPTION,
+  image,
+  noindex = false,
+  pageSchema = null,
 } = Astro.props;
 const year = new Date().getFullYear();
+
+const globalSchema = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": "https://goodrep.media/#organization",
+      "name": "Good Rep Media",
+      "url": "https://goodrep.media/",
+      "logo": "https://goodrep.media/grm-logos/GRM_Blue_Favicon.png",
+      "sameAs": [
+        "https://www.facebook.com/GoodRepMedia",
+        "https://www.linkedin.com/company/good-rep-media"
+      ]
+    },
+    {
+      "@type": "LocalBusiness",
+      "@id": "https://goodrep.media/#localbusiness",
+      "name": "Good Rep Media",
+      "url": "https://goodrep.media/",
+      "telephone": "+1-616-300-9868",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "O-745 Lake Michigan Dr. NW",
+        "addressLocality": "Grand Rapids",
+        "addressRegion": "MI",
+        "postalCode": "49534",
+        "addressCountry": "US"
+      }
+    }
+  ]
+};
+
+// Merge page-specific schema with global schema if provided
+if (pageSchema) {
+  if (Array.isArray(pageSchema)) {
+    globalSchema["@graph"].push(...pageSchema);
+  } else {
+    globalSchema["@graph"].push(pageSchema);
+  }
+}
 ---
 
 <!doctype html>
 <html lang="en">
   <head>
-    <BaseHead title={title} description={description} />
+    <BaseHead
+      title={title}
+      description={description}
+      image={image}
+      noindex={noindex}
+      schemaGraph={globalSchema}
+    />
+    <TrackingHead />
   </head>
   <body id="top">
     <!-- Global Header -->
@@ -25,12 +94,12 @@ const year = new Date().getFullYear();
       <nav class="global-nav" aria-label="Primary">
         <a href="/" class="brand" aria-label="Good Rep Media home">
           <span class="brand__mark">
-            <Image
+            <img
               src="/grm-logos/GRM-icon-logo-white.webp"
               alt=""
-              width={150}
-              height={150}
-              loading="lazy"
+              width="40"
+              height="30"
+              loading="eager"
               decoding="async"
             />
           </span>
@@ -126,11 +195,27 @@ const year = new Date().getFullYear();
         <a href="/#consultation" class="btn btn--primary global-nav__cta"
           >Book a Call</a
         >
+        <button
+          class="grm-flyout__toggle"
+          type="button"
+          data-grm="open"
+          aria-controls="grmFlyoutDrawer"
+          aria-expanded="false"
+          aria-label="Open mobile navigation menu"
+        >
+          <span class="material-symbols-outlined grm-flyout__toggle-icon" aria-hidden="true">menu</span>
+          <span class="grm-flyout__toggle-label">Menu</span>
+        </button>
       </nav>
     </header>
 
+    <!-- Mobile Navigation Flyout Drawer (Placed at body root to escape header backdrop-filter containing block) -->
+    <MobileFlyoutMenu />
+
     <!-- Page Content Injected Here -->
-    <slot />
+    <main id="main-content">
+      <slot />
+    </main>
 
     <!-- Global Footer -->
     <footer class="global-footer">
@@ -141,12 +226,12 @@ const year = new Date().getFullYear();
             class="brand brand--footer"
             aria-label="Good Rep Media home"
           >
-            <Image
+            <img
               class="brand__logo"
               src="/grm-logos/GRM-icon-logo-white.webp"
               alt=""
-              width={150}
-              height={150}
+              width="54"
+              height="44"
               loading="lazy"
               decoding="async"
             />
@@ -172,7 +257,7 @@ const year = new Date().getFullYear();
         </div>
 
         <div class="global-footer__col">
-          <h2 class="global-footer__heading">Resources</h2>
+          <p class="global-footer__heading footer-heading">Resources</p>
           <ul>
             <li><a href="/work/">Our Work</a></li>
             <li><a href="/about/">About Us</a></li>
@@ -183,7 +268,7 @@ const year = new Date().getFullYear();
         </div>
 
         <div class="global-footer__col">
-          <h2 class="global-footer__heading">Services</h2>
+          <p class="global-footer__heading footer-heading">Services</p>
           <ul>
             <li><a href="/services/web-design/">Website Design</a></li>
             <li><a href="/services/local-seo/">Local SEO</a></li>
@@ -193,7 +278,7 @@ const year = new Date().getFullYear();
         </div>
 
         <div class="global-footer__col">
-          <h2 class="global-footer__heading">Help</h2>
+          <p class="global-footer__heading footer-heading">Help</p>
           <ul class="global-footer__contact">
             <li>
               <span class="material-symbols-outlined" aria-hidden="true"
@@ -593,9 +678,55 @@ const year = new Date().getFullYear();
     font-size: 0.9rem;
   }
 
+  .grm-flyout__toggle {
+    appearance: none;
+    border: 1px solid var(--color-border);
+    background: #ffffff;
+    color: var(--color-dark);
+    padding: 0.45rem 0.75rem;
+    border-radius: 8px;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: 0.85rem;
+    line-height: 1;
+    transition: all 0.2s ease;
+  }
+
+  .grm-flyout__toggle:hover,
+  .grm-flyout__toggle:focus-visible {
+    border-color: var(--color-cyan);
+    color: var(--color-cyan-dark);
+    background: var(--color-cyan-soft);
+  }
+
+  .grm-flyout__toggle-icon {
+    font-size: 22px;
+    line-height: 1;
+  }
+
+  @media (max-width: 859px) {
+    .global-nav {
+      padding: 0 1rem;
+      gap: 0.75rem;
+    }
+  }
+
+  @media (max-width: 440px) {
+    .global-nav__cta {
+      display: none;
+    }
+  }
+
   @media (min-width: 860px) {
     .global-nav__links {
       display: flex;
+    }
+    .grm-flyout__toggle {
+      display: none !important;
     }
   }
 
@@ -658,9 +789,11 @@ const year = new Date().getFullYear();
     color: #a3a3a3;
   }
 
-  .global-footer__heading {
+  .global-footer__heading,
+  .footer-heading {
     color: var(--color-light);
     font-size: 0.85rem;
+    font-weight: 700;
     letter-spacing: 0.15em;
     text-transform: uppercase;
     margin: 0.5rem 0 1.25rem;

@@ -23,9 +23,23 @@ import {
   workingGridData,
   consultData,
 } from "../../data/linkBuildingData.js";
+
+const serviceSchema = {
+  "@type": "Service",
+  "name": "Link Building & Digital PR Services",
+  "provider": {
+    "@id": "https://goodrep.media/#organization"
+  },
+  "areaServed": "Grand Rapids, MI",
+  "description": metaData.description || "High-authority editorial link building and digital PR for domain growth."
+};
 ---
 
-<MainLayout title={metaData.title} description={metaData.description}>
+<MainLayout
+  title={metaData.title}
+  description={metaData.description}
+  pageSchema={serviceSchema}
+>
   <ServiceHero {...heroData} />
   <StartsSection {...startsData} />
   <StatsBand {...statsData} />

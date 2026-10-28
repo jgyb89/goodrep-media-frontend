@@ -312,12 +312,18 @@ export function normalizePost(p, categoryMap = DEFAULT_CATEGORY_MAP) {
 
 /**
  * Fetches posts with optional field filtering and pagination.
+ * If called with no arguments, retrieves all posts via getAllPosts() to ensure complete static coverage.
  */
-export async function getPosts({
-  perPage = 100,
-  page = 1,
-  includeContent = false,
-} = {}) {
+export async function getPosts(options = {}) {
+  if (options.perPage === undefined && options.page === undefined) {
+    return getAllPosts();
+  }
+
+  const {
+    perPage = 100,
+    page = 1,
+    includeContent = false,
+  } = options;
   if (isGraphQL) {
     const all = await ensureFullPostsCache();
     const startIndex = (page - 1) * perPage;

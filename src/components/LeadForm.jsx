@@ -313,6 +313,10 @@ export default function LeadForm({
       setFormData(INITIAL_FORM_STATE);
       setErrors({});
       setTouched({});
+
+      if (json.is_valid !== false && typeof window !== 'undefined') {
+        window.location.href = '/thankyou/';
+      }
     } catch (err) {
       console.error('Submission Error:', err);
       setErrorMessage(err.message || 'Something went wrong. Please try again.');

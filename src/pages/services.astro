@@ -54,6 +54,7 @@ const servicesList = [
   {
     id: "web-design",
     href: "/services/web-design/",
+    shortName: "Web Design",
     kicker: "Web Design & Development",
     title: "Custom Websites Built to Turn Visitors into Paying Customers",
     desc: "Your website is your 24/7 storefront. We design and build ultra-fast, mobile-first websites tailored to your brand identity, designed specifically for conversion and high search visibility.",
@@ -78,8 +79,36 @@ const servicesList = [
     ],
   },
   {
+    id: "ecommerce-web-design",
+    href: "/services/ecommerce-web-design/",
+    shortName: "eCommerce",
+    kicker: "eCommerce Web Design",
+    title: "High-Converting Online Stores Built to Accelerate Sales",
+    desc: "A strong eCommerce presence is crucial for reaching customers globally and expanding your market share. We design and develop custom Shopify and WooCommerce stores with seamless checkout funnels, mobile responsiveness, and high-conversion UX.",
+    main: {
+      src: "/grm-web-icons/ecommerce-icon-blue.svg",
+    },
+    accents: [
+      {
+        src: "/grm-web-assets/pc-screen-online-marketplace-graphic.svg",
+        placement: "top-right",
+      },
+      {
+        src: "/grm-web-assets/3d-mobile-graphic.svg",
+        placement: "bottom-left",
+      },
+    ],
+    features: [
+      "Custom Shopify & WooCommerce storefront architecture",
+      "Mobile-optimized checkout to eliminate cart abandonment",
+      "Product catalog setup, inventory tracking, and variant management",
+      "Payment gateway integration, tax calculation, and shipping automation",
+    ],
+  },
+  {
     id: "local-seo",
     href: "/services/local-seo/",
+    shortName: "Local SEO",
     kicker: "Local SEO & Google Maps",
     title: "Dominate Local Search & The Google 3-Pack in Your Market",
     desc: "When customers near you search for your services, make sure you show up first. We optimize your Google Business Profile, local citations, and on-page signals so you win the local map pack.",
@@ -106,6 +135,7 @@ const servicesList = [
   {
     id: "technical-seo",
     href: "/services/technical-seo/",
+    shortName: "Technical SEO",
     kicker: "Technical SEO & Speed",
     title: "Clean Site Architecture & Search Engine Optimization",
     desc: "Behind every high-ranking website is clean technical architecture. We resolve crawl errors, optimize site taxonomy, implement schema markup, and ensure search engines reward your site.",
@@ -130,8 +160,36 @@ const servicesList = [
     ],
   },
   {
+    id: "link-building",
+    href: "/services/link-building-services/",
+    shortName: "Link Building",
+    kicker: "Link Building & Authority",
+    title: "High-Quality Backlinks That Boost Domain Authority",
+    desc: "Earn high-authority editorial links and digital PR coverage from reputable industry and local publications to power up your organic rankings safely.",
+    main: {
+      src: "/grm-web-icons/link-building-icon.svg",
+    },
+    accents: [
+      {
+        src: "/grm-web-assets/upward-trend-graph-graphic.svg",
+        placement: "top-left",
+      },
+      {
+        src: "/grm-web-assets/document-star-stamp-graphic.svg",
+        placement: "bottom-right",
+      },
+    ],
+    features: [
+      "Ethical, white-hat link acquisition through relationship outreach",
+      "Digital PR campaigns that earn real journalistic mentions",
+      "Local citation links and community sponsorship profiling",
+      "Toxic link audits and Google disavow cleanup",
+    ],
+  },
+  {
     id: "paid-ads",
     href: "/services/pay-per-click-marketing/",
+    shortName: "Paid Ads",
     kicker: "Paid Search & Social Ads",
     title: "High-ROI Ad Campaigns Managed for Leads, Not Just Clicks",
     desc: "Stop wasting money on vanity clicks. We build laser-targeted Google Ads and paid social campaigns designed to generate qualified inbound calls, quote requests, and measurable sales.",
@@ -158,6 +216,7 @@ const servicesList = [
   {
     id: "social-media",
     href: "/services/social-media-marketing/",
+    shortName: "Social Media",
     kicker: "Social Media Management",
     title: "Consistent, On-Brand Social Presence That Engages Your Community",
     desc: "Keep your business top of mind. We curate, design, and publish professional social content across Instagram, Facebook, and LinkedIn while interacting with your local audience.",
@@ -184,9 +243,10 @@ const servicesList = [
   {
     id: "digital-media",
     href: "/services/digital-media-production/",
-    kicker: "Digital Media & Video",
+    shortName: "Digital Media",
+    kicker: "Digital Media & Creative",
     title: "High-Impact Visual Storytelling That Elevates Your Brand",
-    desc: "In a visual world, quality matters. We produce promotional videos, commercial photography, drone footage, and motion graphics that make your small business stand out from competitors.",
+    desc: "In a visual world, quality matters. We produce promotional graphics, commercial photography, drone footage, and motion design that make your small business stand out from competitors.",
     main: {
       src: "/grm-web-icons/digital-media-icon-blue.svg",
     },
@@ -201,18 +261,46 @@ const servicesList = [
       },
     ],
     features: [
-      "Short-form social video (Reels, Shorts, TikTok) production",
       "Commercial photography for team, products, and facilities",
       "Drone aerial videography for real estate and local projects",
       "Motion graphics, logo stingers, and digital ad creative",
+      "Brand creative assets and multi-platform promotional graphics",
+    ],
+  },
+  {
+    id: "video-production",
+    href: "/services/video-production-services/",
+    shortName: "Video Production",
+    kicker: "Video Production Services",
+    title: "Cinematic Video Production Engineered for Brand Growth",
+    desc: "Cut through the noise with broadcast-quality video content. We script, film, and edit commercial promotions, brand story videos, drone footage, and short-form social reels that captivate audiences and drive conversions.",
+    main: {
+      src: "/grm-web-icons/video-film-strip-icon-blue.svg",
+    },
+    accents: [
+      {
+        src: "/grm-web-assets/dlsr-camera-graphic.svg",
+        placement: "top-left",
+      },
+      {
+        src: "/grm-web-assets/photo-img-graphic.svg",
+        placement: "bottom-right",
+      },
+    ],
+    features: [
+      "On-location commercial shoots and broadcast-quality cinema filming",
+      "High-converting video ads for YouTube, Meta, and connected TV",
+      "Short-form video editing for TikTok, Instagram Reels, and YouTube Shorts",
+      "Professional post-production, sound design, color grading, and motion graphics",
     ],
   },
   {
     id: "amazon-ecommerce",
     href: "/services/amazon-marketing-services/",
-    kicker: "E-Commerce & Amazon",
+    shortName: "Amazon Marketing",
+    kicker: "Amazon Marketing & Ads",
     title: "Scale Your Online Store & Marketplace Sales Channel",
-    desc: "From Shopify store launches to Amazon Storefronts and A+ Content, we help product brands launch, optimize listings, and drive profitable online sales channels.",
+    desc: "From Amazon Storefronts and A+ Content to high-efficiency Sponsored Product ads, we help product brands launch, optimize listings, and drive profitable marketplace sales.",
     main: {
       src: "/grm-web-icons/amazon-marketing-icon.svg",
     },
@@ -227,42 +315,17 @@ const servicesList = [
       },
     ],
     features: [
-      "Shopify & WooCommerce store development and optimization",
       "Amazon listing optimization, keyword indexing, and A+ Content",
-      "Amazon PPC sponsored product and brand advertising",
-      "Cart checkout optimization to minimize abandoned carts",
-    ],
-  },
-  {
-    id: "link-building",
-    href: "/services/link-building-services/",
-    kicker: "Link Building & Authority",
-    title: "High-Quality Backlinks That Boost Domain Authority",
-    desc: "Earn high-authority editorial links and digital PR coverage from reputable industry and local publications to power up your organic rankings safely.",
-    main: {
-      src: "/grm-web-icons/link-building-icon.svg",
-    },
-    accents: [
-      {
-        src: "/grm-web-assets/upward-trend-graph-graphic.svg",
-        placement: "top-left",
-      },
-      {
-        src: "/grm-web-assets/document-star-stamp-graphic.svg",
-        placement: "bottom-right",
-      },
-    ],
-    features: [
-      "Ethical, white-hat link acquisition through relationship outreach",
-      "Digital PR campaigns that earn real journalistic mentions",
-      "Local citation links and community sponsorship profiling",
-      "Toxic link audits and Google disavow cleanup",
+      "Amazon PPC sponsored product, brand, and display advertising",
+      "Brand registry protection and enhanced brand store design",
+      "FBA inventory strategy and marketplace conversion optimization",
     ],
   },
   {
     id: "email-marketing",
     href: "/services/email-marketing/",
-    kicker: "Email & SMS Marketing",
+    shortName: "Email Marketing",
+    kicker: "Email Marketing & Drip Funnels",
     title: "Automated Customer Retention & High-Converting Newsletters",
     desc: "Turn one-time buyers into loyal repeat customers. We craft automated drip sequences, review requests, and promotional email blasts that generate recurring revenue on autopilot.",
     main: {
@@ -282,15 +345,53 @@ const servicesList = [
       "Automated welcome flows, quote follow-ups, and win-back campaigns",
       "Custom email newsletter design matching your brand visual identity",
       "List segmentation for hyper-targeted customer messaging",
-      "SMS marketing integration with compliance and opt-in handling",
+      "Deliverability optimization and inbox placement monitoring",
+    ],
+  },
+  {
+    id: "sms-marketing",
+    href: "/services/sms-marketing-services/",
+    shortName: "SMS Marketing",
+    kicker: "SMS Marketing Services",
+    title: "Conversational SMS Funnels with 98% Open Rates",
+    desc: "Connect directly with customers where they pay attention most. We build 100% compliant SMS marketing campaigns, automated two-way customer support, and flash sale sequences that drive instant revenue.",
+    main: {
+      src: "/grm-web-icons/writing-message-icon-blue.svg",
+    },
+    accents: [
+      {
+        src: "/grm-web-assets/3d-sms-icon-graphic.svg",
+        placement: "top-right",
+      },
+      {
+        src: "/grm-web-assets/paper-plane-graphic.svg",
+        placement: "bottom-left",
+      },
+    ],
+    features: [
+      "TCPA/CTIA compliant opt-in capture and subscriber list management",
+      "Automated SMS drip sequences for abandoned carts and appointment reminders",
+      "Targeted broadcast messaging for VIP flash sales and product launches",
+      "Real-time two-way messaging and conversational commerce flows",
     ],
   },
 ];
+
+const serviceHubSchema = {
+  "@type": "Service",
+  "name": "Full-Service Digital Marketing Services",
+  "provider": {
+    "@id": "https://goodrep.media/#organization"
+  },
+  "areaServed": "Grand Rapids, MI",
+  "description": "Comprehensive digital marketing services for small businesses including Web Design, eCommerce, Local SEO, Technical SEO, Link Building, PPC Advertising, Social Media, Digital Media, Video Production, Amazon Marketing, Email Marketing, and SMS Marketing."
+};
 ---
 
 <MainLayout
   title="Our Services | Good Rep Media - Small Business Digital Marketing"
   description="Explore Good Rep Media's full suite of digital marketing services: Website Design, Local SEO, Paid Ads, Social Media, Video Production, and E-Commerce."
+  pageSchema={serviceHubSchema}
 >
   <!-- SERVICES HERO -->
   <section class="services-hero">
@@ -366,7 +467,7 @@ const servicesList = [
         {
           servicesList.map((s) => (
             <a class="services-nav__pill" href={`#${s.id}`}>
-              {s.kicker.split("&")[0]}
+              {s.shortName || s.kicker.split("&")[0].trim()}
             </a>
           ))
         }
@@ -435,7 +536,7 @@ const servicesList = [
                     href={service.href || "#consultation"}
                     class="btn btn--primary"
                   >
-                    Get Started With {service.kicker.split("&")[0]}
+                    Get Started With {service.shortName || service.kicker.split("&")[0].trim()}
                   </a>
                 </div>
               </div>

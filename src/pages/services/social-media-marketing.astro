@@ -22,9 +22,23 @@ import {
   readyData,
   consultData,
 } from "../../data/socialMediaData.js";
+
+const serviceSchema = {
+  "@type": "Service",
+  "name": "Social Media Marketing Services",
+  "provider": {
+    "@id": "https://goodrep.media/#organization"
+  },
+  "areaServed": "Grand Rapids, MI",
+  "description": metaData.description || "On-brand social media content creation, curation, and community management."
+};
 ---
 
-<MainLayout title={metaData.title} description={metaData.description}>
+<MainLayout
+  title={metaData.title}
+  description={metaData.description}
+  pageSchema={serviceSchema}
+>
   <ServiceHero {...heroData} />
   <StartsSection {...startsData} />
   <StatsBand {...statsData} />

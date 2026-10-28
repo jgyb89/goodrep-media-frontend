@@ -183,8 +183,8 @@ export const services = [
     text: "Logos, colors, and messaging that make your business memorable and instantly recognizable.",
     main: {
       src: "/grm-main-graphics/monitor-with-image-file.webp",
-      w: 746,
-      h: 780,
+      w: 346,
+      h: 282,
     },
     accents: [
       {

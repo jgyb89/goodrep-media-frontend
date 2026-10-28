@@ -5,6 +5,9 @@ import sitemap from '@astrojs/sitemap';
 export default defineConfig({
   site: 'https://goodrep.media',
   trailingSlash: 'always',
+  image: {
+    domains: ['wp.goodrep.media', 'goodrep.media'],
+  },
   integrations: [
     react(),
     sitemap({
@@ -12,7 +15,8 @@ export default defineConfig({
         !page.includes('/paid-ads/') &&
         !page.includes('/social-media/') &&
         !page.includes('/sms-marketing/') &&
-        !page.includes('/our-work/')
+        !page.includes('/our-work/') &&
+        !page.includes('/thankyou/')
     })
   ]
 });

@@ -109,16 +109,17 @@ const categories = [
             <div class="blog-nav__pills" role="group">
               {
                 categories.map((cat, idx) => (
-                  <button
-                    type="button"
+                  <a
+                    href={cat.slug === "all" ? "/blog/" : `/blog/category/${cat.slug}/`}
                     class:list={["blog-nav__pill", { "is-active": idx === 0 }]}
                     data-category={cat.slug}
                     data-category-name={cat.name}
                     aria-pressed={idx === 0 ? "true" : "false"}
+                    style="text-decoration: none;"
                   >
                     <span class="blog-nav__pill-label">{cat.name}</span>
                     <span class="blog-nav__pill-count">{cat.count}</span>
-                  </button>
+                  </a>
                 ))
               }
             </div>
@@ -220,14 +221,15 @@ const categories = [
                           )}
                         </a>
                         <div class="post-card__body">
-                          <button
-                            type="button"
+                          <a
+                            href={`/blog/category/${primaryCat.slug}/`}
                             class="post-card__tag"
                             data-filter-category={primaryCat.slug}
                             title={`Filter by ${primaryCat.name}`}
+                            style="text-decoration: none;"
                           >
                             {primaryCat.name}
-                          </button>
+                          </a>
                           <h2 class="post-card__title">
                             <a href={`/blog/${post.slug}`}>{post.title}</a>
                           </h2>
@@ -282,6 +284,18 @@ const categories = [
                     <span>Next</span>
                     <span class="material-symbols-outlined" aria-hidden="true">arrow_forward</span>
                   </button>
+                </nav>
+
+                <!-- STATIC CRAWLER PAGINATION LINKS -->
+                <nav
+                  class="blog-static-pagination"
+                  aria-label="Blog pages overview"
+                  style="display: flex; justify-content: center; align-items: center; gap: 0.75rem; margin-top: 2.5rem;"
+                >
+                  <span class="btn btn--outline" style="opacity: 0.6; pointer-events: none;">Page 1</span>
+                  <a href="/blog/page/2/" class="btn btn--outline">Page 2</a>
+                  <a href="/blog/page/3/" class="btn btn--outline">Page 3</a>
+                  <a href="/blog/page/2/" class="btn btn--outline">Next &rarr;</a>
                 </nav>
 
                 <!-- MOBILE LOAD MORE (6 articles at a time) -->
@@ -412,7 +426,7 @@ const categories = [
     const MOBILE_PAGE_SIZE = 6;
 
     const pills = Array.from(
-      document.querySelectorAll<HTMLButtonElement>(
+      document.querySelectorAll<HTMLElement>(
         ".blog-nav__pill[data-category]",
       ),
     );
@@ -420,8 +434,12 @@ const categories = [
       document.querySelectorAll<HTMLElement>(".post-card[data-categories]"),
     );
     const cardCategoryTags = Array.from(
-      document.querySelectorAll<HTMLButtonElement>("[data-filter-category]"),
+      document.querySelectorAll<HTMLElement>("[data-filter-category]"),
     );
+    const staticPagination = document.querySelector<HTMLElement>(".blog-static-pagination");
+    if (staticPagination) {
+      staticPagination.hidden = true;
+    }
     const searchInput = document.getElementById(
       "blog-search-input",
     ) as HTMLInputElement | null;
@@ -576,7 +594,7 @@ const categories = [
 
       // Update active category pill UI
       let activeCategoryName = "All Articles";
-      let matchedPill: HTMLButtonElement | null = null;
+      let matchedPill: HTMLElement | null = null;
       pills.forEach((pill) => {
         const isMatch = pill.dataset.category === activeCategory;
         pill.classList.toggle("is-active", isMatch);
@@ -591,7 +609,7 @@ const categories = [
 
       // On tablet/phone horizontal scroll strip, keep the active pill centered in view
       if (animate && matchedPill && window.innerWidth <= 980) {
-        (matchedPill as HTMLButtonElement).scrollIntoView({
+        (matchedPill as HTMLElement).scrollIntoView({
           behavior: "smooth",
           inline: "center",
           block: "nearest",
@@ -789,7 +807,8 @@ const categories = [
 
     // Category pill listeners
     pills.forEach((pill) => {
-      pill.addEventListener("click", () => {
+      pill.addEventListener("click", (e) => {
+        e.preventDefault();
         const selected = pill.dataset.category || "all";
         if (activeCategory === selected && !searchQuery) return;
         activeCategory = selected;
@@ -799,7 +818,8 @@ const categories = [
 
     // Post card category badge listeners
     cardCategoryTags.forEach((tag) => {
-      tag.addEventListener("click", () => {
+      tag.addEventListener("click", (e) => {
+        e.preventDefault();
         const selected = tag.dataset.filterCategory || "all";
         activeCategory = selected;
         applyFilters(true, true);

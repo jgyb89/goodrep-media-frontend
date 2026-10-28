@@ -21,9 +21,23 @@ import {
   deliverablesData,
   consultData,
 } from "../../data/technicalSeoData.js";
+
+const serviceSchema = {
+  "@type": "Service",
+  "name": "Technical SEO Services",
+  "provider": {
+    "@id": "https://goodrep.media/#organization"
+  },
+  "areaServed": "Grand Rapids, MI",
+  "description": metaData.description || "Technical SEO audits, speed optimization, and site architecture fixes."
+};
 ---
 
-<MainLayout title={metaData.title} description={metaData.description}>
+<MainLayout
+  title={metaData.title}
+  description={metaData.description}
+  pageSchema={serviceSchema}
+>
   <ServiceHero {...heroData} />
   <StartsSection {...startsData} />
   <StatsBand {...statsData} />

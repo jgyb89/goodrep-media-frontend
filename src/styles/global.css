@@ -1,5 +1,12 @@
 /* src/styles/global.css */
-@import "material-symbols/outlined.css"; /* Local Material Symbols */
+
+/* Footer headings demoted from H2 for clean document outline */
+.footer-heading {
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  margin: 0.5rem 0 1.25rem;
+}
 
 :root {
   /* GRM Brand Palette */
