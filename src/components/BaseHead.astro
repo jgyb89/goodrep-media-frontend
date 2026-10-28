@@ -1,5 +1,6 @@
 ---
 import { DEFAULT_PAGE_TITLE, DEFAULT_META_DESCRIPTION } from "../config/site.js";
+import { ClientRouter } from 'astro:transitions';
 
 const {
   title = DEFAULT_PAGE_TITLE,
@@ -37,6 +38,9 @@ const shouldNoIndex = noindex || isGitHubPages;
 <title>{title}</title>
 <meta name="description" content={description} />
 <link rel="canonical" href={canonical} />
+
+{/* Restore Astro's SPA Routing & Page-Load events */}
+<ClientRouter />
 
 {/* Staging / Private Route Protection */}
 {shouldNoIndex && <meta name="robots" content="noindex,follow" />}
