@@ -39,6 +39,14 @@ const shouldNoIndex = noindex || isGitHubPages;
 <meta name="description" content={description} />
 <link rel="canonical" href={canonical} />
 
+{/* Preload critical font subset */}
+<link rel="preload" href="/fonts/material-symbols-outlined-subset.woff2" as="font" type="font/woff2" crossorigin />
+
+{/* Preload homepage LCP image */}
+{pathname === '/' && (
+  <link rel="preload" as="image" href="/grm-main-graphics/seo-strategy-home-page.svg" type="image/svg+xml" fetchpriority="high" />
+)}
+
 {/* Restore Astro's SPA Routing & Page-Load events */}
 <ClientRouter />
 

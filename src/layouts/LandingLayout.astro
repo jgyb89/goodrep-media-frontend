@@ -7,7 +7,7 @@ import '@fontsource/poppins/500.css';
 import '@fontsource/poppins/600.css';
 import '@fontsource/poppins/700.css';
 import '@fontsource/poppins/800.css';
-import "material-symbols/outlined.css";
+import "../styles/material-symbols.css";
 import "../styles/global.css";
 import { Image } from "astro:assets";
 import LightboxModal from "../components/LightboxModal.astro";
@@ -42,11 +42,11 @@ const {
       <div class="landing-header__inner">
         <a href="/" class="brand brand--landing" aria-label="Good Rep Media home">
           <span class="brand__mark">
-            <Image
+            <img
               src="/grm-logos/GRM-icon-logo-white.webp"
               alt=""
-              width={150}
-              height={150}
+              width="40"
+              height="30"
               loading="eager"
               decoding="async"
             />
