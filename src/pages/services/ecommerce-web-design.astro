@@ -19,9 +19,23 @@ import {
   deliverablesData,
   consultData,
 } from "../../data/ecommerceWebDesignData.js";
+
+const serviceSchema = {
+  "@type": "Service",
+  "name": "eCommerce Web Design Services",
+  "provider": {
+    "@id": "https://goodrep.media/#organization"
+  },
+  "areaServed": "Grand Rapids, MI",
+  "description": metaData.description || "Custom eCommerce web design and store development for growing brands."
+};
 ---
 
-<MainLayout title={metaData.title} description={metaData.description}>
+<MainLayout
+  title={metaData.title}
+  description={metaData.description}
+  pageSchema={serviceSchema}
+>
   <ServiceHero {...heroData} />
   <StartsSection {...startsData} />
   <StatsBand {...statsData} />

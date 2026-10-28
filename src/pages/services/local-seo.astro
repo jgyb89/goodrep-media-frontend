@@ -1,12 +1,14 @@
 ---
 import MainLayout from "../../layouts/MainLayout.astro";
 import ServiceHero from "../../components/ServiceHero.astro";
+import ServiceDefinition from "../../components/ServiceDefinition.astro";
 import StartsSection from "../../components/StartsSection.astro";
 import StatsBand from "../../components/StatsBand.astro";
 import PillarsSection from "../../components/PillarsSection.astro";
 import ProcessSection from "../../components/ProcessSection.astro";
 import ReadyBand from "../../components/ReadyBand.astro";
 import DeliverablesGrid from "../../components/DeliverablesGrid.astro";
+import FaqSection from "../../components/landing/FaqSection.astro";
 import ConsultSection from "../../components/ConsultSection.astro";
 
 import {
@@ -19,12 +21,43 @@ import {
   processGridData,
   readyData,
   factsGridData,
+  faqData,
   consultData,
 } from "../../data/localSeoData.js";
+
+const serviceSchema = {
+  "@type": "Service",
+  "name": "Local SEO Services",
+  "provider": {
+    "@id": "https://goodrep.media/#organization"
+  },
+  "areaServed": "Grand Rapids, MI",
+  "description": metaData.description || "Local search engine optimization and Google Map Pack ranking services."
+};
+
+const faqSchema = {
+  "@type": "FAQPage",
+  "mainEntity": faqData.items.map((item) => ({
+    "@type": "Question",
+    "name": item.question,
+    "acceptedAnswer": {
+      "@type": "Answer",
+      "text": item.answer
+    }
+  }))
+};
 ---
 
-<MainLayout title={metaData.title} description={metaData.description}>
+<MainLayout
+  title={metaData.title}
+  description={metaData.description}
+  pageSchema={[serviceSchema, faqSchema]}
+>
   <ServiceHero {...heroData} />
+  <ServiceDefinition
+    term="Local SEO"
+    definition="Local SEO (Search Engine Optimization) is the process of improving local search visibility for small and medium-sized businesses. It involves optimizing Google Business Profiles, building local directory citations, and generating localized content to rank higher in the Google Map Pack and local organic search results."
+  />
   <StartsSection {...startsData} />
   <StatsBand {...statsData} />
   <PillarsSection {...pillarsData} />
@@ -36,5 +69,6 @@ import {
   <DeliverablesGrid {...processGridData} />
   <DeliverablesGrid {...factsGridData} />
   <ReadyBand {...readyData} />
+  <FaqSection {...faqData} />
   <ConsultSection {...consultData} theme="dark" />
 </MainLayout>

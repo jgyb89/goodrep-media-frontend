@@ -22,9 +22,23 @@ import {
   readyData,
   consultData,
 } from "../../data/paidAdsData.js";
+
+const serviceSchema = {
+  "@type": "Service",
+  "name": "Paid Advertising & PPC Management Services",
+  "provider": {
+    "@id": "https://goodrep.media/#organization"
+  },
+  "areaServed": "Grand Rapids, MI",
+  "description": metaData.description || "High-ROI Google Ads and paid social campaign management for lead generation."
+};
 ---
 
-<MainLayout title={metaData.title} description={metaData.description}>
+<MainLayout
+  title={metaData.title}
+  description={metaData.description}
+  pageSchema={serviceSchema}
+>
   <ServiceHero {...heroData} />
   <StartsSection {...startsData} />
   <StatsBand {...statsData} />

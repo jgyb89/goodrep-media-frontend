@@ -1,7 +1,7 @@
 const API_URL = (
   (typeof import.meta !== "undefined" && import.meta.env?.PUBLIC_WORDPRESS_API_URL) ||
   (typeof process !== "undefined" && process.env?.PUBLIC_WORDPRESS_API_URL) ||
-  "https://goodrep.media/wp-json/wp/v2"
+  "https://wp.goodrep.media/wp-json/wp/v2"
 ).replace(/\/$/, "");
 
 const isGraphQL = API_URL.endsWith("/graphql");
@@ -335,7 +335,11 @@ export async function getPosts({
   }
 
   const data = await res.json();
-  if (!Array.isArray(data)) return [];
+  if (!Array.isArray(data) || data.length === 0) {
+    throw new Error(
+      `[Build Guard] WordPress API (${url}) returned 0 posts. Failing build to prevent silent blog wipeout.`
+    );
+  }
   return data.map((p) => normalizePost(p));
 }
 
@@ -437,6 +441,12 @@ async function ensureFullPostsCache() {
         if (post?.slug) {
           cachedPostBySlug.set(post.slug, post);
         }
+      }
+
+      if (!Array.isArray(posts) || posts.length === 0) {
+        throw new Error(
+          `[Build Guard] WordPress API (${API_URL}) returned 0 posts. Failing build to prevent silent blog wipeout.`
+        );
       }
 
       return posts;

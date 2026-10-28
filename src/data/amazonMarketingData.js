@@ -127,7 +127,7 @@ export const statsData = {
         "Of all product searches start directly on Amazon rather than traditional search engines",
     },
     {
-      prefix: "$",
+      prefix: "",
       value: 300,
       decimals: 0,
       suffix: "M+",

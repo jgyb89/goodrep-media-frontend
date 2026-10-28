@@ -105,10 +105,9 @@ export const metricsData = {
   eyebrow: "Our Metrics",
   title: "Glowing Results Skin Spa Stats",
   stats: [
-    { value: "1,400+", label: "New users since its launch" },
-    { value: "+200%", label: "Increase in organic traffic" },
-    { value: "1,000+", label: "More users vs previous year" },
-    { value: "20x", label: "Increased call clicks" },
+    { value: "+180%", label: "Monthly online appointments" },
+    { value: "125+", label: "New 5-star Google reviews" },
+    { value: "Top 3", label: "Rankings for core search terms" },
   ],
 };
 

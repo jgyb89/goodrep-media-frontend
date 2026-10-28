@@ -1,0 +1,20 @@
+---
+import MainLayout from '../layouts/MainLayout.astro';
+---
+
+<MainLayout title="Thank You | Good Rep Media" noindex={true}>
+  <!-- Isolated Google Ads Conversion Event -->
+  <script is:inline>
+    window.addEventListener('load', function() {
+      if (typeof gtag === 'function') {
+        gtag('event', 'conversion', {'send_to': 'AW-11145254205/kVQFCPT00u8YEL2qvMIp'});
+      }
+    });
+  </script>
+
+  <section class="thank-you-section" style="padding: 120px 20px; text-align: center; min-height: 60vh; display: flex; flex-direction: column; justify-content: center;">
+    <h1 style="margin-bottom: 20px;">Message Received</h1>
+    <p>Thank you for reaching out. A Good Rep Media strategist will be in touch shortly.</p>
+    <a href="/" style="margin-top: 30px; display: inline-block; color: #1bc4d9;">&larr; Return to Homepage</a>
+  </section>
+</MainLayout>

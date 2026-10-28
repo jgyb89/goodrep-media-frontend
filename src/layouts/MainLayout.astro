@@ -1,23 +1,91 @@
 ---
+import '@fontsource/open-sans/400.css';
+import '@fontsource/open-sans/500.css';
+import '@fontsource/open-sans/600.css';
+import '@fontsource/open-sans/700.css';
+import '@fontsource/poppins/500.css';
+import '@fontsource/poppins/600.css';
+import '@fontsource/poppins/700.css';
+import '@fontsource/poppins/800.css';
 import "material-symbols/outlined.css";
 import "../styles/global.css";
 import { Image } from "astro:assets";
 import LeadForm from "../components/LeadForm.jsx";
 import LightboxModal from "../components/LightboxModal.astro";
 import BaseHead from "../components/BaseHead.astro";
-import { SITE_NAME, DEFAULT_META_DESCRIPTION } from "../config/site.js";
+import TrackingHead from "../components/TrackingHead.astro";
+import { SITE_NAME, DEFAULT_META_DESCRIPTION, LEGAL_LINKS } from "../config/site.js";
+
+interface Props {
+  title?: string;
+  description?: string;
+  image?: string;
+  noindex?: boolean;
+  pageSchema?: Record<string, any> | null;
+}
 
 const {
   title = `${SITE_NAME} | Digital Marketing Agency`,
   description = DEFAULT_META_DESCRIPTION,
+  image,
+  noindex = false,
+  pageSchema = null,
 } = Astro.props;
 const year = new Date().getFullYear();
+
+const globalSchema = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": "https://goodrep.media/#organization",
+      "name": "Good Rep Media",
+      "url": "https://goodrep.media/",
+      "logo": "https://goodrep.media/grm-logos/GRM_Blue_Favicon.png",
+      "sameAs": [
+        "https://www.facebook.com/GoodRepMedia",
+        "https://www.linkedin.com/company/good-rep-media"
+      ]
+    },
+    {
+      "@type": "LocalBusiness",
+      "@id": "https://goodrep.media/#localbusiness",
+      "name": "Good Rep Media",
+      "url": "https://goodrep.media/",
+      "telephone": "+1-616-300-9868",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "O-745 Lake Michigan Dr. NW",
+        "addressLocality": "Grand Rapids",
+        "addressRegion": "MI",
+        "postalCode": "49534",
+        "addressCountry": "US"
+      }
+    }
+  ]
+};
+
+// Merge page-specific schema with global schema if provided
+if (pageSchema) {
+  if (Array.isArray(pageSchema)) {
+    globalSchema["@graph"].push(...pageSchema);
+  } else {
+    globalSchema["@graph"].push(pageSchema);
+  }
+}
 ---
 
 <!doctype html>
 <html lang="en">
   <head>
-    <BaseHead title={title} description={description} />
+    <BaseHead
+      title={title}
+      description={description}
+      image={image}
+      noindex={noindex}
+      schemaGraph={globalSchema}
+    />
+    <TrackingHead />
   </head>
   <body id="top">
     <!-- Global Header -->
@@ -42,7 +110,7 @@ const year = new Date().getFullYear();
         <div class="global-nav__links">
           <div class="nav-item nav-item--mega">
             <a
-              href="/services"
+              href="/services/"
               class="nav-item__trigger"
               aria-haspopup="true"
               aria-expanded="false"
@@ -59,15 +127,10 @@ const year = new Date().getFullYear();
                 <div class="mega-menu__col">
                   <h3 class="mega-menu__heading">Web Design and Build</h3>
                   <ul class="mega-menu__list">
-                    <li><a href="/services/web-design">Website Design</a></li>
+                    <li><a href="/services/web-design/">Website Design</a></li>
                     <li>
-                      <a href="/services/ecommerce-web-design"
+                      <a href="/services/ecommerce-web-design/"
                         >eCommerce Web Design</a
-                      >
-                    </li>
-                    <li>
-                      <a href="/services/email-marketing"
-                        >Email Marketing Services</a
                       >
                     </li>
                   </ul>
@@ -76,15 +139,15 @@ const year = new Date().getFullYear();
                 <div class="mega-menu__col">
                   <h3 class="mega-menu__heading">Search Engine Optimization</h3>
                   <ul class="mega-menu__list">
-                    <li><a href="/services/local-seo">Local SEO</a></li>
-                    <li><a href="/services/technical-seo">Technical SEO</a></li>
+                    <li><a href="/services/local-seo/">Local SEO</a></li>
+                    <li><a href="/services/technical-seo/">Technical SEO</a></li>
                     <li>
-                      <a href="/services/link-building"
+                      <a href="/services/link-building-services/"
                         >Link Building Services</a
                       >
                     </li>
                     <li>
-                      <a href="/services/amazon-marketing"
+                      <a href="/services/amazon-marketing-services/"
                         >Amazon Marketing Services</a
                       >
                     </li>
@@ -95,19 +158,19 @@ const year = new Date().getFullYear();
                   <h3 class="mega-menu__heading">Digital Media</h3>
                   <ul class="mega-menu__list">
                     <li>
-                      <a href="/services/digital-media-production"
+                      <a href="/services/digital-media-production/"
                         >Digital Media Production</a
                       >
                     </li>
                     <li>
-                      <a href="/services/email-marketing">Email Marketing</a>
+                      <a href="/services/email-marketing/">Email Marketing</a>
                     </li>
-                    <li><a href="/services/sms-marketing">SMS Marketing</a></li>
+                    <li><a href="/services/sms-marketing-services/">SMS Marketing</a></li>
                     <li>
-                      <a href="/services/video-production">Video Production</a>
+                      <a href="/services/video-production-services/">Video Production</a>
                     </li>
                     <li>
-                      <a href="/services/social-media">Social Media Marketing</a
+                      <a href="/services/social-media-marketing/">Social Media Marketing</a
                       >
                     </li>
                   </ul>
@@ -117,16 +180,16 @@ const year = new Date().getFullYear();
                   <h3 class="mega-menu__heading">Paid Media</h3>
                   <ul class="mega-menu__list">
                     <li>
-                      <a href="/services/paid-ads">Pay-per-click Marketing</a>
+                      <a href="/services/pay-per-click-marketing/">Pay-per-click Marketing</a>
                     </li>
                   </ul>
                 </div>
               </div>
             </div>
           </div>
-          <a href="/work" class="nav-link">Our Work</a>
-          <a href="/about" class="nav-link">About</a>
-          <a href="/blog" class="nav-link">Insights</a>
+          <a href="/work/" class="nav-link">Our Work</a>
+          <a href="/about/" class="nav-link">About</a>
+          <a href="/blog/" class="nav-link">Insights</a>
         </div>
         <a href="/#consultation" class="btn btn--primary global-nav__cta"
           >Book a Call</a
@@ -135,7 +198,9 @@ const year = new Date().getFullYear();
     </header>
 
     <!-- Page Content Injected Here -->
-    <slot />
+    <main id="main-content">
+      <slot />
+    </main>
 
     <!-- Global Footer -->
     <footer class="global-footer">
@@ -177,28 +242,28 @@ const year = new Date().getFullYear();
         </div>
 
         <div class="global-footer__col">
-          <h2 class="global-footer__heading">Resources</h2>
+          <p class="global-footer__heading footer-heading">Resources</p>
           <ul>
-            <li><a href="/work">Our Work</a></li>
-            <li><a href="/about">About Us</a></li>
+            <li><a href="/work/">Our Work</a></li>
+            <li><a href="/about/">About Us</a></li>
             <li><a href="/#process">Our Process</a></li>
-            <li><a href="/blog">Knowledge Center</a></li>
+            <li><a href="/blog/">Knowledge Center</a></li>
             <li><a href="/#consultation">Contact Us</a></li>
           </ul>
         </div>
 
         <div class="global-footer__col">
-          <h2 class="global-footer__heading">Services</h2>
+          <p class="global-footer__heading footer-heading">Services</p>
           <ul>
-            <li><a href="/services/web-design">Website Design</a></li>
-            <li><a href="/services/local-seo">Local SEO</a></li>
-            <li><a href="/services/paid-ads">Paid Ads</a></li>
-            <li><a href="/services">View All Services &rarr;</a></li>
+            <li><a href="/services/web-design/">Website Design</a></li>
+            <li><a href="/services/local-seo/">Local SEO</a></li>
+            <li><a href="/services/pay-per-click-marketing/">Paid Ads</a></li>
+            <li><a href="/services/">View All Services &rarr;</a></li>
           </ul>
         </div>
 
         <div class="global-footer__col">
-          <h2 class="global-footer__heading">Help</h2>
+          <p class="global-footer__heading footer-heading">Help</p>
           <ul class="global-footer__contact">
             <li>
               <span class="material-symbols-outlined" aria-hidden="true"
@@ -224,6 +289,14 @@ const year = new Date().getFullYear();
 
       <div class="global-footer__bottom">
         <p>&copy; {year} {SITE_NAME} Inc. All rights reserved.</p>
+        <nav class="global-footer__legal" aria-label="Legal Links">
+          {LEGAL_LINKS.map((link, idx) => (
+            <>
+              {idx > 0 && <span class="global-footer__sep" aria-hidden="true">&bull;</span>}
+              <a href={link.href}>{link.label}</a>
+            </>
+          ))}
+        </nav>
       </div>
     </footer>
 
@@ -655,9 +728,11 @@ const year = new Date().getFullYear();
     color: #a3a3a3;
   }
 
-  .global-footer__heading {
+  .global-footer__heading,
+  .footer-heading {
     color: var(--color-light);
     font-size: 0.85rem;
+    font-weight: 700;
     letter-spacing: 0.15em;
     text-transform: uppercase;
     margin: 0.5rem 0 1.25rem;
@@ -699,10 +774,27 @@ const year = new Date().getFullYear();
     padding: 1.5rem 2rem;
     color: #8a8a8a;
     font-size: 0.8rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
   }
 
   .global-footer__bottom p {
     margin: 0;
+  }
+
+  .global-footer__legal {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.65rem;
+    flex-wrap: wrap;
+  }
+
+  .global-footer__sep {
+    color: #525252;
+    user-select: none;
   }
 
   /* ---------- Back to top ---------- */

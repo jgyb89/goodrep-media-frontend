@@ -436,6 +436,12 @@ try {
                       class:list={["work-card", { "is-active": i === 9 }]}
                       data-card-index={i}
                       data-real-index={i % homepageProjects.length}
+                      aria-hidden={
+                        i < homepageProjects.length ||
+                        i >= homepageProjects.length * 2
+                          ? "true"
+                          : undefined
+                      }
                     >
                       <img
                         class="work-card__bg"

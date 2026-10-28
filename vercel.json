@@ -1,0 +1,15 @@
+{
+  "trailingSlash": true,
+  "redirects": [
+    { "source": "/paid-ads/", "destination": "/pay-per-click-marketing/", "statusCode": 301 },
+    { "source": "/social-media/", "destination": "/social-media-marketing/", "statusCode": 301 },
+    { "source": "/sms-marketing/", "destination": "/sms-marketing-services/", "statusCode": 301 },
+    { "source": "/digital-media/", "destination": "/digital-media-services/", "statusCode": 301 },
+    { "source": "/video-production/", "destination": "/video-production-services/", "statusCode": 301 },
+    { "source": "/amazon-marketing/", "destination": "/amazon-marketing-services/", "statusCode": 301 },
+    { "source": "/our-work/:slug", "destination": "/work/:slug", "statusCode": 301 },
+    { "source": "/be-balanced-bodyworks/", "destination": "/work/be-balanced-bodyworks/", "statusCode": 301 },
+    { "source": "/home-owners-help-options/", "destination": "/work/home-owners-help-options/", "statusCode": 301 },
+    { "source": "/abode-home-services/", "destination": "/work/abode-home-services/", "statusCode": 301 }
+  ]
+}

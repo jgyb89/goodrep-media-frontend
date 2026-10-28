@@ -22,9 +22,23 @@ import {
   readyData,
   consultData,
 } from "../../data/videoProductionData.js";
+
+const serviceSchema = {
+  "@type": "Service",
+  "name": "Video Production Services",
+  "provider": {
+    "@id": "https://goodrep.media/#organization"
+  },
+  "areaServed": "Grand Rapids, MI",
+  "description": metaData.description || "High-impact video production and commercial video advertising services."
+};
 ---
 
-<MainLayout title={metaData.title} description={metaData.description}>
+<MainLayout
+  title={metaData.title}
+  description={metaData.description}
+  pageSchema={serviceSchema}
+>
   <ServiceHero {...heroData} />
   <StartsSection {...startsData} />
   <StatsBand {...statsData} />

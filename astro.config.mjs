@@ -2,11 +2,21 @@ import { defineConfig } from 'astro/config';
 import react from '@astrojs/react';
 import sitemap from '@astrojs/sitemap';
 
-const isGitHubPages = process.env.GITHUB_PAGES === 'true';
-
 export default defineConfig({
-  site: isGitHubPages ? 'https://jgyb89.github.io' : 'https://goodrep.media',
-  base: isGitHubPages ? '/goodrep-media-frontend' : '/',
-  integrations: [react(), sitemap()],
+  site: 'https://goodrep.media',
+  trailingSlash: 'always',
+  image: {
+    domains: ['wp.goodrep.media', 'goodrep.media'],
+  },
+  integrations: [
+    react(),
+    sitemap({
+      filter: (page) => 
+        !page.includes('/paid-ads/') &&
+        !page.includes('/social-media/') &&
+        !page.includes('/sms-marketing/') &&
+        !page.includes('/our-work/') &&
+        !page.includes('/thankyou/')
+    })
+  ]
 });
-

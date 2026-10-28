@@ -3,6 +3,18 @@
  * Extracted from src/pages/work.astro for clean separation of data and view (SLAP & DRY).
  */
 
+import capeCoralLawnCareImg from "../../assets/case-studies/cape-coral-lawn-care-project-card.webp";
+import coralBreezeImg from "../../assets/case-studies/coral-breeze-project-card.jpg";
+import glowingResultsImg from "../../assets/case-studies/glowing-result-skin-spa-project.jpg";
+import beBalancedImg from "../../assets/case-studies/be-balanced-bodyworks-project-card.webp";
+import abodeHomeImg from "../../assets/case-studies/abode-home-services-project-card.webp";
+import homeOwnerProImg from "../../assets/case-studies/home-owner-pro-experts-project-card.webp";
+import homeOwnerHelpImg from "../../assets/case-studies/home-owner-help-options-project-card.webp";
+import capeCoralReviewedImg from "../../assets/case-studies/cape-coral-reviewed-project-card.webp";
+import floridaSunshineImg from "../../assets/case-studies/florida-sunshine-lawn-care-project-card.webp";
+import jojoJavaImg from "../../assets/case-studies/jojo-java-project-card.webp";
+import pinkSlushyImg from "../../assets/case-studies/pink-slushy-project-card.jpg";
+
 export const stats = [
   { prefix: "+", value: 240, suffix: "%", barPercent: 90, label: "Average Call & Lead Increase" },
   { value: 50, suffix: "+", barPercent: 85, label: "Custom Websites Built & Launched" },
@@ -13,7 +25,7 @@ export const stats = [
 export const projects = [
   {
     title: "Cape Coral Lawn Care",
-    href: "/our-work/cape-coral-lawn-care",
+    href: "/work/cape-coral-lawn-care/",
     category: "Web Design & Local SEO",
     tag: "Landscaping & Outdoor Services",
     summary:
@@ -25,14 +37,14 @@ export const projects = [
     ],
     logo: "/grm-web-assets/cape-coral-lawn-care-logo-white.svg",
     logoClass: "window-graphic__brand--cclc",
-    img: "/grm-graphic-samples/cape-coral-lawn-care-project-card.webp",
+    img: capeCoralLawnCareImg,
     w: 800,
     h: 1050,
     deliverables: ["Custom WordPress Theme", "Local Map Pack SEO", "Review Automation", "Call Tracking"],
   },
   {
     title: "Coral Breeze Services",
-    href: "/our-work/coral-breeze-services",
+    href: "/work/coral-breeze-services/",
     category: "Website Design & Branding",
     tag: "Home Services & Cleaning",
     summary:
@@ -42,14 +54,14 @@ export const projects = [
       { num: "-62%", desc: "Mobile bounce rate", icon: "trending_down" },
       { num: "100%", desc: "Accessibility & Best Practices", icon: "verified" },
     ],
-    img: "/grm-graphic-samples/coral-breeze-project-card.jpg",
+    img: coralBreezeImg,
     w: 800,
     h: 1050,
     deliverables: ["UI/UX Mobile Design", "Lead Capture Funnel", "Service Pricing Calculator", "Speed Optimization"],
   },
   {
     title: "Glowing Results Skin Spa",
-    href: "/our-work/glowing-results-skin-spa",
+    href: "/work/glowing-results-skin-spa/",
     category: "Local SEO & Reputation",
     tag: "Health & Beauty Spa",
     summary:
@@ -60,14 +72,14 @@ export const projects = [
       { num: "Top 3", desc: "Rankings for core search terms", icon: "search" },
     ],
     logo: "/grm-graphic-samples/glowing-results-skin-spa-logo-white.webp",
-    img: "/grm-graphic-samples/glowing-result-skin-spa-project.jpg",
+    img: glowingResultsImg,
     w: 800,
     h: 1050,
     deliverables: ["Google Business Profile Strategy", "Reputation Management", "Local Citation Building", "Booking Integration"],
   },
   {
     title: "Be Balanced Bodyworks",
-    href: "/our-work/be-balanced-bodywork",
+    href: "/work/be-balanced-bodyworks/",
     category: "Branding & Web Refresh",
     tag: "Wellness & Massage Therapy",
     summary:
@@ -78,14 +90,14 @@ export const projects = [
       { num: "99%", desc: "Core Web Vitals health", icon: "speed" },
     ],
     logo: "/grm-graphic-samples/be-balanced-bodyworks-logo-white.svg",
-    img: "/grm-graphic-samples/be-balanced-bodyworks-project-card.webp",
+    img: beBalancedImg,
     w: 800,
     h: 1050,
     deliverables: ["Brand Identity Refresh", "Technical SEO Cleanup", "Automated Intake Forms", "Content Strategy"],
   },
   {
     title: "Abode Home Services",
-    href: "/our-work/abode-services",
+    href: "/work/abode-home-services/",
     category: "Web Design & Local SEO",
     tag: "Home Repair & Property Services",
     summary:
@@ -96,14 +108,14 @@ export const projects = [
       { num: "98%", desc: "Mobile speed score", icon: "speed" },
     ],
     logo: "/grm-main-graphics/abode-home-services-logo-white.svg",
-    img: "/grm-graphic-samples/abode-home-services-project-card.webp",
+    img: abodeHomeImg,
     w: 800,
     h: 1050,
     deliverables: ["Web Design + Build", "SEO Optimization", "UX Improvements", "Content Writing"],
   },
   {
     title: "Home Owner Pro Experts",
-    href: "/our-work/home-owner-pro-experts",
+    href: "/work/home-owner-pro-experts/",
     category: "Branding & Lead Generation",
     tag: "Mortgage & Financial Solutions",
     summary:
@@ -114,14 +126,14 @@ export const projects = [
       { num: "#1", desc: "Local search placement", icon: "location_on" },
     ],
     logo: "/grm-graphic-samples/home-owner-pro-experts-logo-white.svg",
-    img: "/grm-graphic-samples/home-owner-pro-experts-project-card.webp",
+    img: homeOwnerProImg,
     w: 800,
     h: 1050,
     deliverables: ["Custom Web Design", "Brand Refresh", "Digital Strategy", "Lead Funnel Optimization"],
   },
   {
     title: "Home Owners Help Options",
-    href: "/our-work/home-owner-help-options",
+    href: "/work/home-owners-help-options/",
     category: "Web Design & Digital Strategy",
     tag: "Homeowner Advocacy & Assistance",
     summary:
@@ -132,14 +144,14 @@ export const projects = [
       { num: "0.7s", desc: "Time to interactive", icon: "speed" },
     ],
     logo: "/grm-graphic-samples/home-owner-help-options-logo-white.svg",
-    img: "/grm-graphic-samples/home-owner-help-options-project-card.webp",
+    img: homeOwnerHelpImg,
     w: 800,
     h: 1050,
     deliverables: ["Web Design & Development", "Brand Identity", "Content Writing", "SEO Optimization"],
   },
   {
     title: "Cape Coral Reviewed",
-    href: "/our-work/cape-coral-reviewed",
+    href: "/work/cape-coral-reviewed/",
     category: "Headless Web App & Growth",
     tag: "Community Marketing & Local SEO",
     summary:
@@ -150,7 +162,7 @@ export const projects = [
       { num: "100/100", desc: "Technical SEO score", icon: "code" },
     ],
     logo: "/grm-graphic-samples/cape-coral-reviewed-logo.svg",
-    img: "/grm-graphic-samples/cape-coral-reviewed-project-card.webp",
+    img: capeCoralReviewedImg,
     w: 800,
     h: 1050,
     deliverables: [
@@ -162,7 +174,7 @@ export const projects = [
   },
   {
     title: "Florida Sunshine Lawn Care",
-    href: "/our-work/florida-sunshine-lawn-care",
+    href: "/work/florida-sunshine-lawn-care/",
     category: "Web Design & Local SEO",
     tag: "Lawn Care & Landscaping",
     summary:
@@ -173,7 +185,7 @@ export const projects = [
       { num: "0.8s", desc: "Mobile page load time", icon: "speed" },
     ],
     logo: "/grm-graphic-samples/florida-sunshine-lawn-care-logo.svg",
-    img: "/grm-graphic-samples/florida-sunshine-lawn-care-project-card.webp",
+    img: floridaSunshineImg,
     w: 800,
     h: 1050,
     deliverables: [
@@ -185,7 +197,7 @@ export const projects = [
   },
   {
     title: "Jojo Java",
-    href: "/our-work/jojo-java",
+    href: "/work/jojo-java/",
     category: "eCommerce & Subscription Funnel",
     tag: "Specialty Coffee & DTC",
     summary:
@@ -197,7 +209,7 @@ export const projects = [
     ],
     logo: "/grm-graphic-samples/jojo-java-logo.svg",
     logoClass: "window-graphic__brand--cclc",
-    img: "/grm-graphic-samples/jojo-java-project-card.webp",
+    img: jojoJavaImg,
     w: 800,
     h: 1050,
     deliverables: [
@@ -218,7 +230,7 @@ export const projects = [
       { num: "5.1x", desc: "Landing page conversion rate", icon: "ads_click" },
       { num: "100%", desc: "Mobile performance score", icon: "bolt" },
     ],
-    img: "/grm-graphic-samples/pink-slushy-project-card.jpg",
+    img: pinkSlushyImg,
     w: 800,
     h: 1050,
     deliverables: ["Custom Web Design", "Strategy Call Funnel", "Interactive UI Graphics", "Technical SEO"],

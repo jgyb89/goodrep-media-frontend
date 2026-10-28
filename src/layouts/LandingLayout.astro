@@ -1,9 +1,18 @@
 ---
+import '@fontsource/open-sans/400.css';
+import '@fontsource/open-sans/500.css';
+import '@fontsource/open-sans/600.css';
+import '@fontsource/open-sans/700.css';
+import '@fontsource/poppins/500.css';
+import '@fontsource/poppins/600.css';
+import '@fontsource/poppins/700.css';
+import '@fontsource/poppins/800.css';
 import "material-symbols/outlined.css";
 import "../styles/global.css";
 import { Image } from "astro:assets";
 import LightboxModal from "../components/LightboxModal.astro";
 import BaseHead from "../components/BaseHead.astro";
+import TrackingHead from "../components/TrackingHead.astro";
 import { SITE_NAME, DEFAULT_META_DESCRIPTION, LEGAL_LINKS, COPYRIGHT_TEXT } from "../config/site.js";
 
 interface Props {
@@ -25,6 +34,7 @@ const {
 <html lang="en">
   <head>
     <BaseHead title={title} description={description} />
+    <TrackingHead />
   </head>
   <body id="top" class="landing-body">
     <!-- Landing Header: Logo and Action Button Only (No Nav Links) -->
