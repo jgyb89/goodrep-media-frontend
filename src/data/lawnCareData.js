@@ -108,22 +108,16 @@ export const metricsData = {
   title: "Our Lawn Care Client's Stats",
   stats: [
     {
-      value: "100%",
-      label:
-        "In months, doubled the amount of times our clients' websites were viewed by new customers on search engines",
+      value: "+280%",
+      label: "Inbound quote requests",
     },
     {
-      value: "250%",
-      label: "More calls from Google Business Profile after only 3 months",
+      value: "#1",
+      label: "Google Map Pack ranking",
     },
     {
-      value: "163%",
-      label: "Increased website clicks after 3 months",
-    },
-    {
-      value: "200%+",
-      label:
-        "More than tripled the amount of monthly business impressions in search, lifetime",
+      value: "0.8s",
+      label: "Mobile page load time",
     },
   ],
 };

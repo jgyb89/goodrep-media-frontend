@@ -67,7 +67,11 @@ const globalSchema = {
 
 // Merge page-specific schema with global schema if provided
 if (pageSchema) {
-  globalSchema["@graph"].push(pageSchema);
+  if (Array.isArray(pageSchema)) {
+    globalSchema["@graph"].push(...pageSchema);
+  } else {
+    globalSchema["@graph"].push(pageSchema);
+  }
 }
 ---
 
