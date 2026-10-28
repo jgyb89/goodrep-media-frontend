@@ -125,13 +125,18 @@
 
     // Determine if an image is eligible for lightbox
     function isEligibleImage(img: HTMLImageElement): boolean {
-      if (!img || !img.src) return false;
+      if (!img) return false;
+      const rawSrc = img.getAttribute('src') || '';
+      const currentSrc = img.currentSrc || img.src || '';
+      if (!rawSrc && !currentSrc) return false;
+
       // Exclude images that have an existing anchor link
       if (img.closest('a')) return false;
       // Exclude interactive buttons
       if (img.closest('button')) return false;
       // Exclude lightbox's own elements
       if (img.closest('#lightbox-modal') || img.closest('.lightbox-modal')) return false;
+
       // Exclude explicit opt-outs and project cards/modals on /work
       if (
         img.hasAttribute('data-no-lightbox') ||
@@ -141,30 +146,87 @@
       ) {
         return false;
       }
-      // Exclude decorative background blobs, textures, hero graphics, and tiny SVG decorations
+
+      // Exclude decorative parent wrappers or aria-hidden sections
+      if (
+        img.closest('[aria-hidden="true"]') ||
+        img.closest('header') ||
+        img.closest('nav') ||
+        img.closest('footer') ||
+        img.closest('.hero-stage') ||
+        img.closest('.service-hero__graphic') ||
+        img.closest('.work-hero__graphic') ||
+        img.closest('.work-hero') ||
+        img.closest('.service-block__frame') ||
+        img.closest('.service-block__media') ||
+        img.closest('.starts-feature__media') ||
+        img.closest('.deliverable-card') ||
+        img.closest('.pillar-row-card') ||
+        img.closest('.pillars') ||
+        img.closest('.process') ||
+        img.closest('.ready-band') ||
+        img.closest('.consult') ||
+        img.closest('.window-graphic') ||
+        img.closest('.brand') ||
+        img.closest('.post-card__thumb')
+      ) {
+        return false;
+      }
+
+      const combined = (rawSrc + ' ' + currentSrc).toLowerCase();
+
+      // STRICT RULE: No graphic assets from grm-web-assets or grm-web-icons may trigger lightbox-modal
+      if (
+        combined.includes('grm-web-assets') ||
+        combined.includes('grm-web-icons') ||
+        combined.includes('grm-main-graphics') ||
+        combined.includes('grm-logos')
+      ) {
+        return false;
+      }
+
+      // Exclude SVGs (vector icons, decorative graphics, shapes)
+      if (combined.includes('.svg')) {
+        return false;
+      }
+
+      // Exclude decorative background blobs, textures, hero graphics, and tiny decorations
       if (
         img.classList.contains('work-hero__blob') ||
         img.classList.contains('work-hero__main') ||
         img.classList.contains('work-hero__float') ||
-        img.closest('.work-hero__graphic') ||
-        img.closest('.work-hero') ||
-        img.closest('.service-block__frame') ||
         img.classList.contains('hero-stage__blob') ||
         img.classList.contains('process__blob') ||
         img.classList.contains('consult__art-float') ||
         img.classList.contains('consult__wave') ||
         img.classList.contains('brand__mark') ||
-        img.src.includes('blue-circular-background') ||
-        img.src.includes('black-map-bg')
+        combined.includes('blue-circular-background') ||
+        combined.includes('black-map-bg')
       ) {
         return false;
       }
+
       // If width & height are very small (e.g. tiny 16px/24px icons), skip
       const rect = img.getBoundingClientRect();
-      if (rect.width > 0 && rect.width < 40 && rect.height > 0 && rect.height < 40) {
+      if (rect.width > 0 && rect.width < 50 && rect.height > 0 && rect.height < 50) {
         return false;
       }
-      return true;
+
+      // Eligible: Case study hero/narrative mockups, graphic samples, and editorial blog content
+      if (
+        img.classList.contains('case-hero__mockup-img') ||
+        img.classList.contains('case-narrative__img') ||
+        img.hasAttribute('data-lightbox') ||
+        img.closest('.blog-post__content') ||
+        img.closest('.blog-article__content') ||
+        img.closest('.entry-content') ||
+        combined.includes('grm-graphic-samples') ||
+        combined.includes('wp-content/uploads')
+      ) {
+        return true;
+      }
+
+      return false;
     }
 
     // Global click listener for all non-linked images
@@ -206,13 +268,14 @@
   /* Zoom-in cursor for non-linked images */
   img.lightbox-zoomable,
   .case-hero__mockup-img,
-  .case-narrative__img,
-  .window-graphic:not(:has(a)) .window-graphic__img {
+  .case-narrative__img {
     cursor: zoom-in;
     transition: filter 0.2s ease, transform 0.2s ease;
   }
 
-  img.lightbox-zoomable:hover {
+  img.lightbox-zoomable:hover,
+  .case-hero__mockup-img:hover,
+  .case-narrative__img:hover {
     filter: brightness(1.03);
   }
 </style>
