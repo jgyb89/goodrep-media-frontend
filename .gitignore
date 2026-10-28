@@ -27,6 +27,7 @@ pnpm-debug.log*
 
 # local graphical source assets
 Good Rep Graphical Assets/
+*.orig.webp
 
 # project tracking
 working.md

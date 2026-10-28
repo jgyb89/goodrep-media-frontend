@@ -7,7 +7,7 @@ import '@fontsource/poppins/500.css';
 import '@fontsource/poppins/600.css';
 import '@fontsource/poppins/700.css';
 import '@fontsource/poppins/800.css';
-import "material-symbols/outlined.css";
+import "../styles/material-symbols.css";
 import "../styles/global.css";
 import { Image } from "astro:assets";
 import LeadForm from "../components/LeadForm.jsx";
@@ -94,12 +94,12 @@ if (pageSchema) {
       <nav class="global-nav" aria-label="Primary">
         <a href="/" class="brand" aria-label="Good Rep Media home">
           <span class="brand__mark">
-            <Image
+            <img
               src="/grm-logos/GRM-icon-logo-white.webp"
               alt=""
-              width={150}
-              height={150}
-              loading="lazy"
+              width="40"
+              height="30"
+              loading="eager"
               decoding="async"
             />
           </span>
@@ -226,12 +226,12 @@ if (pageSchema) {
             class="brand brand--footer"
             aria-label="Good Rep Media home"
           >
-            <Image
+            <img
               class="brand__logo"
               src="/grm-logos/GRM-icon-logo-white.webp"
               alt=""
-              width={150}
-              height={150}
+              width="54"
+              height="44"
               loading="lazy"
               decoding="async"
             />
