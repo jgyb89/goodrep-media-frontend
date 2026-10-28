@@ -3,23 +3,11 @@
 import { Image } from "astro:assets";
 ---
 
-<div class="grm-flyout" id="grmFlyout" data-level="1" aria-label="Mobile Navigation">
-  <div class="grm-flyout__bar">
-    <button
-      class="grm-flyout__toggle"
-      type="button"
-      data-grm="open"
-      aria-controls="grmFlyoutDrawer"
-      aria-expanded="false"
-      aria-label="Open mobile navigation menu"
-    >
-      <span class="material-symbols-outlined grm-flyout__toggle-icon" aria-hidden="true">menu</span>
-      <span class="grm-flyout__toggle-label">Menu</span>
-    </button>
-  </div>
-
+<div class="grm-flyout-container" id="grmFlyout" data-level="1" aria-label="Mobile Navigation">
+  <!-- Full Screen Backdrop Overlay -->
   <div class="grm-flyout__overlay" data-grm="close" aria-hidden="true"></div>
 
+  <!-- Sliding Drawer Window -->
   <aside
     class="grm-flyout__drawer"
     id="grmFlyoutDrawer"
@@ -27,24 +15,23 @@ import { Image } from "astro:assets";
     aria-modal="true"
     aria-label="Site menu"
   >
+    <!-- Drawer Header -->
     <div class="grm-flyout__header">
-      <div class="grm-flyout__brand">
-        <a href="/" class="grm-flyout__brand-link" aria-label="Good Rep Media home" data-grm="close">
-          <span class="grm-flyout__brand-mark">
-            <Image
-              src="/grm-logos/GRM-icon-logo-white.webp"
-              alt=""
-              width={150}
-              height={150}
-              loading="lazy"
-            />
-          </span>
-          <span class="grm-flyout__brand-text">
-            <span class="grm-flyout__brand-name">GOOD REP</span>
-            <span class="grm-flyout__brand-sub">MEDIA</span>
-          </span>
-        </a>
-      </div>
+      <a href="/" class="grm-flyout__brand" aria-label="Good Rep Media home" data-grm="close">
+        <span class="grm-flyout__brand-mark">
+          <Image
+            src="/grm-logos/GRM-icon-logo-white.webp"
+            alt=""
+            width={150}
+            height={150}
+            loading="lazy"
+          />
+        </span>
+        <span class="grm-flyout__brand-text">
+          <span class="grm-flyout__brand-name">GOOD REP</span>
+          <span class="grm-flyout__brand-sub">MEDIA</span>
+        </span>
+      </a>
 
       <button
         class="grm-flyout__close"
@@ -56,16 +43,12 @@ import { Image } from "astro:assets";
       </button>
     </div>
 
+    <!-- Sliding Panels -->
     <div class="grm-flyout__panels">
       <!-- LEVEL 1: MAIN NAVIGATION -->
       <section class="grm-flyout__panel grm-flyout__panel--level1" aria-label="Main menu">
+        <div class="grm-flyout__section-heading">Services</div>
         <ul class="grm-flyout__list">
-          <li class="grm-flyout__item">
-            <a class="grm-flyout__link" href="/" data-grm="close">
-              <span>Home</span>
-            </a>
-          </li>
-
           <li class="grm-flyout__item">
             <button
               class="grm-flyout__action"
@@ -73,7 +56,10 @@ import { Image } from "astro:assets";
               data-grm-open-level2="services"
               aria-label="Open All Services sub-menu"
             >
-              <span>All Services</span>
+              <div class="grm-flyout__action-content">
+                <span class="material-symbols-outlined grm-flyout__item-icon" aria-hidden="true">grid_view</span>
+                <span class="grm-flyout__item-title">All Services</span>
+              </div>
               <span class="material-symbols-outlined grm-flyout__chev" aria-hidden="true">chevron_right</span>
             </button>
           </li>
@@ -85,7 +71,10 @@ import { Image } from "astro:assets";
               data-grm-open-level2="web"
               aria-label="Open Web Design and Build sub-menu"
             >
-              <span>Web Design &amp; Build</span>
+              <div class="grm-flyout__action-content">
+                <span class="material-symbols-outlined grm-flyout__item-icon" aria-hidden="true">laptop_chromebook</span>
+                <span class="grm-flyout__item-title">Web Design &amp; Build</span>
+              </div>
               <span class="material-symbols-outlined grm-flyout__chev" aria-hidden="true">chevron_right</span>
             </button>
           </li>
@@ -97,7 +86,10 @@ import { Image } from "astro:assets";
               data-grm-open-level2="seo"
               aria-label="Open Search Engine Optimization sub-menu"
             >
-              <span>Search Engine Optimization</span>
+              <div class="grm-flyout__action-content">
+                <span class="material-symbols-outlined grm-flyout__item-icon" aria-hidden="true">trending_up</span>
+                <span class="grm-flyout__item-title">Search Engine Optimization</span>
+              </div>
               <span class="material-symbols-outlined grm-flyout__chev" aria-hidden="true">chevron_right</span>
             </button>
           </li>
@@ -109,7 +101,10 @@ import { Image } from "astro:assets";
               data-grm-open-level2="digital"
               aria-label="Open Digital Media sub-menu"
             >
-              <span>Digital Media &amp; Content</span>
+              <div class="grm-flyout__action-content">
+                <span class="material-symbols-outlined grm-flyout__item-icon" aria-hidden="true">videocam</span>
+                <span class="grm-flyout__item-title">Digital Media &amp; Content</span>
+              </div>
               <span class="material-symbols-outlined grm-flyout__chev" aria-hidden="true">chevron_right</span>
             </button>
           </li>
@@ -121,49 +116,53 @@ import { Image } from "astro:assets";
               data-grm-open-level2="paid"
               aria-label="Open Paid Media sub-menu"
             >
-              <span>Paid Media &amp; PPC</span>
+              <div class="grm-flyout__action-content">
+                <span class="material-symbols-outlined grm-flyout__item-icon" aria-hidden="true">ads_click</span>
+                <span class="grm-flyout__item-title">Paid Media &amp; PPC</span>
+              </div>
               <span class="material-symbols-outlined grm-flyout__chev" aria-hidden="true">chevron_right</span>
             </button>
           </li>
+        </ul>
 
+        <div class="grm-flyout__section-heading">Company &amp; Work</div>
+        <ul class="grm-flyout__list">
           <li class="grm-flyout__item">
             <a class="grm-flyout__link" href="/work/" data-grm="close">
-              <span>Our Work</span>
+              <div class="grm-flyout__action-content">
+                <span class="material-symbols-outlined grm-flyout__item-icon" aria-hidden="true">folder_special</span>
+                <span class="grm-flyout__item-title">Our Work &amp; Case Studies</span>
+              </div>
             </a>
           </li>
 
           <li class="grm-flyout__item">
             <a class="grm-flyout__link" href="/about/" data-grm="close">
-              <span>About Us</span>
+              <div class="grm-flyout__action-content">
+                <span class="material-symbols-outlined grm-flyout__item-icon" aria-hidden="true">groups</span>
+                <span class="grm-flyout__item-title">About Good Rep Media</span>
+              </div>
             </a>
           </li>
 
           <li class="grm-flyout__item">
             <a class="grm-flyout__link" href="/blog/" data-grm="close">
-              <span>Insights &amp; Knowledge</span>
+              <div class="grm-flyout__action-content">
+                <span class="material-symbols-outlined grm-flyout__item-icon" aria-hidden="true">article</span>
+                <span class="grm-flyout__item-title">Knowledge Center &amp; Insights</span>
+              </div>
             </a>
           </li>
 
           <li class="grm-flyout__item">
             <a class="grm-flyout__link" href="/#consultation" data-grm="close">
-              <span>Contact Us</span>
+              <div class="grm-flyout__action-content">
+                <span class="material-symbols-outlined grm-flyout__item-icon" aria-hidden="true">chat</span>
+                <span class="grm-flyout__item-title">Contact &amp; Free Audit</span>
+              </div>
             </a>
           </li>
         </ul>
-
-        <div class="grm-flyout__cta-wrap">
-          <a class="grm-flyout__cta btn btn--primary" href="/#consultation" data-grm="close">
-            Book a Call
-          </a>
-          <a class="grm-flyout__phone" href="tel:+16163009868">
-            <span class="material-symbols-outlined" aria-hidden="true">call</span>
-            <span>(616) 300-9868</span>
-          </a>
-        </div>
-
-        <div class="grm-flyout__fineprint">
-          Small business marketing agency in Grand Rapids, MI.
-        </div>
       </section>
 
       <!-- LEVEL 2: DYNAMIC SUB-MENU -->
@@ -179,104 +178,100 @@ import { Image } from "astro:assets";
         <ul class="grm-flyout__list" data-grm-level2-list></ul>
       </section>
     </div>
+
+    <!-- Pinned Bottom CTA & Contact -->
+    <div class="grm-flyout__footer">
+      <a class="grm-flyout__cta btn btn--primary" href="/#consultation" data-grm="close">
+        Book a Free Call
+      </a>
+      <div class="grm-flyout__footer-contact">
+        <a class="grm-flyout__phone" href="tel:+16163009868">
+          <span class="material-symbols-outlined" aria-hidden="true">call</span>
+          <span>(616) 300-9868</span>
+        </a>
+        <span class="grm-flyout__footer-sep" aria-hidden="true">&bull;</span>
+        <span class="grm-flyout__location">Grand Rapids, MI</span>
+      </div>
+    </div>
   </aside>
 </div>
 
-<style>
-  /* Base Flyout Variables & Responsive Container */
-  .grm-flyout {
+<style is:global>
+  /* Global Flyout Elements (Ensure top-level stacking and viewport coverage) */
+  .grm-flyout-container {
     --grm-flyout-bg: #ffffff;
-    --grm-flyout-border: #e5e7eb;
+    --grm-flyout-border: #e2e8f0;
     --grm-flyout-accent: var(--color-cyan, #1bc4d9);
     --grm-flyout-accent-soft: var(--color-cyan-soft, #e3f7fa);
     --grm-flyout-text: var(--color-dark, #333333);
     --grm-flyout-text-dark: var(--color-darker, #1a1a1a);
-    --grm-flyout-shadow: 8px 0 32px rgba(0, 0, 0, 0.16);
-
-    position: relative;
-    z-index: 100;
+    --grm-flyout-shadow: 12px 0 48px rgba(15, 23, 42, 0.28);
     font-family: var(--font-body, "Open Sans", sans-serif);
   }
 
   /* Hide on Desktop (>= 860px) */
   @media (min-width: 860px) {
-    .grm-flyout {
+    .grm-flyout-container,
+    .grm-flyout__toggle,
+    .grm-flyout__overlay,
+    .grm-flyout__drawer {
       display: none !important;
     }
   }
 
-  /* Toggle Button inside Header */
-  .grm-flyout__toggle {
-    appearance: none;
-    border: 1px solid var(--color-border);
-    background: #ffffff;
-    color: var(--color-dark);
-    font-size: 24px;
-    line-height: 1;
-    padding: 0.5rem 0.65rem;
-    border-radius: 8px;
-    cursor: pointer;
-    display: inline-flex;
-    align-items: center;
-    gap: 0.35rem;
-    transition: all 0.2s ease;
-  }
-
-  .grm-flyout__toggle:hover,
-  .grm-flyout__toggle:focus-visible {
-    border-color: var(--color-cyan);
-    color: var(--color-cyan);
-    background: var(--color-cyan-soft);
-  }
-
-  .grm-flyout__toggle-label {
-    font-size: 0.8rem;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-  }
-
-  .grm-flyout__toggle-icon {
-    font-size: 22px;
-  }
-
-  /* Overlay */
+  /* Full Screen Backdrop Overlay */
   .grm-flyout__overlay {
-    position: fixed;
-    inset: 0;
-    background: rgba(15, 23, 42, 0.55);
-    backdrop-filter: blur(4px);
-    -webkit-backdrop-filter: blur(4px);
-    opacity: 0;
-    visibility: hidden;
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    bottom: 0 !important;
+    width: 100vw !important;
+    height: 100vh !important;
+    height: 100dvh !important;
+    background: rgba(15, 23, 42, 0.65) !important;
+    backdrop-filter: blur(6px) !important;
+    -webkit-backdrop-filter: blur(6px) !important;
+    opacity: 0 !important;
+    visibility: hidden !important;
     will-change: opacity, visibility;
-    transition: opacity 240ms ease, visibility 0s linear 240ms;
-    z-index: 99998;
+    transition: opacity 260ms ease, visibility 0s linear 260ms !important;
+    z-index: 2000000 !important;
+    margin: 0 !important;
+    padding: 0 !important;
   }
 
   .grm-flyout--open .grm-flyout__overlay {
-    opacity: 1;
-    visibility: visible;
-    transition: opacity 240ms ease, visibility 0s linear 0s;
+    opacity: 1 !important;
+    visibility: visible !important;
+    transition: opacity 260ms ease, visibility 0s linear 0s !important;
   }
 
-  /* Drawer */
+  /* Sliding Drawer Window */
   .grm-flyout__drawer {
-    position: fixed;
-    inset: 0 auto 0 0;
-    width: min(88vw, 360px);
-    background: var(--grm-flyout-bg);
-    box-shadow: var(--grm-flyout-shadow);
-    transform: translateX(-102%);
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    bottom: 0 !important;
+    width: min(88vw, 360px) !important;
+    height: 100vh !important;
+    height: 100dvh !important;
+    max-height: 100dvh !important;
+    background: #ffffff !important;
+    box-shadow: var(--grm-flyout-shadow) !important;
+    transform: translateX(-102%) !important;
     will-change: transform;
-    transition: transform 280ms cubic-bezier(0.16, 1, 0.3, 1);
-    display: flex;
-    flex-direction: column;
-    z-index: 99999;
+    transition: transform 300ms cubic-bezier(0.16, 1, 0.3, 1) !important;
+    display: flex !important;
+    flex-direction: column !important;
+    z-index: 2000001 !important;
+    overflow: hidden !important;
+    margin: 0 !important;
+    padding: 0 !important;
   }
 
   .grm-flyout--open .grm-flyout__drawer {
-    transform: translateX(0);
+    transform: translateX(0) !important;
   }
 
   /* Drawer Header */
@@ -284,15 +279,18 @@ import { Image } from "astro:assets";
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 1rem 1.25rem;
+    padding: 0 1.25rem;
+    height: 68px;
+    min-height: 68px;
     border-bottom: 1px solid var(--grm-flyout-border);
     background: #ffffff;
+    box-sizing: border-box;
   }
 
-  .grm-flyout__brand-link {
+  .grm-flyout__brand {
     display: inline-flex;
     align-items: center;
-    gap: 0.6rem;
+    gap: 0.65rem;
     text-decoration: none;
     color: var(--color-dark);
   }
@@ -300,29 +298,30 @@ import { Image } from "astro:assets";
   .grm-flyout__brand-mark {
     display: grid;
     place-items: center;
-    width: 36px;
-    height: 36px;
-    border-radius: 8px;
+    width: 38px;
+    height: 38px;
+    border-radius: 9px;
     background: var(--color-dark);
+    flex-shrink: 0;
   }
 
   .grm-flyout__brand-mark img {
-    width: 32px;
-    height: 24px;
+    width: 34px;
+    height: 25px;
     object-fit: contain;
   }
 
   .grm-flyout__brand-text {
     display: flex;
     flex-direction: column;
-    line-height: 1;
+    line-height: 1.1;
   }
 
   .grm-flyout__brand-name {
     font-family: var(--font-heading, "Poppins", sans-serif);
     font-weight: 800;
     font-size: 0.95rem;
-    letter-spacing: -0.02em;
+    letter-spacing: -0.01em;
     color: var(--color-dark);
   }
 
@@ -335,75 +334,156 @@ import { Image } from "astro:assets";
 
   .grm-flyout__close {
     appearance: none;
-    border: 0;
-    background: transparent;
+    border: 1px solid var(--grm-flyout-border);
+    background: #f8fafc;
     color: var(--color-dark);
-    font-size: 26px;
-    line-height: 1;
-    padding: 0.4rem;
+    width: 38px;
+    height: 38px;
+    border-radius: 9px;
     cursor: pointer;
-    border-radius: 6px;
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    transition: background 0.15s ease, color 0.15s ease;
+    transition: all 0.18s ease;
   }
 
   .grm-flyout__close:hover,
   .grm-flyout__close:focus-visible {
-    background: var(--color-cyan-soft);
-    color: var(--color-cyan);
+    background: rgba(233, 79, 55, 0.08);
+    border-color: var(--color-primary);
+    color: var(--color-primary);
   }
 
   /* Panels Container */
   .grm-flyout__panels {
     position: relative;
-    flex: 1;
+    flex: 1 1 0%;
+    min-height: 0;
     overflow: hidden;
   }
 
   .grm-flyout__panel {
     position: absolute;
-    inset: 0;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
     overflow-y: auto;
+    overflow-x: hidden;
     -webkit-overflow-scrolling: touch;
     transform: translateX(0);
     transition: transform 280ms cubic-bezier(0.16, 1, 0.3, 1);
-    background: var(--grm-flyout-bg);
+    background: #ffffff;
     display: flex;
     flex-direction: column;
+    padding-bottom: 1.5rem;
   }
 
-  /* Two panels sliding logic */
-  .grm-flyout[data-level="1"] .grm-flyout__panel--level1 {
+  /* Two-Level Sliding Animation */
+  .grm-flyout-container[data-level="1"] .grm-flyout__panel--level1 {
     transform: translateX(0);
   }
-  .grm-flyout[data-level="1"] .grm-flyout__panel--level2 {
+  .grm-flyout-container[data-level="1"] .grm-flyout__panel--level2 {
     transform: translateX(102%);
   }
 
-  .grm-flyout[data-level="2"] .grm-flyout__panel--level1 {
+  .grm-flyout-container[data-level="2"] .grm-flyout__panel--level1 {
     transform: translateX(-102%);
   }
-  .grm-flyout[data-level="2"] .grm-flyout__panel--level2 {
+  .grm-flyout-container[data-level="2"] .grm-flyout__panel--level2 {
     transform: translateX(0);
   }
 
-  /* Back Row */
+  /* Section Heading */
+  .grm-flyout__section-heading {
+    padding: 1rem 1.25rem 0.4rem;
+    font-size: 0.72rem;
+    font-weight: 800;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--color-muted, #64748b);
+    font-family: var(--font-heading, "Poppins", sans-serif);
+  }
+
+  /* Lists and Items */
+  .grm-flyout__list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .grm-flyout__item {
+    border-bottom: 1px solid #f1f5f9;
+  }
+
+  .grm-flyout__link,
+  .grm-flyout__action {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem;
+    padding: 0.85rem 1.25rem;
+    color: var(--grm-flyout-text-dark);
+    text-decoration: none;
+    font-size: 0.92rem;
+    line-height: 1.35;
+    background: transparent;
+    border: 0;
+    cursor: pointer;
+    text-align: left;
+    font-weight: 600;
+    font-family: var(--font-body, "Open Sans", sans-serif);
+    transition: background 0.15s ease, color 0.15s ease;
+    box-sizing: border-box;
+    min-height: 48px;
+  }
+
+  .grm-flyout__link:hover,
+  .grm-flyout__action:hover,
+  .grm-flyout__link:focus-visible,
+  .grm-flyout__action:focus-visible {
+    background: var(--grm-flyout-accent-soft);
+    color: var(--color-cyan-dark, #0fa3b6);
+  }
+
+  .grm-flyout__action-content {
+    display: flex;
+    align-items: center;
+    gap: 0.65rem;
+  }
+
+  .grm-flyout__item-icon {
+    font-size: 19px;
+    color: var(--color-muted, #64748b);
+    flex-shrink: 0;
+  }
+
+  .grm-flyout__link:hover .grm-flyout__item-icon,
+  .grm-flyout__action:hover .grm-flyout__item-icon {
+    color: var(--color-cyan);
+  }
+
+  .grm-flyout__chev {
+    color: var(--color-cyan);
+    font-size: 20px;
+    flex-shrink: 0;
+  }
+
+  /* Level 2 Sub-Menu */
   .grm-flyout__back {
     display: flex;
     align-items: center;
     gap: 8px;
-    background: var(--color-cyan-soft);
+    background: var(--color-cyan-soft, #e3f7fa);
     border-bottom: 1px solid rgba(27, 196, 217, 0.25);
-    padding: 12px 16px;
-    user-select: none;
+    padding: 0.85rem 1.25rem;
     cursor: pointer;
     transition: background 0.15s ease;
   }
 
   .grm-flyout__back:hover {
-    background: rgba(27, 196, 217, 0.2);
+    background: rgba(27, 196, 217, 0.22);
   }
 
   .grm-flyout__back-btn {
@@ -411,7 +491,7 @@ import { Image } from "astro:assets";
     border: 0;
     background: transparent;
     color: var(--color-cyan-dark, #0fa3b6);
-    font-size: 0.85rem;
+    font-size: 0.82rem;
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 0.5px;
@@ -425,76 +505,35 @@ import { Image } from "astro:assets";
 
   .grm-flyout__panel-title {
     margin: 0;
-    padding: 14px 18px 8px;
-    font-size: 0.8rem;
+    padding: 1.1rem 1.25rem 0.5rem;
+    font-size: 0.75rem;
     font-weight: 800;
-    letter-spacing: 0.08em;
+    letter-spacing: 0.1em;
     text-transform: uppercase;
     color: var(--color-muted, #64748b);
     font-family: var(--font-heading, "Poppins", sans-serif);
   }
 
-  /* List Items */
-  .grm-flyout__list {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-    flex: 1;
-  }
-
-  .grm-flyout__item {
-    border-bottom: 1px solid var(--grm-flyout-border);
-  }
-
-  .grm-flyout__link,
-  .grm-flyout__action {
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 10px;
-    padding: 15px 18px;
-    color: var(--grm-flyout-text-dark);
-    text-decoration: none;
-    font-size: 0.95rem;
-    line-height: 1.3;
-    background: transparent;
-    border: 0;
-    cursor: pointer;
-    text-align: left;
-    font-weight: 600;
-    font-family: var(--font-body, "Open Sans", sans-serif);
-    transition: background 0.15s ease, color 0.15s ease;
-  }
-
-  .grm-flyout__link:hover,
-  .grm-flyout__action:hover,
-  .grm-flyout__link:focus-visible,
-  .grm-flyout__action:focus-visible {
-    background: var(--color-cyan-soft);
-    color: var(--color-cyan-dark);
-  }
-
   .grm-flyout__link--all {
     font-weight: 700;
-    color: var(--color-cyan-dark);
-    background: rgba(27, 196, 217, 0.06);
+    color: var(--color-cyan-dark, #0fa3b6);
+    background: rgba(27, 196, 217, 0.08);
+    border-bottom: 1px solid rgba(27, 196, 217, 0.2);
   }
 
-  .grm-flyout__chev {
-    color: var(--color-cyan);
-    font-size: 20px;
-    line-height: 1;
+  .grm-flyout__link--all:hover {
+    background: rgba(27, 196, 217, 0.16);
   }
 
-  /* CTA in Flyout */
-  .grm-flyout__cta-wrap {
-    padding: 1.25rem 1.15rem;
+  /* Pinned Bottom CTA & Footer */
+  .grm-flyout__footer {
+    padding: 1rem 1.25rem 1.25rem;
     border-top: 1px solid var(--grm-flyout-border);
     background: #ffffff;
     display: flex;
     flex-direction: column;
-    gap: 0.75rem;
+    gap: 0.65rem;
+    box-shadow: 0 -4px 16px rgba(0, 0, 0, 0.04);
   }
 
   .grm-flyout__cta {
@@ -504,33 +543,55 @@ import { Image } from "astro:assets";
     align-items: center;
     text-decoration: none;
     padding: 0.75rem 1.25rem;
+    font-size: 0.95rem;
     font-weight: 700;
-    border-radius: 8px;
+    border-radius: 9px;
     text-align: center;
+    background: var(--color-primary, #e94f37);
+    color: #ffffff;
+    transition: background-color 0.2s ease, transform 0.15s ease;
+  }
+
+  .grm-flyout__cta:hover {
+    background: var(--color-primary-dark, #d63d26);
+    color: #ffffff;
+  }
+
+  .grm-flyout__footer-contact {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    font-size: 0.82rem;
+    color: var(--color-muted);
   }
 
   .grm-flyout__phone {
     display: inline-flex;
     align-items: center;
-    justify-content: center;
-    gap: 0.4rem;
+    gap: 0.3rem;
     color: var(--color-dark);
     text-decoration: none;
-    font-size: 0.9rem;
-    font-weight: 600;
-    padding: 0.25rem 0;
-    transition: color 0.2s ease;
+    font-weight: 700;
+    transition: color 0.15s ease;
   }
 
   .grm-flyout__phone:hover {
     color: var(--color-cyan);
   }
 
-  .grm-flyout__fineprint {
-    padding: 0 1.25rem 1.25rem;
-    font-size: 0.75rem;
+  .grm-flyout__phone .material-symbols-outlined {
+    font-size: 16px;
+    color: var(--color-cyan);
+  }
+
+  .grm-flyout__footer-sep {
+    color: var(--color-border);
+  }
+
+  .grm-flyout__location {
+    font-size: 0.8rem;
     color: var(--color-muted);
-    text-align: center;
   }
 </style>
 
@@ -539,12 +600,23 @@ import { Image } from "astro:assets";
     const root = document.getElementById("grmFlyout");
     if (!root) return;
 
-    const openBtn = root.querySelector('[data-grm="open"]');
-    const closeBtns = root.querySelectorAll('[data-grm="close"]');
-    const backBtns = root.querySelectorAll("[data-grm-back]");
+    const drawer = root.querySelector<HTMLElement>(".grm-flyout__drawer");
+    const overlay = root.querySelector<HTMLElement>(".grm-flyout__overlay");
 
-    const level2Title = root.querySelector("[data-grm-level2-title]");
-    const level2List = root.querySelector("[data-grm-level2-list]");
+    // Ensure drawer and overlay are direct children of body to avoid backdrop-filter clipping
+    if (drawer && drawer.parentElement !== document.body) {
+      document.body.appendChild(drawer);
+    }
+    if (overlay && overlay.parentElement !== document.body) {
+      document.body.appendChild(overlay);
+    }
+
+    const openBtns = document.querySelectorAll<HTMLButtonElement>('[data-grm="open"]');
+    const closeBtns = document.querySelectorAll<HTMLElement>('[data-grm="close"]');
+    const backBtns = document.querySelectorAll<HTMLElement>("[data-grm-back]");
+
+    const level2Title = root.querySelector<HTMLElement>("[data-grm-level2-title]");
+    const level2List = root.querySelector<HTMLElement>("[data-grm-level2-list]");
 
     // ====== Data ======
     const PARENTS: Record<
@@ -608,8 +680,10 @@ import { Image } from "astro:assets";
     };
 
     const setOpen = (isOpen: boolean) => {
+      document.body.classList.toggle("grm-flyout--open", isOpen);
       root.classList.toggle("grm-flyout--open", isOpen);
-      openBtn?.setAttribute("aria-expanded", String(isOpen));
+      openBtns.forEach((btn) => btn.setAttribute("aria-expanded", String(isOpen)));
+
       if (!isOpen) {
         root.setAttribute("data-level", "1");
         document.body.style.overflow = "";
@@ -629,8 +703,11 @@ import { Image } from "astro:assets";
       // All {Category} link + full list of child services
       const allRow = `
         <li class="grm-flyout__item">
-          <a class="grm-flyout__link grm-flyout__link--all" href="${parent.url}">
-            <span>View All ${parent.title} &rarr;</span>
+          <a class="grm-flyout__link grm-flyout__link--all" href="${parent.url}" data-grm="close">
+            <div class="grm-flyout__action-content">
+              <span class="material-symbols-outlined grm-flyout__item-icon" aria-hidden="true">arrow_forward</span>
+              <span class="grm-flyout__item-title">View All ${parent.title} &rarr;</span>
+            </div>
           </a>
         </li>
       `;
@@ -639,8 +716,11 @@ import { Image } from "astro:assets";
         .map(
           (it) => `
           <li class="grm-flyout__item">
-            <a class="grm-flyout__link" href="${it.url}">
-              <span>${it.name}</span>
+            <a class="grm-flyout__link" href="${it.url}" data-grm="close">
+              <div class="grm-flyout__action-content">
+                <span class="material-symbols-outlined grm-flyout__item-icon" aria-hidden="true">chevron_right</span>
+                <span class="grm-flyout__item-title">${it.name}</span>
+              </div>
             </a>
           </li>`
         )
@@ -648,24 +728,29 @@ import { Image } from "astro:assets";
 
       level2List.innerHTML = allRow + serviceRows;
 
-      // Close flyout when a link in level 2 is clicked
-      level2List.querySelectorAll("a").forEach((link) => {
+      // Bind close to newly generated links
+      level2List.querySelectorAll('[data-grm="close"]').forEach((link) => {
         link.addEventListener("click", () => setOpen(false));
       });
     };
 
     // ====== Events ======
-    openBtn?.addEventListener("click", (e) => {
-      e.preventDefault();
-      setOpen(true);
-    });
-
-    closeBtns.forEach((btn) =>
+    openBtns.forEach((btn) => {
       btn.addEventListener("click", (e) => {
         e.preventDefault();
+        setOpen(true);
+      });
+    });
+
+    closeBtns.forEach((btn) => {
+      btn.addEventListener("click", (e) => {
+        // Only preventDefault if not a real link navigating
+        if ((btn as HTMLElement).tagName !== "A") {
+          e.preventDefault();
+        }
         setOpen(false);
-      })
-    );
+      });
+    });
 
     backBtns.forEach((btn) => {
       btn.addEventListener("click", (e) => {
@@ -691,7 +776,7 @@ import { Image } from "astro:assets";
 
     // Close on ESC
     const handleKeydown = (e: KeyboardEvent) => {
-      if (e.key === "Escape" && root.classList.contains("grm-flyout--open")) {
+      if (e.key === "Escape" && document.body.classList.contains("grm-flyout--open")) {
         setOpen(false);
       }
     };
