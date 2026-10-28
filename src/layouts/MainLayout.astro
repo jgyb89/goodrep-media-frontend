@@ -14,6 +14,7 @@ import LeadForm from "../components/LeadForm.jsx";
 import LightboxModal from "../components/LightboxModal.astro";
 import BaseHead from "../components/BaseHead.astro";
 import TrackingHead from "../components/TrackingHead.astro";
+import MobileFlyoutMenu from "../components/MobileFlyoutMenu.astro";
 import { SITE_NAME, DEFAULT_META_DESCRIPTION, LEGAL_LINKS } from "../config/site.js";
 
 interface Props {
@@ -194,8 +195,22 @@ if (pageSchema) {
         <a href="/#consultation" class="btn btn--primary global-nav__cta"
           >Book a Call</a
         >
+        <button
+          class="grm-flyout__toggle"
+          type="button"
+          data-grm="open"
+          aria-controls="grmFlyoutDrawer"
+          aria-expanded="false"
+          aria-label="Open mobile navigation menu"
+        >
+          <span class="material-symbols-outlined grm-flyout__toggle-icon" aria-hidden="true">menu</span>
+          <span class="grm-flyout__toggle-label">Menu</span>
+        </button>
       </nav>
     </header>
+
+    <!-- Mobile Navigation Flyout Drawer (Placed at body root to escape header backdrop-filter containing block) -->
+    <MobileFlyoutMenu />
 
     <!-- Page Content Injected Here -->
     <main id="main-content">
@@ -663,9 +678,55 @@ if (pageSchema) {
     font-size: 0.9rem;
   }
 
+  .grm-flyout__toggle {
+    appearance: none;
+    border: 1px solid var(--color-border);
+    background: #ffffff;
+    color: var(--color-dark);
+    padding: 0.45rem 0.75rem;
+    border-radius: 8px;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: 0.85rem;
+    line-height: 1;
+    transition: all 0.2s ease;
+  }
+
+  .grm-flyout__toggle:hover,
+  .grm-flyout__toggle:focus-visible {
+    border-color: var(--color-cyan);
+    color: var(--color-cyan-dark);
+    background: var(--color-cyan-soft);
+  }
+
+  .grm-flyout__toggle-icon {
+    font-size: 22px;
+    line-height: 1;
+  }
+
+  @media (max-width: 859px) {
+    .global-nav {
+      padding: 0 1rem;
+      gap: 0.75rem;
+    }
+  }
+
+  @media (max-width: 440px) {
+    .global-nav__cta {
+      display: none;
+    }
+  }
+
   @media (min-width: 860px) {
     .global-nav__links {
       display: flex;
+    }
+    .grm-flyout__toggle {
+      display: none !important;
     }
   }
 
