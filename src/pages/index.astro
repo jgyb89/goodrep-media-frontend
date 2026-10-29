@@ -2660,8 +2660,12 @@ try {
     }
 
     .checklist li::before {
-      content: "check";
+      content: "\e5ca";
       font-family: "Material Symbols Outlined";
+      font-feature-settings: "liga";
+      font-style: normal;
+      text-transform: none;
+      -webkit-font-smoothing: antialiased;
       flex: none;
       width: 26px;
       height: 26px;

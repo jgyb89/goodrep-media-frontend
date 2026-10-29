@@ -13,7 +13,7 @@ target_words = [
     "analytics", "apps", "arrow_back", "arrow_forward", "arrow_upward",
     "article", "aspect_ratio", "auto_awesome", "autorenew", "bolt", "brush",
     "cached", "calendar_month", "calendar_today", "call", "campaign",
-    "celebration", "chat", "check_circle", "chevron_left", "chevron_right",
+    "celebration", "chat", "check", "check_box", "check_circle", "chevron_left", "chevron_right",
     "cleaning_services", "close", "code", "contact_support", "content_cut",
     "dashboard_customize", "data_object", "design_services", "devices", "done",
     "edit_note", "expand_more", "fact_check", "filter_alt", "find_in_page",

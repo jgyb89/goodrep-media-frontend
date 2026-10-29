@@ -1316,8 +1316,12 @@ import { stats, projects } from "../data/work/directoryData.js";
     }
 
     .case-card__deliv-list li::before {
-      content: "check";
+      content: "\e5ca";
       font-family: "Material Symbols Outlined";
+      font-feature-settings: "liga";
+      font-style: normal;
+      text-transform: none;
+      -webkit-font-smoothing: antialiased;
       flex: none;
       width: 22px;
       height: 22px;
