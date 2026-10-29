@@ -54,6 +54,7 @@ export const projects = [
       { num: "-62%", desc: "Mobile bounce rate", icon: "trending_down" },
       { num: "100%", desc: "Accessibility & Best Practices", icon: "verified" },
     ],
+    logo: "/grm-graphic-samples/coral-breeze-services-logo.svg",
     img: coralBreezeImg,
     w: 800,
     h: 1050,

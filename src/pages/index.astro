@@ -463,7 +463,10 @@ try {
                 {
                   sliderCards.map((project, i) => (
                     <article
-                      class:list={["work-card", { "is-active": i === 9 }]}
+                      class:list={[
+                        "work-card",
+                        { "is-active": i === homepageProjects.length },
+                      ]}
                       data-card-index={i}
                       data-real-index={i % homepageProjects.length}
                       aria-hidden={
@@ -494,7 +497,7 @@ try {
                         <a
                           href={project.href}
                           class="btn btn--primary work-card__btn"
-                          tabindex={i === 9 ? "0" : "-1"}
+                          tabindex={i === homepageProjects.length ? "0" : "-1"}
                         >
                           <span>View Project</span>
                           <span
@@ -877,6 +880,7 @@ try {
     gsap.registerPlugin(ScrollTrigger);
 
     let homeCtx: gsap.Context | null = null;
+    let workGalleryCleanup: (() => void) | null = null;
 
     function initHomePage() {
       const heroEl = document.querySelector<HTMLElement>(".hero");
@@ -884,6 +888,10 @@ try {
 
       if (homeCtx) {
         homeCtx.revert();
+      }
+      if (workGalleryCleanup) {
+        workGalleryCleanup();
+        workGalleryCleanup = null;
       }
 
       homeCtx = gsap.context(() => {
@@ -1202,9 +1210,10 @@ try {
         });
       }
 
-      // 8. Our Work: Interactive Looping Project Gallery
+      // 8. Our Work: Automated Continuous Smooth Scroll with Natural Manual Interaction & 5s Resume
       function initWorkGallery() {
         const gallery = document.getElementById("work-gallery");
+        const galleryWrap = document.querySelector<HTMLElement>(".work__gallery-wrap");
         const viewport = document.getElementById("work-gallery-viewport");
         const track = document.getElementById("work-gallery-track");
         const prevBtn = document.getElementById("work-gallery-prev");
@@ -1218,39 +1227,75 @@ try {
 
         if (!gallery || !viewport || !track || !cards.length) return;
 
-        const totalReal = dots.length; // 9
-        let currentIndex = totalReal; // start at middle set (index 9)
+        const container = galleryWrap || gallery;
+        const totalReal = dots.length;
+        let currentIndex = totalReal; // start at middle set
+        let currentX = 0;
+        let isAutoScrolling = false;
+        let isHovered = false;
+        let isInteracting = false;
+        let isVisibleOnScreen = false;
+        let autoScrollRaf: number | null = null;
+        let idleTimer: ReturnType<typeof setTimeout> | null = null;
+        let lastTime = 0;
+        let observer: IntersectionObserver | null = null;
 
-        function updatePosition(animate = true) {
-          const card = cards[currentIndex];
-          if (!card || !viewport || !track) return;
+        // Auto-scroll speed: 65 pixels per second (smooth, continuous glide)
+        const AUTO_SPEED = 65;
+        const IDLE_DELAY = 5000; // 5 seconds of inactivity to resume auto-scroll
 
-          const offset =
-            viewport.offsetWidth / 2 - (card.offsetLeft + card.offsetWidth / 2);
-          track.style.transition = animate
-            ? "transform 0.45s cubic-bezier(0.2, 0.8, 0.2, 1)"
-            : "none";
-          track.style.transform = `translateX(${offset}px)`;
+        const prefersReducedMotion = window.matchMedia(
+          "(prefers-reduced-motion: reduce)",
+        ).matches;
 
-          cards.forEach((c, idx) => {
-            const isActive = idx === currentIndex;
+        function getOneSetWidth(): number {
+          if (cards.length > totalReal) {
+            return cards[totalReal].offsetLeft - cards[0].offsetLeft;
+          }
+          return 0;
+        }
+
+        function getOffsetForIndex(idx: number): number {
+          const card = cards[idx];
+          if (!card || !viewport) return 0;
+          return (
+            viewport.offsetWidth / 2 - (card.offsetLeft + card.offsetWidth / 2)
+          );
+        }
+
+        function updateActiveState(idx: number) {
+          currentIndex = idx;
+          cards.forEach((c, i) => {
+            const isActive = i === currentIndex;
             c.classList.toggle("is-active", isActive);
             c.setAttribute("aria-hidden", isActive ? "false" : "true");
             const btn = c.querySelector<HTMLAnchorElement>(".work-card__btn");
             if (btn) btn.tabIndex = isActive ? 0 : -1;
           });
 
-          const realIndex = currentIndex % totalReal;
-          dots.forEach((dot, idx) => {
-            const isActive = idx === realIndex;
+          const realIndex = ((currentIndex % totalReal) + totalReal) % totalReal;
+          dots.forEach((dot, i) => {
+            const isActive = i === realIndex;
             dot.classList.toggle("is-active", isActive);
             dot.setAttribute("aria-selected", isActive ? "true" : "false");
           });
         }
 
+        function updatePosition(animate = true) {
+          const targetOffset = getOffsetForIndex(currentIndex);
+          currentX = targetOffset;
+          track.style.transition = animate
+            ? "transform 0.45s cubic-bezier(0.2, 0.8, 0.2, 1)"
+            : "none";
+          track.style.transform = `translateX(${currentX}px)`;
+          updateActiveState(currentIndex);
+        }
+
         function goTo(index: number) {
+          stopAutoScroll();
           currentIndex = index;
           updatePosition(true);
+          scheduleResume();
         }
 
         function next() {
@@ -1260,9 +1305,6 @@ try {
         function prev() {
           goTo(currentIndex - 1);
         }
-
-        nextBtn?.addEventListener("click", next);
-        prevBtn?.addEventListener("click", prev);
 
         track.addEventListener("transitionend", (e) => {
           if (e.target !== track) return;
@@ -1275,6 +1317,135 @@ try {
           }
         });
 
+        function autoScrollStep(time: number) {
+          if (!isAutoScrolling) return;
+
+          if (!lastTime) lastTime = time;
+          const dt = Math.min((time - lastTime) / 1000, 0.1);
+          lastTime = time;
+
+          const oneSetWidth = getOneSetWidth();
+          currentX -= AUTO_SPEED * dt;
+
+          // Infinite seamless loop wrapping across identical sets
+          if (oneSetWidth > 0) {
+            const baseCenterOffset = getOffsetForIndex(totalReal);
+            const minX = baseCenterOffset - oneSetWidth;
+            if (currentX <= minX) {
+              currentX += oneSetWidth;
+              currentIndex -= totalReal;
+            } else if (currentX >= baseCenterOffset + oneSetWidth) {
+              currentX -= oneSetWidth;
+              currentIndex += totalReal;
+            }
+          }
+
+          track.style.transition = "none";
+          track.style.transform = `translateX(${currentX}px)`;
+
+          // Dynamically detect the centered card as the gallery glides
+          if (viewport) {
+            const viewportCenter = -currentX + viewport.offsetWidth / 2;
+            let closestIdx = currentIndex;
+            let minDistance = Infinity;
+
+            for (let i = 0; i < cards.length; i++) {
+              const cardCenter = cards[i].offsetLeft + cards[i].offsetWidth / 2;
+              const dist = Math.abs(viewportCenter - cardCenter);
+              if (dist < minDistance) {
+                minDistance = dist;
+                closestIdx = i;
+              }
+            }
+
+            if (closestIdx !== currentIndex) {
+              updateActiveState(closestIdx);
+            }
+          }
+
+          autoScrollRaf = requestAnimationFrame(autoScrollStep);
+        }
+
+        function startAutoScroll() {
+          if (
+            prefersReducedMotion ||
+            isAutoScrolling ||
+            isHovered ||
+            isInteracting ||
+            !isVisibleOnScreen
+          ) {
+            return;
+          }
+          isAutoScrolling = true;
+          lastTime = 0;
+          track.style.transition = "none";
+          autoScrollRaf = requestAnimationFrame(autoScrollStep);
+        }
+
+        function stopAutoScroll() {
+          if (!isAutoScrolling) return;
+          isAutoScrolling = false;
+          if (autoScrollRaf) {
+            cancelAnimationFrame(autoScrollRaf);
+            autoScrollRaf = null;
+          }
+          lastTime = 0;
+        }
+
+        function scheduleResume() {
+          if (idleTimer) {
+            clearTimeout(idleTimer);
+            idleTimer = null;
+          }
+          if (isHovered || isInteracting || !isVisibleOnScreen || prefersReducedMotion) {
+            return;
+          }
+
+          idleTimer = setTimeout(() => {
+            if (
+              !isHovered &&
+              !isInteracting &&
+              isVisibleOnScreen &&
+              !prefersReducedMotion
+            ) {
+              startAutoScroll();
+            }
+          }, IDLE_DELAY);
+        }
+
+        function handleInteractionStart() {
+          stopAutoScroll();
+          if (idleTimer) {
+            clearTimeout(idleTimer);
+            idleTimer = null;
+          }
+        }
+
+        // Pointer/Hover events on the gallery container (pauses while cursor is inside)
+        container.addEventListener("pointerenter", (e) => {
+          if (e.pointerType === "touch") return;
+          isHovered = true;
+          handleInteractionStart();
+          goTo(currentIndex);
+        });
+
+        container.addEventListener("pointerleave", (e) => {
+          if (e.pointerType === "touch") return;
+          isHovered = false;
+          scheduleResume();
+        });
+
+        // Click Arrow buttons
+        nextBtn?.addEventListener("click", () => {
+          handleInteractionStart();
+          next();
+        });
+        prevBtn?.addEventListener("click", () => {
+          handleInteractionStart();
+          prev();
+        });
+
+        // Click Cards
         cards.forEach((card, idx) => {
           card.addEventListener("click", (e) => {
             if (
@@ -1285,33 +1456,43 @@ try {
             }
             if (idx !== currentIndex) {
               e.preventDefault();
+              handleInteractionStart();
               goTo(idx);
             }
           });
         });
 
+        // Click Pagination Dots
         dots.forEach((dot) => {
           dot.addEventListener("click", () => {
+            handleInteractionStart();
             const targetReal = Number(dot.dataset.dotIndex || 0);
             goTo(totalReal + targetReal);
           });
         });
 
+        // Keyboard arrow navigation
         gallery.addEventListener("keydown", (e) => {
           if (e.key === "ArrowLeft") {
             e.preventDefault();
+            handleInteractionStart();
             prev();
           } else if (e.key === "ArrowRight") {
             e.preventDefault();
+            handleInteractionStart();
             next();
           }
         });
 
+        // Touch swipe gestures
         let touchStartX = 0;
         let touchDeltaX = 0;
         viewport.addEventListener(
           "touchstart",
           (e) => {
+            isInteracting = true;
+            isHovered = false;
+            handleInteractionStart();
             touchStartX = e.touches[0].clientX;
             touchDeltaX = 0;
           },
@@ -1327,12 +1508,78 @@ try {
         );
 
         viewport.addEventListener("touchend", () => {
-          if (touchDeltaX < -40) next();
-          else if (touchDeltaX > 40) prev();
+          isInteracting = false;
+          isHovered = false;
+          if (touchDeltaX < -40) {
+            next();
+          } else if (touchDeltaX > 40) {
+            prev();
+          } else {
+            goTo(currentIndex);
+          }
+          scheduleResume();
         });
 
+        // Page Visibility check
+        const handleVisibilityChange = () => {
+          if (document.hidden) {
+            stopAutoScroll();
+          } else {
+            scheduleResume();
+          }
+        };
+        document.addEventListener("visibilitychange", handleVisibilityChange);
+
+        // IntersectionObserver: auto-scroll only when gallery is visible on screen
+        if ("IntersectionObserver" in window) {
+          observer = new IntersectionObserver(
+            (entries) => {
+              entries.forEach((entry) => {
+                isVisibleOnScreen = entry.isIntersecting;
+                if (isVisibleOnScreen) {
+                  if (!isHovered && !isInteracting) {
+                    startAutoScroll();
+                  }
+                } else {
+                  stopAutoScroll();
+                  if (idleTimer) {
+                    clearTimeout(idleTimer);
+                    idleTimer = null;
+                  }
+                }
+              });
+            },
+            { threshold: 0.15 },
+          );
+          observer.observe(gallery);
+        } else {
+          isVisibleOnScreen = true;
+          startAutoScroll();
+        }
+
+        // Initialize starting position
         updatePosition(false);
-        window.addEventListener("resize", () => updatePosition(false));
+        const handleResize = () => {
+          if (!isAutoScrolling) {
+            updatePosition(false);
+          }
+        };
+        window.addEventListener("resize", handleResize);
+
+        // Cleanup registration
+        workGalleryCleanup = () => {
+          stopAutoScroll();
+          if (idleTimer) {
+            clearTimeout(idleTimer);
+            idleTimer = null;
+          }
+          if (observer) {
+            observer.disconnect();
+            observer = null;
+          }
+          document.removeEventListener("visibilitychange", handleVisibilityChange);
+          window.removeEventListener("resize", handleResize);
+        };
       }
 
       initWorkGallery();
@@ -1564,6 +1811,10 @@ try {
       if (homeCtx) {
         homeCtx.revert();
         homeCtx = null;
+      }
+      if (workGalleryCleanup) {
+        workGalleryCleanup();
+        workGalleryCleanup = null;
       }
     });
 </script>
@@ -2357,10 +2608,11 @@ try {
 
     .work__band {
       color: #e5e5e5;
-      /* Diagonal pill pattern, echoing the live site's dark band */
+      /* Darkened overlay over repeating diagonal pill pattern for optimal white text legibility */
       background:
+        linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)),
         url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cg fill='none' stroke='%23ffffff' stroke-opacity='0.045' stroke-width='22' stroke-linecap='round'%3E%3Cpath d='M30 130 L80 30'/%3E%3Cpath d='M110 170 L150 90'/%3E%3C/g%3E%3C/svg%3E"),
-        var(--color-dark);
+        var(--color-darker, #262626);
     }
 
     .work__layout {

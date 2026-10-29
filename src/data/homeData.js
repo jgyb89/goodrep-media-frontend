@@ -499,6 +499,12 @@ export const homepageProjects = [
     logoClass: "work-card__logo--square",
   },
   {
+    title: "Coral Breeze Services",
+    href: "/work/coral-breeze-services/",
+    img: "/grm-graphic-samples/coral-breeze-project-card.jpg",
+    logo: "/grm-graphic-samples/coral-breeze-services-logo.svg",
+  },
+  {
     title: "Glowing Results Skin Spa",
     href: "/work/glowing-results-skin-spa/",
     img: "/grm-graphic-samples/glowing-result-skin-spa-project.jpg",
