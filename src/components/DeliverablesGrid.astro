@@ -88,11 +88,14 @@ const {
 
   gsap.registerPlugin(ScrollTrigger);
 
-  const delivSections = document.querySelectorAll<HTMLElement>(".deliverables");
-  delivSections.forEach((root) => {
-    const mm = gsap.matchMedia();
-    mm.add("(prefers-reduced-motion: no-preference)", () => {
-      // Header reveal
+  function initDeliverables() {
+    const delivSections = document.querySelectorAll<HTMLElement>(".deliverables");
+    if (!delivSections.length) return;
+
+    delivSections.forEach((root) => {
+      const mm = gsap.matchMedia(root);
+      mm.add("(prefers-reduced-motion: no-preference)", () => {
+        // Header reveal
       const headEl = root.querySelector(".section-head");
       if (headEl) {
         gsap.fromTo(
@@ -213,6 +216,15 @@ const {
       }
     });
   });
+
+  ScrollTrigger.refresh();
+}
+
+  document.readyState === "loading"
+    ? document.addEventListener("DOMContentLoaded", initDeliverables)
+    : initDeliverables();
+
+  document.addEventListener("astro:page-load", initDeliverables);
 </script>
 
 <style>

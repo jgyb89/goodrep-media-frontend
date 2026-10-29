@@ -161,9 +161,12 @@ const {
 
   gsap.registerPlugin(ScrollTrigger);
 
-  const processSections = document.querySelectorAll<HTMLElement>(".process");
-  processSections.forEach((root) => {
-    const stage = root.querySelector<HTMLElement>(".process__stage");
+  function initProcessSections() {
+    const processSections = document.querySelectorAll<HTMLElement>(".process");
+    if (!processSections.length) return;
+
+    processSections.forEach((root) => {
+      const stage = root.querySelector<HTMLElement>(".process__stage");
     const stepLabel = root.querySelector("#process-step-label");
     const stepTag = root.querySelector("#process-step-tag");
     const progressBar = root.querySelector<HTMLElement>(
@@ -321,6 +324,15 @@ const {
       });
     });
   });
+
+  ScrollTrigger.refresh();
+}
+
+document.readyState === "loading"
+  ? document.addEventListener("DOMContentLoaded", initProcessSections)
+  : initProcessSections();
+
+document.addEventListener("astro:page-load", initProcessSections);
 </script>
 
 <style>

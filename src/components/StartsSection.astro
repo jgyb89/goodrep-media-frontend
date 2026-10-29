@@ -103,7 +103,8 @@ if (callout && typeof callout.percent === "number") {
                 width={media.blob.width ?? 746}
                 height={media.blob.height ?? 780}
                 style={media.blob.style}
-                loading="lazy"
+                loading="eager"
+                decoding="async"
               />
             )}
             <img
@@ -114,7 +115,7 @@ if (callout && typeof callout.percent === "number") {
               width={media.main.width ?? 746}
               height={media.main.height ?? 780}
               style={media.main.style}
-              loading="lazy"
+              loading="eager"
               decoding="async"
             />
             {media.satellites?.map((sat) => (
@@ -131,7 +132,8 @@ if (callout && typeof callout.percent === "number") {
                 width={sat.width ?? 746}
                 height={sat.height ?? 780}
                 style={sat.style}
-                loading="lazy"
+                loading="eager"
+                decoding="async"
               />
             ))}
             {media.pill && (
@@ -240,7 +242,8 @@ if (callout && typeof callout.percent === "number") {
                 width={media.blob.width ?? 746}
                 height={media.blob.height ?? 780}
                 style={media.blob.style}
-                loading="lazy"
+                loading="eager"
+                decoding="async"
               />
             )}
             <img
@@ -251,7 +254,7 @@ if (callout && typeof callout.percent === "number") {
               width={media.main.width ?? 746}
               height={media.main.height ?? 780}
               style={media.main.style}
-              loading="lazy"
+              loading="eager"
               decoding="async"
             />
             {media.satellites?.map((sat) => (
@@ -268,7 +271,8 @@ if (callout && typeof callout.percent === "number") {
                 width={sat.width ?? 746}
                 height={sat.height ?? 780}
                 style={sat.style}
-                loading="lazy"
+                loading="eager"
+                decoding="async"
               />
             ))}
             {media.pill && (
@@ -303,92 +307,106 @@ if (callout && typeof callout.percent === "number") {
 
   gsap.registerPlugin(ScrollTrigger);
 
-  const sections = document.querySelectorAll<HTMLElement>(".starts-section");
-  sections.forEach((root) => {
-    const mm = gsap.matchMedia();
-    mm.add("(prefers-reduced-motion: no-preference)", () => {
-      // 1. Reveal animation
-      const revealEl = root.querySelector("[data-reveal]");
-      if (revealEl) {
-        gsap.fromTo(
-          revealEl,
-          { y: 38, opacity: 0 },
-          {
-            y: 0,
-            opacity: 1,
-            duration: 0.85,
-            ease: "power3.out",
-            clearProps: "transform,opacity",
-            scrollTrigger: {
-              trigger: revealEl,
-              start: "top 85%",
-              once: true,
-            },
-          },
-        );
-      }
+  function initStartsSections() {
+    const sections = document.querySelectorAll<HTMLElement>(".starts-section");
+    if (!sections.length) return;
 
-      // 2. Continuous float for satellites
-      root.querySelectorAll<HTMLElement>("[data-float]").forEach((el, i) => {
-        gsap.to(el, {
-          y: -12,
-          rotation: i % 2 ? 3 : -3,
-          duration: 2.4 + (i % 3) * 0.5,
-          ease: "sine.inOut",
-          yoyo: true,
-          repeat: -1,
-          delay: (i % 3) * 0.3,
-        });
-      });
-
-      // 3. Multi-plane ScrollTrigger scrub parallax
-      const startsFeature = root.querySelector<HTMLElement>(".starts-feature");
-      if (startsFeature) {
-        gsap.utils
-          .toArray<HTMLElement>("[data-spotlight-parallax]", root)
-          .forEach((sat) => {
-            const deltaY = Number(sat.dataset.spotlightParallax || -36);
-            gsap.fromTo(
-              sat,
-              { y: -deltaY * 0.4 },
-              {
-                y: deltaY * 0.6,
-                ease: "none",
-                scrollTrigger: {
-                  trigger: startsFeature,
-                  start: "top bottom",
-                  end: "bottom top",
-                  scrub: 0.6,
-                },
+    sections.forEach((root) => {
+      const mm = gsap.matchMedia(root);
+      mm.add("(prefers-reduced-motion: no-preference)", () => {
+        // 1. Reveal animation
+        const revealEl = root.querySelector("[data-reveal]");
+        if (revealEl) {
+          gsap.fromTo(
+            revealEl,
+            { y: 32, opacity: 0 },
+            {
+              y: 0,
+              opacity: 1,
+              duration: 0.75,
+              ease: "power2.out",
+              clearProps: "transform,opacity",
+              scrollTrigger: {
+                trigger: revealEl,
+                start: "top 88%",
+                once: true,
               },
-            );
-          });
-      }
-
-      // 4. Mobile Callout Ring Progress Animation
-      const ringProgress = root.querySelector<SVGCircleElement>(
-        ".mobile-callout__progress",
-      );
-      const calloutEl = root.querySelector<HTMLElement>(".mobile-callout");
-      if (ringProgress && calloutEl) {
-        const offset = Number(ringProgress.dataset.targetOffset || "42.7");
-        gsap.fromTo(
-          ringProgress,
-          { strokeDashoffset: 213.6 },
-          {
-            strokeDashoffset: offset,
-            duration: 1.4,
-            ease: "power3.out",
-            scrollTrigger: {
-              trigger: calloutEl,
-              start: "top 85%",
-              once: true,
             },
-          },
+          );
+        }
+
+        // 2. Continuous float for satellites:
+        // Animates yPercent & rotation so it NEVER conflicts with ScrollTrigger's pixel y scrub
+        root.querySelectorAll<HTMLElement>("[data-float]").forEach((el, i) => {
+          gsap.to(el, {
+            yPercent: -10,
+            rotation: i % 2 ? 3 : -3,
+            duration: 2.2 + (i % 3) * 0.4,
+            ease: "sine.inOut",
+            yoyo: true,
+            repeat: -1,
+            delay: (i % 3) * 0.15,
+          });
+        });
+
+        // 3. Multi-plane ScrollTrigger scrub parallax:
+        // Animates pixel y with responsive scrub (0.2s) instead of sluggish 0.6s
+        const startsFeature = root.querySelector<HTMLElement>(".starts-feature");
+        if (startsFeature) {
+          gsap.utils
+            .toArray<HTMLElement>("[data-spotlight-parallax]", root)
+            .forEach((sat) => {
+              const deltaY = Number(sat.dataset.spotlightParallax || -36);
+              gsap.fromTo(
+                sat,
+                { y: -deltaY * 0.35 },
+                {
+                  y: deltaY * 0.55,
+                  ease: "none",
+                  scrollTrigger: {
+                    trigger: startsFeature,
+                    start: "top bottom",
+                    end: "bottom top",
+                    scrub: 0.2,
+                  },
+                },
+              );
+            });
+        }
+
+        // 4. Mobile Callout Ring Progress Animation
+        const ringProgress = root.querySelector<SVGCircleElement>(
+          ".mobile-callout__progress",
         );
-      }
+        const calloutEl = root.querySelector<HTMLElement>(".mobile-callout");
+        if (ringProgress && calloutEl) {
+          const offset = Number(ringProgress.dataset.targetOffset || "42.7");
+          gsap.fromTo(
+            ringProgress,
+            { strokeDashoffset: 213.6 },
+            {
+              strokeDashoffset: offset,
+              duration: 1.2,
+              ease: "power3.out",
+              scrollTrigger: {
+                trigger: calloutEl,
+                start: "top 88%",
+                once: true,
+              },
+            },
+          );
+        }
+      });
     });
-  });
+
+    ScrollTrigger.refresh();
+  }
+
+  document.readyState === "loading"
+    ? document.addEventListener("DOMContentLoaded", initStartsSections)
+    : initStartsSections();
+
+  document.addEventListener("astro:page-load", initStartsSections);
 </script>
 
 <style>

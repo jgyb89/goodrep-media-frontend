@@ -839,12 +839,16 @@ try {
 
     gsap.registerPlugin(ScrollTrigger);
 
-    const wordEls = gsap.utils.toArray<HTMLElement>("[data-hero-word]");
-    const sceneEls = gsap.utils.toArray<HTMLElement>("[data-hero-scene]");
-    const mm = gsap.matchMedia();
+    function initHomePage() {
+      const heroEl = document.querySelector<HTMLElement>(".hero");
+      if (!heroEl) return;
 
-    // Motion-heavy effects only run when the user hasn't asked for reduced motion
-    mm.add("(prefers-reduced-motion: no-preference)", () => {
+      const wordEls = gsap.utils.toArray<HTMLElement>("[data-hero-word]");
+      const sceneEls = gsap.utils.toArray<HTMLElement>("[data-hero-scene]");
+      const mm = gsap.matchMedia();
+
+      // Motion-heavy effects only run when the user hasn't asked for reduced motion
+      mm.add("(prefers-reduced-motion: no-preference)", () => {
       // 1. Headline rotator: flips up + fades in, then flips down + fades out,
       //    while crossfading the matching graphic composition on the right.
       if (wordEls.length > 1) {
@@ -962,26 +966,26 @@ try {
         delay: 0.2,
       });
 
-      // 4. Gentle floating for decorative illustrations
+      // 4. Gentle floating for decorative illustrations (uses yPercent so it never conflicts with parallax y)
       gsap.utils.toArray<HTMLElement>("[data-float]").forEach((el, i) => {
         gsap.to(el, {
-          y: -14,
+          yPercent: -10,
           rotation: i % 2 ? 3 : -3,
-          duration: 2.4 + (i % 3) * 0.5,
+          duration: 2.2 + (i % 3) * 0.4,
           ease: "sine.inOut",
           yoyo: true,
           repeat: -1,
-          delay: (i % 3) * 0.3,
+          delay: (i % 3) * 0.15,
         });
       });
 
-      // 5. Scroll reveals: Deferred to requestIdleCallback to eliminate forced reflows during page load
+      // 5. Scroll reveals: Scheduled with bounded timeout to eliminate main thread stalls
       const setupScrollReveals = () => {
         gsap.utils.toArray<HTMLElement>("[data-reveal]").forEach((el) => {
           gsap.from(el, {
             y: 35,
             opacity: 0,
-            duration: 0.8,
+            duration: 0.75,
             ease: "power2.out",
             scrollTrigger: { trigger: el, start: "top 90%", once: true },
           });
@@ -1002,9 +1006,9 @@ try {
       };
 
       if ("requestIdleCallback" in window) {
-        requestIdleCallback(setupScrollReveals);
+        requestIdleCallback(setupScrollReveals, { timeout: 250 });
       } else {
-        setTimeout(setupScrollReveals, 200);
+        setTimeout(setupScrollReveals, 150);
       }
 
       // 6. Services: Static at rest; smooth movement plays on hover, freezes,
@@ -1276,15 +1280,15 @@ try {
           const deltaY = Number(sat.dataset.spotlightParallax || -40);
           gsap.fromTo(
             sat,
-            { y: -deltaY * 0.4 },
+            { y: -deltaY * 0.35 },
             {
-              y: deltaY * 0.6,
+              y: deltaY * 0.55,
               ease: "none",
               scrollTrigger: {
                 trigger: featureEl,
                 start: "top bottom",
                 end: "bottom top",
-                scrub: 0.6,
+                scrub: 0.2,
               },
             },
           );
@@ -1468,7 +1472,16 @@ try {
         }
       });
     });
-  </script>
+
+    ScrollTrigger.refresh();
+  }
+
+  document.readyState === "loading"
+    ? document.addEventListener("DOMContentLoaded", initHomePage)
+    : initHomePage();
+
+  document.addEventListener("astro:page-load", initHomePage);
+</script>
 
   <style>
     /* BEM: Hero Block */

@@ -433,13 +433,13 @@ import { stats, projects } from "../data/work/directoryData.js";
 
       gsap.utils.toArray<HTMLElement>("[data-float]").forEach((el, i) => {
         gsap.to(el, {
-          y: -12,
+          yPercent: -10,
           rotation: i % 2 ? 3 : -3,
-          duration: 2.4 + (i % 3) * 0.45,
+          duration: 2.2 + (i % 3) * 0.4,
           ease: "sine.inOut",
           yoyo: true,
           repeat: -1,
-          delay: (i % 4) * 0.25,
+          delay: (i % 4) * 0.15,
         });
       });
 

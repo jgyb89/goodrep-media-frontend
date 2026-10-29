@@ -245,14 +245,16 @@ const {
 
   gsap.registerPlugin(ScrollTrigger);
 
-  const heroSections = document.querySelectorAll<HTMLElement>(".service-hero");
+  function initServiceHeroes() {
+    const heroSections = document.querySelectorAll<HTMLElement>(".service-hero");
+    if (!heroSections.length) return;
 
-  heroSections.forEach((root) => {
-    const wordEls = gsap.utils.toArray<HTMLElement>("[data-hero-word]", root);
-    const mm = gsap.matchMedia();
+    heroSections.forEach((root) => {
+      const wordEls = gsap.utils.toArray<HTMLElement>("[data-hero-word]", root);
+      const mm = gsap.matchMedia(root);
 
-    mm.add("(prefers-reduced-motion: no-preference)", () => {
-      // 1. 3D Headline Rotator in Hero
+      mm.add("(prefers-reduced-motion: no-preference)", () => {
+        // 1. 3D Headline Rotator in Hero
       if (wordEls.length > 1) {
         const hidden = { yPercent: 60, rotationX: -80, autoAlpha: 0 };
         const shown = { yPercent: 0, rotationX: 0, autoAlpha: 1 };
@@ -387,16 +389,16 @@ const {
         attachPointerParallax(root);
       }
 
-      // Continuous float animation
+      // Continuous float animation (animates yPercent so it never conflicts with pointer parallax y)
       root.querySelectorAll<HTMLElement>("[data-float]").forEach((el, i) => {
         gsap.to(el, {
-          y: -12,
+          yPercent: -10,
           rotation: i % 2 ? 3 : -3,
-          duration: 2.4 + (i % 3) * 0.5,
+          duration: 2.2 + (i % 3) * 0.4,
           ease: "sine.inOut",
           yoyo: true,
           repeat: -1,
-          delay: (i % 3) * 0.3,
+          delay: (i % 3) * 0.15,
         });
       });
 
@@ -414,13 +416,22 @@ const {
             duration: 0.5,
             stagger: 0.1,
             ease: "power2.out",
-            delay: 0.65,
+            delay: 0.5,
             clearProps: "transform,opacity",
           },
         );
       }
     });
   });
+
+  ScrollTrigger.refresh();
+}
+
+  document.readyState === "loading"
+    ? document.addEventListener("DOMContentLoaded", initServiceHeroes)
+    : initServiceHeroes();
+
+  document.addEventListener("astro:page-load", initServiceHeroes);
 </script>
 
 <style>

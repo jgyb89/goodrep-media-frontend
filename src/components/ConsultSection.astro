@@ -181,87 +181,99 @@ const frontWaveValues = `
 
   gsap.registerPlugin(ScrollTrigger);
 
-  const consultSections = document.querySelectorAll<HTMLElement>(".consult");
-  consultSections.forEach((root) => {
-    const mm = gsap.matchMedia();
-    mm.add("(prefers-reduced-motion: no-preference)", () => {
-      // Reveal
-      root.querySelectorAll("[data-reveal]").forEach((el) => {
-        gsap.fromTo(
-          el,
-          { y: 38, opacity: 0 },
-          {
-            y: 0,
-            opacity: 1,
-            duration: 0.85,
-            ease: "power3.out",
-            clearProps: "transform,opacity",
-            scrollTrigger: {
-              trigger: el,
-              start: "top 80%",
-              once: true,
+  function initConsultSections() {
+    const consultSections = document.querySelectorAll<HTMLElement>(".consult");
+    if (!consultSections.length) return;
+
+    consultSections.forEach((root) => {
+      const mm = gsap.matchMedia(root);
+      mm.add("(prefers-reduced-motion: no-preference)", () => {
+        // Reveal
+        root.querySelectorAll("[data-reveal]").forEach((el) => {
+          gsap.fromTo(
+            el,
+            { y: 32, opacity: 0 },
+            {
+              y: 0,
+              opacity: 1,
+              duration: 0.75,
+              ease: "power2.out",
+              clearProps: "transform,opacity",
+              scrollTrigger: {
+                trigger: el,
+                start: "top 85%",
+                once: true,
+              },
             },
+          );
+        });
+
+        // Art Main & Floats entrance
+        const consultMain = root.querySelector(".consult__art-main");
+        const consultFloats = root.querySelectorAll(".consult__art-float");
+
+        const consultTl = gsap.timeline({
+          scrollTrigger: {
+            trigger: root,
+            start: "top 85%",
+            once: true,
           },
-        );
-      });
+        });
 
-      // Art Main & Floats entrance
-      const consultMain = root.querySelector(".consult__art-main");
-      const consultFloats = root.querySelectorAll(".consult__art-float");
+        if (consultMain) {
+          consultTl.fromTo(
+            consultMain,
+            { y: 24, scale: 0.9, opacity: 0 },
+            {
+              y: 0,
+              scale: 1,
+              opacity: 1,
+              duration: 0.7,
+              ease: "back.out(1.5)",
+              clearProps: "transform,opacity",
+            },
+          );
+        }
+        if (consultFloats.length) {
+          consultTl.fromTo(
+            consultFloats,
+            { scale: 0, y: 16, opacity: 0 },
+            {
+              scale: 1,
+              y: 0,
+              opacity: 1,
+              duration: 0.55,
+              stagger: 0.08,
+              ease: "back.out(2.2)",
+              clearProps: "transform,opacity",
+            },
+            "<0.15",
+          );
+        }
 
-      const consultTl = gsap.timeline({
-        scrollTrigger: {
-          trigger: root,
-          start: "top 80%",
-          once: true,
-        },
-      });
-
-      if (consultMain) {
-        consultTl.fromTo(
-          consultMain,
-          { y: 30, scale: 0.88, opacity: 0 },
-          {
-            y: 0,
-            scale: 1,
-            opacity: 1,
-            duration: 0.75,
-            ease: "back.out(1.5)",
-            clearProps: "transform,opacity",
-          },
-        );
-      }
-      if (consultFloats.length) {
-        consultTl.fromTo(
-          consultFloats,
-          { scale: 0, y: 20, opacity: 0 },
-          {
-            scale: 1,
-            y: 0,
-            opacity: 1,
-            duration: 0.6,
-            stagger: 0.1,
-            ease: "back.out(2.2)",
-            clearProps: "transform,opacity",
-          },
-          "<0.2",
-        );
-      }
-
-      // Continuous float
-      root.querySelectorAll<HTMLElement>("[data-float]").forEach((el, i) => {
-        gsap.to(el, {
-          y: -12,
-          rotation: i % 2 ? 3 : -3,
-          duration: 2.4 + (i % 3) * 0.5,
-          ease: "sine.inOut",
-          yoyo: true,
-          repeat: -1,
-          delay: (i % 3) * 0.3,
+        // Continuous float (uses yPercent so it never conflicts with entrance y)
+        root.querySelectorAll<HTMLElement>("[data-float]").forEach((el, i) => {
+          gsap.to(el, {
+            yPercent: -10,
+            rotation: i % 2 ? 3 : -3,
+            duration: 2.2 + (i % 3) * 0.4,
+            ease: "sine.inOut",
+            yoyo: true,
+            repeat: -1,
+            delay: (i % 3) * 0.15,
+          });
         });
       });
     });
-  });
+
+    ScrollTrigger.refresh();
+  }
+
+  document.readyState === "loading"
+    ? document.addEventListener("DOMContentLoaded", initConsultSections)
+    : initConsultSections();
+
+  document.addEventListener("astro:page-load", initConsultSections);
 </script>
 
 <style>

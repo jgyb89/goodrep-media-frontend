@@ -126,7 +126,8 @@ const paragraphs = text.includes("\n\n") ? text.split("\n\n") : [text];
               width={badge.width ?? 746}
               height={badge.height ?? 780}
               style={badge.style}
-              loading="lazy"
+              loading="eager"
+              decoding="async"
             />
           ))
         }
@@ -141,65 +142,77 @@ const paragraphs = text.includes("\n\n") ? text.split("\n\n") : [text];
 
   gsap.registerPlugin(ScrollTrigger);
 
-  const readyBands = document.querySelectorAll<HTMLElement>(".ready-band");
-  readyBands.forEach((root) => {
-    const mm = gsap.matchMedia();
-    mm.add("(prefers-reduced-motion: no-preference)", () => {
-      // Reveal
-      root.querySelectorAll("[data-reveal]").forEach((el) => {
-        gsap.fromTo(
-          el,
-          { y: 38, opacity: 0 },
-          {
-            y: 0,
-            opacity: 1,
-            duration: 0.85,
-            ease: "power3.out",
-            clearProps: "transform,opacity",
-            scrollTrigger: {
-              trigger: el,
-              start: "top 85%",
-              once: true,
-            },
-          },
-        );
-      });
+  function initReadyBands() {
+    const readyBands = document.querySelectorAll<HTMLElement>(".ready-band");
+    if (!readyBands.length) return;
 
-      // Multi-plane Scrub Parallax
-      gsap.utils
-        .toArray<HTMLElement>("[data-ready-parallax]", root)
-        .forEach((layer) => {
-          const deltaY = Number(layer.dataset.readyParallax || -30);
+    readyBands.forEach((root) => {
+      const mm = gsap.matchMedia(root);
+      mm.add("(prefers-reduced-motion: no-preference)", () => {
+        // Reveal
+        root.querySelectorAll("[data-reveal]").forEach((el) => {
           gsap.fromTo(
-            layer,
-            { y: -deltaY * 0.45 },
+            el,
+            { y: 32, opacity: 0 },
             {
-              y: deltaY * 0.55,
-              ease: "none",
+              y: 0,
+              opacity: 1,
+              duration: 0.75,
+              ease: "power2.out",
+              clearProps: "transform,opacity",
               scrollTrigger: {
-                trigger: root,
-                start: "top bottom",
-                end: "bottom top",
-                scrub: 0.6,
+                trigger: el,
+                start: "top 88%",
+                once: true,
               },
             },
           );
         });
 
-      // Float animation
-      root.querySelectorAll<HTMLElement>("[data-float]").forEach((el, i) => {
-        gsap.to(el, {
-          y: -12,
-          rotation: i % 2 ? 3 : -3,
-          duration: 2.4 + (i % 3) * 0.5,
-          ease: "sine.inOut",
-          yoyo: true,
-          repeat: -1,
-          delay: (i % 3) * 0.3,
+        // Multi-plane Scrub Parallax (responsive 0.2s scrub)
+        gsap.utils
+          .toArray<HTMLElement>("[data-ready-parallax]", root)
+          .forEach((layer) => {
+            const deltaY = Number(layer.dataset.readyParallax || -30);
+            gsap.fromTo(
+              layer,
+              { y: -deltaY * 0.35 },
+              {
+                y: deltaY * 0.55,
+                ease: "none",
+                scrollTrigger: {
+                  trigger: root,
+                  start: "top bottom",
+                  end: "bottom top",
+                  scrub: 0.2,
+                },
+              },
+            );
+          });
+
+        // Float animation (uses yPercent to prevent collision with parallax y)
+        root.querySelectorAll<HTMLElement>("[data-float]").forEach((el, i) => {
+          gsap.to(el, {
+            yPercent: -10,
+            rotation: i % 2 ? 3 : -3,
+            duration: 2.2 + (i % 3) * 0.4,
+            ease: "sine.inOut",
+            yoyo: true,
+            repeat: -1,
+            delay: (i % 3) * 0.15,
+          });
         });
       });
     });
-  });
+
+    ScrollTrigger.refresh();
+  }
+
+  document.readyState === "loading"
+    ? document.addEventListener("DOMContentLoaded", initReadyBands)
+    : initReadyBands();
+
+  document.addEventListener("astro:page-load", initReadyBands);
 </script>
 
 <style>

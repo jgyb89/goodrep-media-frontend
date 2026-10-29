@@ -473,66 +473,76 @@ const {
 <script>
   import { gsap } from "gsap";
 
-  const heroSections = document.querySelectorAll<HTMLElement>(".case-hero");
-  heroSections.forEach((heroSection) => {
-    const mm = gsap.matchMedia();
-    mm.add("(prefers-reduced-motion: no-preference)", () => {
-      const headerItems = heroSection.querySelectorAll(
-        ".case-hero__breadcrumb, .case-hero__kicker-top, .case-hero__title, .case-hero__story, .case-hero__work .case-hero__kicker",
-      );
-      const workItems = heroSection.querySelectorAll(
-        ".case-hero__work-list li",
-      );
-      const visual = heroSection.querySelector(".case-hero__visual");
+  function initCaseStudyHero() {
+    const heroSections = document.querySelectorAll<HTMLElement>(".case-hero");
+    if (!heroSections.length) return;
 
-      const tl = gsap.timeline({ defaults: { ease: "power3.out" } });
-
-      if (headerItems.length) {
-        tl.fromTo(
-          headerItems,
-          { y: 26, opacity: 0 },
-          {
-            y: 0,
-            opacity: 1,
-            duration: 0.75,
-            stagger: 0.1,
-            clearProps: "transform,opacity",
-          },
+    heroSections.forEach((heroSection) => {
+      const mm = gsap.matchMedia(heroSection);
+      mm.add("(prefers-reduced-motion: no-preference)", () => {
+        const headerItems = heroSection.querySelectorAll(
+          ".case-hero__breadcrumb, .case-hero__kicker-top, .case-hero__title, .case-hero__story, .case-hero__work .case-hero__kicker",
         );
-      }
-
-      // Fade in each work column item one after another on load
-      if (workItems.length) {
-        tl.fromTo(
-          workItems,
-          { y: 16, opacity: 0 },
-          {
-            y: 0,
-            opacity: 1,
-            duration: 0.5,
-            stagger: 0.1,
-            ease: "power2.out",
-            clearProps: "transform,opacity",
-          },
-          "-=0.35",
+        const workItems = heroSection.querySelectorAll(
+          ".case-hero__work-list li",
         );
-      }
+        const visual = heroSection.querySelector(".case-hero__visual");
 
-      if (visual) {
-        tl.fromTo(
-          visual,
-          { scale: 0.95, opacity: 0, y: 24 },
-          {
-            scale: 1,
-            opacity: 1,
-            y: 0,
-            duration: 0.95,
-            ease: "power2.out",
-            clearProps: "transform,opacity",
-          },
-          "-=0.7",
-        );
-      }
+        const tl = gsap.timeline({ defaults: { ease: "power3.out" } });
+
+        if (headerItems.length) {
+          tl.fromTo(
+            headerItems,
+            { y: 26, opacity: 0 },
+            {
+              y: 0,
+              opacity: 1,
+              duration: 0.75,
+              stagger: 0.1,
+              clearProps: "transform,opacity",
+            },
+          );
+        }
+
+        // Fade in each work column item one after another on load
+        if (workItems.length) {
+          tl.fromTo(
+            workItems,
+            { y: 16, opacity: 0 },
+            {
+              y: 0,
+              opacity: 1,
+              duration: 0.5,
+              stagger: 0.1,
+              ease: "power2.out",
+              clearProps: "transform,opacity",
+            },
+            "-=0.35",
+          );
+        }
+
+        if (visual) {
+          tl.fromTo(
+            visual,
+            { scale: 0.95, opacity: 0, y: 24 },
+            {
+              scale: 1,
+              opacity: 1,
+              y: 0,
+              duration: 0.95,
+              ease: "power2.out",
+              clearProps: "transform,opacity",
+            },
+            "-=0.7",
+          );
+        }
+      });
     });
-  });
+  }
+
+  document.readyState === "loading"
+    ? document.addEventListener("DOMContentLoaded", initCaseStudyHero)
+    : initCaseStudyHero();
+
+  document.addEventListener("astro:page-load", initCaseStudyHero);
 </script>

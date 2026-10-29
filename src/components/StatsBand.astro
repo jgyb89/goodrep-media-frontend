@@ -74,11 +74,14 @@ const {
 
   gsap.registerPlugin(ScrollTrigger);
 
-  const statsBands = document.querySelectorAll<HTMLElement>(".stats-band");
-  statsBands.forEach((root) => {
-    const mm = gsap.matchMedia();
-    mm.add("(prefers-reduced-motion: no-preference)", () => {
-      // Head reveal
+  function initStatsBands() {
+    const statsBands = document.querySelectorAll<HTMLElement>(".stats-band");
+    if (!statsBands.length) return;
+
+    statsBands.forEach((root) => {
+      const mm = gsap.matchMedia(root);
+      mm.add("(prefers-reduced-motion: no-preference)", () => {
+        // Head reveal
       const headEl = root.querySelector(".stats-band__head");
       if (headEl) {
         gsap.fromTo(
@@ -166,6 +169,15 @@ const {
       }
     });
   });
+
+  ScrollTrigger.refresh();
+}
+
+document.readyState === "loading"
+  ? document.addEventListener("DOMContentLoaded", initStatsBands)
+  : initStatsBands();
+
+document.addEventListener("astro:page-load", initStatsBands);
 </script>
 
 <style>
