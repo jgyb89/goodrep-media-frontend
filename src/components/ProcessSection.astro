@@ -161,12 +161,19 @@ const {
 
   gsap.registerPlugin(ScrollTrigger);
 
+  let processCtx: gsap.Context | null = null;
+
   function initProcessSections() {
     const processSections = document.querySelectorAll<HTMLElement>(".process");
     if (!processSections.length) return;
 
-    processSections.forEach((root) => {
-      const stage = root.querySelector<HTMLElement>(".process__stage");
+    if (processCtx) {
+      processCtx.revert();
+    }
+
+    processCtx = gsap.context(() => {
+      processSections.forEach((root) => {
+        const stage = root.querySelector<HTMLElement>(".process__stage");
     const stepLabel = root.querySelector("#process-step-label");
     const stepTag = root.querySelector("#process-step-tag");
     const progressBar = root.querySelector<HTMLElement>(
@@ -324,15 +331,18 @@ const {
       });
     });
   });
+});
 
-  ScrollTrigger.refresh();
-}
+    ScrollTrigger.refresh();
+  }
 
-document.readyState === "loading"
-  ? document.addEventListener("DOMContentLoaded", initProcessSections)
-  : initProcessSections();
-
-document.addEventListener("astro:page-load", initProcessSections);
+  document.addEventListener("astro:page-load", initProcessSections);
+  document.addEventListener("astro:before-swap", () => {
+    if (processCtx) {
+      processCtx.revert();
+      processCtx = null;
+    }
+  });
 </script>
 
 <style>

@@ -171,14 +171,21 @@ const {
 
   gsap.registerPlugin(ScrollTrigger);
 
+  let pillarsCtx: gsap.Context | null = null;
+
   function initPillarsSections() {
     const pillarsSections = document.querySelectorAll<HTMLElement>(".pillars-section");
     if (!pillarsSections.length) return;
 
-    pillarsSections.forEach((root) => {
-      const mm = gsap.matchMedia(root);
-      mm.add("(prefers-reduced-motion: no-preference)", () => {
-        const featureEl = root.querySelector(".pillars-feature");
+    if (pillarsCtx) {
+      pillarsCtx.revert();
+    }
+
+    pillarsCtx = gsap.context(() => {
+      pillarsSections.forEach((root) => {
+        const mm = gsap.matchMedia(root);
+        mm.add("(prefers-reduced-motion: no-preference)", () => {
+          const featureEl = root.querySelector(".pillars-feature");
         if (featureEl) {
           gsap.fromTo(
             featureEl,
@@ -231,17 +238,20 @@ const {
             delay: (i % 3) * 0.15,
           });
         });
+        });
       });
     });
 
     ScrollTrigger.refresh();
   }
 
-  document.readyState === "loading"
-    ? document.addEventListener("DOMContentLoaded", initPillarsSections)
-    : initPillarsSections();
-
   document.addEventListener("astro:page-load", initPillarsSections);
+  document.addEventListener("astro:before-swap", () => {
+    if (pillarsCtx) {
+      pillarsCtx.revert();
+      pillarsCtx = null;
+    }
+  });
 </script>
 
 <style>

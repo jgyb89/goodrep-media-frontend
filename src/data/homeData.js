@@ -6,6 +6,7 @@
 export const services = [
   {
     title: "Website Design",
+    href: "/services/web-design/",
     text: "Custom, mobile-first websites built to load fast, rank well, and turn visitors into customers.",
     main: {
       src: "/grm-main-graphics/website-design-graphic.svg",
@@ -35,6 +36,7 @@ export const services = [
   },
   {
     title: "Local SEO",
+    href: "/services/local-seo/",
     text: "Show up in the map pack and local searches when nearby customers are looking for you.",
     main: {
       src: "/grm-main-graphics/local-seo-marketing-graphic.svg",
@@ -64,6 +66,7 @@ export const services = [
   },
   {
     title: "Technical SEO",
+    href: "/services/technical-seo/",
     text: "Speed, structure, and on-page fixes that help search engines understand and reward your site.",
     main: {
       src: "/grm-main-graphics/technical-seo-marketing-graphic.svg",
@@ -93,6 +96,7 @@ export const services = [
   },
   {
     title: "Paid Digital Ads",
+    href: "/services/pay-per-click-marketing/",
     text: "Google and social ad campaigns managed for real leads, not just clicks.",
     main: {
       src: "/grm-main-graphics/pay-per-click-marketing-graphic.svg",
@@ -122,6 +126,7 @@ export const services = [
   },
   {
     title: "Social Media Management",
+    href: "/services/social-media-marketing/",
     text: "Consistent, on-brand content and community management on the platforms your customers use.",
     main: {
       src: "/grm-main-graphics/social-media-marketing-graphic.svg",
@@ -151,6 +156,7 @@ export const services = [
   },
   {
     title: "Digital Media Production",
+    href: "/services/digital-media-production/",
     text: "Photo, video, and graphics that make your business look as good online as it does in person.",
     main: {
       src: "/grm-main-graphics/digital-media-production-graphic.svg",
@@ -180,6 +186,7 @@ export const services = [
   },
   {
     title: "Branding",
+    href: "/services/branding/",
     text: "Logos, colors, and messaging that make your business memorable and instantly recognizable.",
     main: {
       src: "/grm-main-graphics/monitor-with-image-file.webp",
@@ -209,6 +216,7 @@ export const services = [
   },
   {
     title: "Marketing Strategy",
+    href: "/services/marketing-strategy/",
     text: "A clear, data-backed roadmap that ties every marketing dollar to your business goals.",
     main: {
       src: "/grm-main-graphics/lightbulb-with-gear-icon-graphic.svg",

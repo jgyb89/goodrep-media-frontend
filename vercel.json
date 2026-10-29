@@ -7,6 +7,8 @@
     { "source": "/digital-media/", "destination": "/digital-media-services/", "statusCode": 301 },
     { "source": "/video-production/", "destination": "/video-production-services/", "statusCode": 301 },
     { "source": "/amazon-marketing/", "destination": "/amazon-marketing-services/", "statusCode": 301 },
+    { "source": "/branding/", "destination": "/services/branding/", "statusCode": 301 },
+    { "source": "/marketing-strategy/", "destination": "/services/marketing-strategy/", "statusCode": 301 },
     { "source": "/our-work/:slug", "destination": "/work/:slug", "statusCode": 301 },
     { "source": "/be-balanced-bodyworks/", "destination": "/work/be-balanced-bodyworks/", "statusCode": 301 },
     { "source": "/home-owners-help-options/", "destination": "/work/home-owners-help-options/", "statusCode": 301 },

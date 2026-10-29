@@ -245,16 +245,23 @@ const {
 
   gsap.registerPlugin(ScrollTrigger);
 
+  let serviceHeroCtx: gsap.Context | null = null;
+
   function initServiceHeroes() {
     const heroSections = document.querySelectorAll<HTMLElement>(".service-hero");
     if (!heroSections.length) return;
 
-    heroSections.forEach((root) => {
-      const wordEls = gsap.utils.toArray<HTMLElement>("[data-hero-word]", root);
-      const mm = gsap.matchMedia(root);
+    if (serviceHeroCtx) {
+      serviceHeroCtx.revert();
+    }
 
-      mm.add("(prefers-reduced-motion: no-preference)", () => {
-        // 1. 3D Headline Rotator in Hero
+    serviceHeroCtx = gsap.context(() => {
+      heroSections.forEach((root) => {
+        const wordEls = gsap.utils.toArray<HTMLElement>("[data-hero-word]", root);
+        const mm = gsap.matchMedia(root);
+
+        mm.add("(prefers-reduced-motion: no-preference)", () => {
+          // 1. 3D Headline Rotator in Hero
       if (wordEls.length > 1) {
         const hidden = { yPercent: 60, rotationX: -80, autoAlpha: 0 };
         const shown = { yPercent: 0, rotationX: 0, autoAlpha: 1 };
@@ -421,17 +428,20 @@ const {
           },
         );
       }
+        });
+      });
     });
-  });
 
-  ScrollTrigger.refresh();
-}
-
-  document.readyState === "loading"
-    ? document.addEventListener("DOMContentLoaded", initServiceHeroes)
-    : initServiceHeroes();
+    ScrollTrigger.refresh();
+  }
 
   document.addEventListener("astro:page-load", initServiceHeroes);
+  document.addEventListener("astro:before-swap", () => {
+    if (serviceHeroCtx) {
+      serviceHeroCtx.revert();
+      serviceHeroCtx = null;
+    }
+  });
 </script>
 
 <style>

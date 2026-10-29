@@ -254,17 +254,44 @@ try {
                   />
                 ))}
               </div>
-              <h3 class="service-card__title">{s.title}</h3>
+              <h3 class="service-card__title">
+                <a href={s.href} class="service-card__title-link">
+                  {s.title}
+                </a>
+              </h3>
               <p class="service-card__text">{s.text}</p>
+              <div class="service-card__action">
+                <a
+                  href={s.href}
+                  class="service-card__link"
+                  aria-label={`View ${s.title} service details`}
+                >
+                  <span>View Service</span>
+                  <span class="material-symbols-outlined" aria-hidden="true">
+                    arrow_forward
+                  </span>
+                </a>
+              </div>
             </article>
           ))
         }
       </div>
 
       <div class="services__cta" data-reveal>
-        <a href="#consultation" class="btn btn--primary"
-          >Get A Free Strategy Call</a
+        <a
+          href="#consultation"
+          class="btn btn--primary"
+          aria-label="Get a free strategy call consultation"
         >
+          Get A Free Strategy Call
+        </a>
+        <a
+          href="/services/"
+          class="btn btn--outline"
+          aria-label="View all digital marketing services"
+        >
+          View All Services
+        </a>
       </div>
     </div>
   </section>
@@ -529,8 +556,18 @@ try {
             of the way, from web design and branding to social media, SEO, and
             content creation.
           </p>
-          <a href="#consultation" class="btn btn--primary">Start Your Project</a
-          >
+          <div class="work__actions">
+            <a href="#consultation" class="btn btn--primary">
+              Start Your Project
+            </a>
+            <a
+              href="/work/"
+              class="btn btn--outline work__btn-outline"
+              aria-label="View our work portfolio and case studies"
+            >
+              View our work
+            </a>
+          </div>
 
           <div class="work__clients">
             <span class="work__clients-label"
@@ -839,177 +876,200 @@ try {
 
     gsap.registerPlugin(ScrollTrigger);
 
+    let homeCtx: gsap.Context | null = null;
+
     function initHomePage() {
       const heroEl = document.querySelector<HTMLElement>(".hero");
       if (!heroEl) return;
 
-      const wordEls = gsap.utils.toArray<HTMLElement>("[data-hero-word]");
-      const sceneEls = gsap.utils.toArray<HTMLElement>("[data-hero-scene]");
-      const mm = gsap.matchMedia();
-
-      // Motion-heavy effects only run when the user hasn't asked for reduced motion
-      mm.add("(prefers-reduced-motion: no-preference)", () => {
-      // 1. Headline rotator: flips up + fades in, then flips down + fades out,
-      //    while crossfading the matching graphic composition on the right.
-      if (wordEls.length > 1) {
-        const hidden = { yPercent: 60, rotationX: -80, autoAlpha: 0 };
-        const shown = { yPercent: 0, rotationX: 0, autoAlpha: 1 };
-        const sceneOut = { y: -14, scale: 0.95, autoAlpha: 0 };
-        const sceneInStart = { y: 18, scale: 0.94, autoAlpha: 0 };
-        const sceneShown = { y: 0, scale: 1, autoAlpha: 1 };
-
-        gsap.set(wordEls, {
-          transformPerspective: 650,
-          transformOrigin: "50% 100%", // hinge from the baseline
-          force3D: true,
-        });
-        gsap.set(wordEls[0], shown);
-        gsap.set(wordEls.slice(1), hidden);
-
-        if (sceneEls.length === wordEls.length) {
-          gsap.set(sceneEls[0], sceneShown);
-          gsap.set(sceneEls.slice(1), sceneInStart);
-        }
-
-        const setActive = (active: number) =>
-          wordEls.forEach((el, idx) =>
-            el.setAttribute("aria-hidden", String(idx !== active)),
-          );
-
-        const flipTl = gsap.timeline({ repeat: -1 });
-
-        wordEls.forEach((current, index) => {
-          const nextIndex = (index + 1) % wordEls.length;
-          const next = wordEls[nextIndex];
-          const currentScene = sceneEls[index];
-          const nextScene = sceneEls[nextIndex];
-
-          // Current phrase flips down and fades out...
-          flipTl.to(
-            current,
-            { ...hidden, duration: 0.5, ease: "power2.in" },
-            "+=2.2", // hold time
-          );
-
-          // ...while the current graphic arrangement fades out
-          if (currentScene) {
-            flipTl.to(
-              currentScene,
-              { ...sceneOut, duration: 0.45, ease: "power2.in" },
-              "<",
-            );
-          }
-
-          // ...and the next phrase flips up and fades in
-          flipTl.fromTo(
-            next,
-            hidden,
-            {
-              ...shown,
-              duration: 0.6,
-              ease: "power3.out",
-              immediateRender: false,
-              onStart: () => setActive(nextIndex),
-            },
-            "<0.25",
-          );
-
-          // ...as the matching graphic arrangement fades in
-          if (nextScene) {
-            flipTl.fromTo(
-              nextScene,
-              sceneInStart,
-              {
-                ...sceneShown,
-                duration: 0.65,
-                ease: "power3.out",
-                immediateRender: false,
-              },
-              "<",
-            );
-          }
-        });
+      if (homeCtx) {
+        homeCtx.revert();
       }
 
-      // 2. Infinite Marquee Animation (pauses on hover)
-      const marqueeTween = gsap.to(".marquee__content", {
-        xPercent: -100,
-        repeat: -1,
-        duration: 35,
-        ease: "linear",
-      });
-      const marquee = document.querySelector(".marquee");
-      marquee?.addEventListener("mouseenter", () => marqueeTween.pause());
-      marquee?.addEventListener("mouseleave", () => marqueeTween.play());
+      homeCtx = gsap.context(() => {
+        const wordEls = gsap.utils.toArray<HTMLElement>("[data-hero-word]");
+        const sceneEls = gsap.utils.toArray<HTMLElement>("[data-hero-scene]");
+        const mm = gsap.matchMedia();
 
-      // 3. Entrance Stagger
-      gsap.from(".hero__kicker, .hero__title, .hero__actions, .hero__trust", {
-        y: 30,
-        opacity: 0,
-        duration: 0.8,
-        stagger: 0.2,
-        ease: "power3.out",
-        delay: 0.2,
-      });
+        // Motion-heavy effects only run when the user hasn't asked for reduced motion
+        mm.add("(prefers-reduced-motion: no-preference)", () => {
+          // 1. Headline rotator: flips up + fades in, then flips down + fades out,
+          //    while crossfading the matching graphic composition on the right.
+          if (wordEls.length > 1) {
+            const hidden = { yPercent: 60, rotationX: -80, autoAlpha: 0 };
+            const shown = { yPercent: 0, rotationX: 0, autoAlpha: 1 };
+            const sceneOut = { y: -14, scale: 0.95, autoAlpha: 0 };
+            const sceneInStart = { y: 18, scale: 0.94, autoAlpha: 0 };
+            const sceneShown = { y: 0, scale: 1, autoAlpha: 1 };
 
-      // LCP FIX: Never hide opacity on the LCP hero element. Keep opacity at 1.0 from initial paint.
-      gsap.from('[data-hero-scene="0"] .hero-art__main', {
-        y: 20,
-        duration: 0.8,
-        ease: "power2.out",
-      });
-      gsap.from(".hero-art__blob", {
-        scale: 0.85,
-        opacity: 0,
-        duration: 1.2,
-        ease: "power3.out",
-        delay: 0.2,
-      });
+            gsap.set(wordEls, {
+              transformPerspective: 650,
+              transformOrigin: "50% 100%", // hinge from the baseline
+              force3D: true,
+            });
+            gsap.set(wordEls[0], shown);
+            gsap.set(wordEls.slice(1), hidden);
 
-      // 4. Gentle floating for decorative illustrations (uses yPercent so it never conflicts with parallax y)
-      gsap.utils.toArray<HTMLElement>("[data-float]").forEach((el, i) => {
-        gsap.to(el, {
-          yPercent: -10,
-          rotation: i % 2 ? 3 : -3,
-          duration: 2.2 + (i % 3) * 0.4,
-          ease: "sine.inOut",
-          yoyo: true,
-          repeat: -1,
-          delay: (i % 3) * 0.15,
-        });
-      });
+            if (sceneEls.length === wordEls.length) {
+              gsap.set(sceneEls[0], sceneShown);
+              gsap.set(sceneEls.slice(1), sceneInStart);
+            }
 
-      // 5. Scroll reveals: Scheduled with bounded timeout to eliminate main thread stalls
-      const setupScrollReveals = () => {
-        gsap.utils.toArray<HTMLElement>("[data-reveal]").forEach((el) => {
-          gsap.from(el, {
-            y: 35,
-            opacity: 0,
-            duration: 0.75,
-            ease: "power2.out",
-            scrollTrigger: { trigger: el, start: "top 90%", once: true },
+            const setActive = (active: number) =>
+              wordEls.forEach((el, idx) =>
+                el.setAttribute("aria-hidden", String(idx !== active)),
+              );
+
+            const flipTl = gsap.timeline({ repeat: -1 });
+
+            wordEls.forEach((current, index) => {
+              const nextIndex = (index + 1) % wordEls.length;
+              const next = wordEls[nextIndex];
+              const currentScene = sceneEls[index];
+              const nextScene = sceneEls[nextIndex];
+
+              // Current phrase flips down and fades out...
+              flipTl.to(
+                current,
+                { ...hidden, duration: 0.5, ease: "power2.in" },
+                "+=2.2", // hold time
+              );
+
+              // ...while the current graphic arrangement fades out
+              if (currentScene) {
+                flipTl.to(
+                  currentScene,
+                  { ...sceneOut, duration: 0.45, ease: "power2.in" },
+                  "<",
+                );
+              }
+
+              // ...and the next phrase flips up and fades in
+              flipTl.fromTo(
+                next,
+                hidden,
+                {
+                  ...shown,
+                  duration: 0.6,
+                  ease: "power3.out",
+                  immediateRender: false,
+                  onStart: () => setActive(nextIndex),
+                },
+                "<0.25",
+              );
+
+              // ...as the matching graphic arrangement fades in
+              if (nextScene) {
+                flipTl.fromTo(
+                  nextScene,
+                  sceneInStart,
+                  {
+                    ...sceneShown,
+                    duration: 0.65,
+                    ease: "power3.out",
+                    immediateRender: false,
+                  },
+                  "<",
+                );
+              }
+            });
+          }
+
+          // 2. Infinite Marquee Animation (pauses on hover)
+          const marqueeTween = gsap.to(".marquee__content", {
+            xPercent: -100,
+            repeat: -1,
+            duration: 35,
+            ease: "linear",
           });
-        });
+          const marquee = document.querySelector(".marquee");
+          marquee?.addEventListener("mouseenter", () => marqueeTween.pause());
+          marquee?.addEventListener("mouseleave", () => marqueeTween.play());
 
-        gsap.utils
-          .toArray<HTMLElement>("[data-reveal-group]")
-          .forEach((group) => {
-            gsap.from(group.children, {
-              y: 35,
-              opacity: 0,
-              duration: 0.6,
-              stagger: 0.08,
-              ease: "power2.out",
-              scrollTrigger: { trigger: group, start: "top 90%", once: true },
+          // 3. Entrance Stagger - using fromTo with clearProps to guarantee visible state
+          gsap.fromTo(
+            ".hero__kicker, .hero__title, .hero__actions, .hero__trust",
+            { y: 24, opacity: 0 },
+            {
+              y: 0,
+              opacity: 1,
+              duration: 0.8,
+              stagger: 0.15,
+              ease: "power3.out",
+              delay: 0.1,
+              clearProps: "transform,opacity",
+            },
+          );
+
+          // LCP FIX: Never hide opacity on the LCP hero element. Keep opacity at 1.0 from initial paint.
+          gsap.from('[data-hero-scene="0"] .hero-art__main', {
+            y: 20,
+            duration: 0.8,
+            ease: "power2.out",
+            clearProps: "transform",
+          });
+          gsap.fromTo(
+            ".hero-art__blob",
+            { scale: 0.85, opacity: 0 },
+            {
+              scale: 1,
+              opacity: 1,
+              duration: 1.2,
+              ease: "power3.out",
+              delay: 0.2,
+              clearProps: "transform,opacity",
+            },
+          );
+
+          // 4. Gentle floating for decorative illustrations (uses yPercent so it never conflicts with parallax y)
+          gsap.utils.toArray<HTMLElement>("[data-float]").forEach((el, i) => {
+            gsap.to(el, {
+              yPercent: -10,
+              rotation: i % 2 ? 3 : -3,
+              duration: 2.2 + (i % 3) * 0.4,
+              ease: "sine.inOut",
+              yoyo: true,
+              repeat: -1,
+              delay: (i % 3) * 0.15,
             });
           });
-      };
 
-      if ("requestIdleCallback" in window) {
-        requestIdleCallback(setupScrollReveals, { timeout: 250 });
-      } else {
-        setTimeout(setupScrollReveals, 150);
-      }
+          // 5. Scroll reveals: Executed immediately with clearProps so cards never freeze at low opacity
+          const setupScrollReveals = () => {
+            gsap.utils.toArray<HTMLElement>("[data-reveal]").forEach((el) => {
+              gsap.fromTo(
+                el,
+                { y: 30, opacity: 0 },
+                {
+                  y: 0,
+                  opacity: 1,
+                  duration: 0.7,
+                  ease: "power2.out",
+                  scrollTrigger: { trigger: el, start: "top 92%", once: true },
+                  clearProps: "transform,opacity",
+                },
+              );
+            });
+
+            gsap.utils
+              .toArray<HTMLElement>("[data-reveal-group]")
+              .forEach((group) => {
+                gsap.fromTo(
+                  group.children,
+                  { y: 30, opacity: 0 },
+                  {
+                    y: 0,
+                    opacity: 1,
+                    duration: 0.6,
+                    stagger: 0.08,
+                    ease: "power2.out",
+                    scrollTrigger: { trigger: group, start: "top 92%", once: true },
+                    clearProps: "transform,opacity",
+                  },
+                );
+              });
+          };
+          setupScrollReveals();
 
       // 6. Services: Static at rest; smooth movement plays on hover, freezes,
       //    and reverses back to original static position on leave.
@@ -1092,13 +1152,18 @@ try {
         });
 
         whyTl
-          .from(valueCards, {
-            y: 36,
-            opacity: 0,
-            duration: 0.65,
-            stagger: 0.12,
-            ease: "power3.out",
-          })
+          .fromTo(
+            valueCards,
+            { y: 36, opacity: 0 },
+            {
+              y: 0,
+              opacity: 1,
+              duration: 0.65,
+              stagger: 0.12,
+              ease: "power3.out",
+              clearProps: "transform,opacity",
+            },
+          )
           .from(
             icons,
             {
@@ -1107,6 +1172,7 @@ try {
               duration: 0.75,
               stagger: 0.12,
               ease: "back.out(1.8)",
+              clearProps: "transform",
             },
             "<0.05",
           );
@@ -1298,18 +1364,23 @@ try {
           "[data-checklist] li",
         );
         if (checklistItems.length) {
-          gsap.from(checklistItems, {
-            x: -24,
-            opacity: 0,
-            duration: 0.55,
-            stagger: 0.1,
-            ease: "back.out(1.4)",
-            scrollTrigger: {
-              trigger: featureEl,
-              start: "top 78%",
-              once: true,
+          gsap.fromTo(
+            checklistItems,
+            { x: -24, opacity: 0 },
+            {
+              x: 0,
+              opacity: 1,
+              duration: 0.55,
+              stagger: 0.1,
+              ease: "back.out(1.4)",
+              clearProps: "transform,opacity",
+              scrollTrigger: {
+                trigger: featureEl,
+                start: "top 78%",
+                once: true,
+              },
             },
-          });
+          );
         }
       });
 
@@ -1331,24 +1402,35 @@ try {
         });
 
         if (consultMain) {
-          consultTl.from(consultMain, {
-            y: 30,
-            scale: 0.88,
-            opacity: 0,
-            duration: 0.75,
-            ease: "back.out(1.5)",
-          });
+          consultTl.fromTo(
+            consultMain,
+            { y: 30, scale: 0.88, opacity: 0 },
+            {
+              y: 0,
+              scale: 1,
+              opacity: 1,
+              duration: 0.75,
+              ease: "back.out(1.5)",
+              clearProps: "transform,opacity",
+            },
+          );
         }
         if (consultFloats.length) {
-          consultTl.from(
+          consultTl.fromTo(
             consultFloats,
             {
               scale: 0,
               y: 20,
               opacity: 0,
+            },
+            {
+              scale: 1,
+              y: 0,
+              opacity: 1,
               duration: 0.6,
               stagger: 0.1,
               ease: "back.out(2.2)",
+              clearProps: "transform,opacity",
             },
             "<0.2",
           );
@@ -1461,26 +1543,29 @@ try {
       });
     });
 
-    allDots.forEach((dot) => {
-      dot.addEventListener("click", () => {
-        const idx = Number(dot.dataset.stepDot ?? "0");
-        const targetDetails = allDetails[idx];
-        if (targetDetails) {
-          targetDetails.open = true;
-        } else {
-          activateProcessStep(idx);
-        }
+        allDots.forEach((dot) => {
+          dot.addEventListener("click", () => {
+            const idx = Number(dot.dataset.stepDot ?? "0");
+            const targetDetails = allDetails[idx];
+            if (targetDetails) {
+              targetDetails.open = true;
+            } else {
+              activateProcessStep(idx);
+            }
+          });
+        });
       });
+
+      ScrollTrigger.refresh();
+    }
+
+    document.addEventListener("astro:page-load", initHomePage);
+    document.addEventListener("astro:before-swap", () => {
+      if (homeCtx) {
+        homeCtx.revert();
+        homeCtx = null;
+      }
     });
-
-    ScrollTrigger.refresh();
-  }
-
-  document.readyState === "loading"
-    ? document.addEventListener("DOMContentLoaded", initHomePage)
-    : initHomePage();
-
-  document.addEventListener("astro:page-load", initHomePage);
 </script>
 
   <style>
@@ -1763,6 +1848,8 @@ try {
       border: 1px solid var(--color-border);
       border-radius: var(--radius);
       padding: 1.25rem 1.25rem 1.75rem;
+      display: flex;
+      flex-direction: column;
       will-change: transform;
       transition:
         translate 0.3s ease,
@@ -1853,16 +1940,84 @@ try {
       margin: 0 0 0.5rem;
     }
 
+    .service-card__title-link {
+      color: inherit;
+      text-decoration: none;
+      transition: color 0.2s ease;
+    }
+
+    .service-card__title-link:hover,
+    .service-card:hover .service-card__title-link {
+      color: var(--color-cyan-dark);
+    }
+
+    .service-card__title-link:focus-visible {
+      outline: 2px solid var(--color-cyan);
+      outline-offset: 4px;
+      border-radius: 4px;
+    }
+
     .service-card__text {
-      margin: 0;
+      margin: 0 0 1.25rem;
       color: var(--color-muted);
       line-height: 1.6;
       font-size: 0.95rem;
+      flex-grow: 1;
+    }
+
+    .service-card__action {
+      margin-top: auto;
+      padding-top: 0.5rem;
+    }
+
+    .service-card__link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-family: var(--font-heading);
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--color-cyan-dark);
+      text-decoration: none;
+      transition:
+        color 0.2s ease,
+        gap 0.2s ease;
+    }
+
+    .service-card__link .material-symbols-outlined {
+      font-size: 1.15rem;
+      transition: transform 0.2s ease;
+    }
+
+    .service-card__link:hover,
+    .service-card:hover .service-card__link {
+      color: var(--color-primary);
+      gap: 0.55rem;
+    }
+
+    .service-card__link:hover .material-symbols-outlined,
+    .service-card:hover .service-card__link .material-symbols-outlined {
+      transform: translateX(3px);
+    }
+
+    .service-card__link:focus-visible {
+      outline: 2px solid var(--color-cyan);
+      outline-offset: 4px;
+      border-radius: 4px;
     }
 
     .services__cta {
-      text-align: center;
-      margin-top: 3rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 1.25rem;
+      flex-wrap: wrap;
+      margin-top: 3.5rem;
+    }
+
+    .services__cta .btn {
+      padding: 0.85rem 1.85rem;
+      font-size: 1rem;
     }
 
     /* ---------- Why Good Rep ---------- */
@@ -2489,6 +2644,39 @@ try {
       color: #d4d4d4;
     }
 
+    .work__actions {
+      display: flex;
+      align-items: center;
+      gap: 1.25rem;
+      flex-wrap: wrap;
+      margin: 0 0 2.5rem;
+    }
+
+    .work__actions .btn {
+      padding: 0.85rem 1.85rem;
+      font-size: 1rem;
+    }
+
+    .work__actions .work__btn-outline {
+      background: transparent;
+      border: 2px solid rgba(255, 255, 255, 0.45);
+      color: #ffffff;
+      text-decoration: none;
+      transition:
+        border-color 0.2s ease,
+        color 0.2s ease,
+        background-color 0.2s ease,
+        transform 0.2s ease;
+    }
+
+    .work__actions .work__btn-outline:hover,
+    .work__actions .work__btn-outline:focus-visible {
+      border-color: var(--color-cyan);
+      color: var(--color-cyan);
+      background: rgba(27, 196, 217, 0.1);
+      transform: translateY(-2px);
+    }
+
     .work__clients {
       margin-top: 3rem;
       padding-top: 2rem;
@@ -2995,6 +3183,9 @@ try {
       }
 
       .service-card,
+      .service-card__link,
+      .service-card__link .material-symbols-outlined,
+      .service-card__title-link,
       .post-card,
       .post-card__media img,
       .process__visual,
@@ -3008,6 +3199,11 @@ try {
       .service-card:hover,
       .post-card:hover {
         translate: none;
+      }
+
+      .service-card__link:hover .material-symbols-outlined,
+      .service-card:hover .service-card__link .material-symbols-outlined {
+        transform: none;
       }
     }
   </style>

@@ -181,14 +181,21 @@ const frontWaveValues = `
 
   gsap.registerPlugin(ScrollTrigger);
 
+  let consultCtx: gsap.Context | null = null;
+
   function initConsultSections() {
     const consultSections = document.querySelectorAll<HTMLElement>(".consult");
     if (!consultSections.length) return;
 
-    consultSections.forEach((root) => {
-      const mm = gsap.matchMedia(root);
-      mm.add("(prefers-reduced-motion: no-preference)", () => {
-        // Reveal
+    if (consultCtx) {
+      consultCtx.revert();
+    }
+
+    consultCtx = gsap.context(() => {
+      consultSections.forEach((root) => {
+        const mm = gsap.matchMedia(root);
+        mm.add("(prefers-reduced-motion: no-preference)", () => {
+          // Reveal
         root.querySelectorAll("[data-reveal]").forEach((el) => {
           gsap.fromTo(
             el,
@@ -263,17 +270,20 @@ const frontWaveValues = `
             delay: (i % 3) * 0.15,
           });
         });
+        });
       });
     });
 
     ScrollTrigger.refresh();
   }
 
-  document.readyState === "loading"
-    ? document.addEventListener("DOMContentLoaded", initConsultSections)
-    : initConsultSections();
-
   document.addEventListener("astro:page-load", initConsultSections);
+  document.addEventListener("astro:before-swap", () => {
+    if (consultCtx) {
+      consultCtx.revert();
+      consultCtx = null;
+    }
+  });
 </script>
 
 <style>
