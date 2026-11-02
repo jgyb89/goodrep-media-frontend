@@ -448,24 +448,7 @@ export const readyData = {
       height: 780,
       parallax: -28,
     },
-    badges: [
-      {
-        src: "/grm-web-assets/3d-rocket-graphic.svg",
-        alt: "",
-        width: 746,
-        height: 780,
-        parallax: -36,
-                placement: "bottom-left",
-      },
-      {
-        src: "/grm-web-assets/award-trophy-graphic.svg",
-        alt: "",
-        width: 746,
-        height: 780,
-        parallax: -58,
-                placement: "top-right",
-      },
-    ],
+    
   },
 };
 

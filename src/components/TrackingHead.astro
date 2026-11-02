@@ -1,15 +1,16 @@
 ---
-// Global Tracking Scripts: Google Ads Base & Meta Pixel
+// Global Tracking Scripts: Google Analytics 4 Base & Meta Pixel
 // Note: Conversion event scripts MUST NOT be placed here.
+const GA_MEASUREMENT_ID = import.meta.env.PUBLIC_GA_MEASUREMENT_ID || "G-JP63DEKVVF";
 ---
 
-<!-- Google tag (gtag.js) - Google Ads: AW-11145254205 -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=AW-11145254205"></script>
-<script is:inline>
+<!-- Google tag (gtag.js) - Google Analytics 4: G-JP63DEKVVF -->
+<script async src={`https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`}></script>
+<script is:inline define:vars={{ GA_MEASUREMENT_ID }}>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
-  gtag('config', 'AW-11145254205');
+  gtag('config', GA_MEASUREMENT_ID);
 </script>
 
 <!-- Meta Pixel Code - 218969576119934 -->

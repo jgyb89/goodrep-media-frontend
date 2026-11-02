@@ -421,24 +421,7 @@ export const readyData = {
       height: 780,
       parallax: -28,
     },
-    badges: [
-      {
-        src: "/grm-web-assets/magnet-graphic.svg",
-        alt: "",
-        width: 746,
-        height: 780,
-        parallax: -36,
-                placement: "bottom-left",
-      },
-      {
-        src: "/grm-web-assets/number-one-award-graphic.svg",
-        alt: "",
-        width: 746,
-        height: 780,
-        parallax: -58,
-                placement: "top-right",
-      },
-    ],
+    
   },
 };
 

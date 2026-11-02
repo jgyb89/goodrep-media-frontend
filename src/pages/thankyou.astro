@@ -3,11 +3,14 @@ import MainLayout from '../layouts/MainLayout.astro';
 ---
 
 <MainLayout title="Thank You | Good Rep Media" noindex={true}>
-  <!-- Isolated Google Ads Conversion Event -->
+  <!-- Isolated GA4 Lead Conversion Event -->
   <script is:inline>
     window.addEventListener('load', function() {
       if (typeof gtag === 'function') {
-        gtag('event', 'conversion', {'send_to': 'AW-11145254205/kVQFCPT00u8YEL2qvMIp'});
+        gtag('event', 'generate_lead', {
+          event_category: 'engagement',
+          event_label: 'Contact Form Submission'
+        });
       }
     });
   </script>

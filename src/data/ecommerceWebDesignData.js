@@ -341,24 +341,7 @@ export const readyData = {
       height: 780,
       parallax: -28,
     },
-    badges: [
-      {
-        src: "/grm-web-assets/data-flow-arrows-graphic.svg",
-        alt: "",
-        width: 746,
-        height: 780,
-        parallax: -36,
-                placement: "bottom-left",
-      },
-      {
-        src: "/grm-web-assets/refresh-symbol-icon-graphic.svg",
-        alt: "",
-        width: 746,
-        height: 780,
-        parallax: -58,
-                placement: "top-right",
-      },
-    ],
+    
   },
 };
 

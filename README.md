@@ -76,8 +76,8 @@ The frontend operates as a decoupled Jamstack application. Content authoring occ
   - Scoped Gutenberg block stylesheet (`src/styles/gutenberg.css`) with XSS sanitization via `isomorphic-dompurify`.
 - **Selective React 19 Islands:** Interactive elements (such as `LeadForm.jsx`) hydrate on demand (`client:load` or `client:idle`), keeping baseline JavaScript payload near zero.
 - **Isolated Ad Tracking & Attribution Funnel:**
-  - Base tracking scripts (`gtag.js` for Google Ads `AW-11145254205` and Meta Pixel `218969576119934`) load once globally via `TrackingHead.astro`.
-  - Conversion events (`AW-11145254205/kVQFCPT00u8YEL2qvMIp`) fire **exclusively** on the isolated, `noindex` `/thankyou/` landing route upon successful submission.
+  - Base tracking scripts (`gtag.js` for Google Analytics 4 `G-JP63DEKVVF` and Meta Pixel `218969576119934`) load once globally via `TrackingHead.astro`.
+  - Conversion events (`generate_lead`) fire **exclusively** on the isolated, `noindex` `/thankyou/` landing route upon successful submission.
 - **Responsive Multi-Level Mobile Flyout Menu:** A custom sliding drawer (`MobileFlyoutMenu.astro`) providing multi-level navigation with drill-down submenus for service lines.
 - **Dynamic Case Study Registry:** Clean URL slug resolution and legacy aliases via `src/data/work/caseStudiesRegistry.js` supporting deliverables grids, client metrics, and lightbox image zoom modals (`LightboxModal.astro`).
 - **Comprehensive Edge Redirects:** Over 10 permanent 301 edge redirects configured in `vercel.json` to preserve link equity during URL structure refactors.
@@ -322,13 +322,16 @@ The file [`src/lib/api.js`](src/lib/api.js) provides a resilient abstraction lay
 
 ### 2. Isolated Attribution (`/thankyou/`)
 To prevent duplicate conversions or ad spend waste from client-side SPA navigation:
-- `TrackingHead.astro` loads base Google tag (`gtag.js` for `AW-11145254205`) and Meta Pixel globally across all pages.
-- The conversion tag fires **only** on `/thankyou/`:
+- `TrackingHead.astro` loads base Google tag (`gtag.js` for GA4 `G-JP63DEKVVF`) and Meta Pixel globally across all pages.
+- The conversion event fires **only** on `/thankyou/`:
   ```html
   <script is:inline>
     window.addEventListener('load', function() {
       if (typeof gtag === 'function') {
-        gtag('event', 'conversion', {'send_to': 'AW-11145254205/kVQFCPT00u8YEL2qvMIp'});
+        gtag('event', 'generate_lead', {
+          event_category: 'engagement',
+          event_label: 'Contact Form Submission'
+        });
       }
     });
   </script>
