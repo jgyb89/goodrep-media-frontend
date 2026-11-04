@@ -189,7 +189,48 @@ if (pageSchema) {
             </div>
           </div>
           <a href="/work/" class="nav-link">Our Work</a>
-          <a href="/about/" class="nav-link">About</a>
+          <div class="about-menu">
+            <a
+              href="/about/"
+              class="about-menu__trigger"
+              aria-haspopup="true"
+              aria-expanded="false"
+            >
+              <span>About Us</span>
+              <span
+                class="material-symbols-outlined about-menu__caret"
+                aria-hidden="true">expand_more</span
+              >
+            </a>
+
+            <div class="about-dropdown" role="region" aria-label="About Us submenu">
+              <div class="about-dropdown__card">
+                <a href="/about/" class="about-dropdown__item">
+                  <span class="about-dropdown__icon-box">
+                    <span class="material-symbols-outlined" aria-hidden="true">groups</span>
+                  </span>
+                  <span class="about-dropdown__details">
+                    <span class="about-dropdown__name">About Us</span>
+                    <span class="about-dropdown__desc">Our story, mission &amp; values</span>
+                  </span>
+                  <span class="material-symbols-outlined about-dropdown__arrow" aria-hidden="true">chevron_right</span>
+                </a>
+
+                <div class="about-dropdown__divider" aria-hidden="true"></div>
+
+                <a href="/meet-the-team/" class="about-dropdown__item">
+                  <span class="about-dropdown__icon-box">
+                    <span class="material-symbols-outlined" aria-hidden="true">group</span>
+                  </span>
+                  <span class="about-dropdown__details">
+                    <span class="about-dropdown__name">Meet the Team</span>
+                    <span class="about-dropdown__desc">In-house strategists &amp; builders</span>
+                  </span>
+                  <span class="material-symbols-outlined about-dropdown__arrow" aria-hidden="true">chevron_right</span>
+                </a>
+              </div>
+            </div>
+          </div>
           <a href="/blog/" class="nav-link">Insights</a>
         </div>
         <a href="/#consultation" class="btn btn--primary global-nav__cta"
@@ -261,6 +302,7 @@ if (pageSchema) {
           <ul>
             <li><a href="/work/">Our Work</a></li>
             <li><a href="/about/">About Us</a></li>
+            <li><a href="/meet-the-team/">Meet the Team</a></li>
             <li><a href="/#process">Our Process</a></li>
             <li><a href="/blog/">Knowledge Center</a></li>
             <li><a href="/#consultation">Contact Us</a></li>
@@ -427,9 +469,42 @@ if (pageSchema) {
         });
       }
 
+      function setupAboutDropdown() {
+        const aboutMenu = document.querySelector<HTMLElement>(".about-menu");
+        const trigger =
+          aboutMenu?.querySelector<HTMLAnchorElement>(".about-menu__trigger");
+        if (!aboutMenu || !trigger || aboutMenu.dataset.initialized === "true") return;
+        aboutMenu.dataset.initialized = "true";
+
+        const setExpanded = (expanded: boolean) => {
+          trigger.setAttribute("aria-expanded", String(expanded));
+          if (expanded) {
+            aboutMenu.classList.remove("is-closed");
+          }
+        };
+
+        aboutMenu.addEventListener("pointerenter", () => setExpanded(true));
+        aboutMenu.addEventListener("pointerleave", () => setExpanded(false));
+        aboutMenu.addEventListener("focusin", () => setExpanded(true));
+        aboutMenu.addEventListener("focusout", (e) => {
+          if (!aboutMenu.contains(e.relatedTarget as Node)) {
+            setExpanded(false);
+          }
+        });
+
+        aboutMenu.addEventListener("keydown", (e) => {
+          if (e.key === "Escape") {
+            aboutMenu.classList.add("is-closed");
+            trigger.setAttribute("aria-expanded", "false");
+            trigger.focus();
+          }
+        });
+      }
+
       function initLayout() {
         setupContactModal();
         setupMegaMenu();
+        setupAboutDropdown();
       }
 
       document.addEventListener("astro:page-load", initLayout);
@@ -668,6 +743,197 @@ if (pageSchema) {
   .mega-menu__list a:focus-visible {
     color: var(--color-cyan);
     transform: translateX(3px);
+  }
+
+  /* ---------- About Us Dropdown (Dedicated Clean Card Design) ---------- */
+  .about-menu {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    position: relative;
+  }
+
+  .about-menu__trigger {
+    color: var(--color-dark);
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.95rem;
+    position: relative;
+    padding: 0.25rem 0;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.2rem;
+    transition: color 0.2s ease;
+    cursor: pointer;
+  }
+
+  .about-menu__trigger::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -2px;
+    width: 100%;
+    height: 2px;
+    background: var(--color-cyan);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition:
+      transform 0.25s ease,
+      background-color 0.25s ease;
+  }
+
+  .about-menu__caret {
+    font-size: 1.15rem;
+    line-height: 1;
+    transition:
+      transform 0.25s ease,
+      color 0.2s ease;
+  }
+
+  .about-menu:hover:not(.is-closed) .about-menu__trigger,
+  .about-menu:focus-within:not(.is-closed) .about-menu__trigger {
+    color: var(--color-cyan);
+  }
+
+  .about-menu:hover:not(.is-closed) .about-menu__trigger::after,
+  .about-menu:focus-within:not(.is-closed) .about-menu__trigger::after {
+    background: var(--color-primary);
+    transform: scaleX(1);
+  }
+
+  .about-menu:hover:not(.is-closed) .about-menu__caret,
+  .about-menu:focus-within:not(.is-closed) .about-menu__caret {
+    transform: rotate(180deg);
+    color: var(--color-cyan);
+  }
+
+  .about-dropdown {
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%) translateY(-6px);
+    width: 295px;
+    padding-top: 8px; /* Invisible bridge connecting trigger to dropdown */
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transition:
+      opacity 0.2s ease,
+      transform 0.2s ease,
+      visibility 0.2s;
+    z-index: 60;
+  }
+
+  .about-menu:hover:not(.is-closed) .about-dropdown,
+  .about-menu:focus-within:not(.is-closed) .about-dropdown {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+    transform: translateX(-50%) translateY(0);
+  }
+
+  .about-dropdown__card {
+    background: #ffffff;
+    border: 1px solid var(--color-border);
+    border-top: 3px solid var(--color-cyan);
+    border-radius: 14px;
+    box-shadow:
+      0 18px 40px -10px rgba(15, 23, 42, 0.18),
+      0 0 0 1px rgba(15, 23, 42, 0.04);
+    padding: 0.6rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+
+  .about-dropdown__item {
+    display: flex;
+    align-items: center;
+    gap: 0.85rem;
+    padding: 0.75rem 0.85rem;
+    border-radius: 10px;
+    text-decoration: none;
+    color: var(--color-dark);
+    transition:
+      background-color 0.2s ease,
+      transform 0.18s ease;
+  }
+
+  .about-dropdown__item:hover,
+  .about-dropdown__item:focus-visible {
+    background: var(--color-cyan-soft, #e3f7fa);
+    transform: translateX(2px);
+  }
+
+  .about-dropdown__icon-box {
+    width: 36px;
+    height: 36px;
+    border-radius: 9px;
+    background: var(--color-cyan-soft, #e3f7fa);
+    color: var(--color-cyan-dark, #0fa3b6);
+    display: grid;
+    place-items: center;
+    flex-shrink: 0;
+    transition:
+      background-color 0.2s ease,
+      color 0.2s ease;
+  }
+
+  .about-dropdown__item:hover .about-dropdown__icon-box {
+    background: var(--color-cyan, #1bc4d9);
+    color: #ffffff;
+  }
+
+  .about-dropdown__icon-box .material-symbols-outlined {
+    font-size: 20px;
+    line-height: 1;
+  }
+
+  .about-dropdown__details {
+    display: flex;
+    flex-direction: column;
+    gap: 0.15rem;
+    flex: 1;
+  }
+
+  .about-dropdown__name {
+    font-family: var(--font-heading);
+    font-size: 0.92rem;
+    font-weight: 700;
+    color: var(--color-dark);
+    line-height: 1.25;
+    transition: color 0.2s ease;
+  }
+
+  .about-dropdown__item:hover .about-dropdown__name {
+    color: var(--color-cyan-dark, #0fa3b6);
+  }
+
+  .about-dropdown__desc {
+    font-family: var(--font-body);
+    font-size: 0.76rem;
+    color: var(--color-muted);
+    line-height: 1.3;
+  }
+
+  .about-dropdown__arrow {
+    font-size: 18px;
+    color: #cbd5e1;
+    transition:
+      color 0.2s ease,
+      transform 0.2s ease;
+    flex-shrink: 0;
+  }
+
+  .about-dropdown__item:hover .about-dropdown__arrow {
+    color: var(--color-cyan);
+    transform: translateX(2px);
+  }
+
+  .about-dropdown__divider {
+    height: 1px;
+    background: #f1f5f9;
+    margin: 0.1rem 0.5rem;
   }
 
   .global-nav__cta {

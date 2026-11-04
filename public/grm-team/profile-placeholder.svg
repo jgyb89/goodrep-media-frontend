@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 800" width="800" height="800" role="img" aria-label="Team member profile placeholder">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#e3f7fa" />
+      <stop offset="55%" stop-color="#cdeff5" />
+      <stop offset="100%" stop-color="#e2e8f0" />
+    </linearGradient>
+    <linearGradient id="avatarGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1bc4d9" />
+      <stop offset="100%" stop-color="#0fa3b6" />
+    </linearGradient>
+    <clipPath id="circleClip">
+      <circle cx="400" cy="400" r="400" />
+    </clipPath>
+  </defs>
+  <g clip-path="url(#circleClip)">
+    <rect width="800" height="800" fill="url(#bgGrad)" />
+    <circle cx="400" cy="400" r="340" fill="none" stroke="#1bc4d9" stroke-opacity="0.22" stroke-width="6" stroke-dasharray="18 14" />
+    <circle cx="400" cy="295" r="128" fill="url(#avatarGrad)" />
+    <path d="M168 745 C168 565, 268 470, 400 470 C532 470, 632 565, 632 745 Z" fill="url(#avatarGrad)" />
+  </g>
+</svg>
