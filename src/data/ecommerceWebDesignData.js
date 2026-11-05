@@ -30,12 +30,6 @@ export const heroData = {
   primaryCta: { label: "Contact Us", href: "#consultation" },
   secondaryCta: { label: "Send Us a Message" },
   stage: {
-    blob: {
-      src: "/grm-web-assets/blue-circular-background-graphic.svg",
-      width: 746,
-      height: 780,
-      depth: 12,
-    },
     main: {
       src: "/grm-main-graphics/ecommerce-marketplace-marketing-graphic.svg",
       alt: "eCommerce Storefront Map Setup with Global Customers",

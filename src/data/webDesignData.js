@@ -30,12 +30,6 @@ export const heroData = {
   primaryCta: { label: "Contact Us", href: "#consultation" },
   secondaryCta: { label: "Send Us a Message" },
   stage: {
-    blob: {
-      src: "/grm-web-assets/blue-circular-background-graphic.svg",
-      width: 746,
-      height: 780,
-      depth: 12,
-    },
     main: {
       src: "/grm-main-graphics/website-design-graphic.svg",
       alt: "Custom Website Design Monitor and Wireframe",

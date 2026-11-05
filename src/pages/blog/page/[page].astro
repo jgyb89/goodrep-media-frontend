@@ -54,7 +54,7 @@ const { page } = Astro.props;
               )}
               <div style="padding: 1.5rem; display: flex; flex-direction: column; flex: 1;">
                 <a
-                  href={`/blog/category/${primaryCat.slug}/`}
+                  href={`/blog/?category=${primaryCat.slug}`}
                   style="display: inline-block; font-size: 0.75rem; font-weight: 700; color: var(--color-cyan, #0ea5e9); text-transform: uppercase; letter-spacing: 0.05em; text-decoration: none; margin-bottom: 0.5rem;"
                 >
                   {primaryCat.name}

@@ -405,13 +405,6 @@ const serviceHubSchema = {
       <div class="services-hero__graphic" aria-hidden="true" data-reveal>
         <div class="services-hero__art">
           <img
-            class="services-hero__blob"
-            src="/grm-web-assets/blue-circular-background-graphic.svg"
-            alt=""
-            width="746"
-            height="780"
-          />
-          <img
             class="services-hero__main"
             src="/grm-main-graphics/monitor-with-rocket-launching.webp"
             alt="Good Rep Media Services"
@@ -545,13 +538,16 @@ const serviceHubSchema = {
         delay: 0.2,
       });
 
-      gsap.from(".services-hero__blob", {
-        scale: 0.85,
-        opacity: 0,
-        duration: 1.1,
-        ease: "power3.out",
-        delay: 0.2,
-      });
+      const heroBlob = document.querySelector(".services-hero__blob");
+      if (heroBlob) {
+        gsap.from(heroBlob, {
+          scale: 0.85,
+          opacity: 0,
+          duration: 1.1,
+          ease: "power3.out",
+          delay: 0.2,
+        });
+      }
 
       gsap.from(".services-hero__main", {
         scale: 0.9,

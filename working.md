@@ -43,10 +43,10 @@
       - Each blob's corner placement mirrors its actual geometry: Blob 1's protruding circular lobes are lower-left and top-right; Blob 2's protruding lobes are top-left and bottom-right.
     - **Computer Screen Exception:** Device screen graphics (such as blue and transparent computer screens / monitors) can hold **1 additional graphic within the screen display area**:
       - 1 computer screen, 1 small graphic within screen area (never a screen/device graphic), 2 smalls on opposite corners, and optionally 1 background.
-    - **SERVICE HERO TEMPLATE RULE - Singular Front Graphic + Background Graphic:**
+    - **SERVICE HERO TEMPLATE RULE - Clean Singular Front Graphic (No Background Blob):**
       - For all `/services/*` hero sections, the `.hero-stage` composition strictly features:
-        1. **1 background blue graphic** (`blob`: `blue-circular-background-graphic.svg` or `blue-circular-background-2-graphic.svg`).
-        2. **1 singular front centerpiece graphic** (`main`, ~68–72% width, centered over blob).
+        1. **0 background blue graphics** (all `hero-stage__blob` graphics removed so none of the service heroes have a blue background).
+        2. **1 singular front centerpiece graphic** (`main`, cleanly centered and scaled).
         3. **0 floating accent graphics** (`floats: []`), keeping the hero clean, focused, and free of peripheral clutter.
     - **GSAP & Inline Styles Rule:** Never use `clearProps: "all"` on elements that rely on inline styles (`style="width: ...; left: ...;"`) for sizing or layout. Always use `clearProps: "transform,opacity"` to prevent browsers from reverting to intrinsic SVG dimensions and blowing up elements.
     - **No sprawling connector lines:** Do not include meandering dashed lines across stages or cards that create visual clutter and disorganized overlapping.
@@ -510,4 +510,37 @@
       - **Centered Content Alignment:** Centered `.eyebrow`, `.work__title` (`text-wrap: balance`), `.work__text`, `.work__actions`, and `.work__clients` on screens `< 960px`. On small mobile screens (`<= 480px`), converted `.work__actions` into stacked, full-width pill buttons (`max-width: 290px; margin: 0 auto;`), and centered client logos with a tighter gap (`max-width: 310px`) to provide clearance from the floating contact buttons.
       - **Resize Recalibration:** Updated `handleResize` in `initWorkGallery()` to immediately recalibrate `updatePosition(false)` on window resize or device orientation change.
       - Verified production build with `ASTRO_TELEMETRY_DISABLED=1 ./node_modules/.bin/astro build`: all 213 pages compiled cleanly in 7.56s with 0 errors, and visually verified via headless mobile screenshots at 390x844.
+  39. **Restored In-Place Category Filtering on `/blog/`:**
+      - **Root Cause Analysis:** Two factors caused clicking a blog category on `/blog/` to open a separate `/blog/category/[slug]/` page instead of filtering the blog listings in-place:
+        1. Category sidebar pills (`.blog-nav__pill`) and post card category badges (`.post-card__tag`) in `src/pages/blog/index.astro` were rendered as `<a href="/blog/category/...">` links instead of `<button type="button">`, which Astro's `<ClientRouter />` (View Transitions) intercepted to trigger a page navigation.
+        2. The filter script in `src/pages/blog/index.astro` ran only at initial module evaluation rather than subscribing to `document.addEventListener("astro:page-load", initBlogPage)`, so navigating to `/blog/` from another page via `<ClientRouter />` never attached the category filter event listeners.
+      - **Fix:**
+        - Converted `.blog-nav__pill` and `.post-card__tag` in `src/pages/blog/index.astro` back to semantic `<button type="button">` controls with `aria-pressed` state.
+        - Wrapped all `/blog/` category filtering, search, pagination, and GSAP animations inside `initBlogPage()` bound to `astro:page-load`, with cleanup registered on `astro:before-swap`.
+        - Updated category links in `src/pages/blog/[slug].astro` and `src/pages/blog/page/[page].astro` to point to `/blog/?category=${slug}` so clicking a category from an article or archive page opens `/blog/` pre-filtered to that category.
+      - Verified production build with `ASTRO_TELEMETRY_DISABLED=1 ./node_modules/.bin/astro build`: all 213 pages compiled cleanly in 7.69s with 0 errors.
+  40. **Added Inner Scrollbar to Desktop Blog Category Sidebar (`.blog-layout__sidebar`):**
+      - **Problem:** On desktop displays, the 15-category sidebar card was taller than standard viewports (~860px) and lacked an inner scroller. Users had to scroll the entire webpage to the bottom to reach categories at the lower end of the list.
+      - **Implementation:**
+        - Constrained `.blog-layout__sidebar` height with `max-height: min(calc(100vh - var(--header-h) - 3rem), 600px)` and flex layout with `overflow: hidden`.
+        - Kept `.blog-sidebar__header` ("Categories") fixed at the top with `flex-shrink: 0`.
+        - Converted `.blog-nav` into a scrollable viewport with `flex: 1`, `min-height: 0`, `overflow-y: auto`, `overflow-x: hidden`, and `overscroll-behavior: contain`.
+        - Styled the scrollbar to a subtle 5px dark gray line (`--scrollbar-thumb: #64748b` on transparent track) with smooth rounded ends (`border-radius: 999px`) and a deeper dark shade when holding it (`--scrollbar-thumb-active: #1e293b`).
+        - Implemented dual support using standard CSS `scrollbar-color` / `scrollbar-width: thin` alongside `::-webkit-scrollbar` pseudo-elements.
+        - Added mouse wheel event forwarding from `.blog-sidebar__header` to `.blog-nav` and smooth auto-scrolling to active pills.
+      - Verified production build with `ASTRO_TELEMETRY_DISABLED=1 ./node_modules/.bin/astro build`: all 213 pages compiled cleanly in 7.42s with 0 errors.
+  41. **Smooth Scroll to Top of Blog Feed on Category Selection:**
+      - **Implementation:**
+        - Created `scrollToBlogFeed()` calculating exact scroll position to `.blog-feed` accounting for the 76px sticky header offset (`feedEl.getBoundingClientRect().top + window.scrollY - 76`).
+        - Bound smooth scroll to both sidebar category pills (`.blog-nav__pill`), post card category badges (`[data-filter-category]`), and reset buttons.
+        - Synchronized the card entrance animation to a graceful `duration: 0.45s` with `stagger: 0.22s` (`autoAlpha: 0 -> 1`, `y: 20 -> 0`) so cards fade in gracefully as the window smoothly scrolls up to `.blog-feed`.
+      - Verified production build with `ASTRO_TELEMETRY_DISABLED=1 ./node_modules/.bin/astro build`: all 213 pages compiled cleanly in 7.67s with 0 errors.
+  42. **Removed Background `hero-stage__blob` Blue Graphic Across All Services Heroes:**
+      - **Objective:** Eliminate the blue circular background graphic (`hero-stage__blob` / `services-hero__blob`) from all service heroes so that none of the service heroes display a blue background graphic behind their centerpiece illustration.
+      - **Implementation:**
+        - **12 Service Data Files:** Removed the `blob: { src: "/grm-web-assets/blue-circular-background-graphic.svg", ... }` configuration from `heroData.stage` across all 12 service data files: `webDesignData.js`, `ecommerceWebDesignData.js`, `localSeoData.js`, `technicalSeoData.js`, `linkBuildingData.js`, `amazonMarketingData.js`, `digitalMediaProductionData.js`, `emailMarketingData.js`, `smsMarketingData.js`, `videoProductionData.js`, `socialMediaData.js`, and `paidAdsData.js`.
+        - **`src/components/ServiceHero.astro`:** Made `blob?:` optional in `HeroStage` TypeScript interface and removed the `<img class="hero-stage__blob" ... />` rendering block. Centerpiece graphics (`hero-stage__main`) now sit cleanly on the dot-grid stage with 0 background blob.
+        - **`src/pages/services.astro`:** Removed the `<img class="services-hero__blob" ... />` markup and guarded the corresponding GSAP selector from the hero section on the main services catalog overview page.
+        - **Preservation Check:** Left all secondary section backgrounds (`StartsSection`, `PillarsSection`, `ProcessSection`, `ReadyBand`) and the homepage (`src/pages/index.astro`) completely untouched.
+      - Verified production build with `ASTRO_TELEMETRY_DISABLED=1 ./node_modules/.bin/astro build`: all 213 pages compiled cleanly in 8.01s with 0 errors.
 - **Current Objective:** Proceed to Step 8: End-to-end responsiveness, accessibility auditing, and performance optimization across all service pages and core routes.

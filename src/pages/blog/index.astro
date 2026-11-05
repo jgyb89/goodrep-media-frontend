@@ -109,17 +109,16 @@ const categories = [
             <div class="blog-nav__pills" role="group">
               {
                 categories.map((cat, idx) => (
-                  <a
-                    href={cat.slug === "all" ? "/blog/" : `/blog/category/${cat.slug}/`}
+                  <button
+                    type="button"
                     class:list={["blog-nav__pill", { "is-active": idx === 0 }]}
                     data-category={cat.slug}
                     data-category-name={cat.name}
                     aria-pressed={idx === 0 ? "true" : "false"}
-                    style="text-decoration: none;"
                   >
                     <span class="blog-nav__pill-label">{cat.name}</span>
                     <span class="blog-nav__pill-count">{cat.count}</span>
-                  </a>
+                  </button>
                 ))
               }
             </div>
@@ -221,15 +220,14 @@ const categories = [
                           )}
                         </a>
                         <div class="post-card__body">
-                          <a
-                            href={`/blog/category/${primaryCat.slug}/`}
+                          <button
+                            type="button"
                             class="post-card__tag"
                             data-filter-category={primaryCat.slug}
                             title={`Filter by ${primaryCat.name}`}
-                            style="text-decoration: none;"
                           >
                             {primaryCat.name}
-                          </a>
+                          </button>
                           <h2 class="post-card__title">
                             <a href={`/blog/${post.slug}`}>{post.title}</a>
                           </h2>
@@ -421,561 +419,651 @@ const categories = [
 
     gsap.registerPlugin(ScrollTrigger);
 
-    // ---------- Category, Search & Responsive Pagination Logic ----------
-    const DESKTOP_PAGE_SIZE = 12;
-    const MOBILE_PAGE_SIZE = 6;
+    let blogCtx: gsap.Context | null = null;
+    let blogResizeCleanup: (() => void) | null = null;
 
-    const pills = Array.from(
-      document.querySelectorAll<HTMLElement>(
-        ".blog-nav__pill[data-category]",
-      ),
-    );
-    const cards = Array.from(
-      document.querySelectorAll<HTMLElement>(".post-card[data-categories]"),
-    );
-    const cardCategoryTags = Array.from(
-      document.querySelectorAll<HTMLElement>("[data-filter-category]"),
-    );
-    const staticPagination = document.querySelector<HTMLElement>(".blog-static-pagination");
-    if (staticPagination) {
-      staticPagination.hidden = true;
-    }
-    const searchInput = document.getElementById(
-      "blog-search-input",
-    ) as HTMLInputElement | null;
-    const searchBtn = document.getElementById("blog-search-btn");
-    const visibleCountEl = document.getElementById("blog-visible-count");
-    const visibleLabelEl = document.getElementById("blog-visible-label");
-    const activeCategoryEl = document.getElementById("blog-active-category");
-    const resetBtn = document.getElementById("blog-reset-btn");
-    const emptyResetBtn = document.getElementById("blog-empty-reset-btn");
-    const noResultsEl = document.getElementById("blog-no-results");
-    const postsGridEl = document.getElementById("blog-posts-grid");
+    function initBlogPage() {
+      const postsGridEl = document.getElementById("blog-posts-grid");
+      const heroEl = document.querySelector(".blog-hero");
+      if (!postsGridEl && !heroEl) return;
 
-    // Pagination & Load More Elements
-    const paginationEl = document.getElementById("blog-pagination");
-    const paginationPagesEl = document.getElementById("blog-pagination-pages");
-    const prevBtn = document.getElementById(
-      "blog-pagination-prev",
-    ) as HTMLButtonElement | null;
-    const nextBtn = document.getElementById(
-      "blog-pagination-next",
-    ) as HTMLButtonElement | null;
-    const loadMoreContainerEl = document.getElementById("blog-load-more");
-    const loadMoreBtn = document.getElementById(
-      "blog-load-more-btn",
-    ) as HTMLButtonElement | null;
-    const loadMoreCountEl = document.getElementById("blog-load-more-count");
-    const loadMoreStatusEl = document.getElementById("blog-load-more-status");
-
-    let activeCategory = "all";
-    let searchQuery = "";
-    let currentPage = 1;
-    let mobileVisibleCount = MOBILE_PAGE_SIZE;
-    let matchingCards: HTMLElement[] = [];
-
-    function isMobileView(): boolean {
-      return window.innerWidth <= 768;
-    }
-
-    function getPaginationRange(current: number, total: number): (number | string)[] {
-      if (total <= 7) {
-        return Array.from({ length: total }, (_, i) => i + 1);
+      if (blogCtx) {
+        blogCtx.revert();
+        blogCtx = null;
       }
-      if (current <= 4) {
-        return [1, 2, 3, 4, 5, "...", total];
+      if (blogResizeCleanup) {
+        blogResizeCleanup();
+        blogResizeCleanup = null;
       }
-      if (current >= total - 3) {
-        return [1, "...", total - 4, total - 3, total - 2, total - 1, total];
+
+      // ---------- Category, Search & Responsive Pagination Logic ----------
+      const DESKTOP_PAGE_SIZE = 12;
+      const MOBILE_PAGE_SIZE = 6;
+
+      const pills = Array.from(
+        document.querySelectorAll<HTMLButtonElement>(
+          ".blog-nav__pill[data-category]",
+        ),
+      );
+      const cards = Array.from(
+        document.querySelectorAll<HTMLElement>(".post-card[data-categories]"),
+      );
+      const cardCategoryTags = Array.from(
+        document.querySelectorAll<HTMLButtonElement>("[data-filter-category]"),
+      );
+      const staticPagination = document.querySelector<HTMLElement>(
+        ".blog-static-pagination",
+      );
+      if (staticPagination) {
+        staticPagination.hidden = true;
       }
-      return [1, "...", current - 1, current, current + 1, "...", total];
-    }
+      const searchInput = document.getElementById(
+        "blog-search-input",
+      ) as HTMLInputElement | null;
+      const searchBtn = document.getElementById("blog-search-btn");
+      const visibleCountEl = document.getElementById("blog-visible-count");
+      const visibleLabelEl = document.getElementById("blog-visible-label");
+      const activeCategoryEl = document.getElementById("blog-active-category");
+      const resetBtn = document.getElementById("blog-reset-btn");
+      const emptyResetBtn = document.getElementById("blog-empty-reset-btn");
+      const noResultsEl = document.getElementById("blog-no-results");
 
-    function renderDesktopPagination(totalPages: number) {
-      if (!paginationEl || !paginationPagesEl || !prevBtn || !nextBtn) return;
+      // Pagination & Load More Elements
+      const paginationEl = document.getElementById("blog-pagination");
+      const paginationPagesEl = document.getElementById(
+        "blog-pagination-pages",
+      );
+      const prevBtn = document.getElementById(
+        "blog-pagination-prev",
+      ) as HTMLButtonElement | null;
+      const nextBtn = document.getElementById(
+        "blog-pagination-next",
+      ) as HTMLButtonElement | null;
+      const loadMoreContainerEl = document.getElementById("blog-load-more");
+      const loadMoreBtn = document.getElementById(
+        "blog-load-more-btn",
+      ) as HTMLButtonElement | null;
+      const loadMoreCountEl = document.getElementById("blog-load-more-count");
+      const loadMoreStatusEl = document.getElementById("blog-load-more-status");
 
-      if (totalPages <= 1) {
-        paginationEl.hidden = true;
-        return;
+      let activeCategory = "all";
+      let searchQuery = "";
+      let currentPage = 1;
+      let mobileVisibleCount = MOBILE_PAGE_SIZE;
+      let matchingCards: HTMLElement[] = [];
+
+      function isMobileView(): boolean {
+        return window.innerWidth <= 768;
       }
-      paginationEl.hidden = false;
 
-      prevBtn.disabled = currentPage <= 1;
-      nextBtn.disabled = currentPage >= totalPages;
+      function getPaginationRange(
+        current: number,
+        total: number,
+      ): (number | string)[] {
+        if (total <= 7) {
+          return Array.from({ length: total }, (_, i) => i + 1);
+        }
+        if (current <= 4) {
+          return [1, 2, 3, 4, 5, "...", total];
+        }
+        if (current >= total - 3) {
+          return [1, "...", total - 4, total - 3, total - 2, total - 1, total];
+        }
+        return [1, "...", current - 1, current, current + 1, "...", total];
+      }
 
-      paginationPagesEl.innerHTML = "";
-      const range = getPaginationRange(currentPage, totalPages);
+      function renderDesktopPagination(totalPages: number) {
+        if (!paginationEl || !paginationPagesEl || !prevBtn || !nextBtn) return;
 
-      range.forEach((item) => {
-        if (item === "...") {
-          const span = document.createElement("span");
-          span.className = "blog-pagination__ellipsis";
-          span.textContent = "…";
-          span.setAttribute("aria-hidden", "true");
-          paginationPagesEl.appendChild(span);
-        } else {
-          const pageNum = Number(item);
-          const btn = document.createElement("button");
-          btn.type = "button";
-          btn.className = `blog-pagination__page${pageNum === currentPage ? " is-active" : ""}`;
-          btn.textContent = String(pageNum);
-          btn.setAttribute("aria-label", `Page ${pageNum}`);
-          if (pageNum === currentPage) {
-            btn.setAttribute("aria-current", "page");
-          }
-          btn.addEventListener("click", () => {
-            if (pageNum !== currentPage) {
-              goToPage(pageNum);
+        if (totalPages <= 1) {
+          paginationEl.hidden = true;
+          return;
+        }
+        paginationEl.hidden = false;
+
+        prevBtn.disabled = currentPage <= 1;
+        nextBtn.disabled = currentPage >= totalPages;
+
+        paginationPagesEl.innerHTML = "";
+        const range = getPaginationRange(currentPage, totalPages);
+
+        range.forEach((item) => {
+          if (item === "...") {
+            const span = document.createElement("span");
+            span.className = "blog-pagination__ellipsis";
+            span.textContent = "…";
+            span.setAttribute("aria-hidden", "true");
+            paginationPagesEl.appendChild(span);
+          } else {
+            const pageNum = Number(item);
+            const btn = document.createElement("button");
+            btn.type = "button";
+            btn.className = `blog-pagination__page${pageNum === currentPage ? " is-active" : ""}`;
+            btn.textContent = String(pageNum);
+            btn.setAttribute("aria-label", `Page ${pageNum}`);
+            if (pageNum === currentPage) {
+              btn.setAttribute("aria-current", "page");
             }
-          });
-          paginationPagesEl.appendChild(btn);
-        }
-      });
-    }
-
-    function goToPage(pageNum: number) {
-      currentPage = pageNum;
-      applyFilters(true, false);
-
-      const toolbarEl = document.getElementById("blog-filter-toolbar");
-      if (toolbarEl) {
-        const navOffset = 90;
-        const elPos =
-          toolbarEl.getBoundingClientRect().top + window.scrollY - navOffset;
-        window.scrollTo({ top: Math.max(0, elPos), behavior: "smooth" });
-      }
-    }
-
-    function updateMobileLoadMoreUI() {
-      if (!loadMoreContainerEl || !loadMoreBtn || !loadMoreCountEl) return;
-
-      const total = matchingCards.length;
-      const visibleLimit = Math.min(mobileVisibleCount, total);
-
-      loadMoreContainerEl.hidden = false;
-
-      if (visibleLimit >= total) {
-        loadMoreBtn.hidden = true;
-        if (loadMoreStatusEl) {
-          loadMoreStatusEl.textContent = `Showing all ${total} ${total === 1 ? "article" : "articles"}`;
-        }
-      } else {
-        loadMoreBtn.hidden = false;
-        const remaining = total - visibleLimit;
-        const nextBatch = Math.min(MOBILE_PAGE_SIZE, remaining);
-        loadMoreCountEl.textContent = `(${nextBatch} more)`;
-        if (loadMoreStatusEl) {
-          loadMoreStatusEl.textContent = `Showing ${visibleLimit} of ${total} articles`;
-        }
-      }
-    }
-
-    function applyFilters(animate = true, resetPaging = true) {
-      if (resetPaging) {
-        currentPage = 1;
-        mobileVisibleCount = MOBILE_PAGE_SIZE;
+            btn.addEventListener("click", () => {
+              if (pageNum !== currentPage) {
+                goToPage(pageNum);
+              }
+            });
+            paginationPagesEl.appendChild(btn);
+          }
+        });
       }
 
-      const normalizedQuery = searchQuery.trim().toLowerCase();
+      function goToPage(pageNum: number) {
+        currentPage = pageNum;
+        applyFilters(true, false);
 
-      matchingCards = cards.filter((card) => {
-        const cardCats = (card.dataset.categories || "")
-          .split(",")
-          .filter(Boolean);
-        const cardSearchText = card.dataset.search || "";
+        const toolbarEl = document.getElementById("blog-filter-toolbar");
+        if (toolbarEl) {
+          const navOffset = 90;
+          const elPos =
+            toolbarEl.getBoundingClientRect().top + window.scrollY - navOffset;
+          window.scrollTo({ top: Math.max(0, elPos), behavior: "smooth" });
+        }
+      }
 
-        const matchesCategory =
-          activeCategory === "all" || cardCats.includes(activeCategory);
-        const matchesSearch =
-          !normalizedQuery || cardSearchText.includes(normalizedQuery);
+      function updateMobileLoadMoreUI() {
+        if (!loadMoreContainerEl || !loadMoreBtn || !loadMoreCountEl) return;
 
-        return matchesCategory && matchesSearch;
-      });
+        const total = matchingCards.length;
+        const visibleLimit = Math.min(mobileVisibleCount, total);
 
-      // Update active category pill UI
-      let activeCategoryName = "All Articles";
-      let matchedPill: HTMLElement | null = null;
-      pills.forEach((pill) => {
-        const isMatch = pill.dataset.category === activeCategory;
-        pill.classList.toggle("is-active", isMatch);
-        pill.setAttribute("aria-pressed", isMatch ? "true" : "false");
-        if (isMatch) {
-          matchedPill = pill;
-          if (pill.dataset.categoryName) {
-            activeCategoryName = pill.dataset.categoryName;
+        loadMoreContainerEl.hidden = false;
+
+        if (visibleLimit >= total) {
+          loadMoreBtn.hidden = true;
+          if (loadMoreStatusEl) {
+            loadMoreStatusEl.textContent = `Showing all ${total} ${total === 1 ? "article" : "articles"}`;
+          }
+        } else {
+          loadMoreBtn.hidden = false;
+          const remaining = total - visibleLimit;
+          const nextBatch = Math.min(MOBILE_PAGE_SIZE, remaining);
+          loadMoreCountEl.textContent = `(${nextBatch} more)`;
+          if (loadMoreStatusEl) {
+            loadMoreStatusEl.textContent = `Showing ${visibleLimit} of ${total} articles`;
           }
         }
-      });
-
-      // On tablet/phone horizontal scroll strip, keep the active pill centered in view
-      if (animate && matchedPill && window.innerWidth <= 980) {
-        (matchedPill as HTMLElement).scrollIntoView({
-          behavior: "smooth",
-          inline: "center",
-          block: "nearest",
-        });
       }
 
-      // Update active category text in toolbar status
-      if (activeCategoryEl) {
-        activeCategoryEl.textContent = normalizedQuery
-          ? `${activeCategoryName} matching "${searchQuery.trim()}"`
-          : activeCategoryName;
-      }
-
-      const isFiltered = activeCategory !== "all" || normalizedQuery.length > 0;
-      if (resetBtn) {
-        resetBtn.hidden = !isFiltered;
-      }
-
-      // Empty results state
-      if (matchingCards.length === 0) {
-        cards.forEach((card) => {
-          card.hidden = true;
-        });
-        if (postsGridEl && noResultsEl) {
-          postsGridEl.hidden = true;
-          noResultsEl.hidden = false;
+      function applyFilters(animate = true, resetPaging = true) {
+        if (resetPaging) {
+          currentPage = 1;
+          mobileVisibleCount = MOBILE_PAGE_SIZE;
         }
-        if (paginationEl) paginationEl.hidden = true;
-        if (loadMoreContainerEl) loadMoreContainerEl.hidden = true;
 
-        if (visibleCountEl) visibleCountEl.textContent = "0";
-        if (visibleLabelEl) visibleLabelEl.textContent = "articles";
+        const normalizedQuery = searchQuery.trim().toLowerCase();
+
+        matchingCards = cards.filter((card) => {
+          const cardCats = (card.dataset.categories || "")
+            .split(",")
+            .filter(Boolean);
+          const cardSearchText = card.dataset.search || "";
+
+          const matchesCategory =
+            activeCategory === "all" || cardCats.includes(activeCategory);
+          const matchesSearch =
+            !normalizedQuery || cardSearchText.includes(normalizedQuery);
+
+          return matchesCategory && matchesSearch;
+        });
+
+        // Update active category pill UI
+        let activeCategoryName = "All Articles";
+        let matchedPill: HTMLButtonElement | null = null;
+        pills.forEach((pill) => {
+          const isMatch = pill.dataset.category === activeCategory;
+          pill.classList.toggle("is-active", isMatch);
+          pill.setAttribute("aria-pressed", isMatch ? "true" : "false");
+          if (isMatch) {
+            matchedPill = pill;
+            if (pill.dataset.categoryName) {
+              activeCategoryName = pill.dataset.categoryName;
+            }
+          }
+        });
+
+        // Keep the active pill visible in view
+        if (animate && matchedPill) {
+          if (window.innerWidth <= 980) {
+            (matchedPill as HTMLButtonElement).scrollIntoView({
+              behavior: "smooth",
+              inline: "center",
+              block: "nearest",
+            });
+          } else {
+            (matchedPill as HTMLButtonElement).scrollIntoView({
+              behavior: "smooth",
+              block: "nearest",
+            });
+          }
+        }
+
+        // Update active category text in toolbar status
+        if (activeCategoryEl) {
+          activeCategoryEl.textContent = normalizedQuery
+            ? `${activeCategoryName} matching "${searchQuery.trim()}"`
+            : activeCategoryName;
+        }
+
+        const isFiltered =
+          activeCategory !== "all" || normalizedQuery.length > 0;
+        if (resetBtn) {
+          resetBtn.hidden = !isFiltered;
+        }
+
+        // Empty results state
+        if (matchingCards.length === 0) {
+          cards.forEach((card) => {
+            card.hidden = true;
+          });
+          if (postsGridEl && noResultsEl) {
+            postsGridEl.hidden = true;
+            noResultsEl.hidden = false;
+          }
+          if (paginationEl) paginationEl.hidden = true;
+          if (loadMoreContainerEl) loadMoreContainerEl.hidden = true;
+
+          if (visibleCountEl) visibleCountEl.textContent = "0";
+          if (visibleLabelEl) visibleLabelEl.textContent = "articles";
+
+          ScrollTrigger.refresh();
+          return;
+        }
+
+        if (postsGridEl && noResultsEl) {
+          postsGridEl.hidden = false;
+          noResultsEl.hidden = true;
+        }
+
+        const isMobile = isMobileView();
+        let cardsToAnimate: HTMLElement[] = [];
+
+        if (isMobile) {
+          // MOBILE MODE: 6 at a time with "Load More"
+          if (paginationEl) paginationEl.hidden = true;
+
+          const visibleLimit = Math.min(
+            mobileVisibleCount,
+            matchingCards.length,
+          );
+          const visibleSet = new Set(matchingCards.slice(0, visibleLimit));
+
+          cards.forEach((card) => {
+            card.hidden = !visibleSet.has(card);
+          });
+
+          updateMobileLoadMoreUI();
+
+          if (visibleCountEl) {
+            visibleCountEl.textContent =
+              matchingCards.length <= MOBILE_PAGE_SIZE
+                ? String(matchingCards.length)
+                : `${visibleLimit} of ${matchingCards.length}`;
+          }
+          if (visibleLabelEl) {
+            visibleLabelEl.textContent =
+              matchingCards.length === 1 ? "article" : "articles";
+          }
+
+          cardsToAnimate = matchingCards.slice(0, visibleLimit);
+        } else {
+          // DESKTOP MODE: 12 per page with numbered pagination
+          if (loadMoreContainerEl) loadMoreContainerEl.hidden = true;
+
+          const totalPages =
+            Math.ceil(matchingCards.length / DESKTOP_PAGE_SIZE) || 1;
+          if (currentPage > totalPages) currentPage = totalPages;
+          if (currentPage < 1) currentPage = 1;
+
+          const startIndex = (currentPage - 1) * DESKTOP_PAGE_SIZE;
+          const endIndex = startIndex + DESKTOP_PAGE_SIZE;
+          const pageCards = matchingCards.slice(startIndex, endIndex);
+          const pageSet = new Set(pageCards);
+
+          cards.forEach((card) => {
+            card.hidden = !pageSet.has(card);
+          });
+
+          renderDesktopPagination(totalPages);
+
+          if (visibleCountEl) {
+            visibleCountEl.textContent =
+              matchingCards.length <= DESKTOP_PAGE_SIZE
+                ? String(matchingCards.length)
+                : `${startIndex + 1}–${Math.min(endIndex, matchingCards.length)} of ${matchingCards.length}`;
+          }
+          if (visibleLabelEl) {
+            visibleLabelEl.textContent =
+              matchingCards.length === 1 ? "article" : "articles";
+          }
+
+          cardsToAnimate = pageCards;
+        }
+
+        // Sync URL query params for shareable URLs
+        const url = new URL(window.location.href);
+        if (activeCategory === "all") {
+          url.searchParams.delete("category");
+        } else {
+          url.searchParams.set("category", activeCategory);
+        }
+        if (!isMobile && currentPage > 1) {
+          url.searchParams.set("page", String(currentPage));
+        } else {
+          url.searchParams.delete("page");
+        }
+        window.history.replaceState({}, "", url.toString());
+
+        // Entrance animation for newly shown cards
+        if (
+          animate &&
+          cardsToAnimate.length > 0 &&
+          !window.matchMedia("(prefers-reduced-motion: reduce)").matches
+        ) {
+          gsap.killTweensOf(cardsToAnimate);
+          gsap.fromTo(
+            cardsToAnimate,
+            { autoAlpha: 0, y: 20 },
+            {
+              autoAlpha: 1,
+              y: 0,
+              duration: 0.45,
+              stagger: { amount: 0.22, from: "start" },
+              ease: "power2.out",
+              clearProps: "transform,opacity",
+            },
+          );
+        }
 
         ScrollTrigger.refresh();
-        return;
       }
 
-      if (postsGridEl && noResultsEl) {
-        postsGridEl.hidden = false;
-        noResultsEl.hidden = true;
-      }
+      // Prev / Next button listeners
+      prevBtn?.addEventListener("click", () => {
+        if (currentPage > 1) {
+          goToPage(currentPage - 1);
+        }
+      });
 
-      const isMobile = isMobileView();
-      let cardsToAnimate: HTMLElement[] = [];
+      nextBtn?.addEventListener("click", () => {
+        const totalPages =
+          Math.ceil(matchingCards.length / DESKTOP_PAGE_SIZE) || 1;
+        if (currentPage < totalPages) {
+          goToPage(currentPage + 1);
+        }
+      });
 
-      if (isMobile) {
-        // MOBILE MODE: 6 at a time with "Load More"
-        if (paginationEl) paginationEl.hidden = true;
+      // Mobile Load More button listener
+      loadMoreBtn?.addEventListener("click", () => {
+        const oldLimit = mobileVisibleCount;
+        mobileVisibleCount += MOBILE_PAGE_SIZE;
+        const newLimit = Math.min(mobileVisibleCount, matchingCards.length);
 
-        const visibleLimit = Math.min(mobileVisibleCount, matchingCards.length);
-        const visibleSet = new Set(matchingCards.slice(0, visibleLimit));
-
-        cards.forEach((card) => {
-          card.hidden = !visibleSet.has(card);
+        const newlyRevealed = matchingCards.slice(oldLimit, newLimit);
+        newlyRevealed.forEach((card) => {
+          card.hidden = false;
         });
+
+        if (
+          newlyRevealed.length > 0 &&
+          !window.matchMedia("(prefers-reduced-motion: reduce)").matches
+        ) {
+          gsap.fromTo(
+            newlyRevealed,
+            { autoAlpha: 0, y: 20 },
+            {
+              autoAlpha: 1,
+              y: 0,
+              duration: 0.35,
+              stagger: 0.08,
+              ease: "power2.out",
+              clearProps: "transform,opacity",
+            },
+          );
+        }
 
         updateMobileLoadMoreUI();
 
         if (visibleCountEl) {
-          visibleCountEl.textContent =
-            matchingCards.length <= MOBILE_PAGE_SIZE
-              ? String(matchingCards.length)
-              : `${visibleLimit} of ${matchingCards.length}`;
-        }
-        if (visibleLabelEl) {
-          visibleLabelEl.textContent =
-            matchingCards.length === 1 ? "article" : "articles";
+          visibleCountEl.textContent = `${newLimit} of ${matchingCards.length}`;
         }
 
-        cardsToAnimate = matchingCards.slice(0, visibleLimit);
-      } else {
-        // DESKTOP MODE: 12 per page with numbered pagination
-        if (loadMoreContainerEl) loadMoreContainerEl.hidden = true;
+        ScrollTrigger.refresh();
+      });
 
-        const totalPages =
-          Math.ceil(matchingCards.length / DESKTOP_PAGE_SIZE) || 1;
-        if (currentPage > totalPages) currentPage = totalPages;
-        if (currentPage < 1) currentPage = 1;
-
-        const startIndex = (currentPage - 1) * DESKTOP_PAGE_SIZE;
-        const endIndex = startIndex + DESKTOP_PAGE_SIZE;
-        const pageCards = matchingCards.slice(startIndex, endIndex);
-        const pageSet = new Set(pageCards);
-
-        cards.forEach((card) => {
-          card.hidden = !pageSet.has(card);
-        });
-
-        renderDesktopPagination(totalPages);
-
-        if (visibleCountEl) {
-          visibleCountEl.textContent =
-            matchingCards.length <= DESKTOP_PAGE_SIZE
-              ? String(matchingCards.length)
-              : `${startIndex + 1}–${Math.min(endIndex, matchingCards.length)} of ${matchingCards.length}`;
-        }
-        if (visibleLabelEl) {
-          visibleLabelEl.textContent =
-            matchingCards.length === 1 ? "article" : "articles";
-        }
-
-        cardsToAnimate = pageCards;
-      }
-
-      // Sync URL query params for shareable URLs
-      const url = new URL(window.location.href);
-      if (activeCategory === "all") {
-        url.searchParams.delete("category");
-      } else {
-        url.searchParams.set("category", activeCategory);
-      }
-      if (!isMobile && currentPage > 1) {
-        url.searchParams.set("page", String(currentPage));
-      } else {
-        url.searchParams.delete("page");
-      }
-      window.history.replaceState({}, "", url.toString());
-
-      // Entrance animation for newly shown cards
-      if (
-        animate &&
-        cardsToAnimate.length > 0 &&
-        !window.matchMedia("(prefers-reduced-motion: reduce)").matches
-      ) {
-        gsap.killTweensOf(cardsToAnimate);
-        gsap.fromTo(
-          cardsToAnimate,
-          { autoAlpha: 0, y: 18 },
-          {
-            autoAlpha: 1,
-            y: 0,
-            duration: 0.35,
-            stagger: { amount: 0.2, from: "start" },
-            ease: "power2.out",
-            clearProps: "transform,opacity",
-          },
+      function scrollToBlogFeed() {
+        const feedEl = document.querySelector<HTMLElement>(".blog-feed");
+        if (!feedEl) return;
+        const navOffset = 76;
+        const targetY = Math.max(
+          0,
+          feedEl.getBoundingClientRect().top + window.scrollY - navOffset,
         );
+        if (Math.abs(window.scrollY - targetY) > 8) {
+          window.scrollTo({
+            top: targetY,
+            behavior: "smooth",
+          });
+        }
       }
 
-      ScrollTrigger.refresh();
-    }
-
-    // Prev / Next button listeners
-    prevBtn?.addEventListener("click", () => {
-      if (currentPage > 1) {
-        goToPage(currentPage - 1);
-      }
-    });
-
-    nextBtn?.addEventListener("click", () => {
-      const totalPages =
-        Math.ceil(matchingCards.length / DESKTOP_PAGE_SIZE) || 1;
-      if (currentPage < totalPages) {
-        goToPage(currentPage + 1);
-      }
-    });
-
-    // Mobile Load More button listener
-    loadMoreBtn?.addEventListener("click", () => {
-      const oldLimit = mobileVisibleCount;
-      mobileVisibleCount += MOBILE_PAGE_SIZE;
-      const newLimit = Math.min(mobileVisibleCount, matchingCards.length);
-
-      const newlyRevealed = matchingCards.slice(oldLimit, newLimit);
-      newlyRevealed.forEach((card) => {
-        card.hidden = false;
-      });
-
-      if (
-        newlyRevealed.length > 0 &&
-        !window.matchMedia("(prefers-reduced-motion: reduce)").matches
-      ) {
-        gsap.fromTo(
-          newlyRevealed,
-          { autoAlpha: 0, y: 20 },
-          {
-            autoAlpha: 1,
-            y: 0,
-            duration: 0.35,
-            stagger: 0.08,
-            ease: "power2.out",
-            clearProps: "transform,opacity",
-          },
-        );
-      }
-
-      updateMobileLoadMoreUI();
-
-      if (visibleCountEl) {
-        visibleCountEl.textContent = `${newLimit} of ${matchingCards.length}`;
-      }
-
-      ScrollTrigger.refresh();
-    });
-
-    // Category pill listeners
-    pills.forEach((pill) => {
-      pill.addEventListener("click", (e) => {
-        e.preventDefault();
-        const selected = pill.dataset.category || "all";
-        if (activeCategory === selected && !searchQuery) return;
-        activeCategory = selected;
-        applyFilters(true, true);
-      });
-    });
-
-    // Post card category badge listeners
-    cardCategoryTags.forEach((tag) => {
-      tag.addEventListener("click", (e) => {
-        e.preventDefault();
-        const selected = tag.dataset.filterCategory || "all";
-        activeCategory = selected;
-        applyFilters(true, true);
-        const feedEl = document.querySelector(".blog-feed");
-        feedEl?.scrollIntoView({ behavior: "smooth", block: "start" });
-      });
-    });
-
-    // Search bar listeners
-    if (searchInput) {
-      searchInput.addEventListener("input", () => {
-        searchQuery = searchInput.value;
-        applyFilters(false, true);
-      });
-      searchInput.addEventListener("keydown", (e) => {
-        if (e.key === "Enter") {
+      // Category pill listeners
+      pills.forEach((pill) => {
+        pill.addEventListener("click", (e) => {
           e.preventDefault();
+          const selected = pill.dataset.category || "all";
+          if (activeCategory === selected && !searchQuery) {
+            scrollToBlogFeed();
+            return;
+          }
+          activeCategory = selected;
+          applyFilters(true, true);
+          scrollToBlogFeed();
+        });
+      });
+
+      // Post card category badge listeners
+      cardCategoryTags.forEach((tag) => {
+        tag.addEventListener("click", (e) => {
+          e.preventDefault();
+          const selected = tag.dataset.filterCategory || "all";
+          activeCategory = selected;
+          applyFilters(true, true);
+          scrollToBlogFeed();
+        });
+      });
+
+      // Search bar listeners
+      if (searchInput) {
+        searchInput.addEventListener("input", () => {
+          searchQuery = searchInput.value;
+          applyFilters(false, true);
+        });
+        searchInput.addEventListener("keydown", (e) => {
+          if (e.key === "Enter") {
+            e.preventDefault();
+            searchQuery = searchInput.value;
+            applyFilters(true, true);
+          }
+        });
+      }
+
+      if (searchBtn && searchInput) {
+        searchBtn.addEventListener("click", () => {
           searchQuery = searchInput.value;
           applyFilters(true, true);
-        }
-      });
-    }
+        });
+      }
 
-    if (searchBtn && searchInput) {
-      searchBtn.addEventListener("click", () => {
-        searchQuery = searchInput.value;
+      function resetAllFilters() {
+        activeCategory = "all";
+        searchQuery = "";
+        if (searchInput) searchInput.value = "";
         applyFilters(true, true);
-      });
-    }
+        scrollToBlogFeed();
+      }
 
-    function resetAllFilters() {
-      activeCategory = "all";
-      searchQuery = "";
-      if (searchInput) searchInput.value = "";
-      applyFilters(true, true);
-    }
+      resetBtn?.addEventListener("click", resetAllFilters);
+      emptyResetBtn?.addEventListener("click", resetAllFilters);
 
-    resetBtn?.addEventListener("click", resetAllFilters);
-    emptyResetBtn?.addEventListener("click", resetAllFilters);
-
-    // Responsive viewport change listener
-    let resizeTimer: any = null;
-    let lastWasMobile = isMobileView();
-
-    window.addEventListener("resize", () => {
-      clearTimeout(resizeTimer);
-      resizeTimer = setTimeout(() => {
-        const currentIsMobile = isMobileView();
-        if (currentIsMobile !== lastWasMobile) {
-          lastWasMobile = currentIsMobile;
-          if (!currentIsMobile) {
-            currentPage = Math.max(
-              1,
-              Math.ceil(mobileVisibleCount / DESKTOP_PAGE_SIZE),
-            );
-          }
-          applyFilters(false, false);
-        }
-      }, 150);
-    });
-
-    // Initialize from URL query parameters (?category= & ?page=)
-    const urlParams = new URLSearchParams(window.location.search);
-    const initialCategory = urlParams.get("category");
-    const initialPage = parseInt(urlParams.get("page") || "1", 10);
-
-    if (
-      initialCategory &&
-      pills.some((p) => p.dataset.category === initialCategory)
-    ) {
-      activeCategory = initialCategory;
-    }
-    if (!isNaN(initialPage) && initialPage > 1) {
-      currentPage = initialPage;
-    }
-
-    // Apply initial pagination and filter state immediately
-    applyFilters(false, false);
-
-    // ---------- Scroll & Entrance Animations ----------
-    const mm = gsap.matchMedia();
-
-    mm.add("(prefers-reduced-motion: no-preference)", () => {
-      gsap.from(".blog-hero__content > *", {
-        y: 30,
-        opacity: 0,
-        duration: 0.8,
-        stagger: 0.15,
-        ease: "power3.out",
-        delay: 0.2,
-      });
-
-      gsap.from(".blog-hero__main", {
-        scale: 0.9,
-        opacity: 0,
-        duration: 1,
-        ease: "power3.out",
-        delay: 0.3,
-      });
-
-      gsap.from(".blog-hero__badge", {
-        scale: 0,
-        opacity: 0,
-        duration: 0.8,
-        stagger: 0.15,
-        ease: "back.out(2)",
-        delay: 0.5,
-      });
-
-      gsap.utils.toArray<HTMLElement>("[data-float]").forEach((el, i) => {
-        gsap.to(el, {
-          y: -10,
-          rotation: i % 2 ? 3 : -3,
-          duration: 2.4 + (i % 3) * 0.4,
-          ease: "sine.inOut",
-          yoyo: true,
-          repeat: -1,
-          delay: (i % 3) * 0.25,
-        });
-      });
-
-      gsap.utils.toArray<HTMLElement>("[data-reveal]").forEach((el) => {
-        gsap.from(el, {
-          y: 40,
-          opacity: 0,
-          duration: 0.8,
-          ease: "power3.out",
-          scrollTrigger: {
-            trigger: el,
-            start: "top 85%",
-            once: true,
+      // Forward wheel scrolling over sidebar header to the inner scroll container
+      const sidebarHeader = document.querySelector<HTMLElement>(
+        ".blog-sidebar__header",
+      );
+      const blogNav = document.querySelector<HTMLElement>(".blog-nav");
+      if (sidebarHeader && blogNav) {
+        sidebarHeader.addEventListener(
+          "wheel",
+          (e) => {
+            blogNav.scrollTop += e.deltaY;
           },
-        });
-      });
+          { passive: true },
+        );
+      }
 
-      gsap.utils
-        .toArray<HTMLElement>("[data-reveal-group]")
-        .forEach((group) => {
-          gsap.fromTo(
-            group.children,
-            { y: 36, opacity: 0 },
-            {
-              y: 0,
-              opacity: 1,
-              duration: 0.7,
-              stagger: { amount: 0.4 },
+      // Responsive viewport change listener
+      let resizeTimer: any = null;
+      let lastWasMobile = isMobileView();
+
+      const handleResize = () => {
+        clearTimeout(resizeTimer);
+        resizeTimer = setTimeout(() => {
+          const currentIsMobile = isMobileView();
+          if (currentIsMobile !== lastWasMobile) {
+            lastWasMobile = currentIsMobile;
+            if (!currentIsMobile) {
+              currentPage = Math.max(
+                1,
+                Math.ceil(mobileVisibleCount / DESKTOP_PAGE_SIZE),
+              );
+            }
+            applyFilters(false, false);
+          }
+        }, 150);
+      };
+
+      window.addEventListener("resize", handleResize);
+      blogResizeCleanup = () => {
+        clearTimeout(resizeTimer);
+        window.removeEventListener("resize", handleResize);
+      };
+
+      // Initialize from URL query parameters (?category= & ?page=)
+      const urlParams = new URLSearchParams(window.location.search);
+      const initialCategory = urlParams.get("category");
+      const initialPage = parseInt(urlParams.get("page") || "1", 10);
+
+      if (
+        initialCategory &&
+        pills.some((p) => p.dataset.category === initialCategory)
+      ) {
+        activeCategory = initialCategory;
+      }
+      if (!isNaN(initialPage) && initialPage > 1) {
+        currentPage = initialPage;
+      }
+
+      // Apply initial pagination and filter state immediately
+      applyFilters(false, false);
+
+      // ---------- Scroll & Entrance Animations ----------
+      blogCtx = gsap.context(() => {
+        const mm = gsap.matchMedia();
+
+        mm.add("(prefers-reduced-motion: no-preference)", () => {
+          gsap.from(".blog-hero__content > *", {
+            y: 30,
+            opacity: 0,
+            duration: 0.8,
+            stagger: 0.15,
+            ease: "power3.out",
+            delay: 0.2,
+          });
+
+          gsap.from(".blog-hero__main", {
+            scale: 0.9,
+            opacity: 0,
+            duration: 1,
+            ease: "power3.out",
+            delay: 0.3,
+          });
+
+          gsap.from(".blog-hero__badge", {
+            scale: 0,
+            opacity: 0,
+            duration: 0.8,
+            stagger: 0.15,
+            ease: "back.out(2)",
+            delay: 0.5,
+          });
+
+          gsap.utils.toArray<HTMLElement>("[data-float]").forEach((el, i) => {
+            gsap.to(el, {
+              y: -10,
+              rotation: i % 2 ? 3 : -3,
+              duration: 2.4 + (i % 3) * 0.4,
+              ease: "sine.inOut",
+              yoyo: true,
+              repeat: -1,
+              delay: (i % 3) * 0.25,
+            });
+          });
+
+          gsap.utils.toArray<HTMLElement>("[data-reveal]").forEach((el) => {
+            gsap.from(el, {
+              y: 40,
+              opacity: 0,
+              duration: 0.8,
               ease: "power3.out",
-              clearProps: "transform,opacity",
               scrollTrigger: {
-                trigger: group,
+                trigger: el,
                 start: "top 85%",
                 once: true,
               },
-            },
-          );
+            });
+          });
+
+          gsap.utils
+            .toArray<HTMLElement>("[data-reveal-group]")
+            .forEach((group) => {
+              gsap.fromTo(
+                group.children,
+                { y: 36, opacity: 0 },
+                {
+                  y: 0,
+                  opacity: 1,
+                  duration: 0.7,
+                  stagger: { amount: 0.4 },
+                  ease: "power3.out",
+                  clearProps: "transform,opacity",
+                  scrollTrigger: {
+                    trigger: group,
+                    start: "top 85%",
+                    once: true,
+                  },
+                },
+              );
+            });
         });
+      });
+    }
+
+    document.addEventListener("astro:page-load", initBlogPage);
+    document.addEventListener("astro:before-swap", () => {
+      if (blogCtx) {
+        blogCtx.revert();
+        blogCtx = null;
+      }
+      if (blogResizeCleanup) {
+        blogResizeCleanup();
+        blogResizeCleanup = null;
+      }
     });
   </script>
 
@@ -1227,17 +1315,22 @@ const categories = [
         order: 2;
         position: sticky;
         top: calc(var(--header-h) + 1.5rem);
+        max-height: min(calc(100vh - var(--header-h) - 3rem), 600px);
+        display: flex;
+        flex-direction: column;
         z-index: 10;
         background: var(--color-bg);
         backdrop-filter: none;
         border: 1px solid var(--color-border);
         border-radius: 16px;
         margin: 0;
-        padding: 1.2rem 0.85rem;
+        padding: 1.2rem 0.45rem 1.2rem 0.85rem;
+        overflow: hidden;
       }
 
       .blog-sidebar__header {
         display: block;
+        flex-shrink: 0;
         font-family: var(--font-heading);
         font-size: 0.76rem;
         font-weight: 700;
@@ -1246,13 +1339,59 @@ const categories = [
         color: var(--color-muted);
         padding: 0 0.75rem 0.75rem;
         margin-bottom: 0.5rem;
+        margin-right: 0.4rem;
         border-bottom: 1px solid var(--color-border);
       }
 
       .blog-nav {
-        overflow: visible;
+        flex: 1;
+        min-height: 0;
+        overflow-y: auto;
+        overflow-x: hidden;
+        overscroll-behavior: contain;
         white-space: normal;
-        padding: 0;
+        padding: 0 0.4rem 0 0;
+
+        /* Standard CSS scrollbar styling */
+        --scrollbar-thumb: #64748b;
+        --scrollbar-thumb-hover: #475569;
+        --scrollbar-thumb-active: #1e293b;
+        --scrollbar-track: transparent;
+
+        scrollbar-color: var(--scrollbar-thumb) var(--scrollbar-track);
+        scrollbar-width: thin;
+      }
+
+      .blog-nav:hover {
+        scrollbar-color: var(--scrollbar-thumb-hover) var(--scrollbar-track);
+      }
+
+      .blog-nav:active {
+        scrollbar-color: var(--scrollbar-thumb-active) var(--scrollbar-track);
+      }
+
+      /* Custom WebKit scrollbar: subtle dark gray line + slight shade when holding */
+      .blog-nav::-webkit-scrollbar {
+        display: block;
+        width: 5px;
+      }
+
+      .blog-nav::-webkit-scrollbar-track {
+        background: transparent;
+      }
+
+      .blog-nav::-webkit-scrollbar-thumb {
+        background-color: var(--scrollbar-thumb);
+        border-radius: 999px;
+        transition: background-color 0.15s ease;
+      }
+
+      .blog-nav::-webkit-scrollbar-thumb:hover {
+        background-color: var(--scrollbar-thumb-hover);
+      }
+
+      .blog-nav::-webkit-scrollbar-thumb:active {
+        background-color: var(--scrollbar-thumb-active);
       }
 
       .blog-nav__pills {

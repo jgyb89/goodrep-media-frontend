@@ -105,13 +105,13 @@ const sanitizedContent = post?.content
     <div class="container post-page__container">
       <!-- Breadcrumb navigation -->
       <nav class="post-breadcrumb" aria-label="Breadcrumb">
-        <a href="/blog" class="post-breadcrumb__link">
+        <a href="/blog/" class="post-breadcrumb__link">
           <span class="material-symbols-outlined" aria-hidden="true">arrow_back</span>
           <span>Back to Articles</span>
         </a>
         <span class="post-breadcrumb__separator" aria-hidden="true">/</span>
         <a
-          href={`/blog/category/${primaryCategory.slug}/`}
+          href={`/blog/?category=${primaryCategory.slug}`}
           class="post-breadcrumb__category"
         >
           {primaryCategory.name}
@@ -123,7 +123,7 @@ const sanitizedContent = post?.content
         <main class="post-layout__main">
           <header class="post-header">
             <a
-              href={`/blog/category/${primaryCategory.slug}/`}
+              href={`/blog/?category=${primaryCategory.slug}`}
               class="post-header__tag"
             >
               {primaryCategory.name}
