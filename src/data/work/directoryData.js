@@ -4,7 +4,7 @@
  */
 
 import capeCoralLawnCareImg from "../../assets/case-studies/cape-coral-lawn-care-project-card.webp";
-import coralBreezeImg from "../../assets/case-studies/coral-breeze-project-card.jpg";
+// import coralBreezeImg from "../../assets/case-studies/coral-breeze-project-card.jpg";
 import glowingResultsImg from "../../assets/case-studies/glowing-result-skin-spa-project.jpg";
 import beBalancedImg from "../../assets/case-studies/be-balanced-bodyworks-project-card.webp";
 import abodeHomeImg from "../../assets/case-studies/abode-home-services-project-card.webp";
@@ -13,7 +13,7 @@ import homeOwnerHelpImg from "../../assets/case-studies/home-owner-help-options-
 import capeCoralReviewedImg from "../../assets/case-studies/cape-coral-reviewed-project-card.webp";
 import floridaSunshineImg from "../../assets/case-studies/florida-sunshine-lawn-care-project-card.webp";
 import jojoJavaImg from "../../assets/case-studies/jojo-java-project-card.webp";
-import pinkSlushyImg from "../../assets/case-studies/pink-slushy-project-card.jpg";
+// import pinkSlushyImg from "../../assets/case-studies/pink-slushy-project-card.jpg";
 
 export const stats = [
   { prefix: "+", value: 240, suffix: "%", barPercent: 90, label: "Average Call & Lead Increase" },
@@ -41,24 +41,6 @@ export const projects = [
     w: 800,
     h: 1050,
     deliverables: ["Custom WordPress Theme", "Local Map Pack SEO", "Review Automation", "Call Tracking"],
-  },
-  {
-    title: "Coral Breeze Services",
-    href: "/work/coral-breeze-services/",
-    category: "Website Design & Branding",
-    tag: "Home Services & Cleaning",
-    summary:
-      "Modernized their legacy website into an intuitive, mobile-first booking experience with automated quote forms and clear service pricing tiers that instantly increased customer trust.",
-    metrics: [
-      { num: "4.8x", desc: "Form conversion lift", icon: "trending_up" },
-      { num: "-62%", desc: "Mobile bounce rate", icon: "trending_down" },
-      { num: "100%", desc: "Accessibility & Best Practices", icon: "verified" },
-    ],
-    logo: "/grm-graphic-samples/coral-breeze-services-logo.svg",
-    img: coralBreezeImg,
-    w: 800,
-    h: 1050,
-    deliverables: ["UI/UX Mobile Design", "Lead Capture Funnel", "Service Pricing Calculator", "Speed Optimization"],
   },
   {
     title: "Glowing Results Skin Spa",
@@ -219,21 +201,5 @@ export const projects = [
       "Bundle Builder & Upsells",
       "Mobile Checkout Optimization",
     ],
-  },
-  {
-    title: "Pink Slushy Media",
-    category: "Web Design & Conversion Funnel",
-    tag: "Media Buying & Performance",
-    summary:
-      "Engineered a bold, high-contrast agency web presence and strategy call funnel for Pink Slushy Media that captures paid traffic leads and showcases their campaign creative capabilities.",
-    metrics: [
-      { num: "+195%", desc: "Strategy call bookings", icon: "call" },
-      { num: "5.1x", desc: "Landing page conversion rate", icon: "ads_click" },
-      { num: "100%", desc: "Mobile performance score", icon: "bolt" },
-    ],
-    img: pinkSlushyImg,
-    w: 800,
-    h: 1050,
-    deliverables: ["Custom Web Design", "Strategy Call Funnel", "Interactive UI Graphics", "Technical SEO"],
   },
 ];

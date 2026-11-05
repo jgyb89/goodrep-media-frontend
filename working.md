@@ -496,4 +496,12 @@
       - **Restored Services Mega Menu:** Reverted `.nav-item--mega` to its original unconstrained static flex layout, fully restoring the full-width edge-to-edge `#2b2b2b` 4-column mega menu.
       - **Created Independent "About Us" Dropdown Menu (`.about-menu` & `.about-dropdown`):** Architected a dedicated, standalone dropdown design featuring a floating white card (`#ffffff`, `border-top: 3px solid var(--color-cyan)`, `border-radius: 14px`, `box-shadow: 0 18px 40px -10px rgba(15, 23, 42, 0.18)`), soft cyan icon badges (`.about-dropdown__icon-box`), headings, descriptive subcopy, and interactive chevron slide transitions. Decoupled scripts into dedicated `setupMegaMenu()` and `setupAboutDropdown()` lifecycle hooks.
       - Verified production build with `ASTRO_TELEMETRY_DISABLED=1 ./node_modules/.bin/astro build`: all 213 pages built cleanly in 6.88s with 0 errors.
+  36. **Removed Pierre Roustan From Meet the Team Page:**
+      - Removed Pierre Roustan's entry from `teamMembers` in `src/data/teamData.js`.
+      - Verified production build with `ASTRO_TELEMETRY_DISABLED=1 ./node_modules/.bin/astro build`: all 213 pages built cleanly in 8.20s with 0 errors.
+  37. **Removed Pink Slushy and Coral Breeze Cards from /work and Homepage (Retaining Pages):**
+      - Removed Coral Breeze Services and Pink Slushy Media entries from `projects` in `src/data/work/directoryData.js`, eliminating their showcase cards and modal viewer panels on `/work`.
+      - Removed Coral Breeze Services from `homepageProjects` in `src/data/homeData.js`, removing it from the homepage portfolio slider.
+      - Preserved `src/data/work/coralBreezeData.js` and its mapping in `src/data/work/caseStudiesRegistry.js` so that `/work/coral-breeze-services/` and `/our-work/coral-breeze-services/` remain statically generated and functional without any active links pointing to them.
+      - Verified production build with `ASTRO_TELEMETRY_DISABLED=1 ./node_modules/.bin/astro build`: all 213 pages compiled cleanly in 8.13s with 0 errors.
 - **Current Objective:** Proceed to Step 8: End-to-end responsiveness, accessibility auditing, and performance optimization across all service pages and core routes.

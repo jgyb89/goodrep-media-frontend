@@ -137,19 +137,6 @@ export const teamMembers = [
     initials: "ES",
   },
   {
-    id: "pierre-roustan",
-    name: "Pierre Roustan",
-    title: "Content Writer & SEO Specialist",
-    description:
-      "Pierre, Content Writer & SEO Specialist, has 10+ years’ experience and hundreds of articles published across many sites. Off hours, he’s an avid horror novelist crafting chilling stories.",
-    image: null,
-    width: 800,
-    height: 800,
-    objectPosition: "center center",
-    icon: "edit_note",
-    initials: "PR",
-  },
-  {
     id: "melani-sevova",
     name: "Melani Sevova",
     title: "Digital Media Coordinator",
