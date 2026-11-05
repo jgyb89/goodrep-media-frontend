@@ -1560,9 +1560,7 @@ try {
         // Initialize starting position
         updatePosition(false);
         const handleResize = () => {
-          if (!isAutoScrolling) {
-            updatePosition(false);
-          }
+          updatePosition(false);
         };
         window.addEventListener("resize", handleResize);
 
@@ -2606,6 +2604,13 @@ try {
       background: var(--color-light);
     }
 
+    @media (max-width: 640px) {
+      .work .container {
+        padding-left: 1.25rem;
+        padding-right: 1.25rem;
+      }
+    }
+
     .work__band {
       color: #e5e5e5;
       /* Darkened overlay over repeating diagonal pill pattern for optimal white text legibility */
@@ -2613,14 +2618,18 @@ try {
         linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)),
         url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cg fill='none' stroke='%23ffffff' stroke-opacity='0.045' stroke-width='22' stroke-linecap='round'%3E%3Cpath d='M30 130 L80 30'/%3E%3Cpath d='M110 170 L150 90'/%3E%3C/g%3E%3C/svg%3E"),
         var(--color-darker, #262626);
+      overflow-x: clip;
     }
 
     .work__layout {
       display: grid;
+      grid-template-columns: minmax(0, 1fr);
       gap: 3rem;
       align-items: center;
       padding-top: 4rem;
       padding-bottom: 4.5rem;
+      width: 100%;
+      min-width: 0;
     }
 
     @media (min-width: 960px) {
@@ -2635,6 +2644,7 @@ try {
       width: 100%;
       max-width: 520px;
       margin: 0 auto;
+      min-width: 0;
     }
 
     @media (min-width: 960px) {
@@ -2647,19 +2657,21 @@ try {
       --gallery-gap: 20px;
       position: relative;
       width: 100%;
+      min-width: 0;
       display: flex;
       align-items: center;
     }
 
     @media (max-width: 600px) {
       .work-gallery {
-        --gallery-gap: 14px;
+        --gallery-gap: 12px;
       }
     }
 
     .work-gallery__viewport {
       position: relative;
       width: 100%;
+      min-width: 0;
       overflow: hidden;
       padding: 1.25rem 0;
       border-radius: 20px;
@@ -2670,6 +2682,7 @@ try {
       gap: var(--gallery-gap);
       will-change: transform;
       align-items: center;
+      min-width: 0;
     }
 
     .work-card {
@@ -2696,6 +2709,21 @@ try {
     @media (min-width: 960px) {
       .work-card {
         height: 520px;
+      }
+    }
+
+    @media (max-width: 959px) {
+      .work-card {
+        min-width: 0;
+        flex: 0 0 clamp(260px, 72vw, 340px);
+        height: clamp(360px, 56vh, 460px);
+      }
+    }
+
+    @media (max-width: 480px) {
+      .work-card {
+        flex: 0 0 clamp(240px, 74vw, 290px);
+        height: clamp(330px, 52vh, 410px);
       }
     }
 
@@ -2845,11 +2873,15 @@ try {
     }
 
     @media (max-width: 640px) {
+      .work-gallery__arrow {
+        width: 38px;
+        height: 38px;
+      }
       .work-gallery__arrow--prev {
-        left: 4px;
+        left: 2px;
       }
       .work-gallery__arrow--next {
-        right: 4px;
+        right: 2px;
       }
     }
 
@@ -2960,6 +2992,87 @@ try {
 
     .work__logos img:hover {
       opacity: 1;
+    }
+
+    @media (max-width: 959px) {
+      .work__layout {
+        padding-top: 2.75rem;
+        padding-bottom: 3.5rem;
+        gap: 2.25rem;
+      }
+
+      .work__content {
+        text-align: center;
+        max-width: 600px;
+        margin: 0 auto;
+        width: 100%;
+      }
+
+      .work__content .eyebrow {
+        display: block;
+        text-align: center;
+        margin: 0 auto 0.75rem;
+      }
+
+      .work__title {
+        text-align: center;
+        font-size: clamp(1.85rem, 5vw, 2.5rem);
+        margin: 0 auto 1.25rem;
+        text-wrap: balance;
+        max-width: 560px;
+      }
+
+      .work__text {
+        text-align: center;
+        font-size: 0.95rem;
+        line-height: 1.7;
+        margin: 0 auto 2rem;
+        max-width: 540px;
+      }
+
+      .work__actions {
+        justify-content: center;
+        margin: 0 auto 2.5rem;
+      }
+
+      .work__clients {
+        text-align: center;
+        margin-top: 2rem;
+        padding-top: 1.75rem;
+      }
+
+      .work__clients-label {
+        text-align: center;
+        margin-left: auto;
+        margin-right: auto;
+      }
+
+      .work__logos {
+        justify-content: center;
+        gap: 1.25rem 1.75rem;
+        max-width: 310px;
+        margin: 0 auto;
+      }
+
+      .work__logos img {
+        height: 28px;
+        max-width: 130px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .work__actions {
+        flex-direction: column;
+        width: 100%;
+        max-width: 290px;
+        margin: 0 auto 2.25rem;
+        gap: 0.75rem;
+      }
+
+      .work__actions .btn {
+        width: 100%;
+        justify-content: center;
+      }
     }
 
     /* ---------- Spotlight features ---------- */
