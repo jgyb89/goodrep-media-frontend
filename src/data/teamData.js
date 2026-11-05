@@ -111,6 +111,19 @@ export const teamMembers = [
     initials: "JG",
   },
   {
+    id: "julia-kereszturi",
+    name: "Julia Kereszturi",
+    title: "Web Developer",
+    description:
+      "As a Web Developer at Good Rep Media, Julia combines creativity and technology to build engaging websites and bring ideas to life, while continuously exploring new technologies, learning new skills, and embracing creative challenges.",
+    image: "/grm-team/julia-kereszturi-profile-pic.jpg",
+    width: 800,
+    height: 800,
+    objectPosition: "center center",
+    icon: "code",
+    initials: "JK",
+  },
+  {
     id: "ron-lewis",
     name: "Ron Lewis",
     title: "Small Business Growth Specialist",

@@ -29,7 +29,7 @@ try {
 }
 ---
 
-<MainLayout 
+<MainLayout
   title="Small Business Marketing Agency in Grand Rapids, MI | Good Rep Media"
   description="Good Rep Media is a Grand Rapids digital marketing agency specializing in local SEO, custom web design, and high-intent Google Ads to help small businesses grow."
 >
@@ -1071,7 +1071,11 @@ try {
                     duration: 0.6,
                     stagger: 0.08,
                     ease: "power2.out",
-                    scrollTrigger: { trigger: group, start: "top 92%", once: true },
+                    scrollTrigger: {
+                      trigger: group,
+                      start: "top 92%",
+                      once: true,
+                    },
                     clearProps: "transform,opacity",
                   },
                 );
@@ -1079,714 +1083,744 @@ try {
           };
           setupScrollReveals();
 
-      // 6. Services: Static at rest; smooth movement plays on hover, freezes,
-      //    and reverses back to original static position on leave.
-      gsap.utils.toArray<HTMLElement>("[data-service-card]").forEach((card) => {
-        const mainImg = card.querySelector<HTMLElement>("[data-card-main]");
-        const accents = gsap.utils.toArray<HTMLElement>(
-          card.querySelectorAll("[data-card-accent]"),
-        );
-        const blob = card.querySelector<HTMLElement>(".service-card__blob");
+          // 6. Services: Static at rest; smooth movement plays on hover, freezes,
+          //    and reverses back to original static position on leave.
+          gsap.utils
+            .toArray<HTMLElement>("[data-service-card]")
+            .forEach((card) => {
+              const mainImg =
+                card.querySelector<HTMLElement>("[data-card-main]");
+              const accents = gsap.utils.toArray<HTMLElement>(
+                card.querySelectorAll("[data-card-accent]"),
+              );
+              const blob = card.querySelector<HTMLElement>(
+                ".service-card__blob",
+              );
 
-        const hoverTl = gsap.timeline({
-          paused: true,
-          defaults: { duration: 0.45, ease: "power2.out" },
-        });
+              const hoverTl = gsap.timeline({
+                paused: true,
+                defaults: { duration: 0.45, ease: "power2.out" },
+              });
 
-        if (blob) {
-          hoverTl.to(
-            blob,
-            {
-              scale: 1.08,
-              rotation: 6,
-            },
-            0,
-          );
-        }
+              if (blob) {
+                hoverTl.to(
+                  blob,
+                  {
+                    scale: 1.08,
+                    rotation: 6,
+                  },
+                  0,
+                );
+              }
 
-        if (mainImg) {
-          hoverTl.to(
-            mainImg,
-            {
-              y: -6,
-              scale: 1.06,
-              rotation: -1.5,
-            },
-            0,
-          );
-        }
+              if (mainImg) {
+                hoverTl.to(
+                  mainImg,
+                  {
+                    y: -6,
+                    scale: 1.06,
+                    rotation: -1.5,
+                  },
+                  0,
+                );
+              }
 
-        accents.forEach((acc, i) => {
-          const dx = Number(acc.dataset.dx || 8);
-          const dy = Number(acc.dataset.dy || -8);
-          const rot = Number(acc.dataset.rot || 6);
+              accents.forEach((acc, i) => {
+                const dx = Number(acc.dataset.dx || 8);
+                const dy = Number(acc.dataset.dy || -8);
+                const rot = Number(acc.dataset.rot || 6);
 
-          hoverTl.to(
-            acc,
-            {
-              x: dx,
-              y: dy,
-              rotation: rot,
-              scale: 1.1,
-            },
-            i * 0.04,
-          );
-        });
+                hoverTl.to(
+                  acc,
+                  {
+                    x: dx,
+                    y: dy,
+                    rotation: rot,
+                    scale: 1.1,
+                  },
+                  i * 0.04,
+                );
+              });
 
-        card.addEventListener("pointerenter", () => hoverTl.play());
-        card.addEventListener("pointerleave", () => hoverTl.reverse());
-      });
+              card.addEventListener("pointerenter", () => hoverTl.play());
+              card.addEventListener("pointerleave", () => hoverTl.reverse());
+            });
 
-      // 7. Why Good Rep: Elastic medallion pop-in + continuous orbit ring
-      const whyGrid = document.querySelector<HTMLElement>("[data-why-grid]");
-      if (whyGrid) {
-        const valueCards = gsap.utils.toArray<HTMLElement>("[data-value-card]");
-        const icons = whyGrid.querySelectorAll(".value__icon");
-        const orbits = whyGrid.querySelectorAll(".value__orbit");
+          // 7. Why Good Rep: Elastic medallion pop-in + continuous orbit ring
+          const whyGrid =
+            document.querySelector<HTMLElement>("[data-why-grid]");
+          if (whyGrid) {
+            const valueCards =
+              gsap.utils.toArray<HTMLElement>("[data-value-card]");
+            const icons = whyGrid.querySelectorAll(".value__icon");
+            const orbits = whyGrid.querySelectorAll(".value__orbit");
 
-        gsap.to(orbits, {
-          rotation: 360,
-          duration: 26,
-          repeat: -1,
-          ease: "none",
-        });
+            gsap.to(orbits, {
+              rotation: 360,
+              duration: 26,
+              repeat: -1,
+              ease: "none",
+            });
 
-        const whyTl = gsap.timeline({
-          scrollTrigger: {
-            trigger: whyGrid,
-            start: "top 82%",
-            once: true,
-          },
-        });
+            const whyTl = gsap.timeline({
+              scrollTrigger: {
+                trigger: whyGrid,
+                start: "top 82%",
+                once: true,
+              },
+            });
 
-        whyTl
-          .fromTo(
-            valueCards,
-            { y: 36, opacity: 0 },
-            {
-              y: 0,
-              opacity: 1,
-              duration: 0.65,
-              stagger: 0.12,
-              ease: "power3.out",
-              clearProps: "transform,opacity",
-            },
-          )
-          .from(
-            icons,
-            {
-              scale: 0.5,
-              rotation: -15,
-              duration: 0.75,
-              stagger: 0.12,
-              ease: "back.out(1.8)",
-              clearProps: "transform",
-            },
-            "<0.05",
-          );
+            whyTl
+              .fromTo(
+                valueCards,
+                { y: 36, opacity: 0 },
+                {
+                  y: 0,
+                  opacity: 1,
+                  duration: 0.65,
+                  stagger: 0.12,
+                  ease: "power3.out",
+                  clearProps: "transform,opacity",
+                },
+              )
+              .from(
+                icons,
+                {
+                  scale: 0.5,
+                  rotation: -15,
+                  duration: 0.75,
+                  stagger: 0.12,
+                  ease: "back.out(1.8)",
+                  clearProps: "transform",
+                },
+                "<0.05",
+              );
 
-        valueCards.forEach((vc) => {
-          const icon = vc.querySelector(".value__main-img");
-          vc.addEventListener("pointerenter", () => {
-            if (icon) {
-              gsap.to(icon, {
-                scale: 1.12,
-                rotation: -5,
-                duration: 0.4,
-                ease: "back.out(2)",
+            valueCards.forEach((vc) => {
+              const icon = vc.querySelector(".value__main-img");
+              vc.addEventListener("pointerenter", () => {
+                if (icon) {
+                  gsap.to(icon, {
+                    scale: 1.12,
+                    rotation: -5,
+                    duration: 0.4,
+                    ease: "back.out(2)",
+                  });
+                }
+              });
+              vc.addEventListener("pointerleave", () => {
+                if (icon) {
+                  gsap.to(icon, {
+                    scale: 1,
+                    rotation: 0,
+                    duration: 0.55,
+                    ease: "elastic.out(1, 0.5)",
+                  });
+                }
+              });
+            });
+          }
+
+          // 8. Our Work: Automated Continuous Smooth Scroll with Natural Manual Interaction & 5s Resume
+          function initWorkGallery() {
+            const gallery = document.getElementById("work-gallery");
+            const galleryWrap = document.querySelector<HTMLElement>(
+              ".work__gallery-wrap",
+            );
+            const viewport = document.getElementById("work-gallery-viewport");
+            const track = document.getElementById("work-gallery-track");
+            const prevBtn = document.getElementById("work-gallery-prev");
+            const nextBtn = document.getElementById("work-gallery-next");
+            const dots = Array.from(
+              document.querySelectorAll<HTMLButtonElement>(
+                ".work-gallery__dot",
+              ),
+            );
+            const cards = Array.from(
+              track?.querySelectorAll<HTMLElement>(".work-card") || [],
+            );
+
+            if (!gallery || !viewport || !track || !cards.length) return;
+
+            const container = galleryWrap || gallery;
+            const totalReal = dots.length;
+            let currentIndex = totalReal; // start at middle set
+            let currentX = 0;
+            let isAutoScrolling = false;
+            let isHovered = false;
+            let isInteracting = false;
+            let isVisibleOnScreen = false;
+            let autoScrollRaf: number | null = null;
+            let idleTimer: ReturnType<typeof setTimeout> | null = null;
+            let lastTime = 0;
+            let observer: IntersectionObserver | null = null;
+
+            // Auto-scroll speed: 65 pixels per second (smooth, continuous glide)
+            const AUTO_SPEED = 65;
+            const IDLE_DELAY = 5000; // 5 seconds of inactivity to resume auto-scroll
+
+            const prefersReducedMotion = window.matchMedia(
+              "(prefers-reduced-motion: reduce)",
+            ).matches;
+
+            function getOneSetWidth(): number {
+              if (cards.length > totalReal) {
+                return cards[totalReal].offsetLeft - cards[0].offsetLeft;
+              }
+              return 0;
+            }
+
+            function getOffsetForIndex(idx: number): number {
+              const card = cards[idx];
+              if (!card || !viewport) return 0;
+              return (
+                viewport.offsetWidth / 2 -
+                (card.offsetLeft + card.offsetWidth / 2)
+              );
+            }
+
+            function updateActiveState(idx: number) {
+              currentIndex = idx;
+              cards.forEach((c, i) => {
+                const isActive = i === currentIndex;
+                c.classList.toggle("is-active", isActive);
+                c.setAttribute("aria-hidden", isActive ? "false" : "true");
+                const btn =
+                  c.querySelector<HTMLAnchorElement>(".work-card__btn");
+                if (btn) btn.tabIndex = isActive ? 0 : -1;
+              });
+
+              const realIndex =
+                ((currentIndex % totalReal) + totalReal) % totalReal;
+              dots.forEach((dot, i) => {
+                const isActive = i === realIndex;
+                dot.classList.toggle("is-active", isActive);
+                dot.setAttribute("aria-selected", isActive ? "true" : "false");
               });
             }
-          });
-          vc.addEventListener("pointerleave", () => {
-            if (icon) {
-              gsap.to(icon, {
-                scale: 1,
-                rotation: 0,
-                duration: 0.55,
-                ease: "elastic.out(1, 0.5)",
-              });
+
+            function updatePosition(animate = true) {
+              const targetOffset = getOffsetForIndex(currentIndex);
+              currentX = targetOffset;
+              track.style.transition = animate
+                ? "transform 0.45s cubic-bezier(0.2, 0.8, 0.2, 1)"
+                : "none";
+              track.style.transform = `translateX(${currentX}px)`;
+              updateActiveState(currentIndex);
             }
-          });
-        });
-      }
 
-      // 8. Our Work: Automated Continuous Smooth Scroll with Natural Manual Interaction & 5s Resume
-      function initWorkGallery() {
-        const gallery = document.getElementById("work-gallery");
-        const galleryWrap = document.querySelector<HTMLElement>(".work__gallery-wrap");
-        const viewport = document.getElementById("work-gallery-viewport");
-        const track = document.getElementById("work-gallery-track");
-        const prevBtn = document.getElementById("work-gallery-prev");
-        const nextBtn = document.getElementById("work-gallery-next");
-        const dots = Array.from(
-          document.querySelectorAll<HTMLButtonElement>(".work-gallery__dot"),
-        );
-        const cards = Array.from(
-          track?.querySelectorAll<HTMLElement>(".work-card") || [],
-        );
-
-        if (!gallery || !viewport || !track || !cards.length) return;
-
-        const container = galleryWrap || gallery;
-        const totalReal = dots.length;
-        let currentIndex = totalReal; // start at middle set
-        let currentX = 0;
-        let isAutoScrolling = false;
-        let isHovered = false;
-        let isInteracting = false;
-        let isVisibleOnScreen = false;
-        let autoScrollRaf: number | null = null;
-        let idleTimer: ReturnType<typeof setTimeout> | null = null;
-        let lastTime = 0;
-        let observer: IntersectionObserver | null = null;
-
-        // Auto-scroll speed: 65 pixels per second (smooth, continuous glide)
-        const AUTO_SPEED = 65;
-        const IDLE_DELAY = 5000; // 5 seconds of inactivity to resume auto-scroll
-
-        const prefersReducedMotion = window.matchMedia(
-          "(prefers-reduced-motion: reduce)",
-        ).matches;
-
-        function getOneSetWidth(): number {
-          if (cards.length > totalReal) {
-            return cards[totalReal].offsetLeft - cards[0].offsetLeft;
-          }
-          return 0;
-        }
-
-        function getOffsetForIndex(idx: number): number {
-          const card = cards[idx];
-          if (!card || !viewport) return 0;
-          return (
-            viewport.offsetWidth / 2 - (card.offsetLeft + card.offsetWidth / 2)
-          );
-        }
-
-        function updateActiveState(idx: number) {
-          currentIndex = idx;
-          cards.forEach((c, i) => {
-            const isActive = i === currentIndex;
-            c.classList.toggle("is-active", isActive);
-            c.setAttribute("aria-hidden", isActive ? "false" : "true");
-            const btn = c.querySelector<HTMLAnchorElement>(".work-card__btn");
-            if (btn) btn.tabIndex = isActive ? 0 : -1;
-          });
-
-          const realIndex = ((currentIndex % totalReal) + totalReal) % totalReal;
-          dots.forEach((dot, i) => {
-            const isActive = i === realIndex;
-            dot.classList.toggle("is-active", isActive);
-            dot.setAttribute("aria-selected", isActive ? "true" : "false");
-          });
-        }
-
-        function updatePosition(animate = true) {
-          const targetOffset = getOffsetForIndex(currentIndex);
-          currentX = targetOffset;
-          track.style.transition = animate
-            ? "transform 0.45s cubic-bezier(0.2, 0.8, 0.2, 1)"
-            : "none";
-          track.style.transform = `translateX(${currentX}px)`;
-          updateActiveState(currentIndex);
-        }
-
-        function goTo(index: number) {
-          stopAutoScroll();
-          currentIndex = index;
-          updatePosition(true);
-          scheduleResume();
-        }
-
-        function next() {
-          goTo(currentIndex + 1);
-        }
-
-        function prev() {
-          goTo(currentIndex - 1);
-        }
-
-        track.addEventListener("transitionend", (e) => {
-          if (e.target !== track) return;
-          if (currentIndex >= totalReal * 2) {
-            currentIndex -= totalReal;
-            updatePosition(false);
-          } else if (currentIndex < totalReal) {
-            currentIndex += totalReal;
-            updatePosition(false);
-          }
-        });
-
-        function autoScrollStep(time: number) {
-          if (!isAutoScrolling) return;
-
-          if (!lastTime) lastTime = time;
-          const dt = Math.min((time - lastTime) / 1000, 0.1);
-          lastTime = time;
-
-          const oneSetWidth = getOneSetWidth();
-          currentX -= AUTO_SPEED * dt;
-
-          // Infinite seamless loop wrapping across identical sets
-          if (oneSetWidth > 0) {
-            const baseCenterOffset = getOffsetForIndex(totalReal);
-            const minX = baseCenterOffset - oneSetWidth;
-            if (currentX <= minX) {
-              currentX += oneSetWidth;
-              currentIndex -= totalReal;
-            } else if (currentX >= baseCenterOffset + oneSetWidth) {
-              currentX -= oneSetWidth;
-              currentIndex += totalReal;
+            function goTo(index: number) {
+              stopAutoScroll();
+              currentIndex = index;
+              updatePosition(true);
+              scheduleResume();
             }
-          }
 
-          track.style.transition = "none";
-          track.style.transform = `translateX(${currentX}px)`;
+            function next() {
+              goTo(currentIndex + 1);
+            }
 
-          // Dynamically detect the centered card as the gallery glides
-          if (viewport) {
-            const viewportCenter = -currentX + viewport.offsetWidth / 2;
-            let closestIdx = currentIndex;
-            let minDistance = Infinity;
+            function prev() {
+              goTo(currentIndex - 1);
+            }
 
-            for (let i = 0; i < cards.length; i++) {
-              const cardCenter = cards[i].offsetLeft + cards[i].offsetWidth / 2;
-              const dist = Math.abs(viewportCenter - cardCenter);
-              if (dist < minDistance) {
-                minDistance = dist;
-                closestIdx = i;
+            track.addEventListener("transitionend", (e) => {
+              if (e.target !== track) return;
+              if (currentIndex >= totalReal * 2) {
+                currentIndex -= totalReal;
+                updatePosition(false);
+              } else if (currentIndex < totalReal) {
+                currentIndex += totalReal;
+                updatePosition(false);
+              }
+            });
+
+            function autoScrollStep(time: number) {
+              if (!isAutoScrolling) return;
+
+              if (!lastTime) lastTime = time;
+              const dt = Math.min((time - lastTime) / 1000, 0.1);
+              lastTime = time;
+
+              const oneSetWidth = getOneSetWidth();
+              currentX -= AUTO_SPEED * dt;
+
+              // Infinite seamless loop wrapping across identical sets
+              if (oneSetWidth > 0) {
+                const baseCenterOffset = getOffsetForIndex(totalReal);
+                const minX = baseCenterOffset - oneSetWidth;
+                if (currentX <= minX) {
+                  currentX += oneSetWidth;
+                  currentIndex -= totalReal;
+                } else if (currentX >= baseCenterOffset + oneSetWidth) {
+                  currentX -= oneSetWidth;
+                  currentIndex += totalReal;
+                }
+              }
+
+              track.style.transition = "none";
+              track.style.transform = `translateX(${currentX}px)`;
+
+              // Dynamically detect the centered card as the gallery glides
+              if (viewport) {
+                const viewportCenter = -currentX + viewport.offsetWidth / 2;
+                let closestIdx = currentIndex;
+                let minDistance = Infinity;
+
+                for (let i = 0; i < cards.length; i++) {
+                  const cardCenter =
+                    cards[i].offsetLeft + cards[i].offsetWidth / 2;
+                  const dist = Math.abs(viewportCenter - cardCenter);
+                  if (dist < minDistance) {
+                    minDistance = dist;
+                    closestIdx = i;
+                  }
+                }
+
+                if (closestIdx !== currentIndex) {
+                  updateActiveState(closestIdx);
+                }
+              }
+
+              autoScrollRaf = requestAnimationFrame(autoScrollStep);
+            }
+
+            function startAutoScroll() {
+              if (
+                prefersReducedMotion ||
+                isAutoScrolling ||
+                isHovered ||
+                isInteracting ||
+                !isVisibleOnScreen
+              ) {
+                return;
+              }
+              isAutoScrolling = true;
+              lastTime = 0;
+              track.style.transition = "none";
+              autoScrollRaf = requestAnimationFrame(autoScrollStep);
+            }
+
+            function stopAutoScroll() {
+              if (!isAutoScrolling) return;
+              isAutoScrolling = false;
+              if (autoScrollRaf) {
+                cancelAnimationFrame(autoScrollRaf);
+                autoScrollRaf = null;
+              }
+              lastTime = 0;
+            }
+
+            function scheduleResume() {
+              if (idleTimer) {
+                clearTimeout(idleTimer);
+                idleTimer = null;
+              }
+              if (
+                isHovered ||
+                isInteracting ||
+                !isVisibleOnScreen ||
+                prefersReducedMotion
+              ) {
+                return;
+              }
+
+              idleTimer = setTimeout(() => {
+                if (
+                  !isHovered &&
+                  !isInteracting &&
+                  isVisibleOnScreen &&
+                  !prefersReducedMotion
+                ) {
+                  startAutoScroll();
+                }
+              }, IDLE_DELAY);
+            }
+
+            function handleInteractionStart() {
+              stopAutoScroll();
+              if (idleTimer) {
+                clearTimeout(idleTimer);
+                idleTimer = null;
               }
             }
 
-            if (closestIdx !== currentIndex) {
-              updateActiveState(closestIdx);
-            }
-          }
-
-          autoScrollRaf = requestAnimationFrame(autoScrollStep);
-        }
-
-        function startAutoScroll() {
-          if (
-            prefersReducedMotion ||
-            isAutoScrolling ||
-            isHovered ||
-            isInteracting ||
-            !isVisibleOnScreen
-          ) {
-            return;
-          }
-          isAutoScrolling = true;
-          lastTime = 0;
-          track.style.transition = "none";
-          autoScrollRaf = requestAnimationFrame(autoScrollStep);
-        }
-
-        function stopAutoScroll() {
-          if (!isAutoScrolling) return;
-          isAutoScrolling = false;
-          if (autoScrollRaf) {
-            cancelAnimationFrame(autoScrollRaf);
-            autoScrollRaf = null;
-          }
-          lastTime = 0;
-        }
-
-        function scheduleResume() {
-          if (idleTimer) {
-            clearTimeout(idleTimer);
-            idleTimer = null;
-          }
-          if (isHovered || isInteracting || !isVisibleOnScreen || prefersReducedMotion) {
-            return;
-          }
-
-          idleTimer = setTimeout(() => {
-            if (
-              !isHovered &&
-              !isInteracting &&
-              isVisibleOnScreen &&
-              !prefersReducedMotion
-            ) {
-              startAutoScroll();
-            }
-          }, IDLE_DELAY);
-        }
-
-        function handleInteractionStart() {
-          stopAutoScroll();
-          if (idleTimer) {
-            clearTimeout(idleTimer);
-            idleTimer = null;
-          }
-        }
-
-        // Pointer/Hover events on the gallery container (pauses while cursor is inside)
-        container.addEventListener("pointerenter", (e) => {
-          if (e.pointerType === "touch") return;
-          isHovered = true;
-          handleInteractionStart();
-          goTo(currentIndex);
-        });
-
-        container.addEventListener("pointerleave", (e) => {
-          if (e.pointerType === "touch") return;
-          isHovered = false;
-          scheduleResume();
-        });
-
-        // Click Arrow buttons
-        nextBtn?.addEventListener("click", () => {
-          handleInteractionStart();
-          next();
-        });
-        prevBtn?.addEventListener("click", () => {
-          handleInteractionStart();
-          prev();
-        });
-
-        // Click Cards
-        cards.forEach((card, idx) => {
-          card.addEventListener("click", (e) => {
-            if (
-              (e.target as HTMLElement).closest(".work-card__btn") &&
-              idx === currentIndex
-            ) {
-              return;
-            }
-            if (idx !== currentIndex) {
-              e.preventDefault();
+            // Pointer/Hover events on the gallery container (pauses while cursor is inside)
+            container.addEventListener("pointerenter", (e) => {
+              if (e.pointerType === "touch") return;
+              isHovered = true;
               handleInteractionStart();
-              goTo(idx);
-            }
-          });
-        });
+              goTo(currentIndex);
+            });
 
-        // Click Pagination Dots
-        dots.forEach((dot) => {
-          dot.addEventListener("click", () => {
-            handleInteractionStart();
-            const targetReal = Number(dot.dataset.dotIndex || 0);
-            goTo(totalReal + targetReal);
-          });
-        });
+            container.addEventListener("pointerleave", (e) => {
+              if (e.pointerType === "touch") return;
+              isHovered = false;
+              scheduleResume();
+            });
 
-        // Keyboard arrow navigation
-        gallery.addEventListener("keydown", (e) => {
-          if (e.key === "ArrowLeft") {
-            e.preventDefault();
-            handleInteractionStart();
-            prev();
-          } else if (e.key === "ArrowRight") {
-            e.preventDefault();
-            handleInteractionStart();
-            next();
-          }
-        });
+            // Click Arrow buttons
+            nextBtn?.addEventListener("click", () => {
+              handleInteractionStart();
+              next();
+            });
+            prevBtn?.addEventListener("click", () => {
+              handleInteractionStart();
+              prev();
+            });
 
-        // Touch swipe gestures
-        let touchStartX = 0;
-        let touchDeltaX = 0;
-        viewport.addEventListener(
-          "touchstart",
-          (e) => {
-            isInteracting = true;
-            isHovered = false;
-            handleInteractionStart();
-            touchStartX = e.touches[0].clientX;
-            touchDeltaX = 0;
-          },
-          { passive: true },
-        );
-
-        viewport.addEventListener(
-          "touchmove",
-          (e) => {
-            touchDeltaX = e.touches[0].clientX - touchStartX;
-          },
-          { passive: true },
-        );
-
-        viewport.addEventListener("touchend", () => {
-          isInteracting = false;
-          isHovered = false;
-          if (touchDeltaX < -40) {
-            next();
-          } else if (touchDeltaX > 40) {
-            prev();
-          } else {
-            goTo(currentIndex);
-          }
-          scheduleResume();
-        });
-
-        // Page Visibility check
-        const handleVisibilityChange = () => {
-          if (document.hidden) {
-            stopAutoScroll();
-          } else {
-            scheduleResume();
-          }
-        };
-        document.addEventListener("visibilitychange", handleVisibilityChange);
-
-        // IntersectionObserver: auto-scroll only when gallery is visible on screen
-        if ("IntersectionObserver" in window) {
-          observer = new IntersectionObserver(
-            (entries) => {
-              entries.forEach((entry) => {
-                isVisibleOnScreen = entry.isIntersecting;
-                if (isVisibleOnScreen) {
-                  if (!isHovered && !isInteracting) {
-                    startAutoScroll();
-                  }
-                } else {
-                  stopAutoScroll();
-                  if (idleTimer) {
-                    clearTimeout(idleTimer);
-                    idleTimer = null;
-                  }
+            // Click Cards
+            cards.forEach((card, idx) => {
+              card.addEventListener("click", (e) => {
+                if (
+                  (e.target as HTMLElement).closest(".work-card__btn") &&
+                  idx === currentIndex
+                ) {
+                  return;
+                }
+                if (idx !== currentIndex) {
+                  e.preventDefault();
+                  handleInteractionStart();
+                  goTo(idx);
                 }
               });
-            },
-            { threshold: 0.15 },
-          );
-          observer.observe(gallery);
-        } else {
-          isVisibleOnScreen = true;
-          startAutoScroll();
-        }
+            });
 
-        // Initialize starting position
-        updatePosition(false);
-        const handleResize = () => {
-          updatePosition(false);
-        };
-        window.addEventListener("resize", handleResize);
+            // Click Pagination Dots
+            dots.forEach((dot) => {
+              dot.addEventListener("click", () => {
+                handleInteractionStart();
+                const targetReal = Number(dot.dataset.dotIndex || 0);
+                goTo(totalReal + targetReal);
+              });
+            });
 
-        // Cleanup registration
-        workGalleryCleanup = () => {
-          stopAutoScroll();
-          if (idleTimer) {
-            clearTimeout(idleTimer);
-            idleTimer = null;
-          }
-          if (observer) {
-            observer.disconnect();
-            observer = null;
-          }
-          document.removeEventListener("visibilitychange", handleVisibilityChange);
-          window.removeEventListener("resize", handleResize);
-        };
-      }
+            // Keyboard arrow navigation
+            gallery.addEventListener("keydown", (e) => {
+              if (e.key === "ArrowLeft") {
+                e.preventDefault();
+                handleInteractionStart();
+                prev();
+              } else if (e.key === "ArrowRight") {
+                e.preventDefault();
+                handleInteractionStart();
+                next();
+              }
+            });
 
-      initWorkGallery();
-
-      // 9. Spotlight: Scroll-scrubbed satellite graphics + checklist stagger
-      gsap.utils.toArray<HTMLElement>(".feature").forEach((featureEl) => {
-        const satellites = gsap.utils.toArray<HTMLElement>(
-          featureEl.querySelectorAll("[data-spotlight-parallax]"),
-        );
-        satellites.forEach((sat) => {
-          const deltaY = Number(sat.dataset.spotlightParallax || -40);
-          gsap.fromTo(
-            sat,
-            { y: -deltaY * 0.35 },
-            {
-              y: deltaY * 0.55,
-              ease: "none",
-              scrollTrigger: {
-                trigger: featureEl,
-                start: "top bottom",
-                end: "bottom top",
-                scrub: 0.2,
+            // Touch swipe gestures
+            let touchStartX = 0;
+            let touchDeltaX = 0;
+            viewport.addEventListener(
+              "touchstart",
+              (e) => {
+                isInteracting = true;
+                isHovered = false;
+                handleInteractionStart();
+                touchStartX = e.touches[0].clientX;
+                touchDeltaX = 0;
               },
-            },
-          );
-        });
+              { passive: true },
+            );
 
-        const checklistItems = featureEl.querySelectorAll(
-          "[data-checklist] li",
-        );
-        if (checklistItems.length) {
-          gsap.fromTo(
-            checklistItems,
-            { x: -24, opacity: 0 },
-            {
-              x: 0,
-              opacity: 1,
-              duration: 0.55,
-              stagger: 0.1,
-              ease: "back.out(1.4)",
-              clearProps: "transform,opacity",
+            viewport.addEventListener(
+              "touchmove",
+              (e) => {
+                touchDeltaX = e.touches[0].clientX - touchStartX;
+              },
+              { passive: true },
+            );
+
+            viewport.addEventListener("touchend", () => {
+              isInteracting = false;
+              isHovered = false;
+              if (touchDeltaX < -40) {
+                next();
+              } else if (touchDeltaX > 40) {
+                prev();
+              } else {
+                goTo(currentIndex);
+              }
+              scheduleResume();
+            });
+
+            // Page Visibility check
+            const handleVisibilityChange = () => {
+              if (document.hidden) {
+                stopAutoScroll();
+              } else {
+                scheduleResume();
+              }
+            };
+            document.addEventListener(
+              "visibilitychange",
+              handleVisibilityChange,
+            );
+
+            // IntersectionObserver: auto-scroll only when gallery is visible on screen
+            if ("IntersectionObserver" in window) {
+              observer = new IntersectionObserver(
+                (entries) => {
+                  entries.forEach((entry) => {
+                    isVisibleOnScreen = entry.isIntersecting;
+                    if (isVisibleOnScreen) {
+                      if (!isHovered && !isInteracting) {
+                        startAutoScroll();
+                      }
+                    } else {
+                      stopAutoScroll();
+                      if (idleTimer) {
+                        clearTimeout(idleTimer);
+                        idleTimer = null;
+                      }
+                    }
+                  });
+                },
+                { threshold: 0.15 },
+              );
+              observer.observe(gallery);
+            } else {
+              isVisibleOnScreen = true;
+              startAutoScroll();
+            }
+
+            // Initialize starting position
+            updatePosition(false);
+            const handleResize = () => {
+              updatePosition(false);
+            };
+            window.addEventListener("resize", handleResize);
+
+            // Cleanup registration
+            workGalleryCleanup = () => {
+              stopAutoScroll();
+              if (idleTimer) {
+                clearTimeout(idleTimer);
+                idleTimer = null;
+              }
+              if (observer) {
+                observer.disconnect();
+                observer = null;
+              }
+              document.removeEventListener(
+                "visibilitychange",
+                handleVisibilityChange,
+              );
+              window.removeEventListener("resize", handleResize);
+            };
+          }
+
+          initWorkGallery();
+
+          // 9. Spotlight: Scroll-scrubbed satellite graphics + checklist stagger
+          gsap.utils.toArray<HTMLElement>(".feature").forEach((featureEl) => {
+            const satellites = gsap.utils.toArray<HTMLElement>(
+              featureEl.querySelectorAll("[data-spotlight-parallax]"),
+            );
+            satellites.forEach((sat) => {
+              const deltaY = Number(sat.dataset.spotlightParallax || -40);
+              gsap.fromTo(
+                sat,
+                { y: -deltaY * 0.35 },
+                {
+                  y: deltaY * 0.55,
+                  ease: "none",
+                  scrollTrigger: {
+                    trigger: featureEl,
+                    start: "top bottom",
+                    end: "bottom top",
+                    scrub: 0.2,
+                  },
+                },
+              );
+            });
+
+            const checklistItems = featureEl.querySelectorAll(
+              "[data-checklist] li",
+            );
+            if (checklistItems.length) {
+              gsap.fromTo(
+                checklistItems,
+                { x: -24, opacity: 0 },
+                {
+                  x: 0,
+                  opacity: 1,
+                  duration: 0.55,
+                  stagger: 0.1,
+                  ease: "back.out(1.4)",
+                  clearProps: "transform,opacity",
+                  scrollTrigger: {
+                    trigger: featureEl,
+                    start: "top 78%",
+                    once: true,
+                  },
+                },
+              );
+            }
+          });
+
+          // 10. Consultation: Multi-layer entrance + wave/card depth
+          const consultSection =
+            document.querySelector<HTMLElement>("#consultation");
+          if (consultSection) {
+            const consultMain =
+              consultSection.querySelector(".consult__art-main");
+            const consultFloats = consultSection.querySelectorAll(
+              ".consult__art-float",
+            );
+
+            const consultTl = gsap.timeline({
               scrollTrigger: {
-                trigger: featureEl,
-                start: "top 78%",
+                trigger: consultSection,
+                start: "top 80%",
                 once: true,
               },
-            },
-          );
-        }
-      });
+            });
 
-      // 10. Consultation: Multi-layer entrance + wave/card depth
-      const consultSection =
-        document.querySelector<HTMLElement>("#consultation");
-      if (consultSection) {
-        const consultMain = consultSection.querySelector(".consult__art-main");
-        const consultFloats = consultSection.querySelectorAll(
-          ".consult__art-float",
+            if (consultMain) {
+              consultTl.fromTo(
+                consultMain,
+                { y: 30, scale: 0.88, opacity: 0 },
+                {
+                  y: 0,
+                  scale: 1,
+                  opacity: 1,
+                  duration: 0.75,
+                  ease: "back.out(1.5)",
+                  clearProps: "transform,opacity",
+                },
+              );
+            }
+            if (consultFloats.length) {
+              consultTl.fromTo(
+                consultFloats,
+                {
+                  scale: 0,
+                  y: 20,
+                  opacity: 0,
+                },
+                {
+                  scale: 1,
+                  y: 0,
+                  opacity: 1,
+                  duration: 0.6,
+                  stagger: 0.1,
+                  ease: "back.out(2.2)",
+                  clearProps: "transform,opacity",
+                },
+                "<0.2",
+              );
+            }
+          }
+        });
+
+        // 11. Process accordion + interactive stage choreography
+        const stage = document.querySelector<HTMLElement>(".process__stage");
+        const stepLabel = document.querySelector("#process-step-label");
+        const stepTag = document.querySelector("#process-step-tag");
+        const progressBar = document.querySelector<HTMLElement>(
+          "#process-progress-bar",
+        );
+        const stageBlob = document.querySelector<HTMLElement>(
+          ".process__stage-blob",
+        );
+        const allDetails = gsap.utils.toArray<HTMLDetailsElement>(".step");
+        const allDots =
+          gsap.utils.toArray<HTMLButtonElement>("[data-step-dot]");
+        const stepTags = allDetails.map(
+          (d) => d.querySelector(".step__tag")?.textContent || "",
         );
 
-        const consultTl = gsap.timeline({
-          scrollTrigger: {
-            trigger: consultSection,
-            start: "top 80%",
-            once: true,
-          },
-        });
+        const activateProcessStep = (stepIndex: number) => {
+          if (!stage) return;
+          const prevStep = Number(stage.dataset.activeStep ?? "0");
+          stage.dataset.activeStep = String(stepIndex);
 
-        if (consultMain) {
-          consultTl.fromTo(
-            consultMain,
-            { y: 30, scale: 0.88, opacity: 0 },
-            {
-              y: 0,
-              scale: 1,
-              opacity: 1,
-              duration: 0.75,
-              ease: "back.out(1.5)",
-              clearProps: "transform,opacity",
-            },
-          );
-        }
-        if (consultFloats.length) {
-          consultTl.fromTo(
-            consultFloats,
-            {
-              scale: 0,
-              y: 20,
-              opacity: 0,
-            },
-            {
-              scale: 1,
-              y: 0,
-              opacity: 1,
-              duration: 0.6,
-              stagger: 0.1,
-              ease: "back.out(2.2)",
-              clearProps: "transform,opacity",
-            },
-            "<0.2",
-          );
-        }
-      }
-    });
+          if (stepLabel) stepLabel.textContent = String(stepIndex + 1);
+          if (stepTag && stepTags[stepIndex]) {
+            stepTag.textContent = stepTags[stepIndex];
+          }
 
-    // 11. Process accordion + interactive stage choreography
-    const stage = document.querySelector<HTMLElement>(".process__stage");
-    const stepLabel = document.querySelector("#process-step-label");
-    const stepTag = document.querySelector("#process-step-tag");
-    const progressBar = document.querySelector<HTMLElement>(
-      "#process-progress-bar",
-    );
-    const stageBlob = document.querySelector<HTMLElement>(
-      ".process__stage-blob",
-    );
-    const allDetails = gsap.utils.toArray<HTMLDetailsElement>(".step");
-    const allDots = gsap.utils.toArray<HTMLButtonElement>("[data-step-dot]");
-    const stepTags = allDetails.map(
-      (d) => d.querySelector(".step__tag")?.textContent || "",
-    );
-
-    const activateProcessStep = (stepIndex: number) => {
-      if (!stage) return;
-      const prevStep = Number(stage.dataset.activeStep ?? "0");
-      stage.dataset.activeStep = String(stepIndex);
-
-      if (stepLabel) stepLabel.textContent = String(stepIndex + 1);
-      if (stepTag && stepTags[stepIndex]) {
-        stepTag.textContent = stepTags[stepIndex];
-      }
-
-      allDots.forEach((dot, idx) => {
-        dot.classList.toggle("is-active", idx === stepIndex);
-      });
-
-      const prefersReduced = window.matchMedia(
-        "(prefers-reduced-motion: reduce)",
-      ).matches;
-
-      if (progressBar) {
-        const ratio = (stepIndex + 1) / Math.max(allDetails.length, 1);
-        if (prefersReduced) {
-          progressBar.style.transform = `scaleX(${ratio})`;
-        } else {
-          gsap.to(progressBar, {
-            scaleX: ratio,
-            duration: 0.55,
-            ease: "power3.out",
+          allDots.forEach((dot, idx) => {
+            dot.classList.toggle("is-active", idx === stepIndex);
           });
-        }
-      }
 
-      if (prefersReduced || prevStep === stepIndex) return;
+          const prefersReduced = window.matchMedia(
+            "(prefers-reduced-motion: reduce)",
+          ).matches;
 
-      const nextVisual = stage.querySelector<HTMLElement>(
-        `[data-visual="${stepIndex}"]`,
-      );
-      if (stageBlob) {
-        gsap.to(stageBlob, {
-          rotation: stepIndex * 45,
-          scale: 1 + (stepIndex % 2) * 0.08,
-          duration: 0.8,
-          ease: "power2.out",
+          if (progressBar) {
+            const ratio = (stepIndex + 1) / Math.max(allDetails.length, 1);
+            if (prefersReduced) {
+              progressBar.style.transform = `scaleX(${ratio})`;
+            } else {
+              gsap.to(progressBar, {
+                scaleX: ratio,
+                duration: 0.55,
+                ease: "power3.out",
+              });
+            }
+          }
+
+          if (prefersReduced || prevStep === stepIndex) return;
+
+          const nextVisual = stage.querySelector<HTMLElement>(
+            `[data-visual="${stepIndex}"]`,
+          );
+          if (stageBlob) {
+            gsap.to(stageBlob, {
+              rotation: stepIndex * 45,
+              scale: 1 + (stepIndex % 2) * 0.08,
+              duration: 0.8,
+              ease: "power2.out",
+            });
+          }
+
+          if (nextVisual) {
+            const mainImg = nextVisual.querySelector(".process__visual-main");
+            const floatImgs = nextVisual.querySelectorAll(
+              ".process__visual-float",
+            );
+
+            if (mainImg) {
+              gsap.fromTo(
+                mainImg,
+                { y: 28, scale: 0.85, opacity: 0 },
+                {
+                  y: 0,
+                  scale: 1,
+                  opacity: 1,
+                  duration: 0.55,
+                  ease: "back.out(1.5)",
+                  overwrite: "auto",
+                },
+              );
+            }
+            if (floatImgs.length) {
+              gsap.fromTo(
+                floatImgs,
+                { scale: 0.5, opacity: 0 },
+                {
+                  scale: 1,
+                  opacity: 1,
+                  duration: 0.5,
+                  stagger: 0.08,
+                  ease: "back.out(2.1)",
+                  delay: 0.1,
+                  overwrite: "auto",
+                },
+              );
+            }
+          }
+        };
+
+        allDetails.forEach((details) => {
+          details.addEventListener("toggle", () => {
+            if (!details.open) return;
+            const stepIdx = Number(details.dataset.step ?? "0");
+            activateProcessStep(stepIdx);
+          });
         });
-      }
-
-      if (nextVisual) {
-        const mainImg = nextVisual.querySelector(".process__visual-main");
-        const floatImgs = nextVisual.querySelectorAll(".process__visual-float");
-
-        if (mainImg) {
-          gsap.fromTo(
-            mainImg,
-            { y: 28, scale: 0.85, opacity: 0 },
-            {
-              y: 0,
-              scale: 1,
-              opacity: 1,
-              duration: 0.55,
-              ease: "back.out(1.5)",
-              overwrite: "auto",
-            },
-          );
-        }
-        if (floatImgs.length) {
-          gsap.fromTo(
-            floatImgs,
-            { scale: 0.5, opacity: 0 },
-            {
-              scale: 1,
-              opacity: 1,
-              duration: 0.5,
-              stagger: 0.08,
-              ease: "back.out(2.1)",
-              delay: 0.1,
-              overwrite: "auto",
-            },
-          );
-        }
-      }
-    };
-
-    allDetails.forEach((details) => {
-      details.addEventListener("toggle", () => {
-        if (!details.open) return;
-        const stepIdx = Number(details.dataset.step ?? "0");
-        activateProcessStep(stepIdx);
-      });
-    });
 
         allDots.forEach((dot) => {
           dot.addEventListener("click", () => {
@@ -1815,7 +1849,7 @@ try {
         workGalleryCleanup = null;
       }
     });
-</script>
+  </script>
 
   <style>
     /* BEM: Hero Block */
@@ -2034,14 +2068,14 @@ try {
     }
 
     .hero-art__float--top-right {
-      top: -6%;
-      right: 3%;
+      top: -10%;
+      right: -4%;
       width: 20%;
     }
 
     .hero-art__float--bottom-left {
-      bottom: -4%;
-      left: -2%;
+      bottom: -5%;
+      left: -4%;
       width: 21%;
     }
 

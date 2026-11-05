@@ -543,4 +543,9 @@
         - **`src/pages/services.astro`:** Removed the `<img class="services-hero__blob" ... />` markup and guarded the corresponding GSAP selector from the hero section on the main services catalog overview page.
         - **Preservation Check:** Left all secondary section backgrounds (`StartsSection`, `PillarsSection`, `ProcessSection`, `ReadyBand`) and the homepage (`src/pages/index.astro`) completely untouched.
       - Verified production build with `ASTRO_TELEMETRY_DISABLED=1 ./node_modules/.bin/astro build`: all 213 pages compiled cleanly in 8.01s with 0 errors.
+  43. **Added Julia Kereszturi to Meet the Team Page:**
+      - Added Julia Kereszturi's profile to `teamMembers` in `src/data/teamData.js` as Web Developer (`icon: "code"`, `initials: "JK"`, `width: 800`, `height: 800`, `objectPosition: "center center"`).
+      - Paired profile with her dedicated photograph (`public/grm-team/julia-kereszturi-profile-pic.jpg`) and client-provided description.
+      - Automatically populated into Schema.org JSON-LD Person graph and interactive directory grid with circular mask overlay (`.team-card__avatar-mask`) and orbital ring.
+      - Verified production build with `ASTRO_TELEMETRY_DISABLED=1 npm run build`: all 213 pages compiled cleanly in 9.69s with 0 errors.
 - **Current Objective:** Proceed to Step 8: End-to-end responsiveness, accessibility auditing, and performance optimization across all service pages and core routes.
