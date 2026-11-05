@@ -20,7 +20,7 @@ interface FloatAsset {
 }
 
 interface HeroStage {
-  blob: {
+  blob?: {
     src: string;
     width?: number;
     height?: number;
@@ -155,20 +155,6 @@ const {
     <!-- Multi-layered isometric hero composition -->
     <div class="service-hero__graphic" aria-hidden="true">
       <div class="hero-stage" id="hero-parallax-stage">
-        {
-          stage.blob && (
-            <img
-              class="hero-stage__blob"
-              data-hero-depth={stage.blob.depth ?? 12}
-              src={stage.blob.src}
-              alt=""
-              width={stage.blob.width ?? 746}
-              height={stage.blob.height ?? 780}
-              style={stage.blob.style}
-              decoding="async"
-            />
-          )
-        }
         {
           stage.main && (
             <img
