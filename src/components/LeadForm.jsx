@@ -23,6 +23,15 @@ export const SPA_ESTHETICIAN_FIELD_IDS = Object.freeze({
   LAST_NAME: 13,
 });
 
+export const GF_CHOICE_INPUT_IDS = Object.freeze({
+  'Website Design': 7.1,
+  'Paid Digital Ads': 7.2,
+  'Search Engine Optimization': 7.3,
+  'Marketing Strategy': 7.4,
+  'Social Media Management': 7.5,
+  'Branding': 7.6,
+});
+
 const INITIAL_FORM_STATE = Object.freeze({
   firstName: '',
   lastName: '',
@@ -274,6 +283,16 @@ export default function LeadForm({
       ...fieldIds,
     };
 
+    // Format checkbox options into the structured array required by WPGraphQL Gravity Forms
+    const selectedChoices = Array.isArray(formData.multipleChoice)
+      ? formData.multipleChoice
+      : (formData.multipleChoice ? [formData.multipleChoice] : []);
+
+    const checkboxValues = selectedChoices.map((choice) => ({
+      inputId: GF_CHOICE_INPUT_IDS[choice] || parseFloat(`${activeFieldIds.SERVICES_NEEDED}.1`),
+      value: choice,
+    }));
+
     const fieldValues = [
       { id: activeFieldIds.FIRST_NAME, value: formData.firstName || '' },
       { id: activeFieldIds.LAST_NAME, value: formData.lastName || '' },
@@ -283,7 +302,10 @@ export default function LeadForm({
       },
       { id: activeFieldIds.PHONE, value: formData.phone || '' },
       { id: activeFieldIds.COMPANY, value: formData.company || '' },
-      { id: activeFieldIds.SERVICES_NEEDED, value: multipleChoiceValue },
+      {
+        id: activeFieldIds.SERVICES_NEEDED,
+        checkboxValues, // Strict CheckboxFieldInput schema wrapper
+      },
       { id: activeFieldIds.MESSAGE, value: formData.message || '' },
     ];
 
@@ -351,9 +373,16 @@ export default function LeadForm({
           [`input_${activeFieldIds.EMAIL}`]: formData.email || '',
           [`input_${activeFieldIds.PHONE}`]: formData.phone || '',
           [`input_${activeFieldIds.COMPANY}`]: formData.company || '',
-          [`input_${activeFieldIds.SERVICES_NEEDED}`]: multipleChoiceValue,
           [`input_${activeFieldIds.MESSAGE}`]: formData.message || '',
         };
+
+        // Populate checkbox choice sub-inputs for Gravity Forms REST API (e.g. input_7.1 = "Website Design")
+        selectedChoices.forEach((choice) => {
+          const inputId = GF_CHOICE_INPUT_IDS[choice];
+          if (inputId) {
+            restPayload[`input_${inputId}`] = choice;
+          }
+        });
 
         const restRes = await fetch(restEndpoint, {
           method: 'POST',
