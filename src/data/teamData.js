@@ -1,7 +1,8 @@
 // src/data/teamData.js
 
 export const teamPageMeta = {
-  title: "Meet the Team | Good Rep Media - Grand Rapids Digital Marketing Experts",
+  title:
+    "Meet the Team | Good Rep Media - Grand Rapids Digital Marketing Experts",
   description:
     "Meet the strategists, designers, developers, and growth specialists behind Good Rep Media. A 100% in-house team dedicated to helping small businesses grow.",
 };
@@ -31,11 +32,11 @@ export const teamHeroData = {
       height: 780,
     },
     main: {
-      src: "/grm-main-graphics/users-networking-graphic.svg",
+      src: "/grm-main-graphics/goodrep-meet-the-team.svg",
       alt: "Good Rep Media collaborative marketing and web team",
       width: 746,
       height: 780,
-      style: "width: 62%; left: 19%; top: 14%;",
+      style: "width: 100%; left: 5%; top: 10%;",
     },
     // Blob 1 rule: Lower-Left Corner & Top-Right Corner
     floats: [
@@ -100,9 +101,9 @@ export const teamMembers = [
   {
     id: "james-green",
     name: "James Green",
-    title: "Web Developer",
+    title: "UI/UX Developer",
     description:
-      "James designed & developed B2B + e-commerce sites, turning concepts into reality with design, Figma & dev skills. Outside work, he’s a big gamer & sketching fan.",
+      "James is a UI/UX Developer who bridges intuitive interface design and modern front-end engineering, using Figma and modular component architecture to turn complex concepts into performant web applications. Outside of shipping clean code, he keeps his creative gears turning through gaming and sketching.",
     image: "/grm-team/James Green.webp",
     width: 1024,
     height: 1024,
