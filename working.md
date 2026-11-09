@@ -548,4 +548,13 @@
       - Paired profile with her dedicated photograph (`public/grm-team/julia-kereszturi-profile-pic.jpg`) and client-provided description.
       - Automatically populated into Schema.org JSON-LD Person graph and interactive directory grid with circular mask overlay (`.team-card__avatar-mask`) and orbital ring.
       - Verified production build with `ASTRO_TELEMETRY_DISABLED=1 npm run build`: all 213 pages compiled cleanly in 9.69s with 0 errors.
+  44. **PageSpeed Insights Agentic Browsing Accessibility & Form Submission Remediation:**
+      - **Agentic Browsing Accessibility Tree Fixes:**
+        - Fixed `Elements must only use supported ARIA attributes` on `<fieldset>` in `src/components/LeadForm.jsx` by removing `aria-required` and `aria-invalid` (which are invalid on ARIA `group` role elements per W3C WAI-ARIA and HTML-AAM specs), keeping valid `aria-describedby` and semantic `<legend>` required indicator.
+        - Fixed `ARIA role should be appropriate for the element` in `src/components/MobileFlyoutMenu.astro` by replacing `<aside ... role="dialog">` with `<div ... role="dialog">` (per HTML-AAM, `<aside>` carries implicit role `complementary` and restricts allowed roles to `feed`, `note`, `region`, `search`).
+      - **Gravity Forms WPGraphQL vs REST Submissions Remediation:**
+        - Diagnosed `Unknown type "SubmitGfFormInput"` and `Cannot query field "submitGfForm" on type "RootMutation"` in browser console: confirmed that while core WPGraphQL was active, `WPGraphQL for Gravity Forms` (`v0.13.4` by AxePress Development) was aborting early because the uncompiled source code ZIP was installed without Composer's `vendor/autoload.php`.
+        - Replaced with official pre-compiled release package `wp-graphql-gravity-forms.zip` from AxeWP GitHub Releases, activating `SubmitGfFormInput` and `submitGfForm` in the GraphQL schema.
+        - Hardened `src/components/LeadForm.jsx`: cast form ID as `String(formId)` matching GraphQL `ID!` scalar requirements, and added an automatic dual-mode fallback to Gravity Forms' native REST API endpoint (`/wp-json/gf/v2/forms/${formId}/submissions`) so submissions never fail if GraphQL experiences connectivity or schema interruptions.
+        - Documented release package installation requirements in `docs/Stage1-Headless-WP-Astro-Vercel-Template-Setup-Guide.md` and added `/docs/` to `.gitignore`.
 - **Current Objective:** Proceed to Step 8: End-to-end responsiveness, accessibility auditing, and performance optimization across all service pages and core routes.

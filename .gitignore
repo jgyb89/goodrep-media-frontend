@@ -13,6 +13,10 @@ yarn-error.log*
 pnpm-debug.log*
 
 
+# documentation
+/docs/
+docs/
+
 # environment variables
 .env
 .env.*
