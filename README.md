@@ -221,14 +221,14 @@ goodrep-media-frontend/
 
 ### Environment Variables
 
-Create a `.env` or `.env.local` file in the project root:
+Create a `.env` or `.env.local` file in the project root (or copy from `.env.example`):
 
 ```ini
 # Primary WordPress REST API origin endpoint
-PUBLIC_WORDPRESS_API_URL=https://wp.goodrep.media/wp-json/wp/v2
+PUBLIC_WORDPRESS_API_URL=https://wp.example.com/wp-json/wp/v2
 
 # Optional: Dedicated WPGraphQL endpoint (defaults to /graphql on the API origin)
-PUBLIC_WORDPRESS_GRAPHQL_URL=https://wp.goodrep.media/graphql
+PUBLIC_WORDPRESS_GRAPHQL_URL=https://wp.example.com/graphql
 
 # Build flag for GitHub Pages deployment (automatically set in GitHub Actions)
 GITHUB_PAGES=false
@@ -239,7 +239,7 @@ ASTRO_TELEMETRY_DISABLED=1
 
 | Variable | Required | Default Value | Description |
 | :--- | :---: | :--- | :--- |
-| `PUBLIC_WORDPRESS_API_URL` | **Yes** | `https://wp.goodrep.media/wp-json/wp/v2` | URL for WordPress REST endpoints |
+| `PUBLIC_WORDPRESS_API_URL` | **Yes** | `https://wp.example.com/wp-json/wp/v2` | URL for WordPress REST endpoints |
 | `PUBLIC_WORDPRESS_GRAPHQL_URL` | No | Derived from `PUBLIC_WORDPRESS_API_URL` | Endpoint for Gravity Forms GraphQL mutations |
 | `GITHUB_PAGES` | No | `false` | Sets `noindex` meta and triggers path rewrites during GitHub Pages builds |
 | `ASTRO_TELEMETRY_DISABLED` | No | `0` | Disables telemetry file writes in restricted sandboxes |
