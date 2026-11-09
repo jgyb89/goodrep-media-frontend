@@ -47,6 +47,17 @@ const getGraphQLEndpoint = () => {
   return 'https://wp.goodrep.media/graphql';
 };
 
+const getRestSubmissionEndpoint = (id) => {
+  if (typeof import.meta !== 'undefined') {
+    if (import.meta.env?.PUBLIC_WORDPRESS_API_URL) {
+      const url = import.meta.env.PUBLIC_WORDPRESS_API_URL;
+      const origin = url.replace(/\/wp-json\/.*$/, '').replace(/\/graphql$/, '');
+      return `${origin}/wp-json/gf/v2/forms/${id}/submissions`;
+    }
+  }
+  return `https://wp.goodrep.media/wp-json/gf/v2/forms/${id}/submissions`;
+};
+
 const SUBMIT_GF_FORM_MUTATION = `
   mutation SubmitLeadForm($input: SubmitGfFormInput!) {
     submitGfForm(input: $input) {
@@ -277,45 +288,100 @@ export default function LeadForm({
     ];
 
     const input = {
-      id: formId, // Gravity Forms Form ID (e.g. 15 for standard consultation, 17 for Spa & Esthetician)
+      id: String(formId), // Strictly serialized as String per GraphQL ID! spec & Setup Guide
       fieldValues,
     };
 
     try {
       const endpoint = getGraphQLEndpoint();
-      const res = await fetch(endpoint, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          query: SUBMIT_GF_FORM_MUTATION,
-          variables: { input },
-        }),
-      });
+      let isGqlSuccess = false;
+      let json = null;
 
-      const json = await res.json();
+      try {
+        const res = await fetch(endpoint, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            query: SUBMIT_GF_FORM_MUTATION,
+            variables: { input },
+          }),
+        });
 
-      if (json.errors && json.errors.length > 0) {
-        console.error('GraphQL API Errors:', json.errors);
-        throw new Error(json.errors[0]?.message || 'GraphQL submission error');
+        json = await res.json();
+        if (!json.errors || json.errors.length === 0) {
+          const result = json.data?.submitGfForm;
+          if (result?.errors && result.errors.length > 0) {
+            const errorText = result.errors.map((err) => err.message).join(', ');
+            throw new Error(errorText || 'Form submission failed');
+          }
+
+          const confirmationHtml = result?.confirmation?.message;
+          setConfirmationMessage(
+            confirmationHtml || 'Thank you! Your submission has been received.'
+          );
+          setStatus('success');
+          setFormData(INITIAL_FORM_STATE);
+          setErrors({});
+          setTouched({});
+          isGqlSuccess = true;
+
+          if (typeof window !== 'undefined') {
+            window.location.href = '/thankyou/';
+          }
+          return;
+        } else {
+          console.warn(
+            '[WPGraphQL Notice] GraphQL schema error on submitGfForm. Engaging Gravity Forms REST fallback...',
+            json.errors
+          );
+        }
+      } catch (gqlErr) {
+        console.warn(
+          '[WPGraphQL Notice] GraphQL submission error. Engaging Gravity Forms REST fallback...',
+          gqlErr
+        );
       }
 
-      const result = json.data?.submitGfForm;
-      if (result?.errors && result.errors.length > 0) {
-        const errorText = result.errors.map((err) => err.message).join(', ');
-        throw new Error(errorText || 'Form submission failed');
-      }
+      // Seamless Gravity Forms REST API fallback
+      if (!isGqlSuccess) {
+        const restEndpoint = getRestSubmissionEndpoint(formId);
+        const restPayload = {
+          [`input_${activeFieldIds.FIRST_NAME}`]: formData.firstName || '',
+          [`input_${activeFieldIds.LAST_NAME}`]: formData.lastName || '',
+          [`input_${activeFieldIds.EMAIL}`]: formData.email || '',
+          [`input_${activeFieldIds.PHONE}`]: formData.phone || '',
+          [`input_${activeFieldIds.COMPANY}`]: formData.company || '',
+          [`input_${activeFieldIds.SERVICES_NEEDED}`]: multipleChoiceValue,
+          [`input_${activeFieldIds.MESSAGE}`]: formData.message || '',
+        };
 
-      const confirmationHtml = result?.confirmation?.message;
-      setConfirmationMessage(
-        confirmationHtml || 'Thank you! Your submission has been received.'
-      );
-      setStatus('success');
-      setFormData(INITIAL_FORM_STATE);
-      setErrors({});
-      setTouched({});
+        const restRes = await fetch(restEndpoint, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(restPayload),
+        });
 
-      if (json.is_valid !== false && typeof window !== 'undefined') {
-        window.location.href = '/thankyou/';
+        const restJson = await restRes.json();
+
+        if (restJson.is_valid === false) {
+          const validationMessages = restJson.validation_messages
+            ? Object.values(restJson.validation_messages).join(', ')
+            : 'Validation failed on the server.';
+          throw new Error(validationMessages);
+        }
+
+        const confirmationHtml = restJson.confirmation_message;
+        setConfirmationMessage(
+          confirmationHtml || 'Thank you! Your submission has been received.'
+        );
+        setStatus('success');
+        setFormData(INITIAL_FORM_STATE);
+        setErrors({});
+        setTouched({});
+
+        if (typeof window !== 'undefined') {
+          window.location.href = '/thankyou/';
+        }
       }
     } catch (err) {
       console.error('Submission Error:', err);
