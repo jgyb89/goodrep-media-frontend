@@ -507,8 +507,6 @@ export default function LeadForm({
           className={`lead-form-field lead-form-field--full lead-form-fieldset ${
             errors.multipleChoice && touched.multipleChoice ? 'lead-form-field--error' : ''
           }`}
-          aria-required="true"
-          aria-invalid={!!(errors.multipleChoice && touched.multipleChoice)}
           aria-describedby={
             errors.multipleChoice && touched.multipleChoice
               ? `${uid}-multipleChoice-error`
