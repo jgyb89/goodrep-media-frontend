@@ -156,7 +156,7 @@ export const teamMembers = [
     title: "Digital Media Coordinator",
     description:
       "Melani brainstorms and builds fresh media ideas for blogs and SOPs that keep projects organized and moving forward. A digital marketing grad with a love for Pilates, Italian food, and weekends in Chicago, she brings creativity and a thoughtful touch to every project.",
-    image: null,
+    image: "/grm-team/melani-sevova.webp",
     width: 800,
     height: 800,
     objectPosition: "center center",
