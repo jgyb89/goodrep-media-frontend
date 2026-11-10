@@ -8,53 +8,70 @@ const steps = [
     tag: "INSPECTION",
     title: "Footprint Audit & Review",
     desc: "We analyze your existing website speed, local SEO visibility, Google rankings, and competitor presence to prepare meaningful talking points.",
-    icon: "manage_search",
+    icon: "/grm-web-icons/number-icon-1.svg",
+    accent: "/grm-web-assets/3d-search-window-graphic.svg",
   },
   {
     step: "02",
     tag: "STRATEGY CALL",
     title: "Direct 1-on-1 Consultation",
     desc: "A dedicated Good Rep Media strategist reaches out to align on your revenue targets, ideal customer profile, and specific growth bottlenecks.",
-    icon: "calendar_today",
+    icon: "/grm-web-icons/number-icon-2.svg",
+    accent: "/grm-web-assets/3d-chat-bubbles-graphic.svg",
   },
   {
     step: "03",
     tag: "ACTION PLAN",
     title: "Custom Growth Blueprint",
     desc: "You receive a clear, transparent action plan tailored to your budget and business goals with zero long-term lock-in contracts.",
-    icon: "verified",
+    icon: "/grm-web-icons/number-icon-3.svg",
+    accent: "/grm-web-assets/3d-rocket-graphic.svg",
   },
 ];
 
 const featuredServices = [
   {
-    title: "Website Design",
-    desc: "High-converting, mobile-responsive custom websites engineered to turn visitors into phone calls.",
+    title: "Website Design & UX",
+    desc: "High-converting, mobile-responsive custom websites engineered to turn visitors into phone calls and booked clients.",
     href: "/services/web-design/",
-    icon: "/grm-web-icons/custom-template-icon-blue.svg",
+    icon: "/grm-web-icons/website-design-icon-blue.svg",
+    graphic: "/grm-main-graphics/website-design-graphic.svg",
+    accent: "/grm-web-assets/3d-browser-window-graphic.svg",
     badge: "Web & UX",
   },
   {
-    title: "Local SEO",
-    desc: "Dominate Google's local 3-pack and capture high-intent customers actively searching in your city.",
+    title: "Local SEO & Google Maps",
+    desc: "Dominate Google's local 3-pack and capture high-intent customers actively searching in your service area.",
     href: "/services/local-seo/",
     icon: "/grm-web-icons/google-business-icon.svg",
+    graphic: "/grm-main-graphics/local-seo-marketing-graphic.svg",
+    accent: "/grm-web-assets/3d-map-indicator-icon-graphic.svg",
     badge: "Google Maps",
   },
   {
     title: "Paid Advertising (PPC)",
-    desc: "Targeted Google Ads and Meta campaigns tracked down to the exact dollar and conversion.",
+    desc: "Targeted Google Ads and Meta campaigns tracked down to the exact dollar, phone call, and conversion.",
     href: "/services/pay-per-click-marketing/",
-    icon: "/grm-web-icons/google-ad-manager-icon.svg",
+    icon: "/grm-web-icons/paid-search-icon.svg",
+    graphic: "/grm-main-graphics/pay-per-click-marketing-graphic.svg",
+    accent: "/grm-web-assets/arrow-in-target-graphic.svg",
     badge: "Fast Leads",
   },
   {
     title: "Social Media Marketing",
     desc: "Engaging content, audience growth, and community management that builds local trust and brand loyalty.",
     href: "/services/social-media-marketing/",
-    icon: "/grm-web-icons/digital-marketing-icon.svg",
+    icon: "/grm-web-icons/social-media-icon.svg",
+    graphic: "/grm-main-graphics/social-media-marketing-graphic.svg",
+    accent: "/grm-web-assets/999-hearts-likes-graphic.svg",
     badge: "Engagement",
   },
+];
+
+const highlights = [
+  "Response within 1 business day from a real strategist",
+  "100% in-house Grand Rapids digital marketing team",
+  "Zero sales pressure — honest, data-backed growth advice",
 ];
 ---
 
@@ -65,11 +82,11 @@ const featuredServices = [
 >
   <!-- Isolated GA4 Lead Conversion Event -->
   <script is:inline>
-    window.addEventListener('load', function() {
-      if (typeof gtag === 'function') {
-        gtag('event', 'generate_lead', {
-          event_category: 'engagement',
-          event_label: 'Contact Form Submission'
+    window.addEventListener("load", function () {
+      if (typeof gtag === "function") {
+        gtag("event", "generate_lead", {
+          event_category: "engagement",
+          event_label: "Contact Form Submission",
         });
       }
     });
@@ -80,21 +97,20 @@ const featuredServices = [
     <div class="container thankyou-hero__container">
       <div class="thankyou-hero__content">
         <!-- Breadcrumb navigation -->
-        <nav class="breadcrumb thankyou-hero__breadcrumb" aria-label="Breadcrumb">
-          <ol class="breadcrumb__list">
-            <li class="breadcrumb__item">
-              <a href="/" class="breadcrumb__link">Home</a>
-            </li>
-            <li class="breadcrumb__sep" aria-hidden="true">
-              <span class="material-symbols-outlined">chevron_right</span>
-            </li>
-            <li class="breadcrumb__item" aria-current="page">Thank You</li>
-          </ol>
+        <nav class="thankyou-breadcrumb" aria-label="Breadcrumb">
+          <a href="/">Home</a>
+          <span aria-hidden="true">/</span>
+          <a href="/contact/">Contact</a>
+          <span aria-hidden="true">/</span>
+          <span aria-current="page">Thank You</span>
         </nav>
 
         <!-- Status Pill Badge -->
         <div class="thankyou-badge">
-          <span class="material-symbols-outlined thankyou-badge__icon" aria-hidden="true">check_circle</span>
+          <span
+            class="material-symbols-outlined thankyou-badge__icon"
+            aria-hidden="true">check_circle</span
+          >
           <span class="thankyou-badge__text">Message Received &amp; Logged</span>
         </div>
 
@@ -103,26 +119,31 @@ const featuredServices = [
         </h1>
 
         <p class="thankyou-hero__lead">
-          We’ve received your inquiry and our team is already reviewing your details. A Good Rep Media strategist will review your current online footprint and follow up with you within <strong>one business day</strong>.
+          We’ve received your inquiry and our team is already reviewing your
+          details. A Good Rep Media strategist will inspect your current online
+          footprint and follow up with you within <strong>one business day</strong>.
         </p>
 
-        <!-- Mini Value Reassurance List -->
-        <div class="thankyou-hero__highlights">
-          <div class="highlight-item">
-            <span class="material-symbols-outlined highlight-icon" aria-hidden="true">done</span>
-            <span>Response within 1 business day</span>
-          </div>
-          <div class="highlight-item">
-            <span class="material-symbols-outlined highlight-icon" aria-hidden="true">done</span>
-            <span>100% in-house Grand Rapids team</span>
-          </div>
-          <div class="highlight-item">
-            <span class="material-symbols-outlined highlight-icon" aria-hidden="true">done</span>
-            <span>Zero sales pressure, honest marketing advice</span>
-          </div>
+        <!-- Signature Checklist Card -->
+        <div class="thankyou-hero__checklist-card">
+          <ul class="thankyou-hero__checklist">
+            {
+              highlights.map((item) => (
+                <li>
+                  <span
+                    class="material-symbols-outlined"
+                    aria-hidden="true"
+                  >
+                    check_circle
+                  </span>
+                  <span>{item}</span>
+                </li>
+              ))
+            }
+          </ul>
         </div>
 
-        <!-- Action Buttons (Requested: Return to Home & Link to Services) -->
+        <!-- Primary Action Buttons: Homepage & Services Page -->
         <div class="thankyou-hero__actions">
           <a href="/" class="btn btn--primary thankyou-btn">
             <span class="material-symbols-outlined" aria-hidden="true">home</span>
@@ -135,7 +156,7 @@ const featuredServices = [
         </div>
       </div>
 
-      <!-- Hero Artwork Composition (Anti-Clutter Limit: 1 background + 1 centerpiece + 2 corner accents) -->
+      <!-- Hero Artwork Stage (1 background + 1 centerpiece + 2 opposite-corner accents) -->
       <div class="thankyou-hero__graphic" aria-hidden="true">
         <div class="thankyou-hero__art">
           <img
@@ -148,8 +169,8 @@ const featuredServices = [
           />
           <img
             class="thankyou-hero__main"
-            src="/grm-main-graphics/email-notification-graphic.svg"
-            alt="Message sent and email confirmation delivered"
+            src="/grm-web-assets/online-support-graphic.svg"
+            alt=""
             width="746"
             height="780"
             data-no-lightbox
@@ -158,90 +179,146 @@ const featuredServices = [
           <img
             class="thankyou-hero__float thankyou-hero__float--tr"
             data-float
-            src="/grm-web-assets/thumbs-up-like-icon-graphic.svg"
+            src="/grm-web-assets/happy-face-speech-bubble-graphic.svg"
             alt=""
-            width="686"
-            height="662"
+            width="240"
+            height="240"
             data-no-lightbox
-            loading="lazy"
           />
           <img
             class="thankyou-hero__float thankyou-hero__float--bl"
             data-float
-            src="/grm-web-assets/mobile-checklist-icon-graphic.svg"
+            src="/grm-web-assets/calendar-graphic.svg"
             alt=""
-            width="23"
-            height="23"
+            width="240"
+            height="240"
             data-no-lightbox
-            loading="lazy"
           />
         </div>
       </div>
     </div>
   </section>
 
-  <!-- WHAT HAPPENS NEXT SECTION -->
+  <!-- WHAT HAPPENS NEXT (3-STEP ROADMAP WITH ORBITAL MEDALLIONS & 3D GRAPHICS) -->
   <section class="section thankyou-steps">
     <div class="container">
-      <div class="section-head" data-reveal>
+      <header class="section-head" data-reveal>
         <span class="eyebrow">CLEAR EXPECTATIONS</span>
         <h2 class="section-title">What Happens Next?</h2>
         <p class="section-lead">
-          Here is our straightforward 3-step onboarding workflow while our team prepares your preliminary business audit.
+          Here is our straightforward 3-step onboarding workflow while our team
+          prepares your preliminary digital footprint audit.
         </p>
-      </div>
+      </header>
 
       <div class="thankyou-steps__grid">
-        {steps.map((st) => (
-          <div class="step-card" data-reveal>
-            <div class="step-card__top">
-              <span class="step-card__num">{st.step}</span>
-              <span class="step-card__tag">{st.tag}</span>
-            </div>
-            <div class="step-card__icon-wrap">
-              <span class="material-symbols-outlined step-card__icon" aria-hidden="true">{st.icon}</span>
-            </div>
-            <h3 class="step-card__title">{st.title}</h3>
-            <p class="step-card__desc">{st.desc}</p>
-          </div>
-        ))}
+        {
+          steps.map((st) => (
+            <article class="step-card" data-step-card data-reveal>
+              <div class="step-card__top">
+                <div class="step-card__medallion" aria-hidden="true">
+                  <span class="step-card__orbit" />
+                  <div class="step-card__icon-tile">
+                    <img
+                      class="step-card__icon"
+                      data-step-icon
+                      src={st.icon}
+                      alt=""
+                      width="42"
+                      height="42"
+                      loading="lazy"
+                      data-no-lightbox
+                    />
+                  </div>
+                  <img
+                    class="step-card__accent"
+                    data-step-accent
+                    src={st.accent}
+                    alt=""
+                    width="44"
+                    height="44"
+                    loading="lazy"
+                    data-no-lightbox
+                  />
+                </div>
+                <span class="step-card__tag">{st.tag}</span>
+              </div>
+
+              <h3 class="step-card__title">{st.title}</h3>
+              <p class="step-card__desc">{st.desc}</p>
+            </article>
+          ))
+        }
       </div>
     </div>
   </section>
 
-  <!-- POPULAR SERVICES SECTION -->
+  <!-- FEATURED SERVICES SHOWCASE WITH GRAPHICAL ILLUSTRATIONS -->
   <section class="section thankyou-services">
     <div class="container">
-      <div class="section-head" data-reveal>
+      <header class="section-head" data-reveal>
         <span class="eyebrow">EXPLORE OUR CAPABILITIES</span>
         <h2 class="section-title">While You Wait, Explore Our Services</h2>
         <p class="section-lead">
-          From custom websites to targeted local lead generation, see how Good Rep Media delivers real phone calls and measurable local market share.
+          From custom websites to targeted local lead generation, see how Good
+          Rep Media delivers real phone calls and measurable local market share.
         </p>
-      </div>
+      </header>
 
       <div class="thankyou-services__grid">
-        {featuredServices.map((svc) => (
-          <a href={svc.href} class="service-card" data-reveal>
-            <div class="service-card__badge">{svc.badge}</div>
-            <div class="service-card__icon-box">
-              <img
-                src={svc.icon}
-                alt=""
-                width="40"
-                height="40"
-                loading="lazy"
-                data-no-lightbox
-              />
-            </div>
-            <h3 class="service-card__title">{svc.title}</h3>
-            <p class="service-card__desc">{svc.desc}</p>
-            <span class="service-card__link">
-              <span>View Service Details</span>
-              <span class="material-symbols-outlined" aria-hidden="true">arrow_forward</span>
-            </span>
-          </a>
-        ))}
+        {
+          featuredServices.map((svc) => (
+            <a href={svc.href} class="service-card" data-reveal>
+              <div class="service-card__visual" aria-hidden="true">
+                <div class="service-card__badge">{svc.badge}</div>
+                <img
+                  class="service-card__illustration"
+                  src={svc.graphic}
+                  alt=""
+                  width="320"
+                  height="220"
+                  loading="lazy"
+                  data-no-lightbox
+                />
+                <img
+                  class="service-card__float-accent"
+                  data-float
+                  src={svc.accent}
+                  alt=""
+                  width="64"
+                  height="64"
+                  loading="lazy"
+                  data-no-lightbox
+                />
+              </div>
+
+              <div class="service-card__body">
+                <div class="service-card__header">
+                  <div class="service-card__icon-box" aria-hidden="true">
+                    <img
+                      src={svc.icon}
+                      alt=""
+                      width="28"
+                      height="28"
+                      loading="lazy"
+                      data-no-lightbox
+                    />
+                  </div>
+                  <h3 class="service-card__title">{svc.title}</h3>
+                </div>
+
+                <p class="service-card__desc">{svc.desc}</p>
+
+                <span class="service-card__link">
+                  <span>View Service Details</span>
+                  <span class="material-symbols-outlined" aria-hidden="true">
+                    arrow_forward
+                  </span>
+                </span>
+              </div>
+            </a>
+          ))
+        }
       </div>
 
       <div class="thankyou-services__cta" data-reveal>
@@ -249,25 +326,45 @@ const featuredServices = [
           <span class="material-symbols-outlined" aria-hidden="true">grid_view</span>
           <span>View All 12 Marketing Services</span>
         </a>
-        <a href="/work/" class="btn btn--outline thankyou-btn">
-          <span class="material-symbols-outlined" aria-hidden="true">visibility</span>
-          <span>See Client Case Studies</span>
+        <a href="/" class="btn btn--outline thankyou-btn">
+          <span class="material-symbols-outlined" aria-hidden="true">home</span>
+          <span>Back to Homepage</span>
         </a>
       </div>
     </div>
   </section>
 
-  <!-- DIRECT CONTACT BANNER -->
+  <!-- DIRECT CONTACT / IMMEDIATE ASSISTANCE BANNER -->
   <section class="thankyou-direct">
     <div class="container">
       <div class="thankyou-direct__card" data-reveal>
         <div class="thankyou-direct__content">
-          <span class="eyebrow thankyou-direct__eyebrow">IMMEDIATE ASSISTANCE</span>
-          <h3 class="thankyou-direct__title">Have an Urgent Question or Project?</h3>
+          <div class="thankyou-direct__header">
+            <img
+              class="thankyou-direct__graphic"
+              src="/grm-main-graphics/handshake-hands.webp"
+              alt=""
+              width="96"
+              height="96"
+              loading="lazy"
+              aria-hidden="true"
+              data-no-lightbox
+            />
+            <div>
+              <span class="eyebrow thankyou-direct__eyebrow">
+                IMMEDIATE ASSISTANCE
+              </span>
+              <h2 class="thankyou-direct__title">
+                Have an Urgent Question or Project?
+              </h2>
+            </div>
+          </div>
           <p class="thankyou-direct__desc">
-            If you have an urgent deadline or prefer to speak with our Grand Rapids team directly right now, give us a call or reach out directly.
+            If you have an urgent deadline or prefer to speak with our Grand
+            Rapids team right now, give us a call or reach out directly.
           </p>
         </div>
+
         <div class="thankyou-direct__actions">
           <a href="tel:6163009868" class="thankyou-contact-pill">
             <span class="material-symbols-outlined" aria-hidden="true">call</span>
@@ -278,7 +375,9 @@ const featuredServices = [
             <span>team@goodrep.media</span>
           </a>
           <div class="thankyou-contact-pill thankyou-contact-pill--static">
-            <span class="material-symbols-outlined" aria-hidden="true">location_on</span>
+            <span class="material-symbols-outlined" aria-hidden="true">
+              location_on
+            </span>
             <span>Grand Rapids, MI</span>
           </div>
         </div>
@@ -293,74 +392,180 @@ const featuredServices = [
 
   gsap.registerPlugin(ScrollTrigger);
 
-  const mm = gsap.matchMedia();
+  let thankyouCtx: gsap.Context | null = null;
 
-  mm.add("(prefers-reduced-motion: no-preference)", () => {
-    // Hero entrance
-    gsap.from(".thankyou-hero__content > *", {
-      y: 28,
-      opacity: 0,
-      duration: 0.75,
-      stagger: 0.12,
-      ease: "power3.out",
-      delay: 0.15,
-    });
+  function initThankYouPage() {
+    const heroEl = document.querySelector(".thankyou-hero");
+    if (!heroEl) return;
 
-    const heroBlob = document.querySelector(".thankyou-hero__blob");
-    if (heroBlob) {
-      gsap.from(heroBlob, {
-        scale: 0.85,
-        opacity: 0,
-        duration: 1,
-        ease: "power3.out",
-        delay: 0.15,
-      });
+    if (thankyouCtx) {
+      thankyouCtx.revert();
     }
 
-    gsap.from(".thankyou-hero__main", {
-      scale: 0.9,
-      opacity: 0,
-      duration: 0.9,
-      ease: "power3.out",
-      delay: 0.25,
-    });
+    thankyouCtx = gsap.context(() => {
+      const mm = gsap.matchMedia();
 
-    gsap.from(".thankyou-hero__float", {
-      scale: 0,
-      opacity: 0,
-      duration: 0.75,
-      stagger: 0.14,
-      ease: "back.out(2)",
-      delay: 0.45,
-    });
+      mm.add("(prefers-reduced-motion: no-preference)", () => {
+        // Hero text entrance
+        gsap.fromTo(
+          ".thankyou-hero__content > *",
+          { y: 26, opacity: 0 },
+          {
+            y: 0,
+            opacity: 1,
+            duration: 0.75,
+            stagger: 0.1,
+            ease: "power3.out",
+            delay: 0.1,
+            clearProps: "transform,opacity",
+          },
+        );
 
-    // Continuous gentle float
-    gsap.utils.toArray<HTMLElement>("[data-float]").forEach((el, i) => {
-      gsap.to(el, {
-        yPercent: -10,
-        rotation: i % 2 ? 3 : -3,
-        duration: 2.4 + (i % 3) * 0.4,
-        ease: "sine.inOut",
-        yoyo: true,
-        repeat: -1,
-        delay: (i % 4) * 0.15,
+        // Hero artwork entrance
+        gsap.fromTo(
+          ".thankyou-hero__blob",
+          { scale: 0.85, opacity: 0 },
+          {
+            scale: 1,
+            opacity: 1,
+            duration: 0.95,
+            ease: "power3.out",
+            delay: 0.12,
+            clearProps: "transform,opacity",
+          },
+        );
+
+        gsap.fromTo(
+          ".thankyou-hero__main",
+          { scale: 0.9, opacity: 0 },
+          {
+            scale: 1,
+            opacity: 1,
+            duration: 0.9,
+            ease: "power3.out",
+            delay: 0.22,
+            clearProps: "transform,opacity",
+          },
+        );
+
+        gsap.fromTo(
+          ".thankyou-hero__float",
+          { scale: 0, opacity: 0 },
+          {
+            scale: 1,
+            opacity: 1,
+            duration: 0.7,
+            stagger: 0.14,
+            ease: "back.out(2)",
+            delay: 0.4,
+            clearProps: "transform,opacity",
+          },
+        );
+
+        // Continuous gentle float for accents
+        gsap.utils.toArray<HTMLElement>("[data-float]").forEach((el, i) => {
+          gsap.to(el, {
+            yPercent: -10,
+            rotation: i % 2 ? 3 : -3,
+            duration: 2.3 + (i % 3) * 0.35,
+            ease: "sine.inOut",
+            yoyo: true,
+            repeat: -1,
+            delay: (i % 4) * 0.15,
+          });
+        });
+
+        // Spinning dashed orbits on step medallions
+        const orbits = document.querySelectorAll(".step-card__orbit");
+        if (orbits.length) {
+          gsap.to(orbits, {
+            rotation: 360,
+            duration: 26,
+            repeat: -1,
+            ease: "none",
+          });
+        }
+
+        // Interactive hover micro-animations on step cards
+        const stepCards = gsap.utils.toArray<HTMLElement>("[data-step-card]");
+        stepCards.forEach((card) => {
+          const icon = card.querySelector("[data-step-icon]");
+          const accent = card.querySelector("[data-step-accent]");
+
+          card.addEventListener("pointerenter", () => {
+            if (icon) {
+              gsap.to(icon, {
+                scale: 1.14,
+                rotation: -6,
+                duration: 0.35,
+                ease: "back.out(2)",
+              });
+            }
+            if (accent) {
+              gsap.to(accent, {
+                x: 5,
+                y: -5,
+                scale: 1.14,
+                rotation: 8,
+                duration: 0.35,
+                ease: "back.out(2)",
+              });
+            }
+          });
+
+          card.addEventListener("pointerleave", () => {
+            if (icon) {
+              gsap.to(icon, {
+                scale: 1,
+                rotation: 0,
+                duration: 0.5,
+                ease: "elastic.out(1, 0.5)",
+              });
+            }
+            if (accent) {
+              gsap.to(accent, {
+                x: 0,
+                y: 0,
+                scale: 1,
+                rotation: 0,
+                duration: 0.5,
+                ease: "elastic.out(1, 0.5)",
+              });
+            }
+          });
+        });
+
+        // Scroll reveals
+        gsap.utils.toArray<HTMLElement>("[data-reveal]").forEach((el) => {
+          gsap.fromTo(
+            el,
+            { y: 32, opacity: 0 },
+            {
+              y: 0,
+              opacity: 1,
+              duration: 0.75,
+              ease: "power3.out",
+              clearProps: "transform,opacity",
+              scrollTrigger: {
+                trigger: el,
+                start: "top 86%",
+                once: true,
+              },
+            },
+          );
+        });
       });
     });
 
-    // Scroll reveals
-    gsap.utils.toArray<HTMLElement>("[data-reveal]").forEach((el) => {
-      gsap.from(el, {
-        y: 35,
-        opacity: 0,
-        duration: 0.75,
-        ease: "power3.out",
-        scrollTrigger: {
-          trigger: el,
-          start: "top 85%",
-          once: true,
-        },
-      });
-    });
+    ScrollTrigger.refresh();
+  }
+
+  document.addEventListener("astro:page-load", initThankYouPage);
+  document.addEventListener("astro:before-swap", () => {
+    if (thankyouCtx) {
+      thankyouCtx.revert();
+      thankyouCtx = null;
+    }
   });
 </script>
 
@@ -368,7 +573,7 @@ const featuredServices = [
   /* ---------- Hero Section ---------- */
   .thankyou-hero {
     background-color: var(--color-bg);
-    padding: clamp(3rem, 6vw, 5.5rem) 0 clamp(2.5rem, 5vw, 4.5rem);
+    padding: clamp(2.75rem, 5.5vw, 5rem) 0 clamp(2.75rem, 5vw, 4.5rem);
     border-bottom: 1px solid var(--color-border);
     position: relative;
     overflow: hidden;
@@ -383,63 +588,51 @@ const featuredServices = [
       transparent 1.5px
     );
     background-size: 28px 28px;
-    mask-image: radial-gradient(ellipse at 80% 50%, #000 0%, transparent 70%);
+    mask-image: radial-gradient(ellipse at 75% 50%, #000 0%, transparent 70%);
     pointer-events: none;
   }
 
   .thankyou-hero__container {
     display: grid;
-    gap: 3.5rem;
+    gap: 3.25rem;
     align-items: center;
   }
 
   @media (min-width: 960px) {
     .thankyou-hero__container {
-      grid-template-columns: 1.15fr 0.85fr;
+      grid-template-columns: 1.12fr 0.88fr;
     }
   }
 
-  /* Breadcrumb */
-  .thankyou-hero__breadcrumb .breadcrumb__list {
+  /* Breadcrumb Pill */
+  .thankyou-breadcrumb {
     display: inline-flex;
     align-items: center;
-    gap: 0.35rem;
-    list-style: none;
-    margin: 0 0 1.25rem;
-    padding: 0.35rem 0.95rem;
-    background: rgba(255, 255, 255, 0.85);
-    border: 1px solid var(--color-border);
+    gap: 0.5rem;
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: var(--color-muted);
+    margin-bottom: 1rem;
+    background: var(--color-light);
+    padding: 0.35rem 0.9rem;
     border-radius: 999px;
-    font-size: 0.82rem;
-    font-weight: 600;
-    box-shadow: 0 2px 8px rgba(15, 23, 42, 0.05);
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
+    border: 1px solid var(--color-border);
+    box-shadow: var(--shadow-soft);
   }
 
-  .thankyou-hero__breadcrumb .breadcrumb__link {
-    color: var(--color-cyan);
+  .thankyou-breadcrumb a {
+    color: var(--color-muted);
     text-decoration: none;
     transition: color 0.2s ease;
   }
 
-  .thankyou-hero__breadcrumb .breadcrumb__link:hover {
-    color: var(--color-primary);
+  .thankyou-breadcrumb a:hover {
+    color: var(--color-cyan);
   }
 
-  .thankyou-hero__breadcrumb .breadcrumb__sep {
-    display: inline-flex;
-    align-items: center;
-    color: #94a3b8;
-  }
-
-  .thankyou-hero__breadcrumb .breadcrumb__sep .material-symbols-outlined {
-    font-size: 1rem;
-    line-height: 1;
-  }
-
-  .thankyou-hero__breadcrumb .breadcrumb__item[aria-current="page"] {
+  .thankyou-breadcrumb span[aria-current="page"] {
     color: var(--color-dark);
+    font-weight: 600;
   }
 
   /* Status Pill Badge */
@@ -447,29 +640,38 @@ const featuredServices = [
     display: inline-flex;
     align-items: center;
     gap: 0.5rem;
-    padding: 0.4rem 0.9rem;
+    padding: 0.38rem 0.9rem;
     background: var(--color-cyan-soft);
-    border: 1px solid rgba(27, 196, 217, 0.3);
+    border: 1px solid rgba(27, 196, 217, 0.32);
     border-radius: 999px;
-    font-size: 0.82rem;
+    font-size: 0.8rem;
     font-weight: 700;
     color: var(--color-cyan-dark);
-    letter-spacing: 0.05em;
+    letter-spacing: 0.06em;
     text-transform: uppercase;
-    margin-bottom: 1.25rem;
+    margin-bottom: 1.15rem;
+    margin-left: 0.5rem;
+  }
+
+  @media (max-width: 560px) {
+    .thankyou-badge {
+      display: flex;
+      width: fit-content;
+      margin-left: 0;
+    }
   }
 
   .thankyou-badge__icon {
-    font-size: 1.15rem;
+    font-size: 1.1rem;
     color: var(--color-cyan);
   }
 
   .thankyou-hero__title {
-    font-size: clamp(2.2rem, 4.5vw, 3.4rem);
+    font-size: clamp(2.15rem, 4.4vw, 3.35rem);
     font-weight: 700;
-    line-height: 1.16;
+    line-height: 1.14;
     letter-spacing: -0.015em;
-    margin: 0 0 1.25rem;
+    margin: 0 0 1.15rem;
     color: var(--color-dark);
   }
 
@@ -479,9 +681,9 @@ const featuredServices = [
 
   .thankyou-hero__lead {
     color: var(--color-muted);
-    font-size: 1.12rem;
+    font-size: 1.08rem;
     line-height: 1.75;
-    margin: 0 0 1.75rem;
+    margin: 0 0 1.5rem;
     max-width: 620px;
   }
 
@@ -489,33 +691,38 @@ const featuredServices = [
     color: var(--color-dark);
   }
 
-  /* Highlights Checklist */
-  .thankyou-hero__highlights {
-    display: grid;
-    gap: 0.75rem;
-    margin-bottom: 2.25rem;
+  /* Signature Checklist Card */
+  .thankyou-hero__checklist-card {
+    background: var(--color-light);
+    border: 1px solid var(--color-border);
+    border-left: 4px solid var(--color-cyan);
+    border-radius: 14px;
+    padding: 1.15rem 1.4rem;
+    margin-bottom: 1.85rem;
+    box-shadow: var(--shadow-soft);
+    max-width: 580px;
   }
 
-  .highlight-item {
+  .thankyou-hero__checklist {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    gap: 0.65rem;
+  }
+
+  .thankyou-hero__checklist li {
     display: flex;
     align-items: center;
     gap: 0.65rem;
+    font-size: 0.96rem;
     font-weight: 600;
-    font-size: 0.98rem;
     color: var(--color-dark);
   }
 
-  .highlight-icon {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 22px;
-    height: 22px;
-    border-radius: 50%;
-    background: var(--color-cyan-soft);
-    color: var(--color-cyan-dark);
-    font-size: 15px;
-    font-weight: 700;
+  .thankyou-hero__checklist .material-symbols-outlined {
+    color: var(--color-cyan);
+    font-size: 1.25rem;
     flex-shrink: 0;
   }
 
@@ -530,14 +737,14 @@ const featuredServices = [
   .thankyou-btn {
     padding: 0.85rem 1.75rem;
     font-weight: 600;
-    gap: 0.65rem;
+    gap: 0.6rem;
   }
 
   .thankyou-btn .material-symbols-outlined {
     font-size: 1.2rem;
   }
 
-  /* Hero Artwork */
+  /* Hero Artwork Stage */
   .thankyou-hero__graphic {
     display: flex;
     justify-content: center;
@@ -549,7 +756,7 @@ const featuredServices = [
     position: relative;
     width: 100%;
     max-width: 520px;
-    aspect-ratio: 1 / 0.95;
+    aspect-ratio: 1 / 0.94;
   }
 
   .thankyou-hero__art img {
@@ -561,15 +768,15 @@ const featuredServices = [
   }
 
   .thankyou-hero__blob {
-    width: 90%;
-    left: 5%;
-    top: 4%;
+    width: 88%;
+    left: 6%;
+    top: 5%;
     z-index: 0;
   }
 
   .thankyou-hero__main {
-    width: 66%;
-    left: 17%;
+    width: 68%;
+    left: 16%;
     top: 12%;
     z-index: 2;
     filter: drop-shadow(0 20px 30px rgba(15, 23, 42, 0.22));
@@ -577,22 +784,22 @@ const featuredServices = [
 
   .thankyou-hero__float {
     z-index: 3;
-    filter: drop-shadow(0 14px 20px rgba(15, 23, 42, 0.24));
+    filter: drop-shadow(0 14px 22px rgba(15, 23, 42, 0.22));
   }
 
   .thankyou-hero__float--tr {
     width: 24%;
     right: 4%;
-    top: 4%;
+    top: 5%;
   }
 
   .thankyou-hero__float--bl {
-    width: 24%;
-    left: 4%;
-    bottom: 6%;
+    width: 22%;
+    left: 5%;
+    bottom: 7%;
   }
 
-  /* ---------- What Happens Next ---------- */
+  /* ---------- What Happens Next (Orbital Medallion Step Cards) ---------- */
   .thankyou-steps {
     background: var(--color-light);
     border-bottom: 1px solid var(--color-border);
@@ -600,73 +807,103 @@ const featuredServices = [
 
   .thankyou-steps__grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
     gap: 2rem;
   }
 
   .step-card {
     background: var(--color-bg);
-    border-radius: var(--radius);
-    border: 1px solid var(--color-border);
+    border-radius: 20px;
+    border: 1px solid rgba(15, 23, 42, 0.08);
     border-top: 4px solid var(--color-cyan);
-    padding: 2.25rem 2rem;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    padding: 2.15rem 1.85rem;
+    box-shadow: var(--shadow-soft);
+    transition:
+      transform 0.3s ease,
+      box-shadow 0.3s ease,
+      border-color 0.3s ease;
     display: flex;
     flex-direction: column;
     position: relative;
   }
 
   .step-card:hover {
-    transform: translateY(-4px);
-    box-shadow: var(--shadow-card);
+    transform: translateY(-6px);
+    box-shadow: var(--shadow-lift);
+    border-color: var(--color-cyan);
   }
 
   .step-card__top {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 1.25rem;
+    gap: 1rem;
+    margin-bottom: 1.4rem;
   }
 
-  .step-card__num {
-    font-family: var(--font-heading);
-    font-size: 1.75rem;
-    font-weight: 800;
-    color: var(--color-cyan);
-    opacity: 0.95;
+  .step-card__medallion {
+    position: relative;
+    width: 88px;
+    height: 88px;
+    display: grid;
+    place-items: center;
+    flex-shrink: 0;
   }
 
-  .step-card__tag {
-    font-size: 0.75rem;
-    font-weight: 700;
-    letter-spacing: 0.1em;
-    color: var(--color-muted);
-    text-transform: uppercase;
-    background: rgba(100, 116, 139, 0.1);
-    padding: 0.25rem 0.65rem;
-    border-radius: 999px;
+  .step-card__orbit {
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    border: 2px dashed rgba(27, 196, 217, 0.55);
+    pointer-events: none;
   }
 
-  .step-card__icon-wrap {
-    width: 52px;
-    height: 52px;
-    border-radius: 14px;
+  .step-card__icon-tile {
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
     background: #ffffff;
     border: 1px solid rgba(27, 196, 217, 0.25);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-bottom: 1.25rem;
-    box-shadow: 0 4px 12px rgba(15, 23, 42, 0.06);
+    box-shadow: 0 6px 16px rgba(15, 23, 42, 0.06);
+    display: grid;
+    place-items: center;
+    position: relative;
+    z-index: 1;
   }
 
   .step-card__icon {
-    font-size: 28px;
-    color: var(--color-cyan);
+    width: 36px;
+    height: 36px;
+    object-fit: contain;
+    will-change: transform;
+  }
+
+  .step-card__accent {
+    position: absolute;
+    width: 34px;
+    height: auto;
+    right: -4px;
+    bottom: -4px;
+    z-index: 2;
+    filter: drop-shadow(0 6px 10px rgba(15, 23, 42, 0.22));
+    will-change: transform;
+    pointer-events: none;
+  }
+
+  .step-card__tag {
+    font-size: 0.74rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    color: var(--color-cyan-dark);
+    text-transform: uppercase;
+    background: var(--color-cyan-soft);
+    padding: 0.35rem 0.75rem;
+    border-radius: 999px;
+    white-space: nowrap;
   }
 
   .step-card__title {
-    font-size: 1.22rem;
+    font-size: 1.24rem;
     font-weight: 700;
     margin: 0 0 0.75rem;
     color: var(--color-dark);
@@ -674,20 +911,20 @@ const featuredServices = [
 
   .step-card__desc {
     font-size: 0.95rem;
-    line-height: 1.65;
+    line-height: 1.68;
     color: var(--color-muted);
     margin: 0;
   }
 
-  /* ---------- Services Section ---------- */
+  /* ---------- Featured Services Grid with Graphical Stage ---------- */
   .thankyou-services {
     background: var(--color-bg);
   }
 
   .thankyou-services__grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-    gap: 1.75rem;
+    grid-template-columns: repeat(auto-fit, minmax(265px, 1fr));
+    gap: 1.85rem;
     margin-bottom: 3.25rem;
   }
 
@@ -696,54 +933,115 @@ const featuredServices = [
     flex-direction: column;
     background: #ffffff;
     border: 1px solid var(--color-border);
-    border-radius: var(--radius);
-    padding: 2rem 1.75rem;
+    border-radius: 20px;
+    overflow: hidden;
     text-decoration: none;
     color: inherit;
-    transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: var(--shadow-soft);
+    transition:
+      transform 0.3s ease,
+      border-color 0.3s ease,
+      box-shadow 0.3s ease;
     position: relative;
   }
 
   .service-card:hover {
-    transform: translateY(-4px);
+    transform: translateY(-6px);
     border-color: var(--color-cyan);
     box-shadow: var(--shadow-lift);
   }
 
+  .service-card__visual {
+    position: relative;
+    height: 175px;
+    background:
+      radial-gradient(circle at 50% 50%, rgba(27, 196, 217, 0.14), transparent 70%),
+      linear-gradient(180deg, #f8fafc 0%, #f1f5f9 100%);
+    border-bottom: 1px solid var(--color-border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1.25rem;
+    overflow: hidden;
+  }
+
   .service-card__badge {
-    align-self: flex-start;
-    font-size: 0.72rem;
+    position: absolute;
+    top: 0.9rem;
+    left: 1rem;
+    z-index: 3;
+    font-size: 0.7rem;
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 0.08em;
     color: var(--color-primary);
-    background: rgba(233, 79, 55, 0.09);
+    background: rgba(255, 255, 255, 0.92);
+    border: 1px solid rgba(233, 79, 55, 0.25);
     padding: 0.25rem 0.65rem;
     border-radius: 999px;
-    margin-bottom: 1.25rem;
+    box-shadow: 0 2px 8px rgba(15, 23, 42, 0.06);
+  }
+
+  .service-card__illustration {
+    width: auto;
+    height: 125px;
+    max-width: 82%;
+    object-fit: contain;
+    z-index: 1;
+    filter: drop-shadow(0 10px 18px rgba(15, 23, 42, 0.12));
+    transition: transform 0.35s ease;
+  }
+
+  .service-card:hover .service-card__illustration {
+    transform: scale(1.06) translateY(-3px);
+  }
+
+  .service-card__float-accent {
+    position: absolute;
+    right: 0.85rem;
+    bottom: 0.75rem;
+    width: 44px;
+    height: 44px;
+    object-fit: contain;
+    z-index: 2;
+    filter: drop-shadow(0 6px 12px rgba(15, 23, 42, 0.18));
+  }
+
+  .service-card__body {
+    padding: 1.6rem 1.5rem 1.75rem;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+  }
+
+  .service-card__header {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 0.75rem;
   }
 
   .service-card__icon-box {
-    width: 54px;
-    height: 54px;
-    border-radius: 12px;
+    width: 42px;
+    height: 42px;
+    border-radius: 10px;
     background: var(--color-cyan-soft);
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-bottom: 1.25rem;
+    flex-shrink: 0;
   }
 
   .service-card__icon-box img {
-    width: 32px;
-    height: 32px;
+    width: 24px;
+    height: 24px;
     object-fit: contain;
   }
 
   .service-card__title {
-    font-size: 1.18rem;
+    font-size: 1.15rem;
     font-weight: 700;
-    margin: 0 0 0.65rem;
+    margin: 0;
     color: var(--color-dark);
     transition: color 0.2s ease;
   }
@@ -754,9 +1052,9 @@ const featuredServices = [
 
   .service-card__desc {
     font-size: 0.92rem;
-    line-height: 1.6;
+    line-height: 1.62;
     color: var(--color-muted);
-    margin: 0 0 1.5rem;
+    margin: 0 0 1.35rem;
     flex-grow: 1;
   }
 
@@ -764,9 +1062,9 @@ const featuredServices = [
     display: inline-flex;
     align-items: center;
     gap: 0.4rem;
-    font-weight: 600;
+    font-weight: 700;
     font-size: 0.88rem;
-    color: var(--color-cyan);
+    color: var(--color-cyan-dark);
     margin-top: auto;
   }
 
@@ -793,8 +1091,8 @@ const featuredServices = [
 
   .thankyou-direct__card {
     background: linear-gradient(135deg, #0b1329 0%, #172554 100%);
-    border: 1px solid rgba(27, 196, 217, 0.3);
-    border-radius: 20px;
+    border: 1px solid rgba(27, 196, 217, 0.35);
+    border-radius: 22px;
     padding: clamp(2rem, 4vw, 3.25rem);
     display: grid;
     gap: 2rem;
@@ -807,27 +1105,55 @@ const featuredServices = [
 
   @media (min-width: 900px) {
     .thankyou-direct__card {
-      grid-template-columns: 1.2fr 0.8fr;
+      grid-template-columns: 1.25fr 0.75fr;
     }
+  }
+
+  .thankyou-direct__header {
+    display: flex;
+    align-items: center;
+    gap: 1.25rem;
+    margin-bottom: 0.85rem;
+  }
+
+  @media (max-width: 560px) {
+    .thankyou-direct__header {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 0.75rem;
+    }
+  }
+
+  .thankyou-direct__graphic {
+    width: 76px;
+    height: 76px;
+    object-fit: contain;
+    flex-shrink: 0;
+    background: rgba(27, 196, 217, 0.14);
+    border: 1px solid rgba(27, 196, 217, 0.35);
+    border-radius: 16px;
+    padding: 0.5rem;
   }
 
   .thankyou-direct__eyebrow {
     color: var(--color-cyan);
-    margin-bottom: 0.5rem;
+    margin-bottom: 0.35rem;
+    display: block;
   }
 
   .thankyou-direct__title {
-    font-size: clamp(1.4rem, 2.5vw, 1.85rem);
+    font-size: clamp(1.35rem, 2.4vw, 1.85rem);
     font-weight: 700;
-    margin: 0 0 0.65rem;
+    margin: 0;
     color: #ffffff;
   }
 
   .thankyou-direct__desc {
     color: #cbd5e1;
     font-size: 0.98rem;
-    line-height: 1.6;
+    line-height: 1.65;
     margin: 0;
+    max-width: 600px;
   }
 
   .thankyou-direct__actions {
@@ -849,7 +1175,10 @@ const featuredServices = [
     text-decoration: none;
     font-weight: 600;
     font-size: 0.95rem;
-    transition: background 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+    transition:
+      background 0.2s ease,
+      border-color 0.2s ease,
+      transform 0.2s ease;
   }
 
   a.thankyou-contact-pill:hover {
@@ -879,6 +1208,7 @@ const featuredServices = [
 
     .thankyou-btn {
       width: 100%;
+      justify-content: center;
       text-align: center;
     }
 
