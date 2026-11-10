@@ -574,4 +574,57 @@
       - **Melani Sevova Profile Photo Integration:** Committed 800x800 portrait `public/grm-team/melani-sevova.webp` and linked in `src/data/teamData.js` (`image: "/grm-team/melani-sevova.webp"`). Automatically rendered in `src/pages/meet-the-team.astro` with circular mask overlay (`.team-card__avatar-mask`), orbital ring, and Schema.org Person JSON-LD entity.
       - **Thank You Page Copy Refinement:** Updated `src/pages/thankyou.astro` response expectations to "within a few business days" across hero lead text and checklist card highlights, preserving the full orbital medallion stage and featured services showcase.
       - **Repository & Branch Reconciliation:** Resolved git conflict between `last-few-edits`, `main`, and `master`, verifying build and publishing all latest changes across tracking remotes.
+  47. **Built Dedicated `/contact` Page & Cleaned Footer Form for Contact Route:**
+      - **Objective:** Build an attractive, clutter-free `/contact` page with the same contact Gravity Forms component (`LeadForm`), remove redundant contact form elements from the footer on this specific route, and utilize assets in `public/` following the zero-occlusion and anti-clutter limit rules.
+      - **Implementation (`src/pages/contact.astro`):**
+        - **Breadcrumb & Hero Section (`.contact-hero`):** Added `Home / Contact` breadcrumb, pulsing green status pill ("Direct Line to Grand Rapids In-House Team"), bold headline, lead copy, and 3 trust indicators (`< 24-Hour Response`, `100% In-House Team`, `Zero Sales Pressure`).
+        - **Interactive Hub Grid (`.contact-hub`):** 2-column layout pairing direct communication cards on the left with the Gravity Forms card on the right.
+        - **Direct Communication Cards:** 4 clean cards with hover interactions for Direct Phone (`(616) 300-9868`), Direct Email (`team@goodrep.media`), Live Video Booking (`/chat/`), and Grand Rapids Studio Office with Google Maps link.
+        - **Clutter-Free Visual Stage:** Adhered strictly to the Anti-Clutter Limit (1 background blob `blue-circular-background-graphic.svg`, 1 centerpiece `email-notification-graphic.svg`, and 2 opposite corner 3D accents `3d-chat-bubbles-graphic.svg` in lower-left and `paper-plane-graphic.svg` in top-right mirroring Blob 1 geometry). Zero text occlusion, isolated media container, `pointer-events: none`.
+        - **The Gravity Form Card:** Embedded `<LeadForm client:visible submitLabel="Send Message" formId={15} />` inside an elevated card with top cyan accent border and privacy reassurance badge.
+        - **3-Step "What to Expect" Process:** Clean cards detailing Step 01 (In-House Audit), Step 02 (1-on-1 Discussion), and Step 03 (Clear Action Plan).
+        - **FAQ Section:** 4-item grid addressing turnaround times, in-person Grand Rapids visits, nationwide coverage, and month-to-month contracts.
+        - **Grand Rapids Studio Section:** Dark surface card highlighting the studio address on Lake Michigan Drive with directions and phone actions.
+        - **SEO & Schema:** Integrated `ContactPage` Schema.org JSON-LD graph referencing the site's `LocalBusiness` and `Organization` entities.
+      - **Footer Contact Form Removal (`src/layouts/MainLayout.astro`):**
+        - Added `hideFooterForm?: boolean` prop and route detection `isContactRoute = hideFooterForm || currentPath === "/contact"`.
+        - Conditioned the fixed floating form button (`#fixed-form-btn`) and the global modal contact dialog (`#contact-modal`) to only render when `!isContactRoute`.
+        - Updated footer navigation resource link and `src/components/MobileFlyoutMenu.astro` to point directly to `/contact/`.
+  48. **Replaced Global Header and Flyout "Book a Call" CTA with "Contact Us" Linking to `/contact/`:**
+      - Updated desktop global navigation CTA button in [`src/layouts/MainLayout.astro`](file:///Users/jamesgreen/software_engineer/goodrep-media-frontend/src/layouts/MainLayout.astro) from `<a href="/#consultation" ...>Book a Call</a>` to `<a href="/contact/" ...>Contact Us</a>`.
+      - Updated mobile navigation drawer CTA button in [`src/components/MobileFlyoutMenu.astro`](file:///Users/jamesgreen/software_engineer/goodrep-media-frontend/src/components/MobileFlyoutMenu.astro) from `<a href="/#consultation" ...>Book a Call</a>` to `<a href="/contact/" ...>Contact Us</a>`.
+   49. **Diagnosed and Resolved `_jsxDEV is not a function` in `LeadForm.jsx`:**
+      - **Root Cause Investigation:** A previous `astro build` run set `NODE_ENV=production`, causing Vite's pre-bundler to optimize `react/jsx-dev-runtime` using `react-jsx-dev-runtime.production.js` (where `exports.jsxDEV = void 0`). When switching back to `astro dev`, the dev server served development JSX transforms (`import { jsxDEV as _jsxDEV } from "react/jsx-dev-runtime"`) while importing the cached production bundle where `_jsxDEV` was `undefined`, triggering `Uncaught TypeError: _jsxDEV is not a function at LeadForm (LeadForm.jsx:452:24)`.
+      - **Remediation:**
+        - Added `vite: { resolve: { dedupe: ['react', 'react-dom'] } }` to [`astro.config.mjs`](file:///Users/jamesgreen/software_engineer/goodrep-media-frontend/astro.config.mjs) to prevent duplicate or conflicting React resolution.
+        - Flushed the stale `node_modules/.vite` cache.
+        - Verified that the dev server re-bundled `react_jsx-dev-runtime.js` using `react-jsx-dev-runtime.development.js` where `jsxDEV` is actively exported as a function.
+  50. **Fixed `help_outline` and `rocket_launch` Material Symbols Icons Rendering as Text:**
+      - **Root Cause Investigation:** The frontend uses an ultra-lean custom subset font ([`public/fonts/material-symbols-outlined-subset.woff2`](file:///Users/jamesgreen/software_engineer/goodrep-media-frontend/public/fonts/material-symbols-outlined-subset.woff2)) generated via [`scripts/generate_font_subset.py`](file:///Users/jamesgreen/software_engineer/goodrep-media-frontend/scripts/generate_font_subset.py) to save ~3.65 MB of font payload (97.6% savings). Neither `help_outline` nor `rocket_launch` was present in `target_words`. When glyph ligatures are missing from the subset font, Material Symbols falls back to displaying individual character glyphs (which are uppercase in the font's internal design, rendering as `HELP_OUTLINE` and `ROCKET_LAUNCH`).
+      - **Remediation:**
+        - Added `"help"`, `"help_outline"`, and `"rocket_launch"` to `target_words` in [`scripts/generate_font_subset.py`](file:///Users/jamesgreen/software_engineer/goodrep-media-frontend/scripts/generate_font_subset.py).
+        - Regenerated [`public/fonts/material-symbols-outlined-subset.woff2`](file:///Users/jamesgreen/software_engineer/goodrep-media-frontend/public/fonts/material-symbols-outlined-subset.woff2) with `pyftsubset`, successfully packaging the ligatures and codepoints (`uniE887` for help/help_outline and `uniEB9B` for rocket_launch).
+        - Added cache-busting version parameter (`?v=2`) to the font preload in [`src/components/BaseHead.astro`](file:///Users/jamesgreen/software_engineer/goodrep-media-frontend/src/components/BaseHead.astro) and `@font-face` declaration in [`src/styles/material-symbols.css`](file:///Users/jamesgreen/software_engineer/goodrep-media-frontend/src/styles/material-symbols.css) to prevent browsers from serving stale cached font files.
+        - Verified rendering in headless Chrome: confirmed that `help_outline`, `rocket_launch`, and all related icons render crisply as intended graphical glyphs.
+  51. **Enhanced Contrast and Styling for Studio Outline Button on `/contact`:**
+      - **Issue:** The secondary call CTA button (`.contact-studio__btn.btn--outline`) inside the dark `#0f172a` Grand Rapids Headquarters studio card inherited the global `.btn--outline` style (`color: #333333; border-color: #333333;`), producing a contrast ratio of only 1.35:1 against the dark slate background and rendering the button and icon nearly invisible.
+      - **Remediation:**
+        - Scoped `.contact-studio__btn.btn--outline` in [`src/pages/contact.astro`](file:///Users/jamesgreen/software_engineer/goodrep-media-frontend/src/pages/contact.astro) with crisp 2px solid white border (`#ffffff`), pure white text (`#ffffff`), and white icon.
+        - Sized both studio buttons with matching padding (`0.85rem 1.75rem`) and typography (`0.95rem`, font-weight `600`).
+        - Added interactive hover/focus states (`background: rgba(255, 255, 255, 0.16); border-color: #ffffff; color: #ffffff; transform: translateY(-2px);`) so the button remains high-contrast white in all states (~17.5:1 resting contrast, exceeding WCAG AAA).
+        - Added accessible focus ring (`outline: 2px solid var(--color-cyan); outline-offset: 3px;`).
+  52. **Responsive Column-Reverse for `/contact` Hub on Tablet & Mobile:**
+      - **Implementation:** Configured `@media (max-width: 1024px)` on `.contact-hub__grid` in [`src/pages/contact.astro`](file:///Users/jamesgreen/software_engineer/goodrep-media-frontend/src/pages/contact.astro) using `display: flex; flex-direction: column-reverse; gap: 3rem;`.
+      - **Result:**
+        - On tablet and mobile screens, the Gravity Forms contact card (`.contact-hub__right`) elevates directly beneath the hero for immediate user interaction without requiring scrolling past direct contact cards or decorative graphics.
+        - Direct communication channels (`.contact-channels-grid`) and art stage (`.contact-hub__left`) render neatly underneath the form.
+        - Formatted `.contact-channels-grid` as an organized 2x2 grid on tablet viewports (`repeat(2, 1fr)` between 640px and 1024px) and a single stacked column (`1fr`) on mobile devices (< 640px).
+        - Desktop viewports (> 1024px) remain a 2-column side-by-side grid.
+  53. **Removed `contact-studio` Section and CSS from `/contact`:**
+      - Removed the `<section class="contact-studio">` HTML block from [`src/pages/contact.astro`](file:///Users/jamesgreen/software_engineer/goodrep-media-frontend/src/pages/contact.astro) (studio card, Google Maps link, phone button, and Local Presence badge).
+      - Removed all accompanying CSS rules (`.contact-studio`, `.contact-studio__card`, `.contact-studio__content`, `.contact-studio__btn`, `.contact-studio__badge`, etc.) and their responsive breakpoint rules from `<style>`.
+      - Eliminates duplication since the studio location, directions, and phone number are already cleanly featured in the direct communication cards and the global footer.
+  54. **Scoped Node.js Engine to `22.x || 24.x` in `package.json`:**
+      - **Issue:** Vercel build log emitted warnings regarding unbounded `"node": ">=22.12.0"`, causing Vercel to override the project's configured Node 24.x setting and jump to Node 26.x.
+      - **Remediation:** Updated `engines.node` in [`package.json`](file:///Users/jamesgreen/software_engineer/goodrep-media-frontend/package.json) to `"22.x || 24.x"`, capping the upper version to prevent automatic major upgrades and aligning Vercel's build runner with the project's Node 24.x configuration.
 - **Current Objective:** Proceed to Step 8: End-to-end responsiveness, accessibility auditing, and performance optimization across all service pages and core routes.
