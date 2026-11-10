@@ -18,5 +18,10 @@ export default defineConfig({
         !page.includes('/our-work/') &&
         !page.includes('/thankyou/')
     })
-  ]
+  ],
+  vite: {
+    resolve: {
+      dedupe: ['react', 'react-dom']
+    }
+  }
 });

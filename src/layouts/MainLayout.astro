@@ -23,6 +23,7 @@ interface Props {
   image?: string;
   noindex?: boolean;
   pageSchema?: Record<string, any> | null;
+  hideFooterForm?: boolean;
 }
 
 const {
@@ -31,8 +32,12 @@ const {
   image,
   noindex = false,
   pageSchema = null,
+  hideFooterForm = false,
 } = Astro.props;
 const year = new Date().getFullYear();
+
+const currentPath = Astro.url.pathname.replace(/\/$/, "");
+const isContactRoute = hideFooterForm || currentPath === "/contact";
 
 const globalSchema = {
   "@context": "https://schema.org",
@@ -233,8 +238,8 @@ if (pageSchema) {
           </div>
           <a href="/blog/" class="nav-link">Insights</a>
         </div>
-        <a href="/#consultation" class="btn btn--primary global-nav__cta"
-          >Book a Call</a
+        <a href="/contact/" class="btn btn--primary global-nav__cta"
+          >Contact Us</a
         >
         <button
           class="grm-flyout__toggle"
@@ -305,7 +310,8 @@ if (pageSchema) {
             <li><a href="/meet-the-team/">Meet the Team</a></li>
             <li><a href="/#process">Our Process</a></li>
             <li><a href="/blog/">Knowledge Center</a></li>
-            <li><a href="/#consultation">Contact Us</a></li>
+            <li><a href="/chat/">Schedule a Chat</a></li>
+            <li><a href="/contact/">Contact Us</a></li>
           </ul>
         </div>
 
@@ -336,6 +342,12 @@ if (pageSchema) {
             </li>
             <li>
               <span class="material-symbols-outlined" aria-hidden="true"
+                >calendar_month</span
+              >
+              <a href="/chat/">Book Consultation</a>
+            </li>
+            <li>
+              <span class="material-symbols-outlined" aria-hidden="true"
                 >location_on</span
               >
               <span>O-745 Lake Michigan Dr. NW, Grand Rapids, MI 49534</span>
@@ -358,16 +370,18 @@ if (pageSchema) {
     </footer>
 
     <!-- Fixed Form Modal Pop-up Button (above back-to-top) -->
-    <button
-      type="button"
-      class="fixed-form-btn"
-      id="fixed-form-btn"
-      aria-label="Open contact form"
-      title="Send us a message"
-    >
-      <span class="material-symbols-outlined" aria-hidden="true">mail</span>
-      <span class="fixed-form-btn__tooltip">Send a message</span>
-    </button>
+    {!isContactRoute && (
+      <button
+        type="button"
+        class="fixed-form-btn"
+        id="fixed-form-btn"
+        aria-label="Open contact form"
+        title="Send us a message"
+      >
+        <span class="material-symbols-outlined" aria-hidden="true">mail</span>
+        <span class="fixed-form-btn__tooltip">Send a message</span>
+      </button>
+    )}
 
     <a href="#top" class="back-to-top" aria-label="Back to top">
       <span class="material-symbols-outlined" aria-hidden="true"
@@ -376,24 +390,26 @@ if (pageSchema) {
     </a>
 
     <!-- Global Contact Form Modal -->
-    <dialog class="contact-modal" id="contact-modal">
-      <div class="contact-modal__inner">
-        <button
-          type="button"
-          class="contact-modal__close"
-          id="close-contact-modal"
-          aria-label="Close modal"
-        >
-          <span class="material-symbols-outlined" aria-hidden="true">close</span
+    {!isContactRoute && (
+      <dialog class="contact-modal" id="contact-modal">
+        <div class="contact-modal__inner">
+          <button
+            type="button"
+            class="contact-modal__close"
+            id="close-contact-modal"
+            aria-label="Close modal"
           >
-        </button>
-        <h3 class="contact-modal__title">Send Us A Message</h3>
-        <p class="contact-modal__sub">
-          Tell us about your project and we'll get back to you within 24 hours.
-        </p>
-        <LeadForm client:visible submitLabel="Send Message" />
-      </div>
-    </dialog>
+            <span class="material-symbols-outlined" aria-hidden="true">close</span
+            >
+          </button>
+          <h3 class="contact-modal__title">Send Us A Message</h3>
+          <p class="contact-modal__sub">
+            Tell us about your project and we'll get back to you within 24 hours.
+          </p>
+          <LeadForm client:visible submitLabel="Send Message" />
+        </div>
+      </dialog>
+    )}
 
     <!-- Global Image Lightbox Modal -->
     <LightboxModal />
