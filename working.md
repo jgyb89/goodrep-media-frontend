@@ -624,4 +624,7 @@
       - Removed the `<section class="contact-studio">` HTML block from [`src/pages/contact.astro`](file:///Users/jamesgreen/software_engineer/goodrep-media-frontend/src/pages/contact.astro) (studio card, Google Maps link, phone button, and Local Presence badge).
       - Removed all accompanying CSS rules (`.contact-studio`, `.contact-studio__card`, `.contact-studio__content`, `.contact-studio__btn`, `.contact-studio__badge`, etc.) and their responsive breakpoint rules from `<style>`.
       - Eliminates duplication since the studio location, directions, and phone number are already cleanly featured in the direct communication cards and the global footer.
+  54. **Scoped Node.js Engine to `22.x || 24.x` in `package.json`:**
+      - **Issue:** Vercel build log emitted warnings regarding unbounded `"node": ">=22.12.0"`, causing Vercel to override the project's configured Node 24.x setting and jump to Node 26.x.
+      - **Remediation:** Updated `engines.node` in [`package.json`](file:///Users/jamesgreen/software_engineer/goodrep-media-frontend/package.json) to `"22.x || 24.x"`, capping the upper version to prevent automatic major upgrades and aligning Vercel's build runner with the project's Node 24.x configuration.
 - **Current Objective:** Proceed to Step 8: End-to-end responsiveness, accessibility auditing, and performance optimization across all service pages and core routes.
