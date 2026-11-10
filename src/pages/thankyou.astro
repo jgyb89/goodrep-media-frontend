@@ -56,6 +56,12 @@ const featuredServices = [
     badge: "Engagement",
   },
 ];
+
+const highlights = [
+  "Response within a few business days from a real strategist",
+  "100% in-house Grand Rapids digital marketing team",
+  "Zero sales pressure — honest, data-backed growth advice",
+];
 ---
 
 <MainLayout
@@ -65,11 +71,11 @@ const featuredServices = [
 >
   <!-- Isolated GA4 Lead Conversion Event -->
   <script is:inline>
-    window.addEventListener('load', function() {
-      if (typeof gtag === 'function') {
-        gtag('event', 'generate_lead', {
-          event_category: 'engagement',
-          event_label: 'Contact Form Submission'
+    window.addEventListener("load", function () {
+      if (typeof gtag === "function") {
+        gtag("event", "generate_lead", {
+          event_category: "engagement",
+          event_label: "Contact Form Submission",
         });
       }
     });
@@ -80,7 +86,10 @@ const featuredServices = [
     <div class="container thankyou-hero__container">
       <div class="thankyou-hero__content">
         <!-- Breadcrumb navigation -->
-        <nav class="breadcrumb thankyou-hero__breadcrumb" aria-label="Breadcrumb">
+        <nav
+          class="breadcrumb thankyou-hero__breadcrumb"
+          aria-label="Breadcrumb"
+        >
           <ol class="breadcrumb__list">
             <li class="breadcrumb__item">
               <a href="/" class="breadcrumb__link">Home</a>
@@ -94,42 +103,56 @@ const featuredServices = [
 
         <!-- Status Pill Badge -->
         <div class="thankyou-badge">
-          <span class="material-symbols-outlined thankyou-badge__icon" aria-hidden="true">check_circle</span>
-          <span class="thankyou-badge__text">Message Received &amp; Logged</span>
+          <span
+            class="material-symbols-outlined thankyou-badge__icon"
+            aria-hidden="true">check_circle</span
+          >
+          <span class="thankyou-badge__text">Message Received &amp; Logged</span
+          >
         </div>
 
         <h1 class="thankyou-hero__title">
-          Thank You! Your Request is <span class="text-cyan">in Good Hands.</span>
+          Thank You! Your Request is <span class="text-cyan"
+            >in Good Hands.</span
+          >
         </h1>
 
         <p class="thankyou-hero__lead">
-          We’ve received your inquiry and our team is already reviewing your details. A Good Rep Media strategist will review your current online footprint and follow up with you within <strong>one business day</strong>.
+          We’ve received your inquiry and our team is already reviewing your
+          details. A Good Rep Media strategist will inspect your current online
+          footprint and follow up with you within <strong
+            >a few business days</strong
+          >.
         </p>
 
-        <!-- Mini Value Reassurance List -->
-        <div class="thankyou-hero__highlights">
-          <div class="highlight-item">
-            <span class="material-symbols-outlined highlight-icon" aria-hidden="true">done</span>
-            <span>Response within 1 business day</span>
-          </div>
-          <div class="highlight-item">
-            <span class="material-symbols-outlined highlight-icon" aria-hidden="true">done</span>
-            <span>100% in-house Grand Rapids team</span>
-          </div>
-          <div class="highlight-item">
-            <span class="material-symbols-outlined highlight-icon" aria-hidden="true">done</span>
-            <span>Zero sales pressure, honest marketing advice</span>
-          </div>
+        <!-- Signature Checklist Card -->
+        <div class="thankyou-hero__checklist-card">
+          <ul class="thankyou-hero__checklist">
+            {
+              highlights.map((item) => (
+                <li>
+                  <span class="material-symbols-outlined" aria-hidden="true">
+                    check_circle
+                  </span>
+                  <span>{item}</span>
+                </li>
+              ))
+            }
+          </ul>
         </div>
 
         <!-- Action Buttons (Requested: Return to Home & Link to Services) -->
         <div class="thankyou-hero__actions">
           <a href="/" class="btn btn--primary thankyou-btn">
-            <span class="material-symbols-outlined" aria-hidden="true">home</span>
+            <span class="material-symbols-outlined" aria-hidden="true"
+              >home</span
+            >
             <span>Return to Homepage</span>
           </a>
           <a href="/services/" class="btn btn--outline thankyou-btn">
-            <span class="material-symbols-outlined" aria-hidden="true">grid_view</span>
+            <span class="material-symbols-outlined" aria-hidden="true"
+              >grid_view</span
+            >
             <span>Explore Our Services</span>
           </a>
         </div>
@@ -148,7 +171,7 @@ const featuredServices = [
           />
           <img
             class="thankyou-hero__main"
-            src="/grm-main-graphics/email-notification-graphic.svg"
+            src="/grm-web-assets/online-support-graphic.svg"
             alt="Message sent and email confirmation delivered"
             width="746"
             height="780"
@@ -187,24 +210,32 @@ const featuredServices = [
         <span class="eyebrow">CLEAR EXPECTATIONS</span>
         <h2 class="section-title">What Happens Next?</h2>
         <p class="section-lead">
-          Here is our straightforward 3-step onboarding workflow while our team prepares your preliminary business audit.
+          Here is our straightforward 3-step onboarding workflow while our team
+          prepares your preliminary business audit.
         </p>
       </div>
 
       <div class="thankyou-steps__grid">
-        {steps.map((st) => (
-          <div class="step-card" data-reveal>
-            <div class="step-card__top">
-              <span class="step-card__num">{st.step}</span>
-              <span class="step-card__tag">{st.tag}</span>
+        {
+          steps.map((st) => (
+            <div class="step-card" data-reveal>
+              <div class="step-card__top">
+                <span class="step-card__num">{st.step}</span>
+                <span class="step-card__tag">{st.tag}</span>
+              </div>
+              <div class="step-card__icon-wrap">
+                <span
+                  class="material-symbols-outlined step-card__icon"
+                  aria-hidden="true"
+                >
+                  {st.icon}
+                </span>
+              </div>
+              <h3 class="step-card__title">{st.title}</h3>
+              <p class="step-card__desc">{st.desc}</p>
             </div>
-            <div class="step-card__icon-wrap">
-              <span class="material-symbols-outlined step-card__icon" aria-hidden="true">{st.icon}</span>
-            </div>
-            <h3 class="step-card__title">{st.title}</h3>
-            <p class="step-card__desc">{st.desc}</p>
-          </div>
-        ))}
+          ))
+        }
       </div>
     </div>
   </section>
@@ -216,41 +247,50 @@ const featuredServices = [
         <span class="eyebrow">EXPLORE OUR CAPABILITIES</span>
         <h2 class="section-title">While You Wait, Explore Our Services</h2>
         <p class="section-lead">
-          From custom websites to targeted local lead generation, see how Good Rep Media delivers real phone calls and measurable local market share.
+          From custom websites to targeted local lead generation, see how Good
+          Rep Media delivers real phone calls and measurable local market share.
         </p>
       </div>
 
       <div class="thankyou-services__grid">
-        {featuredServices.map((svc) => (
-          <a href={svc.href} class="service-card" data-reveal>
-            <div class="service-card__badge">{svc.badge}</div>
-            <div class="service-card__icon-box">
-              <img
-                src={svc.icon}
-                alt=""
-                width="40"
-                height="40"
-                loading="lazy"
-                data-no-lightbox
-              />
-            </div>
-            <h3 class="service-card__title">{svc.title}</h3>
-            <p class="service-card__desc">{svc.desc}</p>
-            <span class="service-card__link">
-              <span>View Service Details</span>
-              <span class="material-symbols-outlined" aria-hidden="true">arrow_forward</span>
-            </span>
-          </a>
-        ))}
+        {
+          featuredServices.map((svc) => (
+            <a href={svc.href} class="service-card" data-reveal>
+              <div class="service-card__badge">{svc.badge}</div>
+              <div class="service-card__icon-box">
+                <img
+                  src={svc.icon}
+                  alt=""
+                  width="40"
+                  height="40"
+                  loading="lazy"
+                  data-no-lightbox
+                />
+              </div>
+              <h3 class="service-card__title">{svc.title}</h3>
+              <p class="service-card__desc">{svc.desc}</p>
+              <span class="service-card__link">
+                <span>View Service Details</span>
+                <span class="material-symbols-outlined" aria-hidden="true">
+                  arrow_forward
+                </span>
+              </span>
+            </a>
+          ))
+        }
       </div>
 
       <div class="thankyou-services__cta" data-reveal>
         <a href="/services/" class="btn btn--primary thankyou-btn">
-          <span class="material-symbols-outlined" aria-hidden="true">grid_view</span>
+          <span class="material-symbols-outlined" aria-hidden="true"
+            >grid_view</span
+          >
           <span>View All 12 Marketing Services</span>
         </a>
         <a href="/work/" class="btn btn--outline thankyou-btn">
-          <span class="material-symbols-outlined" aria-hidden="true">visibility</span>
+          <span class="material-symbols-outlined" aria-hidden="true"
+            >visibility</span
+          >
           <span>See Client Case Studies</span>
         </a>
       </div>
@@ -262,23 +302,35 @@ const featuredServices = [
     <div class="container">
       <div class="thankyou-direct__card" data-reveal>
         <div class="thankyou-direct__content">
-          <span class="eyebrow thankyou-direct__eyebrow">IMMEDIATE ASSISTANCE</span>
-          <h3 class="thankyou-direct__title">Have an Urgent Question or Project?</h3>
+          <span class="eyebrow thankyou-direct__eyebrow"
+            >IMMEDIATE ASSISTANCE</span
+          >
+          <h3 class="thankyou-direct__title">
+            Have an Urgent Question or Project?
+          </h3>
           <p class="thankyou-direct__desc">
-            If you have an urgent deadline or prefer to speak with our Grand Rapids team directly right now, give us a call or reach out directly.
+            If you have an urgent deadline or prefer to speak with our Grand
+            Rapids team directly right now, give us a call or reach out
+            directly.
           </p>
         </div>
         <div class="thankyou-direct__actions">
           <a href="tel:6163009868" class="thankyou-contact-pill">
-            <span class="material-symbols-outlined" aria-hidden="true">call</span>
+            <span class="material-symbols-outlined" aria-hidden="true"
+              >call</span
+            >
             <span>(616) 300-9868</span>
           </a>
           <a href="mailto:team@goodrep.media" class="thankyou-contact-pill">
-            <span class="material-symbols-outlined" aria-hidden="true">mail</span>
+            <span class="material-symbols-outlined" aria-hidden="true"
+              >mail</span
+            >
             <span>team@goodrep.media</span>
           </a>
           <div class="thankyou-contact-pill thankyou-contact-pill--static">
-            <span class="material-symbols-outlined" aria-hidden="true">location_on</span>
+            <span class="material-symbols-outlined" aria-hidden="true"
+              >location_on</span
+            >
             <span>Grand Rapids, MI</span>
           </div>
         </div>
@@ -610,7 +662,9 @@ const featuredServices = [
     border: 1px solid var(--color-border);
     border-top: 4px solid var(--color-cyan);
     padding: 2.25rem 2rem;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    transition:
+      transform 0.3s ease,
+      box-shadow 0.3s ease;
     display: flex;
     flex-direction: column;
     position: relative;
@@ -700,7 +754,10 @@ const featuredServices = [
     padding: 2rem 1.75rem;
     text-decoration: none;
     color: inherit;
-    transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+    transition:
+      transform 0.3s ease,
+      border-color 0.3s ease,
+      box-shadow 0.3s ease;
     position: relative;
   }
 
@@ -710,7 +767,25 @@ const featuredServices = [
     box-shadow: var(--shadow-lift);
   }
 
-  .service-card__badge {
+  <<<<<<< Updated upstream ======= .service-card__visual {
+    position: relative;
+    height: 175px;
+    background:
+      radial-gradient(
+        circle at 50% 50%,
+        rgba(27, 196, 217, 0.14),
+        transparent 70%
+      ),
+      linear-gradient(180deg, #f8fafc 0%, #f1f5f9 100%);
+    border-bottom: 1px solid var(--color-border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1.25rem;
+    overflow: hidden;
+  }
+
+  >>>>>>>Stashed changes .service-card__badge {
     align-self: flex-start;
     font-size: 0.72rem;
     font-weight: 700;
@@ -849,7 +924,10 @@ const featuredServices = [
     text-decoration: none;
     font-weight: 600;
     font-size: 0.95rem;
-    transition: background 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+    transition:
+      background 0.2s ease,
+      border-color 0.2s ease,
+      transform 0.2s ease;
   }
 
   a.thankyou-contact-pill:hover {
