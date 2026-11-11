@@ -284,18 +284,6 @@ const categories = [
                   </button>
                 </nav>
 
-                <!-- STATIC CRAWLER PAGINATION LINKS -->
-                <nav
-                  class="blog-static-pagination"
-                  aria-label="Blog pages overview"
-                  style="display: flex; justify-content: center; align-items: center; gap: 0.75rem; margin-top: 2.5rem;"
-                >
-                  <span class="btn btn--outline" style="opacity: 0.6; pointer-events: none;">Page 1</span>
-                  <a href="/blog/page/2/" class="btn btn--outline">Page 2</a>
-                  <a href="/blog/page/3/" class="btn btn--outline">Page 3</a>
-                  <a href="/blog/page/2/" class="btn btn--outline">Next &rarr;</a>
-                </nav>
-
                 <!-- MOBILE LOAD MORE (6 articles at a time) -->
                 <div class="blog-load-more" id="blog-load-more" hidden>
                   <button
@@ -451,12 +439,6 @@ const categories = [
       const cardCategoryTags = Array.from(
         document.querySelectorAll<HTMLButtonElement>("[data-filter-category]"),
       );
-      const staticPagination = document.querySelector<HTMLElement>(
-        ".blog-static-pagination",
-      );
-      if (staticPagination) {
-        staticPagination.hidden = true;
-      }
       const searchInput = document.getElementById(
         "blog-search-input",
       ) as HTMLInputElement | null;
