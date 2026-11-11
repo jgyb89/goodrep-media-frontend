@@ -231,6 +231,16 @@ export const auditConsultData = {
   text: "If you’re already running Google Ads, you deserve to know what’s working, what isn’t, and where your budget may be going to waste. And if you’re thinking about getting started, you deserve to understand what a smart Google Ads strategy could look like for your business before you commit to spending.",
   cardTitle: "Get a Free Google Ads Audit",
   submitLabel: "Get My Free Audit",
+  formId: 17,
+  fieldIds: {
+    COMPANY: 4,
+    EMAIL: 5,
+    PHONE: 6,
+    SERVICES_NEEDED: 7,
+    MESSAGE: 9,
+    FIRST_NAME: 12,
+    LAST_NAME: 13,
+  },
   art: {
     main: {
       src: "/grm-web-assets/online-support-graphic.svg",
